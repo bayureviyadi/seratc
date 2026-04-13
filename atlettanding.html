@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="rpg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YD ATHLETE — Elite Performance Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+/* ============================================================ THEMES */
+[data-theme="rpg"] {
+  --cyan:#00f5ff;--cyan-dim:#00b4cc;--gold:#ffc300;--gold-dim:#c99800;
+  --purple:#b57bee;--red:#ff4655;--green:#39ff87;--orange:#ff8c42;
+  --bg-deep:#060a0f;--bg-panel:#0c1219;--bg-card:#0e1620;--bg-modal:#0a1018;
+  --border:rgba(0,245,255,0.15);--border-gold:rgba(255,195,0,0.25);--border-green:rgba(57,255,135,0.25);
+  --text-primary:#e8f4f8;--text-muted:#5a7a8a;--text-dim:#3a5060;
+  --bar-track:rgba(255,255,255,0.05);--tab-bg:rgba(0,0,0,0.3);
+  --input-bg:rgba(0,245,255,0.03);--skill-input-bg:rgba(255,195,0,0.05);
+  --header-bg:rgba(6,10,15,0.92);--sidebar-bg:#0c1219;
+  --card-hover-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(0,245,255,0.12);
+  --score-track:#1a2a35;--btn-cancel-border:#2a3a45;
+  --cal-today-bg:rgba(0,245,255,0.15);--cal-marked:rgba(57,255,135,0.25);
+  --chart-grid:rgba(0,245,255,0.06);--chart-line:rgba(0,245,255,0.8);
+  --chart-fill:rgba(0,245,255,0.08);
+  --quest-bg:rgba(255,195,0,0.04);--quest-border:rgba(255,195,0,0.2);
+  --quest-header-bg:rgba(255,195,0,0.07);
+  --cat-bg:rgba(0,245,255,0.04);--cat-border:rgba(0,245,255,0.18);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Orbitron',monospace;--scanline:rgba(0,245,255,0.012);
+}
+[data-theme="dark"] {
+  --cyan:#60a5fa;--cyan-dim:#3b82f6;--gold:#f59e0b;--gold-dim:#d97706;
+  --purple:#a78bfa;--red:#f87171;--green:#4ade80;--orange:#fb923c;
+  --bg-deep:#0f172a;--bg-panel:#1e293b;--bg-card:#1e293b;--bg-modal:#0f172a;
+  --border:rgba(96,165,250,0.12);--border-gold:rgba(245,158,11,0.2);--border-green:rgba(74,222,128,0.2);
+  --text-primary:#f1f5f9;--text-muted:#64748b;--text-dim:#334155;
+  --bar-track:rgba(255,255,255,0.06);--tab-bg:rgba(0,0,0,0.25);
+  --input-bg:rgba(96,165,250,0.04);--skill-input-bg:rgba(245,158,11,0.05);
+  --header-bg:rgba(15,23,42,0.94);--sidebar-bg:#1e293b;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.4),0 0 0 1px rgba(96,165,250,0.12);
+  --score-track:#0f172a;--btn-cancel-border:#334155;
+  --cal-today-bg:rgba(96,165,250,0.15);--cal-marked:rgba(74,222,128,0.2);
+  --chart-grid:rgba(96,165,250,0.07);--chart-line:rgba(96,165,250,0.85);
+  --chart-fill:rgba(96,165,250,0.08);
+  --quest-bg:rgba(245,158,11,0.04);--quest-border:rgba(245,158,11,0.18);
+  --quest-header-bg:rgba(245,158,11,0.07);
+  --cat-bg:rgba(96,165,250,0.04);--cat-border:rgba(96,165,250,0.15);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Rajdhani',sans-serif;--scanline:transparent;
+}
+[data-theme="light"] {
+  --cyan:#0066cc;--cyan-dim:#0052a3;--gold:#d97706;--gold-dim:#b45309;
+  --purple:#7c3aed;--red:#dc2626;--green:#16a34a;--orange:#ea580c;
+  --bg-deep:#f0f4f8;--bg-panel:#ffffff;--bg-card:#ffffff;--bg-modal:#f8fafc;
+  --border:rgba(0,102,204,0.14);--border-gold:rgba(217,119,6,0.22);--border-green:rgba(22,163,74,0.2);
+  --text-primary:#0f172a;--text-muted:#64748b;--text-dim:#94a3b8;
+  --bar-track:rgba(0,0,0,0.07);--tab-bg:rgba(0,0,0,0.04);
+  --input-bg:rgba(0,102,204,0.04);--skill-input-bg:rgba(217,119,6,0.05);
+  --header-bg:rgba(255,255,255,0.96);--sidebar-bg:#ffffff;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.1),0 0 0 1px rgba(0,102,204,0.15);
+  --score-track:#e2e8f0;--btn-cancel-border:#cbd5e1;
+  --cal-today-bg:rgba(0,102,204,0.08);--cal-marked:rgba(22,163,74,0.15);
+  --chart-grid:rgba(0,0,0,0.05);--chart-line:rgba(0,102,204,0.8);
+  --chart-fill:rgba(0,102,204,0.06);
+  --quest-bg:rgba(217,119,6,0.04);--quest-border:rgba(217,119,6,0.18);
+  --quest-header-bg:rgba(217,119,6,0.06);
+  --cat-bg:rgba(0,102,204,0.03);--cat-border:rgba(0,102,204,0.12);
+  --task-bg:rgba(0,0,0,0.02);--task-border:rgba(0,0,0,0.07);
+  --modal-overlay:rgba(0,0,0,0.6);
+  --font-body:'Inter',sans-serif;--font-mono:'Inter',sans-serif;
+  --font-display:'Inter',sans-serif;--scanline:transparent;
+}
+
+/* ============================================================ BASE */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-primary);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px);pointer-events:none;z-index:9999}
+
+/* ============================================================ HEADER */
+.site-header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-size:17px;font-weight:900;letter-spacing:4px;color:var(--cyan);white-space:nowrap;flex-shrink:0}
+[data-theme="rpg"] .logo{text-shadow:0 0 20px rgba(0,245,255,.5)}
+.logo span{color:var(--gold)}
+.header-center{flex:1;max-width:400px;min-width:160px}
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-wrap input{width:100%;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px 8px 34px;border-radius:7px;font-family:var(--font-body);font-size:13px;outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--cyan-dim)}
+.search-wrap input::placeholder{color:var(--text-muted)}
+.search-icon{position:absolute;left:10px;color:var(--text-muted);font-size:13px;pointer-events:none}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.header-status{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);display:flex;gap:8px;align-items:center}
+.status-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+[data-theme="rpg"] .status-dot{box-shadow:0 0 8px var(--green)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.theme-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--bar-track);transition:all .2s;white-space:nowrap}
+.theme-toggle:hover{border-color:var(--cyan-dim)}
+.theme-toggle-icon{font-size:14px}
+.theme-toggle-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ============================================================ LAYOUT */
+.main-layout{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 54px)}
+.sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);padding:20px 18px;overflow-y:auto;max-height:calc(100vh - 54px);position:sticky;top:54px;transition:background .3s}
+[data-theme="light"] .sidebar{box-shadow:2px 0 10px rgba(0,0,0,.05)}
+.content-area{padding:20px;overflow-y:auto}
+
+/* ============================================================ PANEL TITLE */
+.panel-title{font-family:var(--font-display);font-size:10px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.panel-title::before{content:'';width:3px;height:13px;background:var(--cyan);flex-shrink:0}
+[data-theme="rpg"] .panel-title::before{box-shadow:0 0 8px var(--cyan)}
+
+/* ============================================================ FORM */
+.form-section{margin-bottom:18px}
+.section-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.form-row{display:flex;gap:7px;margin-bottom:7px}
+.form-field{flex:1;display:flex;flex-direction:column;gap:4px}
+.form-field label{font-size:9px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono)}
+.form-field input,.form-field select{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:7px 9px;border-radius:5px;font-family:var(--font-body);font-size:13px;font-weight:500;outline:none;transition:border-color .2s;width:100%}
+[data-theme="light"] .form-field input,[data-theme="light"] .form-field select{border-color:#e2e8f0}
+.form-field input:focus,.form-field select:focus{border-color:var(--cyan-dim)}
+.form-field select option{background:var(--bg-panel);color:var(--text-primary)}
+.stat-slider{margin-bottom:9px}
+.stat-slider-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.stat-slider-name{font-size:10px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono)}
+.stat-slider-val{font-family:var(--font-display);font-size:12px;color:var(--cyan);min-width:28px;text-align:right;font-weight:700}
+.stat-slider-val.pasif{color:var(--purple)}
+input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--bar-track);outline:none;border:none;cursor:pointer}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--cyan);cursor:pointer;transition:transform .15s}
+[data-theme="rpg"] input[type="range"]::-webkit-slider-thumb{box-shadow:0 0 8px var(--cyan)}
+input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.3)}
+input[type="range"].pasif::-webkit-slider-thumb{background:var(--purple)}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(62px,1fr));gap:5px;margin-top:5px}
+.skill-input-wrap{display:flex;flex-direction:column;align-items:center;gap:3px}
+.skill-input-wrap label{font-size:8px;color:var(--text-muted);text-align:center;letter-spacing:.5px;text-transform:uppercase;font-family:var(--font-mono)}
+.skill-input-wrap input{background:var(--skill-input-bg);border:1px solid var(--border-gold);color:var(--gold);padding:6px 4px;border-radius:4px;font-family:var(--font-display);font-size:13px;font-weight:700;text-align:center;width:100%;outline:none}
+.skill-input-wrap input:focus{border-color:var(--gold)}
+.glow-label{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin:10px 0 6px;display:flex;align-items:center;gap:6px}
+.glow-label.cyan{color:var(--cyan)}.glow-label.purple{color:var(--purple)}.glow-label.gold{color:var(--gold)}
+.btn-primary{width:100%;padding:11px;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:3px;cursor:pointer;border-radius:5px;transition:all .2s;position:relative;overflow:hidden;margin-top:8px}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateX(-100%);transition:transform .3s ease;z-index:0}
+.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{color:var(--bg-deep)}
+.btn-primary:hover::before{transform:translateX(0)}
+[data-theme="light"] .btn-primary:hover{color:#fff}
+.btn-cancel{width:100%;padding:8px;background:transparent;border:1px solid var(--btn-cancel-border);color:var(--text-muted);font-family:var(--font-display);font-size:10px;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;margin-top:5px}
+.btn-cancel:hover{border-color:var(--red);color:var(--red)}
+
+/* ============================================================ CONTENT */
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.roster-title{font-family:var(--font-display);font-size:11px;letter-spacing:4px;color:var(--text-primary);text-transform:uppercase}
+.roster-count{font-family:var(--font-mono);font-size:11px;color:var(--text-muted)}
+.roster-count span{color:var(--cyan);font-weight:700}
+.athlete-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+
+/* ============================================================ CARD */
+.athlete-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative;transition:transform .2s,box-shadow .2s,border-color .2s;animation:cardIn .4s ease both}
+[data-theme="light"] .athlete-card{box-shadow:0 2px 10px rgba(0,0,0,.06)}
+@keyframes cardIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.athlete-card:hover{border-color:var(--cyan-dim);box-shadow:var(--card-hover-shadow);transform:translateY(-2px)}
+.card-accent{height:3px;background:linear-gradient(90deg,var(--cyan) 0%,var(--cyan-dim) 60%,transparent 100%)}
+.card-header{padding:12px 14px 10px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--border)}
+.athlete-name{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text-primary);letter-spacing:1px;text-transform:uppercase;line-height:1.2}
+.athlete-bio{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:3px}
+.athlete-badges{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.badge{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.badge-gender{background:rgba(0,102,204,.08);border:1px solid rgba(0,102,204,.2);color:var(--cyan-dim)}
+[data-theme="rpg"] .badge-gender{background:rgba(0,245,255,.08);border-color:rgba(0,245,255,.2)}
+.badge-weight{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.2);color:var(--gold-dim)}
+.overall-score{display:flex;flex-direction:column;align-items:center;min-width:54px;flex-shrink:0}
+.score-ring{width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--cyan) calc(var(--score)*1%),var(--score-track) 0%);display:flex;align-items:center;justify-content:center;position:relative}
+.score-ring::before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--bg-card)}
+.score-num{font-family:var(--font-display);font-size:12px;font-weight:900;color:var(--cyan);position:relative;z-index:1}
+.score-label{font-family:var(--font-mono);font-size:8px;color:var(--text-muted);letter-spacing:1px;margin-top:3px}
+.card-actions{position:absolute;top:11px;right:11px;display:flex;gap:5px;opacity:0;transition:opacity .2s}
+.athlete-card:hover .card-actions{opacity:1}
+.btn-card{padding:4px 8px;border-radius:3px;font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid;transition:all .15s;background:var(--bg-card)}
+.btn-card-edit{border-color:rgba(0,102,204,.4);color:var(--cyan-dim)}
+[data-theme="rpg"] .btn-card-edit{border-color:rgba(0,245,255,.4)}
+.btn-card-edit:hover{background:rgba(0,102,204,.1)}
+.btn-card-del{border-color:rgba(220,38,38,.4);color:var(--red)}
+.btn-card-del:hover{background:rgba(220,38,38,.1)}
+.card-body{padding:10px 14px}
+
+/* TABS */
+.tab-bar{display:flex;gap:2px;margin-bottom:10px;background:var(--tab-bg);padding:3px;border-radius:6px;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:fit-content;padding:5px 6px;background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:8px;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;white-space:nowrap}
+.tab-btn.active{background:var(--cyan);color:var(--bg-deep);font-weight:700}
+[data-theme="light"] .tab-btn.active{color:#fff}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* STAT BARS */
+.stat-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.stat-name{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;width:88px;flex-shrink:0}
+.bar-track{flex:1;height:5px;background:var(--bar-track);border-radius:3px;overflow:visible;position:relative}
+.bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan-dim),var(--cyan));position:relative;transition:width .8s cubic-bezier(.4,0,.2,1)}
+[data-theme="rpg"] .bar-fill{box-shadow:0 0 6px rgba(0,245,255,.4)}
+.bar-fill::after{content:'';position:absolute;right:-1px;top:-2px;width:9px;height:9px;border-radius:50%;background:var(--cyan)}
+[data-theme="rpg"] .bar-fill::after{box-shadow:0 0 8px var(--cyan)}
+.bar-fill.pasif{background:linear-gradient(90deg,#7e22ce,var(--purple))}
+.bar-fill.pasif::after{background:var(--purple)}
+.bar-val{font-family:var(--font-display);font-size:10px;color:var(--cyan);width:26px;text-align:right;flex-shrink:0;font-weight:700}
+.bar-val.pasif{color:var(--purple)}
+
+/* SKILL CHIPS */
+.skill-category{margin-bottom:9px}
+.skill-cat-title{font-family:var(--font-mono);font-size:9px;color:var(--gold-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.skill-cat-title::before{content:'';width:10px;height:1px;background:var(--gold-dim)}
+.skill-chips{display:flex;flex-wrap:wrap;gap:4px}
+.skill-chip{display:flex;flex-direction:column;align-items:center;background:var(--skill-input-bg);border:1px solid var(--border-gold);border-radius:5px;padding:5px 7px;min-width:50px}
+.chip-name{font-family:var(--font-mono);font-size:8px;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase}
+.chip-level{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--gold);line-height:1.3}
+.chip-level::before{content:'LV';font-size:7px;color:var(--gold-dim);margin-right:1px}
+.chip-level[data-tier="S"]{color:#ff4655}
+.chip-level[data-tier="A"]{color:var(--gold)}
+.chip-level[data-tier="B"]{color:var(--cyan)}
+.chip-level[data-tier="C"]{color:var(--text-muted)}
+
+/* HISTORY CHART */
+.chart-pane{padding:4px 0 2px}
+.chart-pane-inner{position:relative;height:160px}
+.chart-section-label{font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.no-history{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:24px 0}
+
+/* CALENDAR */
+.cal-wrap{padding:4px 0}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-title{font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--text-primary)}
+.cal-arrow{background:none;border:1px solid var(--border);color:var(--text-muted);width:26px;height:26px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .2s}
+.cal-arrow:hover{border-color:var(--cyan-dim);color:var(--cyan)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-day-name{font-family:var(--font-mono);font-size:8px;text-align:center;color:var(--text-muted);padding:4px 0;letter-spacing:.5px}
+.cal-day{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:5px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);cursor:default;transition:background .15s;position:relative}
+.cal-day.today{background:var(--cal-today-bg);color:var(--cyan);font-weight:700}
+.cal-day.marked{background:var(--cal-marked);color:var(--green)}
+.cal-day.marked::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--green)}
+.cal-day.other-month{opacity:.3}
+.cal-add-form{display:flex;gap:6px;margin-top:10px}
+.cal-add-form input{flex:1;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:6px 9px;border-radius:5px;font-family:var(--font-body);font-size:12px;outline:none}
+.cal-add-form input:focus{border-color:var(--cyan-dim)}
+.cal-add-form button{padding:6px 10px;background:transparent;border:1px solid var(--cyan-dim);color:var(--cyan);font-family:var(--font-display);font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:5px;transition:all .2s;white-space:nowrap}
+.cal-add-form button:hover{background:rgba(0,102,204,.1)}
+.cal-notes-list{margin-top:8px;max-height:90px;overflow-y:auto}
+.cal-note-item{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;padding:5px 7px;background:var(--bar-track);border-radius:4px;margin-bottom:4px}
+.cal-note-date{font-family:var(--font-mono);font-size:9px;color:var(--gold-dim);flex-shrink:0}
+.cal-note-text{font-size:11px;color:var(--text-muted);flex:1;line-height:1.4}
+.cal-note-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:11px;padding:0 2px;transition:color .15s;flex-shrink:0}
+.cal-note-del:hover{color:var(--red)}
+
+/* ============================================================ QUEST / PROGRAM LATIHAN */
+/* Quest List in card */
+.quest-list-wrap{padding:2px 0}
+.quest-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:20px 0}
+.quest-add-btn{width:100%;padding:8px;background:var(--quest-bg);border:1px dashed var(--quest-border);color:var(--gold);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:6px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.quest-add-btn:hover{background:rgba(255,195,0,.1);border-style:solid}
+
+/* Quest Card in pane */
+.quest-item{background:var(--quest-bg);border:1px solid var(--quest-border);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.quest-item:hover{border-color:var(--gold)}
+.quest-item-header{padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;background:var(--quest-header-bg)}
+.quest-item-left{flex:1;min-width:0}
+.quest-item-title-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.quest-scroll-icon{font-size:14px;flex-shrink:0}
+.quest-item-name{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+.quest-item-meta{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+.quest-item-meta span{display:flex;align-items:center;gap:3px}
+.quest-status-badge{font-family:var(--font-mono);font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:3px;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.quest-status-badge.active{background:rgba(57,255,135,.1);border:1px solid rgba(57,255,135,.3);color:var(--green)}
+.quest-status-badge.upcoming{background:rgba(255,195,0,.08);border:1px solid rgba(255,195,0,.25);color:var(--gold)}
+.quest-status-badge.done{background:rgba(90,122,138,.06);border:1px solid rgba(90,122,138,.2);color:var(--text-muted)}
+.quest-item-right{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.quest-expand-icon{color:var(--text-muted);font-size:11px;transition:transform .2s;cursor:pointer}
+.quest-expand-icon.open{transform:rotate(90deg)}
+.btn-quest-edit{padding:3px 7px;border-radius:3px;font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid rgba(255,195,0,.3);color:var(--gold-dim);background:transparent;transition:all .15s}
+.btn-quest-edit:hover{background:rgba(255,195,0,.1)}
+.btn-quest-del{padding:3px 7px;border-radius:3px;font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid rgba(255,70,85,.3);color:var(--red);background:transparent;transition:all .15s}
+.btn-quest-del:hover{background:rgba(255,70,85,.08)}
+
+/* Quest Body (categories) */
+.quest-body{display:none;padding:10px 12px;border-top:1px solid var(--quest-border)}
+.quest-body.open{display:block}
+.quest-progress-bar{height:3px;background:var(--bar-track);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.quest-progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-dim),var(--gold));border-radius:2px;transition:width .5s}
+
+/* Category */
+.cat-item{background:var(--cat-bg);border:1px solid var(--cat-border);border-radius:6px;margin-bottom:8px;overflow:hidden}
+.cat-header{padding:7px 10px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.cat-icon{font-size:12px;flex-shrink:0}
+.cat-name{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:1px;flex:1}
+.cat-count{font-family:var(--font-mono);font-size:9px;color:var(--text-muted)}
+.cat-chevron{color:var(--text-muted);font-size:10px;transition:transform .2s}
+.cat-chevron.open{transform:rotate(90deg)}
+.cat-actions{display:flex;gap:4px;margin-left:4px}
+.btn-cat-del{padding:2px 6px;border-radius:3px;font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.25);color:var(--red);background:transparent;font-family:var(--font-mono);transition:all .15s}
+.btn-cat-del:hover{background:rgba(255,70,85,.08)}
+.cat-body{display:none;padding:8px 10px;border-top:1px solid var(--cat-border)}
+.cat-body.open{display:block}
+
+/* Task (poin) */
+.task-item{background:var(--task-bg);border:1px solid var(--task-border);border-radius:5px;padding:8px 10px;margin-bottom:6px;transition:border-color .2s}
+.task-item:hover{border-color:var(--border)}
+.task-item-header{display:flex;align-items:flex-start;gap:8px}
+.task-checkbox{width:16px;height:16px;border-radius:3px;border:1px solid var(--border);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:2px}
+.task-checkbox.checked{background:var(--green);border-color:var(--green)}
+.task-checkbox.checked::after{content:'✓';color:var(--bg-deep);font-size:9px;font-weight:700}
+.task-info{flex:1;min-width:0}
+.task-name{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--text-primary);letter-spacing:.5px}
+.task-desc{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);margin-top:2px;line-height:1.5}
+.task-reps{font-family:var(--font-display);font-size:9px;color:var(--purple);margin-top:3px;display:flex;align-items:center;gap:4px}
+.task-links{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.task-link{font-family:var(--font-mono);font-size:8px;padding:2px 7px;border-radius:3px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:3px}
+.task-link.img-link{background:rgba(255,195,0,.07);border:1px solid rgba(255,195,0,.2);color:var(--gold)}
+.task-link.img-link:hover{background:rgba(255,195,0,.15)}
+.task-link.vid-link{background:rgba(255,70,85,.07);border:1px solid rgba(255,70,85,.2);color:var(--red)}
+.task-link.vid-link:hover{background:rgba(255,70,85,.15)}
+.task-del-btn{padding:2px 6px;border-radius:3px;font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.2);color:var(--red);background:transparent;font-family:var(--font-mono);transition:all .15s;flex-shrink:0;align-self:flex-start}
+.task-del-btn:hover{background:rgba(255,70,85,.08)}
+.task-thumbnail{width:100%;max-height:100px;object-fit:cover;border-radius:4px;margin-top:6px;border:1px solid var(--border)}
+
+/* Add Task inside category */
+.add-task-btn{width:100%;padding:6px;background:transparent;border:1px dashed var(--cat-border);color:var(--cyan);font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;transition:all .2s;margin-top:4px;text-transform:uppercase}
+.add-task-btn:hover{border-style:solid;background:var(--cat-bg)}
+.add-cat-btn{width:100%;padding:7px;background:transparent;border:1px dashed var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;cursor:pointer;border-radius:5px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.add-cat-btn:hover{border-color:var(--cyan-dim);color:var(--cyan);border-style:solid}
+
+/* ============================================================ MODAL */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-overlay);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--bg-modal);border:1px solid var(--border);border-radius:12px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{padding:16px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg-modal);z-index:1}
+.modal-title{font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.modal-title.gold{color:var(--gold)}
+.modal-title.cyan{color:var(--cyan)}
+.modal-title.purple{color:var(--purple)}
+.modal-close{background:none;border:1px solid var(--border);color:var(--text-muted);width:28px;height:28px;border-radius:5px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:18px 20px}
+.modal-field{margin-bottom:14px}
+.modal-field label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px}
+.modal-field input,.modal-field textarea,.modal-field select{width:100%;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:9px 12px;border-radius:6px;font-family:var(--font-body);font-size:13px;outline:none;transition:border-color .2s}
+[data-theme="light"] .modal-field input,[data-theme="light"] .modal-field textarea,[data-theme="light"] .modal-field select{border-color:#e2e8f0}
+.modal-field input:focus,.modal-field textarea:focus,.modal-field select:focus{border-color:var(--cyan-dim)}
+.modal-field textarea{resize:vertical;min-height:70px;line-height:1.5}
+.modal-field select option{background:var(--bg-panel)}
+.modal-field-hint{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);margin-top:4px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-footer{padding:12px 20px 16px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid var(--border)}
+.btn-modal-cancel{padding:9px 16px;background:transparent;border:1px solid var(--btn-cancel-border);color:var(--text-muted);font-family:var(--font-display);font-size:10px;letter-spacing:1.5px;cursor:pointer;border-radius:5px;transition:all .2s}
+.btn-modal-cancel:hover{border-color:var(--red);color:var(--red)}
+.btn-modal-save{padding:9px 20px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;position:relative;overflow:hidden}
+.btn-modal-save::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);transition:transform .25s;z-index:0}
+.btn-modal-save span{position:relative;z-index:1}
+.btn-modal-save:hover{color:var(--bg-deep)}
+.btn-modal-save:hover::before{transform:translateX(0)}
+[data-theme="light"] .btn-modal-save:hover{color:#fff}
+.btn-modal-save.cyan-btn{border-color:var(--cyan);color:var(--cyan)}
+.btn-modal-save.cyan-btn::before{background:var(--cyan)}
+.divider-line{height:1px;background:var(--border);margin:14px 0}
+.modal-section-title{font-family:var(--font-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Cat icon picker */
+.icon-picker{display:flex;gap:6px;flex-wrap:wrap}
+.icon-opt{width:32px;height:32px;border-radius:5px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
+.icon-opt:hover{border-color:var(--cyan-dim)}
+.icon-opt.selected{border-color:var(--cyan);background:rgba(0,102,204,.1)}
+
+/* EMPTY + MISC */
+.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;color:var(--text-dim);text-align:center}
+.empty-icon{font-size:36px;margin-bottom:12px;opacity:.3}
+.empty-text{font-family:var(--font-display);font-size:11px;letter-spacing:3px;text-transform:uppercase}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+@media(max-width:860px){.main-layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.site-header{padding:10px 14px}.header-center{order:3;max-width:100%;width:100%;min-width:0}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">YD<span>.</span>ATHLETE</div>
+  <div class="header-center">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Cari nama atlet...">
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-status">
+      <div class="status-dot"></div>
+      <span id="headerDate"></span>
+    </div>
+    <div class="theme-toggle" onclick="cycleTheme()">
+      <span class="theme-toggle-icon" id="themeIcon">◉</span>
+      <span class="theme-toggle-label" id="themeLabel">RPG</span>
+    </div>
+  </div>
+</header>
+
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="panel-title" id="formPanelTitle">Registrasi Atlet</div>
+    <input type="hidden" id="editId">
+    <div class="form-section">
+      <div class="section-label">Identitas</div>
+      <div class="form-row">
+        <div class="form-field" style="flex:2"><label>Nama Lengkap</label><input type="text" id="nama" placeholder="Nama atlet..."></div>
+        <div class="form-field"><label>Gender</label><select id="gender"><option value="Laki-laki">Pria</option><option value="Perempuan">Wanita</option></select></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Tgl. Lahir</label><input type="date" id="tglLahir"></div>
+        <div class="form-field"><label>Berat (kg)</label><input type="number" id="berat" placeholder="0"></div>
+        <div class="form-field"><label>Tinggi (cm)</label><input type="number" id="tinggi" placeholder="0"></div>
+      </div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">Statistik Fisik (0–100)</div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Daya Tahan</span><span class="stat-slider-val" id="v_dayaTahan">50</span></div><input type="range" id="dayaTahan" value="50" min="0" max="100" oninput="document.getElementById('v_dayaTahan').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Stamina</span><span class="stat-slider-val" id="v_stamina">50</span></div><input type="range" id="stamina" value="50" min="0" max="100" oninput="document.getElementById('v_stamina').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Kecepatan</span><span class="stat-slider-val" id="v_kecepatan">50</span></div><input type="range" id="kecepatan" value="50" min="0" max="100" oninput="document.getElementById('v_kecepatan').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Kelincahan</span><span class="stat-slider-val" id="v_kelincahan">50</span></div><input type="range" id="kelincahan" value="50" min="0" max="100" oninput="document.getElementById('v_kelincahan').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Keseimbangan</span><span class="stat-slider-val" id="v_keseimbangan">50</span></div><input type="range" id="keseimbangan" value="50" min="0" max="100" oninput="document.getElementById('v_keseimbangan').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Power Tungkai</span><span class="stat-slider-val" id="v_powerTungkai">50</span></div><input type="range" id="powerTungkai" value="50" min="0" max="100" oninput="document.getElementById('v_powerTungkai').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Kekuatan Lengan</span><span class="stat-slider-val" id="v_kekuatanLengan">50</span></div><input type="range" id="kekuatanLengan" value="50" min="0" max="100" oninput="document.getElementById('v_kekuatanLengan').textContent=this.value"></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">Skill Pasif (0–100)</div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Fight IQ</span><span class="stat-slider-val pasif" id="v_fightIq">50</span></div><input type="range" class="pasif" id="fightIq" value="50" min="0" max="100" oninput="document.getElementById('v_fightIq').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Reflek</span><span class="stat-slider-val pasif" id="v_reflek">50</span></div><input type="range" class="pasif" id="reflek" value="50" min="0" max="100" oninput="document.getElementById('v_reflek').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Mental</span><span class="stat-slider-val pasif" id="v_mental">50</span></div><input type="range" class="pasif" id="mental" value="50" min="0" max="100" oninput="document.getElementById('v_mental').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Taktik & Strategi</span><span class="stat-slider-val pasif" id="v_taktik">50</span></div><input type="range" class="pasif" id="taktik" value="50" min="0" max="100" oninput="document.getElementById('v_taktik').textContent=this.value"></div>
+    </div>
+    <div class="form-section">
+      <div class="section-label">Skill Level (0–100)</div>
+      <div class="glow-label gold">⚔ Menyerang</div>
+      <div class="skill-grid">
+        <div class="skill-input-wrap"><label>Lurus</label><input type="number" id="sk_pukulan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Uppercut</label><input type="number" id="sk_uppercut" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>T.Depan</label><input type="number" id="sk_tdepan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>T.Sabit</label><input type="number" id="sk_tsabit" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Tend.T</label><input type="number" id="sk_tt" min="0" max="100" placeholder="0"></div>
+      </div>
+      <div class="glow-label cyan" style="margin-top:10px">🛡 Bertahan</div>
+      <div class="skill-grid">
+        <div class="skill-input-wrap"><label>Tangkisan</label><input type="number" id="sk_tangkisan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Elakan</label><input type="number" id="sk_elakan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Tangkapan</label><input type="number" id="sk_tangkapan" min="0" max="100" placeholder="0"></div>
+      </div>
+      <div class="glow-label purple" style="margin-top:10px">💥 Jatuhan</div>
+      <div class="skill-grid">
+        <div class="skill-input-wrap"><label>Bantingan</label><input type="number" id="sk_bantingan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Ungkitan</label><input type="number" id="sk_ungkitan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Sapuan</label><input type="number" id="sk_sapuan" min="0" max="100" placeholder="0"></div>
+        <div class="skill-input-wrap"><label>Guntingan</label><input type="number" id="sk_guntingan" min="0" max="100" placeholder="0"></div>
+      </div>
+    </div>
+    <button class="btn-primary" id="btnSimpan"><span>▶ SIMPAN DATA ATLET</span></button>
+    <button class="btn-cancel hidden" id="btnBatal">✕ BATAL EDIT</button>
+  </aside>
+
+  <main class="content-area">
+    <div class="content-header">
+      <div class="roster-title">Roster Atlet</div>
+      <div class="roster-count">Total: <span id="totalCount">0</span> Atlet</div>
+    </div>
+    <div class="athlete-grid" id="atletGrid"></div>
+  </main>
+</div>
+
+<!-- ===== MODAL QUEST (Program Latihan) ===== -->
+<div class="modal-overlay hidden" id="modalQuest">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title gold">📜 Program Latihan</div>
+      <button class="modal-close" onclick="closeModal('modalQuest')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Nama Program</label>
+        <input type="text" id="qNama" placeholder="Contoh: Latihan Intensitas Tinggi Minggu 1">
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Tanggal Mulai</label>
+          <input type="date" id="qTglMulai">
+        </div>
+        <div class="modal-field">
+          <label>Tanggal Selesai</label>
+          <input type="date" id="qTglSelesai">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Deskripsi Singkat (opsional)</label>
+        <textarea id="qDesc" placeholder="Tujuan dan keterangan program ini..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalQuest')">Batal</button>
+      <button class="btn-modal-save" id="btnSaveQuest" onclick="saveQuest()"><span>✦ SIMPAN PROGRAM</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL KATEGORI ===== -->
+<div class="modal-overlay hidden" id="modalKategori">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title cyan">⚡ Tambah Kategori</div>
+      <button class="modal-close" onclick="closeModal('modalKategori')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Nama Kategori</label>
+        <input type="text" id="katNama" placeholder="Contoh: Pemanasan, Latihan Inti, Pendinginan...">
+      </div>
+      <div class="modal-field">
+        <label>Ikon Kategori</label>
+        <div class="icon-picker" id="iconPicker">
+          <button class="icon-opt selected" data-icon="🔥" onclick="selectIcon(this)">🔥</button>
+          <button class="icon-opt" data-icon="⚡" onclick="selectIcon(this)">⚡</button>
+          <button class="icon-opt" data-icon="🥊" onclick="selectIcon(this)">🥊</button>
+          <button class="icon-opt" data-icon="🏃" onclick="selectIcon(this)">🏃</button>
+          <button class="icon-opt" data-icon="💪" onclick="selectIcon(this)">💪</button>
+          <button class="icon-opt" data-icon="🧘" onclick="selectIcon(this)">🧘</button>
+          <button class="icon-opt" data-icon="⚔️" onclick="selectIcon(this)">⚔️</button>
+          <button class="icon-opt" data-icon="🛡️" onclick="selectIcon(this)">🛡️</button>
+          <button class="icon-opt" data-icon="🎯" onclick="selectIcon(this)">🎯</button>
+          <button class="icon-opt" data-icon="🏋️" onclick="selectIcon(this)">🏋️</button>
+          <button class="icon-opt" data-icon="🧗" onclick="selectIcon(this)">🧗</button>
+          <button class="icon-opt" data-icon="❄️" onclick="selectIcon(this)">❄️</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalKategori')">Batal</button>
+      <button class="btn-modal-save cyan-btn" onclick="saveKategori()"><span>+ TAMBAH KATEGORI</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL TASK/POIN ===== -->
+<div class="modal-overlay hidden" id="modalTask">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title purple">✦ Tambah Poin Latihan</div>
+      <button class="modal-close" onclick="closeModal('modalTask')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Judul Gerakan / Latihan</label>
+        <input type="text" id="taskJudul" placeholder="Contoh: Jumping Jack, Shadow Boxing, Push Up...">
+      </div>
+      <div class="modal-field">
+        <label>Deskripsi</label>
+        <textarea id="taskDesc" placeholder="Jelaskan cara melakukan gerakan ini..."></textarea>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Repetisi / Waktu</label>
+          <input type="text" id="taskReps" placeholder="Contoh: 3 x 10 reps / 2 menit">
+        </div>
+        <div class="modal-field">
+          <label>Tipe</label>
+          <select id="taskTipe">
+            <option value="repetisi">Repetisi</option>
+            <option value="waktu">Waktu</option>
+            <option value="jarak">Jarak</option>
+            <option value="set">Set</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider-line"></div>
+      <div class="modal-section-title">Media (Opsional)</div>
+      <div class="modal-field">
+        <label>Link Gambar (URL)</label>
+        <input type="url" id="taskImgUrl" placeholder="https://example.com/gambar.jpg">
+        <div class="modal-field-hint">URL gambar referensi gerakan</div>
+      </div>
+      <div class="modal-field">
+        <label>Link Video YouTube / URL Video</label>
+        <input type="url" id="taskVidUrl" placeholder="https://youtube.com/watch?v=...">
+        <div class="modal-field-hint">Tautan video demonstrasi gerakan</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalTask')">Batal</button>
+      <button class="btn-modal-save" style="border-color:var(--purple);color:var(--purple)" id="btnSaveTask" onclick="saveTask()"><span>✦ SIMPAN POIN</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- THEME -->
+<script>
+const THEMES=['rpg','dark','light'];
+const THEME_META={rpg:{icon:'◉',label:'RPG'},dark:{icon:'◐',label:'MALAM'},light:{icon:'○',label:'TERANG'}};
+window.cycleTheme=function(){const cur=document.documentElement.getAttribute('data-theme')||'rpg';const next=THEMES[(THEMES.indexOf(cur)+1)%THEMES.length];applyTheme(next)};
+window.applyTheme=function(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').textContent=THEME_META[t].icon;document.getElementById('themeLabel').textContent=THEME_META[t].label;localStorage.setItem('apex_theme',t);if(window._chartRerender)window._chartRerender()};
+const _saved=localStorage.getItem('apex_theme')||'rpg';
+document.addEventListener('DOMContentLoaded',()=>applyTheme(_saved));
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+  authDomain:"ydtc-5d55a.firebaseapp.com",
+  databaseURL:"https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"ydtc-5d55a"
+});
+const db = getDatabase(app);
+
+document.getElementById('headerDate').textContent =
+  new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+
+const btnSimpan=document.getElementById('btnSimpan'),btnBatal=document.getElementById('btnBatal');
+const grid=document.getElementById('atletGrid'),editIdEl=document.getElementById('editId');
+const searchInput=document.getElementById('searchInput');
+
+let allAthletes={}, calendarStates={}, chartInstances={};
+// Modal state
+let _ctx = {}; // context for modals
+
+// ============================================================ MODAL HELPERS
+window.closeModal = id => document.getElementById(id).classList.add('hidden');
+window.openModal  = id => document.getElementById(id).classList.remove('hidden');
+// close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.add('hidden')});
+});
+
+window.selectIcon = function(btn) {
+  document.querySelectorAll('#iconPicker .icon-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+};
+
+// ============================================================ QUEST MODAL OPEN
+window.openQuestModal = function(atletId, questId=null) {
+  _ctx.questAtletId = atletId;
+  _ctx.questId = questId;
+  const q = questId && allAthletes[atletId]?.program?.[questId];
+  document.getElementById('qNama').value     = q?.nama || '';
+  document.getElementById('qTglMulai').value = q?.tglMulai || '';
+  document.getElementById('qTglSelesai').value= q?.tglSelesai || '';
+  document.getElementById('qDesc').value     = q?.desc || '';
+  document.getElementById('btnSaveQuest').querySelector('span').textContent = questId ? '✎ UPDATE PROGRAM' : '✦ SIMPAN PROGRAM';
+  openModal('modalQuest');
+};
+
+window.saveQuest = async function() {
+  const nama = document.getElementById('qNama').value.trim();
+  const tglMulai = document.getElementById('qTglMulai').value;
+  const tglSelesai = document.getElementById('qTglSelesai').value;
+  const desc = document.getElementById('qDesc').value.trim();
+  if (!nama || !tglMulai) { alert('Isi Nama Program dan Tanggal Mulai!'); return; }
+  const data = { nama, tglMulai, tglSelesai, desc, createdAt: Date.now() };
+  const { questAtletId, questId } = _ctx;
+  const target = questId
+    ? ref(db, `atlet/${questAtletId}/program/${questId}`)
+    : push(ref(db, `atlet/${questAtletId}/program`));
+  await set(questId ? ref(db,`atlet/${questAtletId}/program/${questId}/nama`) : target, questId ? nama : data);
+  if (questId) {
+    await set(ref(db,`atlet/${questAtletId}/program/${questId}/tglMulai`), tglMulai);
+    await set(ref(db,`atlet/${questAtletId}/program/${questId}/tglSelesai`), tglSelesai);
+    await set(ref(db,`atlet/${questAtletId}/program/${questId}/desc`), desc);
+  }
+  closeModal('modalQuest');
+};
+
+window.deleteQuest = function(atletId, questId) {
+  if (confirm('Hapus program latihan ini?')) remove(ref(db,`atlet/${atletId}/program/${questId}`));
+};
+
+// ============================================================ KATEGORI MODAL
+window.openKategoriModal = function(atletId, questId) {
+  _ctx.katAtletId = atletId;
+  _ctx.katQuestId = questId;
+  document.getElementById('katNama').value = '';
+  document.querySelectorAll('#iconPicker .icon-opt').forEach((b,i)=>b.classList.toggle('selected',i===0));
+  openModal('modalKategori');
+};
+
+window.saveKategori = async function() {
+  const nama = document.getElementById('katNama').value.trim();
+  const icon = document.querySelector('#iconPicker .icon-opt.selected')?.dataset.icon || '🔥';
+  if (!nama) { alert('Isi nama kategori!'); return; }
+  const { katAtletId, katQuestId } = _ctx;
+  await push(ref(db,`atlet/${katAtletId}/program/${katQuestId}/kategori`),{nama, icon, createdAt:Date.now()});
+  closeModal('modalKategori');
+};
+
+window.deleteKategori = function(atletId, questId, katId) {
+  if (confirm('Hapus kategori ini beserta semua poinnya?'))
+    remove(ref(db,`atlet/${atletId}/program/${questId}/kategori/${katId}`));
+};
+
+// ============================================================ TASK MODAL
+window.openTaskModal = function(atletId, questId, katId) {
+  _ctx.taskAtletId = atletId;
+  _ctx.taskQuestId = questId;
+  _ctx.taskKatId   = katId;
+  _ctx.taskId      = null;
+  ['taskJudul','taskDesc','taskReps','taskImgUrl','taskVidUrl'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('taskTipe').value = 'repetisi';
+  openModal('modalTask');
+};
+
+window.saveTask = async function() {
+  const judul  = document.getElementById('taskJudul').value.trim();
+  const desc   = document.getElementById('taskDesc').value.trim();
+  const reps   = document.getElementById('taskReps').value.trim();
+  const tipe   = document.getElementById('taskTipe').value;
+  const imgUrl = document.getElementById('taskImgUrl').value.trim();
+  const vidUrl = document.getElementById('taskVidUrl').value.trim();
+  if (!judul) { alert('Isi judul gerakan!'); return; }
+  const { taskAtletId, taskQuestId, taskKatId } = _ctx;
+  const data = { judul, desc, reps, tipe, imgUrl, vidUrl, selesai: false, createdAt: Date.now() };
+  await push(ref(db,`atlet/${taskAtletId}/program/${taskQuestId}/kategori/${taskKatId}/poin`), data);
+  closeModal('modalTask');
+};
+
+window.deleteTask = function(atletId, questId, katId, taskId) {
+  remove(ref(db,`atlet/${atletId}/program/${questId}/kategori/${katId}/poin/${taskId}`));
+};
+
+window.toggleTask = function(atletId, questId, katId, taskId, current) {
+  set(ref(db,`atlet/${atletId}/program/${questId}/kategori/${katId}/poin/${taskId}/selesai`), !current);
+};
+
+// ============================================================ RENDER QUEST PANE
+window.renderQuestPane = function(atletId) {
+  const pane = document.getElementById(`pane-quest-${atletId}`);
+  const d = allAthletes[atletId];
+  const programs = d?.program || {};
+  const entries = Object.entries(programs).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+
+  if (entries.length === 0) {
+    pane.innerHTML = `<div class="quest-empty">⌀ Belum ada program latihan<br><small style="font-size:9px;opacity:.5">Klik tombol di bawah untuk membuat</small></div>
+    <button class="quest-add-btn" onclick="openQuestModal('${atletId}')">＋ BUAT PROGRAM LATIHAN</button>`;
+    return;
+  }
+
+  const today = new Date().toISOString().slice(0,10);
+  let html = '';
+  entries.forEach(([qid, q]) => {
+    const status = !q.tglMulai ? 'upcoming'
+      : today < q.tglMulai ? 'upcoming'
+      : q.tglSelesai && today > q.tglSelesai ? 'done' : 'active';
+    const statusLabel = {active:'● AKTIF', upcoming:'◌ AKAN DATANG', done:'✓ SELESAI'}[status];
+    const cats = Object.entries(q.kategori||{});
+    const totalTasks = cats.reduce((s,[,c])=>s+Object.keys(c.poin||{}).length,0);
+    const doneTasks  = cats.reduce((s,[,c])=>s+Object.values(c.poin||{}).filter(p=>p.selesai).length,0);
+    const progress = totalTasks > 0 ? Math.round(doneTasks/totalTasks*100) : 0;
+
+    html += `<div class="quest-item" id="qitem-${qid}">
+      <div class="quest-item-header" onclick="toggleQuestBody('${qid}')">
+        <div class="quest-item-left">
+          <div class="quest-item-title-row">
+            <span class="quest-scroll-icon">📜</span>
+            <span class="quest-item-name">${q.nama}</span>
+          </div>
+          <div class="quest-item-meta">
+            ${q.tglMulai?`<span>📅 ${q.tglMulai}${q.tglSelesai?' → '+q.tglSelesai:''}</span>`:''}
+            <span>⚡ ${totalTasks} poin · ${doneTasks} selesai</span>
+          </div>
+        </div>
+        <div class="quest-item-right">
+          <span class="quest-status-badge ${status}">${statusLabel}</span>
+          <button class="btn-quest-edit" onclick="event.stopPropagation();openQuestModal('${atletId}','${qid}')">✎</button>
+          <button class="btn-quest-del" onclick="event.stopPropagation();deleteQuest('${atletId}','${qid}')">✕</button>
+          <span class="quest-expand-icon" id="qexpand-${qid}">▶</span>
+        </div>
+      </div>
+      <div class="quest-body" id="qbody-${qid}">
+        <div class="quest-progress-bar"><div class="quest-progress-fill" style="width:${progress}%"></div></div>
+        ${q.desc?`<p style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-bottom:10px;line-height:1.5">${q.desc}</p>`:''}
+        ${renderCategories(atletId, qid, q.kategori||{})}
+        <button class="add-cat-btn" onclick="openKategoriModal('${atletId}','${qid}')">+ Tambah Kategori</button>
+      </div>
+    </div>`;
+  });
+
+  html += `<button class="quest-add-btn" onclick="openQuestModal('${atletId}')">＋ BUAT PROGRAM BARU</button>`;
+  pane.innerHTML = html;
+};
+
+function renderCategories(atletId, questId, kategori) {
+  const entries = Object.entries(kategori).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+  if (!entries.length) return '';
+  return entries.map(([katId, kat]) => {
+    const tasks = Object.entries(kat.poin||{}).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+    return `<div class="cat-item" id="catitem-${katId}">
+      <div class="cat-header" onclick="toggleCatBody('${katId}')">
+        <span class="cat-icon">${kat.icon||'🔥'}</span>
+        <span class="cat-name">${kat.nama}</span>
+        <span class="cat-count">${tasks.length} poin</span>
+        <div class="cat-actions" onclick="event.stopPropagation()">
+          <button class="btn-cat-del" onclick="deleteKategori('${atletId}','${questId}','${katId}')">✕</button>
+        </div>
+        <span class="cat-chevron" id="cchev-${katId}">▶</span>
+      </div>
+      <div class="cat-body" id="catbody-${katId}">
+        ${tasks.map(([tid,t])=>renderTask(atletId,questId,katId,tid,t)).join('')}
+        <button class="add-task-btn" onclick="openTaskModal('${atletId}','${questId}','${katId}')">+ Tambah Poin Latihan</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTask(atletId, questId, katId, taskId, t) {
+  const imgTag = t.imgUrl ? `<img class="task-thumbnail" src="${t.imgUrl}" alt="ref" onerror="this.style.display='none'">` : '';
+  const links  = [
+    t.imgUrl?`<a class="task-link img-link" href="${t.imgUrl}" target="_blank">🖼 Gambar</a>`:'',
+    t.vidUrl?`<a class="task-link vid-link" href="${t.vidUrl}" target="_blank">▶ Video</a>`:''
+  ].filter(Boolean).join('');
+  return `<div class="task-item">
+    <div class="task-item-header">
+      <div class="task-checkbox ${t.selesai?'checked':''}" onclick="toggleTask('${atletId}','${questId}','${katId}','${taskId}',${t.selesai})"></div>
+      <div class="task-info">
+        <div class="task-name" style="${t.selesai?'text-decoration:line-through;opacity:.5':''}">${t.judul}</div>
+        ${t.desc?`<div class="task-desc">${t.desc}</div>`:''}
+        ${t.reps?`<div class="task-reps">◈ ${t.reps} <span style="font-size:8px;color:var(--text-dim)">[${t.tipe||'repetisi'}]</span></div>`:''}
+        ${links?`<div class="task-links">${links}</div>`:''}
+        ${imgTag}
+      </div>
+      <button class="task-del-btn" onclick="deleteTask('${atletId}','${questId}','${katId}','${taskId}')">✕</button>
+    </div>
+  </div>`;
+}
+
+// Toggle quest body
+window.toggleQuestBody = function(qid) {
+  const body = document.getElementById('qbody-'+qid);
+  const icon = document.getElementById('qexpand-'+qid);
+  const isOpen = body.classList.toggle('open');
+  icon?.classList.toggle('open', isOpen);
+};
+// Toggle category body
+window.toggleCatBody = function(katId) {
+  const body = document.getElementById('catbody-'+katId);
+  const chev = document.getElementById('cchev-'+katId);
+  const isOpen = body.classList.toggle('open');
+  chev?.classList.toggle('open', isOpen);
+};
+
+// ============================================================ SEARCH
+searchInput.addEventListener('input', renderFiltered);
+function renderFiltered() {
+  const q = searchInput.value.trim().toLowerCase();
+  grid.innerHTML = '';
+  let count = 0;
+  Object.entries(allAthletes).forEach(([id,d]) => {
+    if (!q || d.nama.toLowerCase().includes(q)) {
+      grid.innerHTML += renderCard(id, d);
+      count++;
+    }
+  });
+  document.getElementById('totalCount').textContent = Object.keys(allAthletes).length;
+  if (count === 0) grid.innerHTML = `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-text">${q?'Atlet tidak ditemukan':'Belum ada atlet terdaftar'}</div></div>`;
+}
+
+// ============================================================ TABS
+window.switchTab = function(id, tab) {
+  const card = document.getElementById('card-'+id);
+  card.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  card.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  card.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  card.querySelector(`#pane-${tab}-${id}`).classList.add('active');
+  if (tab==='history') renderHistory(id);
+  if (tab==='kalender') renderCalendar(id);
+  if (tab==='quest') renderQuestPane(id);
+};
+
+// ============================================================ HISTORY CHART
+function getChartColors() {
+  const t = document.documentElement.getAttribute('data-theme')||'rpg';
+  const m = {rpg:{line:'#00f5ff',grid:'rgba(0,245,255,0.06)',fill:'rgba(0,245,255,0.07)',text:'#5a7a8a'},dark:{line:'#60a5fa',grid:'rgba(96,165,250,0.07)',fill:'rgba(96,165,250,0.07)',text:'#64748b'},light:{line:'#0066cc',grid:'rgba(0,0,0,0.05)',fill:'rgba(0,102,204,0.06)',text:'#94a3b8'}};
+  return m[t]||m.rpg;
+}
+function renderHistory(id) {
+  const d = allAthletes[id]; if(!d) return;
+  const pane = document.getElementById('pane-history-'+id);
+  if (!d.history||Object.keys(d.history).length<2){pane.innerHTML='<div class="no-history">⌀ Minimal 2 update untuk menampilkan grafik</div>';return;}
+  const sorted=Object.values(d.history).sort((a,b)=>a.ts-b.ts);
+  const labels=sorted.map(h=>new Date(h.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+  const clr=getChartColors();
+  const fisikKeys=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'];
+  const pasifKeys=['fightIq','reflek','mental','taktik'];
+  const fisikColors=['#00f5ff','#39ff87','#ffc300','#b57bee','#ff4655','#60a5fa','#f59e0b'];
+  const pasifColors=['#b57bee','#ff4655','#60a5fa','#ffc300'];
+  const overallData=sorted.map(h=>calcOverall(h.fisik||{},h.pasif||{},h.skill||{}));
+  pane.innerHTML=`<div class="chart-pane"><div class="chart-section-label">▸ Overall Level</div><div class="chart-pane-inner"><canvas id="chart-ovr-${id}"></canvas></div></div>
+  <div class="chart-pane" style="margin-top:14px"><div class="chart-section-label">▸ Statistik Fisik</div><div class="chart-pane-inner"><canvas id="chart-fisik-${id}"></canvas></div></div>
+  <div class="chart-pane" style="margin-top:14px"><div class="chart-section-label">▸ Skill Pasif</div><div class="chart-pane-inner"><canvas id="chart-pasif-${id}"></canvas></div></div>`;
+  const cfg=(ds)=>({type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:500},plugins:{legend:{labels:{color:clr.text,font:{family:'IBM Plex Mono',size:9},boxWidth:10,padding:8}}},scales:{x:{grid:{color:clr.grid},ticks:{color:clr.text,font:{family:'IBM Plex Mono',size:8}}},y:{min:0,max:100,grid:{color:clr.grid},ticks:{color:clr.text,font:{family:'IBM Plex Mono',size:8},stepSize:20}}}}});
+  ['ovr','fisik','pasif'].forEach(k=>{const key=`${id}-${k}`;if(chartInstances[key]){chartInstances[key].destroy();delete chartInstances[key];}});
+  chartInstances[`${id}-ovr`]=new Chart(document.getElementById(`chart-ovr-${id}`),cfg([{label:'Overall',data:overallData,borderColor:clr.line,backgroundColor:clr.fill,fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:clr.line,borderWidth:2}]));
+  chartInstances[`${id}-fisik`]=new Chart(document.getElementById(`chart-fisik-${id}`),cfg(fisikKeys.map((k,i)=>({label:['Daya Tahan','Stamina','Kecepatan','Kelincahan','Keseimbangan','Pow.Tungkai','Kek.Lengan'][i],data:sorted.map(h=>Number((h.fisik||{})[k]||0)),borderColor:fisikColors[i],backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:fisikColors[i]}))));
+  chartInstances[`${id}-pasif`]=new Chart(document.getElementById(`chart-pasif-${id}`),cfg(pasifKeys.map((k,i)=>({label:['Fight IQ','Reflek','Mental','Taktik'][i],data:sorted.map(h=>Number((h.pasif||{})[k]||0)),borderColor:pasifColors[i],backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:pasifColors[i]}))));
+}
+window._chartRerender=function(){Object.keys(allAthletes).forEach(id=>{const card=document.getElementById('card-'+id);if(!card)return;const hp=card.querySelector('#pane-history-'+id);if(hp&&hp.classList.contains('active'))renderHistory(id);});};
+
+// ============================================================ CALENDAR
+window.renderCalendar=function(id){
+  const pane=document.getElementById('pane-kalender-'+id);
+  if(!calendarStates[id]){const n=new Date();calendarStates[id]={year:n.getFullYear(),month:n.getMonth()};}
+  const{year,month}=calendarStates[id];
+  const d=allAthletes[id]||{},tr=d.training||{};
+  const mN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const dN=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const today=new Date(),fd=new Date(year,month,1).getDay(),dim=new Date(year,month+1,0).getDate(),dip=new Date(year,month,0).getDate();
+  let cells='';
+  for(let i=fd-1;i>=0;i--)cells+=`<div class="cal-day other-month">${dip-i}</div>`;
+  for(let d2=1;d2<=dim;d2++){const k=`${year}-${String(month+1).padStart(2,'0')}-${String(d2).padStart(2,'0')}`;const iT=today.getFullYear()===year&&today.getMonth()===month&&today.getDate()===d2;const iM=!!tr[k];cells+=`<div class="cal-day ${iT?'today':''} ${iM?'marked':''}" title="${iM?tr[k].note||'Latihan':''}">${d2}</div>`;}
+  const rem=42-fd-dim;for(let i=1;i<=rem;i++)cells+=`<div class="cal-day other-month">${i}</div>`;
+  const ne=Object.entries(tr).filter(([k])=>k.startsWith(`${year}-${String(month+1).padStart(2,'0')}`)).sort(([a],[b])=>a.localeCompare(b));
+  const nl=ne.length?ne.map(([k,v])=>`<div class="cal-note-item"><span class="cal-note-date">${k.slice(8)}</span><span class="cal-note-text">${v.note||'Latihan'}</span><button class="cal-note-del" onclick="deleteTraining('${id}','${k}')">✕</button></div>`).join(''):`<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);padding:6px">Belum ada catatan</div>`;
+  pane.innerHTML=`<div class="cal-wrap"><div class="cal-nav"><button class="cal-arrow" onclick="calNav('${id}',-1)">‹</button><div class="cal-title">${mN[month]} ${year}</div><button class="cal-arrow" onclick="calNav('${id}',1)">›</button></div><div class="cal-grid">${dN.map(n=>`<div class="cal-day-name">${n}</div>`).join('')}${cells}</div><div class="cal-add-form"><input type="date" id="cal-date-${id}" value="${today.toISOString().slice(0,10)}"><input type="text" id="cal-note-${id}" placeholder="Catatan latihan..."><button onclick="addTraining('${id}')">+ TAMBAH</button></div><div class="cal-notes-list">${nl}</div></div>`;
+};
+window.calNav=function(id,dir){if(!calendarStates[id])calendarStates[id]={year:new Date().getFullYear(),month:new Date().getMonth()};let{year,month}=calendarStates[id];month+=dir;if(month>11){month=0;year++;}if(month<0){month=11;year--;}calendarStates[id]={year,month};renderCalendar(id);};
+window.addTraining=function(id){const dv=document.getElementById('cal-date-'+id)?.value;const nv=document.getElementById('cal-note-'+id)?.value.trim()||'Latihan';if(!dv)return;set(ref(db,`atlet/${id}/training/${dv}`),{note:nv}).then(()=>{if(allAthletes[id]){if(!allAthletes[id].training)allAthletes[id].training={};allAthletes[id].training[dv]={note:nv};}renderCalendar(id);});};
+window.deleteTraining=function(id,k){remove(ref(db,`atlet/${id}/training/${k}`)).then(()=>{if(allAthletes[id]?.training)delete allAthletes[id].training[k];renderCalendar(id);});};
+
+// ============================================================ LOAD EDIT
+window.loadEdit=function(id){
+  onValue(ref(db,'atlet/'+id),snap=>{const d=snap.val();if(!d)return;
+    editIdEl.value=id;
+    ['nama','tglLahir','gender','berat','tinggi'].forEach(k=>document.getElementById(k).value=d[k]||'');
+    const f=d.fisik||{};['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'].forEach(k=>{const v=f[k]??50;document.getElementById(k).value=v;document.getElementById('v_'+k).textContent=v;});
+    const p=d.pasif||{};['fightIq','reflek','mental','taktik'].forEach(k=>{const v=p[k]??50;document.getElementById(k).value=v;document.getElementById('v_'+k).textContent=v;});
+    const s=d.skill||{serang:{},tahan:{},jatuh:{}};
+    Object.entries({sk_pukulan:s.serang?.lurus,sk_uppercut:s.serang?.upper,sk_tdepan:s.serang?.depan,sk_tsabit:s.serang?.sabit,sk_tt:s.serang?.t,sk_tangkisan:s.tahan?.tangkis,sk_elakan:s.tahan?.elak,sk_tangkapan:s.tahan?.tangkap,sk_bantingan:s.jatuh?.banting,sk_ungkitan:s.jatuh?.ungkit,sk_sapuan:s.jatuh?.sapu,sk_guntingan:s.jatuh?.gunting}).forEach(([fid,v])=>document.getElementById(fid).value=v??0);
+    document.getElementById('formPanelTitle').textContent='Edit Data Atlet';
+    btnSimpan.querySelector('span').textContent='✎ UPDATE DATA ATLET';
+    btnBatal.classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  },{onlyOnce:true});
+};
+btnBatal.onclick=()=>location.reload();
+
+// ============================================================ SIMPAN
+btnSimpan.onclick=async function(){
+  const id=editIdEl.value;
+  const g=fid=>document.getElementById(fid).value;
+  const fisik={dayaTahan:g('dayaTahan'),stamina:g('stamina'),kecepatan:g('kecepatan'),kelincahan:g('kelincahan'),keseimbangan:g('keseimbangan'),powerTungkai:g('powerTungkai'),kekuatanLengan:g('kekuatanLengan')};
+  const pasif={fightIq:g('fightIq'),reflek:g('reflek'),mental:g('mental'),taktik:g('taktik')};
+  const skill={serang:{lurus:g('sk_pukulan'),upper:g('sk_uppercut'),depan:g('sk_tdepan'),sabit:g('sk_tsabit'),t:g('sk_tt')},tahan:{tangkis:g('sk_tangkisan'),elak:g('sk_elakan'),tangkap:g('sk_tangkapan')},jatuh:{banting:g('sk_bantingan'),ungkit:g('sk_ungkitan'),sapu:g('sk_sapuan'),gunting:g('sk_guntingan')}};
+  const data={nama:g('nama'),tglLahir:g('tglLahir'),gender:g('gender'),berat:g('berat'),tinggi:g('tinggi'),fisik,pasif,skill};
+  if(!data.nama||!data.berat){alert("Minimal isi Nama dan Berat Badan!");return;}
+  try{
+    if(id){
+      await set(ref(db,`atlet/${id}/nama`),data.nama);await set(ref(db,`atlet/${id}/tglLahir`),data.tglLahir);await set(ref(db,`atlet/${id}/gender`),data.gender);await set(ref(db,`atlet/${id}/berat`),data.berat);await set(ref(db,`atlet/${id}/tinggi`),data.tinggi);await set(ref(db,`atlet/${id}/fisik`),fisik);await set(ref(db,`atlet/${id}/pasif`),pasif);await set(ref(db,`atlet/${id}/skill`),skill);
+      const hRef=push(ref(db,`atlet/${id}/history`));await set(hRef,{ts:Date.now(),fisik,pasif,skill});
+    }else{const nr=push(ref(db,'atlet'));await set(nr,{...data,history:{}});}
+    alert(id?"Data berhasil diupdate!":"Atlet berhasil didaftarkan!");location.reload();
+  }catch(e){alert("Error: "+e.message);}
+};
+
+window.hapusAtlet=function(id){if(confirm("Hapus data atlet ini permanen?"))remove(ref(db,'atlet/'+id)).catch(e=>alert("Gagal: "+e.message));};
+
+// ============================================================ HELPERS
+function calcOverall(f,p,s){const v=[...['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'].map(k=>Number(f[k]||0)),...['fightIq','reflek','mental','taktik'].map(k=>Number(p[k]||0)),...['lurus','upper','depan','sabit','t'].map(k=>Number((s.serang||{})[k]||0)),...['tangkis','elak','tangkap'].map(k=>Number((s.tahan||{})[k]||0)),...['banting','ungkit','sapu','gunting'].map(k=>Number((s.jatuh||{})[k]||0))];return Math.round(v.reduce((a,b)=>a+b,0)/v.length);}
+window.calcOverall=calcOverall;
+
+function renderStat(n,v,p){const val=Number(v)||0;return`<div class="stat-row"><div class="stat-name">${n}</div><div class="bar-track"><div class="bar-fill${p?' pasif':''}" style="width:${val}%"></div></div><div class="bar-val${p?' pasif':''}">${val}</div></div>`;}
+
+function chip(n,l){const lv=Number(l)||0;const t=lv>=85?'S':lv>=70?'A':lv>=50?'B':'C';return`<div class="skill-chip"><div class="chip-name">${n}</div><div class="chip-level" data-tier="${t}">${lv}</div></div>`;}
+
+function getWeightClass(kg){const w=Number(kg);if(w<=52)return'≤52 KG';if(w<=60)return'≤60 KG';if(w<=67)return'≤67 KG';if(w<=75)return'≤75 KG';if(w<=84)return'≤84 KG';return'+84 KG';}
+
+function questCount(d){return Object.keys(d?.program||{}).length;}
+
+function renderCard(id,d){
+  const f=d.fisik||{},p=d.pasif||{},s=d.skill||{serang:{},tahan:{},jatuh:{}};
+  const overall=calcOverall(f,p,s);
+  const age=d.tglLahir?` · ${new Date().getFullYear()-new Date(d.tglLahir).getFullYear()} thn`:'';
+  const hC=d.history?Object.keys(d.history).length:0;
+  const qC=questCount(d);
+  return`<div class="athlete-card" id="card-${id}">
+    <div class="card-accent"></div>
+    <div class="card-actions">
+      <button class="btn-card btn-card-edit" onclick="loadEdit('${id}')">EDIT</button>
+      <button class="btn-card btn-card-del" onclick="hapusAtlet('${id}')">DEL</button>
+    </div>
+    <div class="card-header">
+      <div class="athlete-identity">
+        <div class="athlete-name">${d.nama}</div>
+        <div class="athlete-bio">${d.berat}kg · ${d.tinggi}cm${age}</div>
+        <div class="athlete-badges">
+          <span class="badge badge-gender">${d.gender==='Laki-laki'?'♂ PRIA':'♀ WANITA'}</span>
+          <span class="badge badge-weight">${getWeightClass(d.berat)}</span>
+        </div>
+      </div>
+      <div class="overall-score">
+        <div class="score-ring" style="--score:${overall}"><div class="score-num">${overall}</div></div>
+        <div class="score-label">Level</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="fisik" onclick="switchTab('${id}','fisik')">FISIK</button>
+        <button class="tab-btn" data-tab="pasif" onclick="switchTab('${id}','pasif')">PASIF</button>
+        <button class="tab-btn" data-tab="skill" onclick="switchTab('${id}','skill')">SKILL</button>
+        <button class="tab-btn" data-tab="quest" onclick="switchTab('${id}','quest')">QUEST${qC>0?` (${qC})`:''}</button>
+        <button class="tab-btn" data-tab="history" onclick="switchTab('${id}','history')">GRAFIK${hC>0?` (${hC})`:''}</button>
+        <button class="tab-btn" data-tab="kalender" onclick="switchTab('${id}','kalender')">KALENDER</button>
+      </div>
+      <div id="pane-fisik-${id}" class="tab-pane active">
+        ${renderStat('Daya Tahan',f.dayaTahan)}${renderStat('Stamina',f.stamina)}${renderStat('Kecepatan',f.kecepatan)}
+        ${renderStat('Kelincahan',f.kelincahan)}${renderStat('Keseimbangan',f.keseimbangan)}
+        ${renderStat('Power Tungkai',f.powerTungkai)}${renderStat('Kekuatan Lengan',f.kekuatanLengan)}
+      </div>
+      <div id="pane-pasif-${id}" class="tab-pane">
+        ${renderStat('Fight IQ',p.fightIq,true)}${renderStat('Reflek',p.reflek,true)}
+        ${renderStat('Mental',p.mental,true)}${renderStat('Taktik & Strategi',p.taktik,true)}
+      </div>
+      <div id="pane-skill-${id}" class="tab-pane">
+        <div class="skill-category"><div class="skill-cat-title">⚔ Menyerang</div><div class="skill-chips">${chip('Lurus',s.serang.lurus)}${chip('Uppercut',s.serang.upper)}${chip('T.Depan',s.serang.depan)}${chip('T.Sabit',s.serang.sabit)}${chip('Tend.T',s.serang.t)}</div></div>
+        <div class="skill-category"><div class="skill-cat-title">🛡 Bertahan</div><div class="skill-chips">${chip('Tangkisan',s.tahan.tangkis)}${chip('Elakan',s.tahan.elak)}${chip('Tangkapan',s.tahan.tangkap)}</div></div>
+        <div class="skill-category"><div class="skill-cat-title">💥 Jatuhan</div><div class="skill-chips">${chip('Bantingan',s.jatuh.banting)}${chip('Ungkitan',s.jatuh.ungkit)}${chip('Sapuan',s.jatuh.sapu)}${chip('Guntingan',s.jatuh.gunting)}</div></div>
+      </div>
+      <div id="pane-quest-${id}" class="tab-pane">
+        <div class="quest-empty">⌀ Klik tab QUEST untuk memuat</div>
+      </div>
+      <div id="pane-history-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab GRAFIK untuk memuat</div>
+      </div>
+      <div id="pane-kalender-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab KALENDER untuk memuat</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============================================================ LISTEN
+onValue(ref(db,'atlet'),snap=>{
+  allAthletes={};
+  snap.forEach(c=>{allAthletes[c.key]=c.val();});
+  renderFiltered();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YD ATHLETE — Portal Atlet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <!-- style -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+  </head>
+  <body>
+
+    <!-- ═══════════════ LOAD SCREEN ═══════════════ -->
+    <div id="loadScreen">
+      <div class="load-logo">SERA<span>.</span>ATHLETE</div>
+      <div class="load-bar"><div class="load-bar-fill"></div></div>
+      <div class="load-txt">Memuat data...</div>
+    </div>
+
+    <!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
+    <div id="loginScreen" style="display:none">
+      <div class="login-bg"></div>
+      <div class="login-box">
+        <div class="login-header">
+          <span class="login-logo">SERA<span>.</span>ATHLETE</span>
+          <div class="login-subtitle">Portal Atlet</div>
+          <div class="login-tagline">Masuk untuk melihat performa dan program latihanmu</div>
+        </div>
+        <div class="login-form">
+          <div class="login-field">
+            <label>Nama Lengkap</label>
+            <input type="text" id="inputNama" placeholder="Ketik namamu..." autocomplete="off" autocapitalize="words">
+          </div>
+          <div class="login-field">
+            <label>Kode Akses</label>
+            <input type="password" id="inputKode" placeholder="••••••••" autocomplete="off">
+            <div class="login-hint">Kode akses diberikan oleh pelatih</div>
+          </div>
+          <button class="login-btn" onclick="doLogin()">MASUK →</button>
+          <div class="login-err" id="loginErr">Nama atau kode akses tidak valid. Coba lagi.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ MAIN APP ═══════════════ -->
+    <div id="app">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-name" id="tbName">—</div>
+          <div class="topbar-meta" id="tbMeta">SERA ATHLETE</div>
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-score">
+            <div class="score-ring-sm" id="topRing" style="--s:0">
+              <span class="score-ring-num" id="topScore">—</span>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="doLogout()">Keluar</button>
+        </div>
+      </div>
+
+      <!-- Nav Tabs -->
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-page="profil" onclick="showPage('profil',this)">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profil
+        </button>
+        <button class="nav-tab" data-page="quest" onclick="showPage('quest',this)">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Program
+        </button>
+        <button class="nav-tab" data-page="grafik" onclick="showPage('grafik',this)">
+          <svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+          Grafik
+        </button>
+        <button class="nav-tab" data-page="kalender" onclick="showPage('kalender',this)">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Kalender
+        </button>
+      </div>
+
+      <!-- ─── PAGE: PROFIL ─── -->
+      <div class="page active" id="page-profil">
+        <div class="hero" id="heroBlock"></div>
+        <div class="overview-grid" id="overviewGrid"></div>
+        <div class="sec">
+          <div class="sec-title">Statistik Fisik</div>
+          <div id="fisikBars"></div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">Skill Pasif</div>
+          <div id="pasifBars"></div>
+        </div>
+        <div class="sec">
+          <div class="sec-title">Skill Aktif</div>
+          <div id="skillDisplay"></div>
+        </div>
+        <div class="bottom-sp"></div>
+      </div>
+
+      <!-- ─── PAGE: QUEST ─── -->
+      <div class="page" id="page-quest">
+        <div style="padding:16px 18px 0">
+          <div class="sec-title" style="margin-bottom:0">Program Latihan</div>
+        </div>
+        <div class="quest-page" id="questPage" style="padding-top:14px"></div>
+        <div class="bottom-sp"></div>
+      </div>
+
+      <!-- ─── PAGE: GRAFIK ─── -->
+      <div class="page" id="page-grafik">
+        <div style="padding:16px 18px 0">
+          <div class="sec-title" style="margin-bottom:16px">Grafik Perkembangan</div>
+        </div>
+        <div style="padding:0 18px" id="grafikWrap"></div>
+        <div class="bottom-sp"></div>
+      </div>
+
+      <!-- ─── PAGE: KALENDER ─── -->
+      <div class="page" id="page-kalender">
+        <div style="padding:16px 18px 0">
+          <div class="sec-title" style="margin-bottom:16px">Kalender Latihan</div>
+        </div>
+        <div class="cal-container" id="calWrap"></div>
+        <div class="bottom-sp"></div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+    <!-- js -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="assets/js/script.js"></script>
+
+    <script>
+      firebase.initializeApp(FB_CFG);
+      const db = firebase.database();
+    </script>
+  </body>
+</html>
