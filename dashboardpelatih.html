@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YD ATHLETE — Portal Asisten Pelatih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/dashboardpelatih.css">
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="ls">
+  <div class="ls-logo" id="lsLogo">YD<em>.</em>ATHLETE</div>
+  <div class="ls-sub" id="lsSub">Portal Asisten Pelatih</div>
+  <div class="ls-bar"><div class="ls-fill"></div></div>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-halo"></div>
+  <div class="login-box">
+    <div class="login-logo-wrap">
+      <div class="login-logo" id="loginLogoTxt">YD<em>.</em>ATHLETE</div>
+      <div class="login-role" id="loginRole">Portal Asisten Pelatih</div>
+      <div class="login-desc" id="loginDesc">Masukkan nama Anda dan kode akses dari koordinator</div>
+    </div>
+    <div class="login-card">
+      <label class="lf-label" id="lblNama">Nama Lengkap Anda</label>
+      <input class="lf-input" id="inNama" type="text" placeholder="Ketik nama lengkap..." autocomplete="off" autocapitalize="words">
+      <label class="lf-label" id="lblKode">Kode Akses</label>
+      <input class="lf-input" id="inKode" type="password" placeholder="••••••••" autocomplete="off">
+      <button class="lf-btn" id="btnLogin" onclick="doLogin()">MASUK</button>
+      <div class="lf-err" id="loginErr">Nama tidak ditemukan atau kode akses salah.</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo" id="tbLogo">YD<em>.</em>ATHLETE</div>
+      <div class="tb-role" id="tbRole">Asisten Pelatih</div>
+    </div>
+    <div class="tb-nav">
+      <button class="tb-nav-btn active" id="navDashboard" onclick="navigateSection('dashboard')">Info</button>
+      <button class="tb-nav-btn" id="navProgram" onclick="navigateSection('program')">Program</button>
+      <button class="tb-nav-btn" id="navGuidebook" onclick="navigateSection('guidebook')">Guidebook</button>
+      <button class="tb-nav-btn" id="navAthletes" onclick="navigateSection('athletes')">Atlet Unit</button>
+    </div>
+    <div class="tb-right">
+      <div class="tb-dot"></div>
+      <div class="tb-settings">
+        <button class="tb-gear" id="settingsToggle" onclick="toggleSettingsMenu(event)"><iconify-icon icon="lucide:settings"></iconify-icon></button>
+        <div class="tb-menu" id="settingsMenu">
+          <div class="tb-menu-lbl" data-i18n="theme">Tema</div>
+          <div class="theme-grid">
+            <button class="theme-btn" data-theme-val="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> <span class="theme-btn-txt">Terang</span></button>
+            <button class="theme-btn active" data-theme-val="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> <span class="theme-btn-txt">Graphite</span></button>
+            <button class="theme-btn" data-theme-val="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> <span class="theme-btn-txt">RPG</span></button>
+            <button class="theme-btn" data-theme-val="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> <span class="theme-btn-txt">Luxury</span></button>
+          </div>
+          <div class="tb-menu-sep"></div>
+          <div class="tb-menu-lbl" data-i18n="language">Bahasa</div>
+          <div class="lang-row" id="langRow"></div>
+          <div class="tb-menu-sep"></div>
+          <button class="tb-logout" onclick="doLogout()"><iconify-icon icon="lucide:log-out"></iconify-icon> <span class="logout-txt">Keluar</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="coach-shell" id="rosterGrid">
+      <div class="page-empty">
+        <div class="pe-icon"><iconify-icon icon="lucide:diamond"></iconify-icon></div>
+        <div class="pe-txt" id="loadingDataTxt">Memuat data...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile bottom nav -->
+<div class="mb-nav-wrap">
+  <nav class="mb-nav">
+    <button class="mb-btn active" id="mbNavInfo" onclick="navigateSection('dashboard')">
+      <span class="mb-ic"><iconify-icon icon="lucide:house"></iconify-icon></span><span class="mb-txt">Info</span>
+    </button>
+    <button class="mb-btn" id="mbNavProgram" onclick="navigateSection('program')">
+      <span class="mb-ic"><iconify-icon icon="lucide:clipboard-list"></iconify-icon></span><span class="mb-txt">Program</span>
+    </button>
+    <button class="mb-btn" id="mbNavGuidebook" onclick="navigateSection('guidebook')">
+      <span class="mb-ic"><iconify-icon icon="lucide:book-open"></iconify-icon></span><span class="mb-txt">Guidebook</span>
+    </button>
+    <button class="mb-btn" id="mbNavAthletes" onclick="navigateSection('athletes')">
+      <span class="mb-ic"><iconify-icon icon="lucide:users"></iconify-icon></span><span class="mb-txt">Atlet</span>
+    </button>
+    <button class="mb-btn" id="mbNavSetting" onclick="toggleMbSettings(event)">
+      <span class="mb-ic"><iconify-icon icon="lucide:settings"></iconify-icon></span><span class="mb-txt">Setting</span>
+    </button>
+  </nav>
+  <div class="mb-settings-panel" id="mbSettingsPanel">
+    <div class="tb-menu-lbl" data-i18n="theme">Tema</div>
+    <div class="theme-grid" style="margin-bottom:10px">
+      <button class="theme-btn" data-theme-val="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> <span class="theme-btn-txt">Terang</span></button>
+      <button class="theme-btn active" data-theme-val="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> <span class="theme-btn-txt">Graphite</span></button>
+      <button class="theme-btn" data-theme-val="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> <span class="theme-btn-txt">RPG</span></button>
+      <button class="theme-btn" data-theme-val="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> <span class="theme-btn-txt">Luxury</span></button>
+    </div>
+    <div class="tb-menu-lbl" data-i18n="language">Bahasa</div>
+    <div class="lang-row" id="mbLangRow" style="margin-bottom:10px"></div>
+    <button class="tb-logout" onclick="doLogout()"><iconify-icon icon="lucide:log-out"></iconify-icon> <span class="logout-txt">Keluar</span></button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Meeting detail modal -->
+<div class="modal-overlay" id="meetModal" onclick="if(event.target===this)closeMeetDetail()">
+  <div class="modal-card">
+    <div class="modal-hd">
+      <div class="modal-title" id="meetModalTitle">Detail Pertemuan</div>
+      <button class="modal-close" onclick="closeMeetDetail()"><iconify-icon icon="lucide:x"></iconify-icon> Tutup</button>
+    </div>
+    <div class="modal-bd" id="meetModalBody"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="iconUnitModal" onclick="if(event.target===this)closeUnitIconModal()">
+  <div class="modal-card" style="width:min(560px,100%)">
+    <div class="modal-hd">
+      <div class="modal-title" id="iconUnitModalTitle">Ubah Icon Unit</div>
+      <button class="modal-close" onclick="closeUnitIconModal()"><iconify-icon icon="lucide:x"></iconify-icon> <span id="iconUnitModalCloseTxt">Tutup</span></button>
+    </div>
+    <div class="modal-bd">
+      <div class="icon-modal-form">
+        <div class="icon-modal-note" id="iconUnitModalNote">Masukkan link gambar icon unit. Kosongkan lalu simpan untuk menghapus icon custom.</div>
+        <div class="icon-modal-err" id="unitIconUrlErr"></div>
+        <input class="icon-modal-input" id="unitIconUrlInput" type="url" placeholder="https://.../icon-unit.png" autocomplete="off">
+        <div class="icon-modal-actions">
+          <button class="btn-sm btn-sm-ghost" id="iconUnitModalCancel" onclick="closeUnitIconModal()">Batal</button>
+          <button class="btn-sm btn-sm-accent" id="iconUnitModalSave" onclick="saveUnitIconModal()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="profileEditModal" onclick="if(event.target===this)closeProfileEditModal()">
+  <div class="modal-card" style="width:min(520px,100%)">
+    <div class="modal-hd">
+      <div class="modal-title" id="profileEditModalTitle">Edit profil</div>
+      <button class="modal-close" onclick="closeProfileEditModal()"><iconify-icon icon="lucide:x"></iconify-icon> <span id="profileEditModalCloseTxt">Tutup</span></button>
+    </div>
+    <div class="modal-bd">
+      <div class="icon-modal-form">
+        <div class="icon-modal-note" id="profileEditModalNote"></div>
+        <div class="icon-modal-err" id="profileEditErr"></div>
+        <label class="profile-edit-lbl" id="profileLblKontak" for="profileEditKontak"></label>
+        <input class="icon-modal-input" id="profileEditKontak" type="text" autocomplete="tel">
+        <label class="profile-edit-lbl" id="profileLblEmail" for="profileEditEmail"></label>
+        <input class="icon-modal-input" id="profileEditEmail" type="email" autocomplete="email">
+        <label class="profile-edit-lbl" id="profileLblAlamat" for="profileEditAlamat"></label>
+        <textarea class="icon-modal-input profile-edit-ta" id="profileEditAlamat" rows="3"></textarea>
+        <label class="profile-edit-lbl" id="profileLblIcon" for="profileEditIconUrl"></label>
+        <input class="icon-modal-input" id="profileEditIconUrl" type="url" autocomplete="off">
+        <div class="icon-modal-actions">
+          <button class="btn-sm btn-sm-ghost" id="profileEditCancel" onclick="closeProfileEditModal()">Batal</button>
+          <button class="btn-sm btn-sm-accent" id="profileEditSave" onclick="saveProfileEditModal()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<script src="assets/js/dashboardpelatih.js"></script>
+<script>
+  firebase.initializeApp(FB_CFG);
+  const db = firebase.database();
+</script>
+</body>
+</html>
