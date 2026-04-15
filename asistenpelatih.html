@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="rpg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YD ATHLETE — Panel Asisten Pelatih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================ THEMES */
+[data-theme="rpg"] {
+  --cyan:#00f5ff;--cyan-dim:#00b4cc;--gold:#ffc300;--gold-dim:#c99800;
+  --purple:#b57bee;--red:#ff4655;--green:#39ff87;--orange:#ff8c42;--teal:#00d4aa;
+  --bg-deep:#060a0f;--bg-panel:#0c1219;--bg-card:#0e1620;--bg-modal:#0a1018;
+  --border:rgba(0,245,255,0.15);--border-gold:rgba(255,195,0,0.25);--border-green:rgba(57,255,135,0.25);--border-teal:rgba(0,212,170,0.25);
+  --text-primary:#e8f4f8;--text-muted:#5a7a8a;--text-dim:#3a5060;
+  --bar-track:rgba(255,255,255,0.05);--tab-bg:rgba(0,0,0,0.3);
+  --input-bg:rgba(0,245,255,0.03);--skill-input-bg:rgba(255,195,0,0.05);
+  --header-bg:rgba(6,10,15,0.92);--sidebar-bg:#0c1219;
+  --card-hover-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(0,245,255,0.12);
+  --score-track:#1a2a35;--btn-cancel-border:#2a3a45;
+  --chart-grid:rgba(0,245,255,0.06);
+  --quest-bg:rgba(255,195,0,0.04);--quest-border:rgba(255,195,0,0.2);--quest-header-bg:rgba(255,195,0,0.07);
+  --cat-bg:rgba(0,245,255,0.04);--cat-border:rgba(0,245,255,0.18);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --guide-bg:rgba(0,212,170,0.04);--guide-border:rgba(0,212,170,0.2);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Orbitron',monospace;--scanline:rgba(0,245,255,0.012);
+}
+[data-theme="dark"] {
+  --cyan:#60a5fa;--cyan-dim:#3b82f6;--gold:#f59e0b;--gold-dim:#d97706;
+  --purple:#a78bfa;--red:#f87171;--green:#4ade80;--orange:#fb923c;--teal:#2dd4bf;
+  --bg-deep:#0f172a;--bg-panel:#1e293b;--bg-card:#1e293b;--bg-modal:#0f172a;
+  --border:rgba(96,165,250,0.12);--border-gold:rgba(245,158,11,0.2);--border-green:rgba(74,222,128,0.2);--border-teal:rgba(45,212,191,0.2);
+  --text-primary:#f1f5f9;--text-muted:#64748b;--text-dim:#334155;
+  --bar-track:rgba(255,255,255,0.06);--tab-bg:rgba(0,0,0,0.25);
+  --input-bg:rgba(96,165,250,0.04);--skill-input-bg:rgba(245,158,11,0.05);
+  --header-bg:rgba(15,23,42,0.94);--sidebar-bg:#1e293b;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.4),0 0 0 1px rgba(96,165,250,0.12);
+  --score-track:#0f172a;--btn-cancel-border:#334155;
+  --quest-bg:rgba(245,158,11,0.04);--quest-border:rgba(245,158,11,0.18);--quest-header-bg:rgba(245,158,11,0.07);
+  --cat-bg:rgba(96,165,250,0.04);--cat-border:rgba(96,165,250,0.15);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --guide-bg:rgba(45,212,191,0.04);--guide-border:rgba(45,212,191,0.18);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Rajdhani',sans-serif;--scanline:transparent;
+}
+[data-theme="light"] {
+  --cyan:#0066cc;--cyan-dim:#0052a3;--gold:#d97706;--gold-dim:#b45309;
+  --purple:#7c3aed;--red:#dc2626;--green:#16a34a;--orange:#ea580c;--teal:#0d9488;
+  --bg-deep:#f0f4f8;--bg-panel:#ffffff;--bg-card:#ffffff;--bg-modal:#f8fafc;
+  --border:rgba(0,102,204,0.14);--border-gold:rgba(217,119,6,0.22);--border-green:rgba(22,163,74,0.2);--border-teal:rgba(13,148,136,0.2);
+  --text-primary:#0f172a;--text-muted:#64748b;--text-dim:#94a3b8;
+  --bar-track:rgba(0,0,0,0.07);--tab-bg:rgba(0,0,0,0.04);
+  --input-bg:rgba(0,102,204,0.04);--skill-input-bg:rgba(217,119,6,0.05);
+  --header-bg:rgba(255,255,255,0.96);--sidebar-bg:#ffffff;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.1),0 0 0 1px rgba(0,102,204,0.15);
+  --score-track:#e2e8f0;--btn-cancel-border:#cbd5e1;
+  --quest-bg:rgba(217,119,6,0.04);--quest-border:rgba(217,119,6,0.18);--quest-header-bg:rgba(217,119,6,0.07);
+  --cat-bg:rgba(0,102,204,0.03);--cat-border:rgba(0,102,204,0.12);
+  --task-bg:rgba(0,0,0,0.02);--task-border:rgba(0,0,0,0.07);
+  --modal-overlay:rgba(0,0,0,0.6);
+  --guide-bg:rgba(13,148,136,0.04);--guide-border:rgba(13,148,136,0.18);
+  --font-body:'Inter',sans-serif;--font-mono:'Inter',sans-serif;
+  --font-display:'Inter',sans-serif;--scanline:transparent;
+}
+
+/* ============================================================ BASE */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-primary);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px);pointer-events:none;z-index:9999}
+
+/* ============================================================ HEADER */
+.site-header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-size:17px;font-weight:900;letter-spacing:4px;color:var(--cyan);white-space:nowrap;flex-shrink:0}
+[data-theme="rpg"] .logo{text-shadow:0 0 20px rgba(0,245,255,.5)}
+.logo span{color:var(--gold)}
+.logo sub{font-size:9px;letter-spacing:2px;color:var(--teal);vertical-align:bottom;margin-left:4px}
+.header-nav{display:flex;gap:6px;align-items:center}
+.nav-link{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;padding:5px 12px;border:1px solid var(--border);color:var(--text-muted);border-radius:5px;text-decoration:none;transition:all .2s;text-transform:uppercase}
+.nav-link:hover,.nav-link.active{border-color:var(--cyan-dim);color:var(--cyan)}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.header-status{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);display:flex;gap:8px;align-items:center}
+.status-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
+[data-theme="rpg"] .status-dot{box-shadow:0 0 8px var(--teal)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.theme-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--bar-track);transition:all .2s;white-space:nowrap}
+.theme-toggle:hover{border-color:var(--cyan-dim)}
+.theme-toggle-icon{font-size:14px}
+.theme-toggle-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ============================================================ LAYOUT */
+.main-layout{display:grid;grid-template-columns:380px 1fr;min-height:calc(100vh - 54px)}
+.sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);padding:20px 18px;overflow-y:auto;max-height:calc(100vh - 54px);position:sticky;top:54px;transition:background .3s}
+[data-theme="light"] .sidebar{box-shadow:2px 0 10px rgba(0,0,0,.05)}
+.content-area{padding:20px;overflow-y:auto}
+
+/* ============================================================ PANEL TITLE */
+.panel-title{font-family:var(--font-display);font-size:10px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.panel-title::before{content:'';width:3px;height:13px;background:var(--teal);flex-shrink:0}
+[data-theme="rpg"] .panel-title::before{box-shadow:0 0 8px var(--teal)}
+
+/* ============================================================ FORM */
+.form-section{margin-bottom:18px}
+.section-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.form-row{display:flex;gap:7px;margin-bottom:7px}
+.form-field{flex:1;display:flex;flex-direction:column;gap:4px}
+.form-field label{font-size:9px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono)}
+.form-field input,.form-field select,.form-field textarea{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:7px 9px;border-radius:5px;font-family:var(--font-body);font-size:13px;font-weight:500;outline:none;transition:border-color .2s;width:100%}
+[data-theme="light"] .form-field input,[data-theme="light"] .form-field select,[data-theme="light"] .form-field textarea{border-color:#e2e8f0}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--teal)}
+.form-field select option{background:var(--bg-panel);color:var(--text-primary)}
+.form-field textarea{resize:vertical;min-height:60px;line-height:1.5}
+
+/* Unit tags input */
+.unit-tags-wrap{background:var(--input-bg);border:1px solid var(--border);border-radius:5px;padding:5px 7px;display:flex;flex-wrap:wrap;gap:4px;min-height:38px;cursor:text;transition:border-color .2s}
+.unit-tags-wrap:focus-within{border-color:var(--teal)}
+.unit-tag{background:rgba(0,212,170,.1);border:1px solid var(--border-teal);color:var(--teal);font-family:var(--font-mono);font-size:10px;padding:2px 7px;border-radius:3px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.unit-tag-del{background:none;border:none;color:var(--teal);cursor:pointer;font-size:11px;padding:0;line-height:1;opacity:.6;transition:opacity .15s}
+.unit-tag-del:hover{opacity:1}
+.unit-tag-input{background:transparent;border:none;outline:none;color:var(--text-primary);font-family:var(--font-body);font-size:12px;min-width:80px;flex:1}
+.unit-tag-hint{font-family:var(--font-mono);font-size:8px;color:var(--text-dim);margin-top:3px}
+
+/* Sertifikasi repeater */
+.cert-list{display:flex;flex-direction:column;gap:5px;margin-bottom:6px}
+.cert-item{display:flex;align-items:center;gap:6px;background:var(--input-bg);border:1px solid var(--border);border-radius:5px;padding:5px 8px}
+.cert-icon{font-size:14px;flex-shrink:0}
+.cert-name{flex:1;font-size:12px;color:var(--text-primary)}
+.cert-year{font-family:var(--font-mono);font-size:10px;color:var(--gold-dim)}
+.cert-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:12px;transition:color .15s;flex-shrink:0;padding:0 2px}
+.cert-del:hover{color:var(--red)}
+.cert-add-row{display:flex;gap:5px}
+.cert-add-row input{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:6px 8px;border-radius:4px;font-family:var(--font-body);font-size:12px;outline:none;flex:2}
+.cert-add-row input.year-inp{flex:1}
+.cert-add-row input:focus{border-color:var(--teal)}
+.cert-add-row button{padding:6px 10px;background:transparent;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-display);font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:4px;transition:all .2s;white-space:nowrap}
+.cert-add-row button:hover{background:rgba(0,212,170,.1)}
+
+.btn-primary{width:100%;padding:11px;background:transparent;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:3px;cursor:pointer;border-radius:5px;transition:all .2s;position:relative;overflow:hidden;margin-top:8px}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--teal);transform:translateX(-100%);transition:transform .3s ease;z-index:0}
+.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{color:var(--bg-deep)}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-cancel{width:100%;padding:8px;background:transparent;border:1px solid var(--btn-cancel-border);color:var(--text-muted);font-family:var(--font-display);font-size:10px;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;margin-top:5px}
+.btn-cancel:hover{border-color:var(--red);color:var(--red)}
+
+/* ============================================================ CONTENT */
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.roster-title{font-family:var(--font-display);font-size:11px;letter-spacing:4px;color:var(--text-primary);text-transform:uppercase}
+.roster-count{font-family:var(--font-mono);font-size:11px;color:var(--text-muted)}
+.roster-count span{color:var(--teal);font-weight:700}
+.coach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+
+/* ============================================================ COACH CARD */
+.coach-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;position:relative;transition:transform .2s,box-shadow .2s,border-color .2s;animation:cardIn .4s ease both}
+[data-theme="light"] .coach-card{box-shadow:0 2px 10px rgba(0,0,0,.06)}
+@keyframes cardIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.coach-card:hover{border-color:var(--teal);box-shadow:var(--card-hover-shadow);transform:translateY(-2px)}
+.card-accent-coach{height:3px;background:linear-gradient(90deg,var(--teal) 0%,var(--cyan-dim) 60%,transparent 100%)}
+.card-header{padding:12px 14px 10px;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid var(--border)}
+.coach-name{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text-primary);letter-spacing:1px;text-transform:uppercase;line-height:1.2}
+.coach-bio{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:3px}
+.coach-badges{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.badge{font-family:var(--font-mono);font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.badge-role{background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);color:var(--teal)}
+.badge-cert{background:rgba(255,195,0,.08);border:1px solid rgba(255,195,0,.2);color:var(--gold-dim)}
+.badge-unit{background:rgba(181,123,238,.08);border:1px solid rgba(181,123,238,.2);color:var(--purple)}
+.coach-avatar{width:52px;height:52px;border-radius:50%;border:2px solid var(--border-teal);background:linear-gradient(135deg,rgba(0,212,170,.2),rgba(0,245,255,.1));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative}
+[data-theme="rpg"] .coach-avatar{box-shadow:0 0 20px rgba(0,212,170,.2)}
+.coach-avatar-initials{font-family:var(--font-display);font-size:14px;font-weight:900;color:var(--teal);letter-spacing:1px}
+.card-actions{position:absolute;top:11px;right:11px;display:flex;gap:5px;opacity:0;transition:opacity .2s}
+.coach-card:hover .card-actions{opacity:1}
+.btn-card{padding:4px 8px;border-radius:3px;font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid;transition:all .15s;background:var(--bg-card)}
+.btn-card-edit{border-color:rgba(0,212,170,.4);color:var(--teal)}
+.btn-card-edit:hover{background:rgba(0,212,170,.1)}
+.btn-card-del{border-color:rgba(220,38,38,.4);color:var(--red)}
+.btn-card-del:hover{background:rgba(220,38,38,.1)}
+.card-body{padding:10px 14px}
+
+/* TABS */
+.tab-bar{display:flex;gap:2px;margin-bottom:10px;background:var(--tab-bg);padding:3px;border-radius:6px;flex-wrap:wrap}
+.tab-btn{flex:1;min-width:fit-content;padding:5px 6px;background:transparent;border:none;color:var(--text-muted);font-family:var(--font-mono);font-size:8px;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:all .2s;white-space:nowrap}
+.tab-btn.active{background:var(--teal);color:var(--bg-deep);font-weight:700}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* INFO PANE */
+.info-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;padding:8px 10px;background:var(--task-bg);border:1px solid var(--task-border);border-radius:5px}
+.info-icon{font-size:13px;flex-shrink:0;margin-top:1px}
+.info-label{font-family:var(--font-mono);font-size:8px;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;margin-bottom:2px}
+.info-val{font-size:12px;color:var(--text-primary);line-height:1.4;word-break:break-word}
+.unit-chips-display{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.unit-chip-display{background:rgba(0,212,170,.08);border:1px solid var(--border-teal);color:var(--teal);font-family:var(--font-mono);font-size:9px;padding:2px 7px;border-radius:3px}
+.cert-display-list{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.cert-display-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-primary)}
+.cert-display-year{font-family:var(--font-mono);font-size:9px;color:var(--gold-dim)}
+
+/* PROGRAM (Quest tanpa checkbox) */
+.prog-list-wrap{padding:2px 0}
+.prog-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:20px 0}
+.prog-add-btn{width:100%;padding:8px;background:var(--quest-bg);border:1px dashed var(--quest-border);color:var(--gold);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:6px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.prog-add-btn:hover{background:rgba(255,195,0,.1);border-style:solid}
+.prog-item{background:var(--quest-bg);border:1px solid var(--quest-border);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.prog-item:hover{border-color:var(--gold)}
+.prog-item-header{padding:10px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;cursor:pointer;background:var(--quest-header-bg)}
+.prog-item-left{flex:1;min-width:0}
+.prog-item-title-row{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.prog-item-name{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase}
+.prog-item-meta{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);display:flex;gap:10px;flex-wrap:wrap}
+.prog-item-right{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.prog-expand-icon{color:var(--text-muted);font-size:11px;transition:transform .2s;cursor:pointer}
+.prog-expand-icon.open{transform:rotate(90deg)}
+.btn-prog-edit{padding:3px 7px;border-radius:3px;font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid rgba(255,195,0,.3);color:var(--gold-dim);background:transparent;transition:all .15s}
+.btn-prog-edit:hover{background:rgba(255,195,0,.1)}
+.btn-prog-del{padding:3px 7px;border-radius:3px;font-family:var(--font-display);font-size:8px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid rgba(255,70,85,.3);color:var(--red);background:transparent;transition:all .15s}
+.btn-prog-del:hover{background:rgba(255,70,85,.08)}
+.prog-body{display:none;padding:10px 12px;border-top:1px solid var(--quest-border)}
+.prog-body.open{display:block}
+.prog-desc{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-bottom:10px;line-height:1.5;padding:8px 10px;background:var(--task-bg);border-radius:4px;border-left:2px solid var(--gold-dim)}
+
+/* Category (sama dengan atlet, tanpa task checkbox) */
+.cat-item{background:var(--cat-bg);border:1px solid var(--cat-border);border-radius:6px;margin-bottom:8px;overflow:hidden}
+.cat-header{padding:7px 10px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.cat-icon{font-size:12px;flex-shrink:0}
+.cat-name{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--cyan);letter-spacing:1px;flex:1}
+.cat-count{font-family:var(--font-mono);font-size:9px;color:var(--text-muted)}
+.cat-chevron{color:var(--text-muted);font-size:10px;transition:transform .2s}
+.cat-chevron.open{transform:rotate(90deg)}
+.cat-actions{display:flex;gap:4px;margin-left:4px}
+.btn-cat-del{padding:2px 6px;border-radius:3px;font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.25);color:var(--red);background:transparent;font-family:var(--font-mono);transition:all .15s}
+.btn-cat-del:hover{background:rgba(255,70,85,.08)}
+.cat-body{display:none;padding:8px 10px;border-top:1px solid var(--cat-border)}
+.cat-body.open{display:block}
+
+/* Task item WITHOUT checkbox */
+.task-item{background:var(--task-bg);border:1px solid var(--task-border);border-radius:5px;padding:9px 10px;margin-bottom:6px;transition:border-color .2s}
+.task-item:hover{border-color:var(--border)}
+.task-item-header{display:flex;align-items:flex-start;gap:8px}
+.task-num{width:20px;height:20px;border-radius:3px;border:1px solid var(--cat-border);background:var(--cat-bg);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:9px;color:var(--cyan);font-weight:700;margin-top:1px}
+.task-info{flex:1;min-width:0}
+.task-name{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--text-primary);letter-spacing:.5px}
+.task-desc{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);margin-top:2px;line-height:1.5}
+.task-reps{font-family:var(--font-display);font-size:9px;color:var(--purple);margin-top:3px}
+.task-links{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.task-link{font-family:var(--font-mono);font-size:8px;padding:2px 7px;border-radius:3px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:3px}
+.task-link.img-link{background:rgba(255,195,0,.07);border:1px solid rgba(255,195,0,.2);color:var(--gold)}
+.task-link.img-link:hover{background:rgba(255,195,0,.15)}
+.task-link.vid-link{background:rgba(255,70,85,.07);border:1px solid rgba(255,70,85,.2);color:var(--red)}
+.task-link.vid-link:hover{background:rgba(255,70,85,.15)}
+.task-del-btn{padding:2px 6px;border-radius:3px;font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.2);color:var(--red);background:transparent;font-family:var(--font-mono);transition:all .15s;flex-shrink:0}
+.task-del-btn:hover{background:rgba(255,70,85,.08)}
+.task-thumbnail{width:100%;max-height:100px;object-fit:cover;border-radius:4px;margin-top:6px;border:1px solid var(--border)}
+.add-task-btn{width:100%;padding:6px;background:transparent;border:1px dashed var(--cat-border);color:var(--cyan);font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;transition:all .2s;margin-top:4px;text-transform:uppercase}
+.add-task-btn:hover{border-style:solid;background:var(--cat-bg)}
+.add-cat-btn{width:100%;padding:7px;background:transparent;border:1px dashed var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;cursor:pointer;border-radius:5px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.add-cat-btn:hover{border-color:var(--cyan-dim);color:var(--cyan);border-style:solid}
+
+/* GUIDEBOOK PANE */
+.guide-pane{padding:2px 0}
+.guide-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:20px 0}
+.guide-add-btn{width:100%;padding:8px;background:var(--guide-bg);border:1px dashed var(--guide-border);color:var(--teal);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:6px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.guide-add-btn:hover{background:rgba(0,212,170,.1);border-style:solid}
+.guide-card{background:var(--guide-bg);border:1px solid var(--guide-border);border-radius:8px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.guide-card:hover{border-color:var(--teal)}
+.guide-card-inner{padding:12px 14px}
+.guide-card-top{display:flex;align-items:flex-start;gap:10px}
+.guide-thumb{width:64px;height:64px;border-radius:6px;object-fit:cover;border:1px solid var(--guide-border);flex-shrink:0;background:var(--task-bg)}
+.guide-thumb-placeholder{width:64px;height:64px;border-radius:6px;border:1px dashed var(--guide-border);display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--task-bg);flex-shrink:0}
+.guide-info{flex:1;min-width:0}
+.guide-title{font-family:var(--font-display);font-size:11px;font-weight:700;color:var(--teal);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.guide-desc{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);line-height:1.5;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.guide-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.guide-tag{font-family:var(--font-mono);font-size:8px;padding:2px 6px;border-radius:3px;background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.2);color:var(--teal)}
+.guide-actions{display:flex;gap:5px;margin-top:8px;border-top:1px solid var(--guide-border);padding-top:8px;justify-content:space-between;align-items:center}
+.guide-action-left{display:flex;gap:6px}
+.guide-link-btn{font-family:var(--font-mono);font-size:8px;padding:4px 10px;border-radius:4px;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+.guide-link-drive{background:rgba(255,195,0,.07);border:1px solid rgba(255,195,0,.25);color:var(--gold)}
+.guide-link-drive:hover{background:rgba(255,195,0,.15)}
+.guide-link-img{background:rgba(0,212,170,.07);border:1px solid rgba(0,212,170,.2);color:var(--teal)}
+.guide-link-img:hover{background:rgba(0,212,170,.15)}
+.guide-del-btn{padding:4px 8px;border-radius:3px;font-family:var(--font-mono);font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.25);color:var(--red);background:transparent;transition:all .15s}
+.guide-del-btn:hover{background:rgba(255,70,85,.08)}
+.guide-edit-btn{padding:4px 8px;border-radius:3px;font-family:var(--font-mono);font-size:8px;cursor:pointer;border:1px solid rgba(0,212,170,.3);color:var(--teal);background:transparent;transition:all .15s}
+.guide-edit-btn:hover{background:rgba(0,212,170,.1)}
+
+/* STAT OVERVIEW (Coach Level) */
+.coach-level-wrap{display:flex;flex-direction:column;align-items:center;min-width:56px;flex-shrink:0}
+.coach-score-ring{width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--teal) calc(var(--score)*1%),var(--score-track) 0%);display:flex;align-items:center;justify-content:center;position:relative}
+[data-theme="rpg"] .coach-score-ring{box-shadow:0 0 12px rgba(0,212,170,.25)}
+.coach-score-ring::before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--bg-card)}
+.coach-score-num{font-family:var(--font-display);font-size:12px;font-weight:900;color:var(--teal);position:relative;z-index:1}
+.coach-score-label{font-family:var(--font-mono);font-size:8px;color:var(--text-muted);letter-spacing:1px;margin-top:3px}
+
+/* NOTES PANE */
+.note-item{background:var(--task-bg);border:1px solid var(--task-border);border-radius:6px;padding:9px 11px;margin-bottom:7px}
+.note-item-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.note-date{font-family:var(--font-mono);font-size:9px;color:var(--teal)}
+.note-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:11px;transition:color .15s}
+.note-del:hover{color:var(--red)}
+.note-body{font-size:12px;color:var(--text-primary);line-height:1.5}
+.note-add-area{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.note-add-area textarea{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:7px 9px;border-radius:5px;font-family:var(--font-body);font-size:12px;resize:vertical;min-height:60px;outline:none;line-height:1.5;transition:border-color .2s}
+.note-add-area textarea:focus{border-color:var(--teal)}
+.note-add-btn{padding:7px;background:transparent;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-display);font-size:9px;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;text-transform:uppercase}
+.note-add-btn:hover{background:rgba(0,212,170,.1)}
+
+/* ============================================================ MODAL */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-overlay);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--bg-modal);border:1px solid var(--border);border-radius:12px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;animation:slideUp .25s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-header{padding:16px 20px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg-modal);z-index:1}
+.modal-title{font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.modal-title.gold{color:var(--gold)}
+.modal-title.teal{color:var(--teal)}
+.modal-title.purple{color:var(--purple)}
+.modal-title.cyan{color:var(--cyan)}
+.modal-close{background:none;border:1px solid var(--border);color:var(--text-muted);width:28px;height:28px;border-radius:5px;cursor:pointer;font-size:14px;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:18px 20px}
+.modal-field{margin-bottom:14px}
+.modal-field label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px}
+.modal-field input,.modal-field textarea,.modal-field select{width:100%;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:9px 12px;border-radius:6px;font-family:var(--font-body);font-size:13px;outline:none;transition:border-color .2s}
+[data-theme="light"] .modal-field input,[data-theme="light"] .modal-field textarea,[data-theme="light"] .modal-field select{border-color:#e2e8f0}
+.modal-field input:focus,.modal-field textarea:focus,.modal-field select:focus{border-color:var(--teal)}
+.modal-field textarea{resize:vertical;min-height:70px;line-height:1.5}
+.modal-field select option{background:var(--bg-panel)}
+.modal-field-hint{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);margin-top:4px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-footer{padding:12px 20px 16px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid var(--border)}
+.btn-modal-cancel{padding:9px 16px;background:transparent;border:1px solid var(--btn-cancel-border);color:var(--text-muted);font-family:var(--font-display);font-size:10px;letter-spacing:1.5px;cursor:pointer;border-radius:5px;transition:all .2s}
+.btn-modal-cancel:hover{border-color:var(--red);color:var(--red)}
+.btn-modal-save{padding:9px 20px;background:transparent;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;position:relative;overflow:hidden}
+.btn-modal-save::before{content:'';position:absolute;inset:0;background:var(--teal);transform:translateX(-100%);transition:transform .25s;z-index:0}
+.btn-modal-save span{position:relative;z-index:1}
+.btn-modal-save:hover{color:var(--bg-deep)}
+.btn-modal-save:hover::before{transform:translateX(0)}
+.btn-modal-save.gold-btn{border-color:var(--gold);color:var(--gold)}
+.btn-modal-save.gold-btn::before{background:var(--gold)}
+.divider-line{height:1px;background:var(--border);margin:14px 0}
+.modal-section-title{font-family:var(--font-mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.modal-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Icon picker */
+.icon-picker{display:flex;gap:6px;flex-wrap:wrap}
+.icon-opt{width:32px;height:32px;border-radius:5px;border:1px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .15s}
+.icon-opt:hover{border-color:var(--teal)}
+.icon-opt.selected{border-color:var(--teal);background:rgba(0,212,170,.1)}
+
+/* Empty */
+.empty-state{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;color:var(--text-dim);text-align:center}
+.empty-icon{font-size:36px;margin-bottom:12px;opacity:.3}
+.empty-text{font-family:var(--font-display);font-size:11px;letter-spacing:3px;text-transform:uppercase}
+.hidden{display:none!important}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* Search */
+.search-wrap{position:relative;display:flex;align-items:center}
+.search-wrap input{width:100%;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:8px 12px 8px 34px;border-radius:7px;font-family:var(--font-body);font-size:13px;outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--teal)}
+.search-wrap input::placeholder{color:var(--text-muted)}
+.search-icon{position:absolute;left:10px;color:var(--text-muted);font-size:13px;pointer-events:none}
+.header-center{flex:1;max-width:400px;min-width:160px}
+
+/* Specialization dropdown */
+.spec-badge{font-family:var(--font-mono);font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.2);color:var(--orange)}
+
+/* Status indicator on card */
+.coach-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.coach-status-dot.active{background:var(--green)}
+[data-theme="rpg"] .coach-status-dot.active{box-shadow:0 0 6px var(--green)}
+.coach-status-dot.inactive{background:var(--text-dim)}
+
+@media(max-width:860px){.main-layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.site-header{padding:10px 14px}.header-center{order:3;max-width:100%;width:100%;min-width:0}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">YD<span>.</span>ATHLETE<sub>COACH</sub></div>
+  <div class="header-center">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Cari nama pelatih atau unit...">
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-nav">
+      <a href="index.html" class="nav-link">◈ Atlet</a>
+      <a href="#" class="nav-link active">⚙ Pelatih</a>
+    </div>
+    <div class="header-status">
+      <div class="status-dot"></div>
+      <span id="headerDate"></span>
+    </div>
+    <div class="theme-toggle" onclick="cycleTheme()">
+      <span class="theme-toggle-icon" id="themeIcon">◉</span>
+      <span class="theme-toggle-label" id="themeLabel">RPG</span>
+    </div>
+  </div>
+</header>
+
+<div class="main-layout">
+  <!-- ============================================================ SIDEBAR FORM -->
+  <aside class="sidebar">
+    <div class="panel-title" id="formPanelTitle">🧑‍🏫 Registrasi Pelatih</div>
+    <input type="hidden" id="editId">
+
+    <div class="form-section">
+      <div class="section-label">Identitas</div>
+      <div class="form-row">
+        <div class="form-field" style="flex:2">
+          <label>Nama Lengkap</label>
+          <input type="text" id="nama" placeholder="Nama pelatih...">
+        </div>
+        <div class="form-field">
+          <label>Status</label>
+          <select id="statusAktif">
+            <option value="aktif">Aktif</option>
+            <option value="nonaktif">Non-aktif</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Tgl. Lahir</label>
+          <input type="date" id="tglLahir">
+        </div>
+        <div class="form-field">
+          <label>Spesialisasi</label>
+          <select id="spesialisasi">
+            <option value="Pelatih Kepala">Pelatih Kepala</option>
+            <option value="Asisten Pelatih">Asisten Pelatih</option>
+            <option value="Pelatih Fisik">Pelatih Fisik</option>
+            <option value="Pelatih Teknik">Pelatih Teknik</option>
+            <option value="Pelatih Mental">Pelatih Mental</option>
+            <option value="Analis">Analis</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-label">Kontak & Lokasi</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>No. HP / WhatsApp</label>
+          <input type="tel" id="kontak" placeholder="+62...">
+        </div>
+        <div class="form-field">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="email@...">
+        </div>
+      </div>
+      <div class="form-field" style="margin-bottom:7px">
+        <label>Alamat</label>
+        <textarea id="alamat" placeholder="Alamat lengkap..." style="min-height:48px"></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-label">Unit yang Dipegang</div>
+      <div class="unit-tags-wrap" id="unitTagsWrap" onclick="document.getElementById('unitInput').focus()">
+        <input type="text" class="unit-tag-input" id="unitInput" placeholder="Ketik unit lalu Enter...">
+      </div>
+      <div class="unit-tag-hint">Tekan Enter untuk menambah unit. Contoh: Unit A, Remaja, Senior</div>
+      <input type="hidden" id="unitData" value="[]">
+    </div>
+
+    <div class="form-section">
+      <div class="section-label">Sertifikasi</div>
+      <div class="cert-list" id="certList"></div>
+      <div class="cert-add-row">
+        <input type="text" id="certNama" placeholder="Nama sertifikasi...">
+        <input type="text" class="year-inp" id="certTahun" placeholder="Tahun">
+        <button onclick="addCert()">+ Tambah</button>
+      </div>
+      <input type="hidden" id="certData" value="[]">
+    </div>
+
+    <div class="form-section">
+      <div class="section-label">Pengalaman & Catatan</div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Tahun Mulai Melatih</label>
+          <input type="number" id="tahunMulai" placeholder="2015">
+        </div>
+        <div class="form-field">
+          <label>Lisensi Kepelatihan</label>
+          <input type="text" id="lisensi" placeholder="Contoh: KONI Level 2">
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Bio Singkat</label>
+        <textarea id="bio" placeholder="Ceritakan latar belakang pelatih..." style="min-height:55px"></textarea>
+      </div>
+    </div>
+
+    <button class="btn-primary" id="btnSimpan"><span>▶ SIMPAN DATA PELATIH</span></button>
+    <button class="btn-cancel hidden" id="btnBatal">✕ BATAL EDIT</button>
+  </aside>
+
+  <!-- ============================================================ CONTENT AREA -->
+  <main class="content-area">
+    <div class="content-header">
+      <div class="roster-title">Roster Pelatih</div>
+      <div class="roster-count">Total: <span id="totalCount">0</span> Pelatih</div>
+    </div>
+    <div class="coach-grid" id="coachGrid"></div>
+  </main>
+</div>
+
+<!-- ===== MODAL PROGRAM LATIHAN ===== -->
+<div class="modal-overlay hidden" id="modalProgram">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title gold">📋 Program Latihan</div>
+      <button class="modal-close" onclick="closeModal('modalProgram')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Nama Program</label>
+        <input type="text" id="pNama" placeholder="Contoh: Program Pemanasan Standar Tim">
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Tanggal Mulai</label>
+          <input type="date" id="pTglMulai">
+        </div>
+        <div class="modal-field">
+          <label>Tanggal Selesai</label>
+          <input type="date" id="pTglSelesai">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Target / Tujuan Program</label>
+        <input type="text" id="pTarget" placeholder="Contoh: Meningkatkan daya tahan 20% dalam 4 minggu">
+      </div>
+      <div class="modal-field">
+        <label>Deskripsi Program</label>
+        <textarea id="pDesc" placeholder="Jelaskan program ini secara singkat..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalProgram')">Batal</button>
+      <button class="btn-modal-save gold-btn" id="btnSaveProgram" onclick="saveProgram()"><span>✦ SIMPAN PROGRAM</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL KATEGORI ===== -->
+<div class="modal-overlay hidden" id="modalKategori">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title cyan">⚡ Tambah Kategori</div>
+      <button class="modal-close" onclick="closeModal('modalKategori')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Nama Kategori</label>
+        <input type="text" id="katNama" placeholder="Contoh: Pemanasan, Latihan Inti, Pendinginan...">
+      </div>
+      <div class="modal-field">
+        <label>Ikon Kategori</label>
+        <div class="icon-picker" id="iconPicker">
+          <button class="icon-opt selected" data-icon="🔥" onclick="selectIcon(this)">🔥</button>
+          <button class="icon-opt" data-icon="⚡" onclick="selectIcon(this)">⚡</button>
+          <button class="icon-opt" data-icon="🥊" onclick="selectIcon(this)">🥊</button>
+          <button class="icon-opt" data-icon="🏃" onclick="selectIcon(this)">🏃</button>
+          <button class="icon-opt" data-icon="💪" onclick="selectIcon(this)">💪</button>
+          <button class="icon-opt" data-icon="🧘" onclick="selectIcon(this)">🧘</button>
+          <button class="icon-opt" data-icon="⚔️" onclick="selectIcon(this)">⚔️</button>
+          <button class="icon-opt" data-icon="🛡️" onclick="selectIcon(this)">🛡️</button>
+          <button class="icon-opt" data-icon="🎯" onclick="selectIcon(this)">🎯</button>
+          <button class="icon-opt" data-icon="🏋️" onclick="selectIcon(this)">🏋️</button>
+          <button class="icon-opt" data-icon="📊" onclick="selectIcon(this)">📊</button>
+          <button class="icon-opt" data-icon="❄️" onclick="selectIcon(this)">❄️</button>
+          <button class="icon-opt" data-icon="🎽" onclick="selectIcon(this)">🎽</button>
+          <button class="icon-opt" data-icon="🧗" onclick="selectIcon(this)">🧗</button>
+          <button class="icon-opt" data-icon="🔬" onclick="selectIcon(this)">🔬</button>
+          <button class="icon-opt" data-icon="📝" onclick="selectIcon(this)">📝</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalKategori')">Batal</button>
+      <button class="btn-modal-save" onclick="saveKategori()"><span>+ TAMBAH KATEGORI</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL POIN LATIHAN ===== -->
+<div class="modal-overlay hidden" id="modalPoin">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title purple">✦ Tambah Poin Latihan</div>
+      <button class="modal-close" onclick="closeModal('modalPoin')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Judul Gerakan / Latihan</label>
+        <input type="text" id="poinJudul" placeholder="Contoh: Jumping Jack, Shadow Boxing, Push Up...">
+      </div>
+      <div class="modal-field">
+        <label>Instruksi / Deskripsi</label>
+        <textarea id="poinDesc" placeholder="Jelaskan cara melakukan gerakan atau arahan pelatih..."></textarea>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Repetisi / Waktu / Intensitas</label>
+          <input type="text" id="poinReps" placeholder="3 x 10 reps / 2 menit / 80% HR">
+        </div>
+        <div class="modal-field">
+          <label>Tipe</label>
+          <select id="poinTipe">
+            <option value="repetisi">Repetisi</option>
+            <option value="waktu">Waktu</option>
+            <option value="jarak">Jarak</option>
+            <option value="set">Set</option>
+            <option value="persentase">% Intensitas</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider-line"></div>
+      <div class="modal-section-title">Media Referensi (Opsional)</div>
+      <div class="modal-field">
+        <label>Link Gambar (URL)</label>
+        <input type="url" id="poinImgUrl" placeholder="https://...">
+        <div class="modal-field-hint">Gambar ilustrasi gerakan</div>
+      </div>
+      <div class="modal-field">
+        <label>Link Video / YouTube</label>
+        <input type="url" id="poinVidUrl" placeholder="https://youtube.com/...">
+        <div class="modal-field-hint">Video demonstrasi atau referensi teknik</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalPoin')">Batal</button>
+      <button class="btn-modal-save" style="border-color:var(--purple);color:var(--purple)" onclick="savePoin()"><span>✦ SIMPAN POIN</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL GUIDEBOOK ===== -->
+<div class="modal-overlay hidden" id="modalGuidebook">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title teal">📚 Tambah Guidebook</div>
+      <button class="modal-close" onclick="closeModal('modalGuidebook')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Judul Guidebook</label>
+        <input type="text" id="gbJudul" placeholder="Contoh: Panduan Teknik Dasar Pencak Silat">
+      </div>
+      <div class="modal-field">
+        <label>Deskripsi</label>
+        <textarea id="gbDesc" placeholder="Jelaskan isi dan tujuan guidebook ini..."></textarea>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Kategori</label>
+          <select id="gbKategori">
+            <option value="teknik">Teknik</option>
+            <option value="fisik">Fisik</option>
+            <option value="mental">Mental</option>
+            <option value="taktik">Taktik & Strategi</option>
+            <option value="nutrisi">Nutrisi & Recovery</option>
+            <option value="peraturan">Peraturan</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Tahun / Versi</label>
+          <input type="text" id="gbVersi" placeholder="2024 / v1.0">
+        </div>
+      </div>
+      <div class="divider-line"></div>
+      <div class="modal-section-title">Tautan Media</div>
+      <div class="modal-field">
+        <label>Link Cover / Gambar (URL)</label>
+        <input type="url" id="gbImgUrl" placeholder="https://...cover image...">
+        <div class="modal-field-hint">Gambar sampul atau thumbnail guidebook</div>
+      </div>
+      <div class="modal-field">
+        <label>Link Google Drive / PDF / File</label>
+        <input type="url" id="gbDriveUrl" placeholder="https://drive.google.com/...">
+        <div class="modal-field-hint">Tautan ke file guidebook yang bisa diakses pelatih</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalGuidebook')">Batal</button>
+      <button class="btn-modal-save" id="btnSaveGuidebook" onclick="saveGuidebook()"><span>📚 SIMPAN GUIDEBOOK</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- THEME -->
+<script>
+const THEMES=['rpg','dark','light'];
+const THEME_META={rpg:{icon:'◉',label:'RPG'},dark:{icon:'◐',label:'MALAM'},light:{icon:'○',label:'TERANG'}};
+window.cycleTheme=function(){const cur=document.documentElement.getAttribute('data-theme')||'rpg';const next=THEMES[(THEMES.indexOf(cur)+1)%THEMES.length];applyTheme(next)};
+window.applyTheme=function(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').textContent=THEME_META[t].icon;document.getElementById('themeLabel').textContent=THEME_META[t].label;localStorage.setItem('apex_theme',t)};
+const _saved=localStorage.getItem('apex_theme')||'rpg';
+document.addEventListener('DOMContentLoaded',()=>applyTheme(_saved));
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+  authDomain:"ydtc-5d55a.firebaseapp.com",
+  databaseURL:"https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"ydtc-5d55a"
+});
+const db = getDatabase(app);
+
+document.getElementById('headerDate').textContent =
+  new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+
+const btnSimpan=document.getElementById('btnSimpan'), btnBatal=document.getElementById('btnBatal');
+const grid=document.getElementById('coachGrid'), editIdEl=document.getElementById('editId');
+const searchInput=document.getElementById('searchInput');
+
+let allCoaches={};
+let _ctx={};
+
+function escapeHtml(value){
+  return String(value ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+function sanitizeUrl(raw){
+  if(!raw)return '';
+  const s=String(raw).trim();
+  if(!s)return '';
+  try{
+    const u=new URL(s);
+    if(u.protocol==='http:'||u.protocol==='https:')return u.href;
+  }catch(_){}
+  return '';
+}
+function diffYearsAccurate(fromDate){
+  if(!fromDate)return null;
+  const start=new Date(fromDate);
+  if(Number.isNaN(start.getTime()))return null;
+  const now=new Date();
+  let years=now.getFullYear()-start.getFullYear();
+  const monthDiff=now.getMonth()-start.getMonth();
+  if(monthDiff<0||(monthDiff===0&&now.getDate()<start.getDate()))years--;
+  return years<0?0:years;
+}
+
+// ============================================================ UNIT TAGS INPUT
+let currentUnits=[];
+const unitInput=document.getElementById('unitInput');
+const unitWrap=document.getElementById('unitTagsWrap');
+
+unitInput.addEventListener('keydown',e=>{
+  if((e.key==='Enter'||e.key===',')&&unitInput.value.trim()){
+    e.preventDefault();
+    addUnit(unitInput.value.trim().replace(/,$/,''));
+    unitInput.value='';
+  } else if(e.key==='Backspace'&&!unitInput.value&&currentUnits.length>0){
+    removeUnit(currentUnits.length-1);
+  }
+});
+function addUnit(val){
+  if(!val||currentUnits.includes(val))return;
+  currentUnits.push(val);
+  renderUnitTags();
+}
+function removeUnit(i){currentUnits.splice(i,1);renderUnitTags();}
+function renderUnitTags(){
+  const existing=unitWrap.querySelectorAll('.unit-tag');
+  existing.forEach(e=>e.remove());
+  currentUnits.forEach((u,i)=>{
+    const t=document.createElement('div');
+    t.className='unit-tag';
+    t.innerHTML=`${escapeHtml(u)}<button class="unit-tag-del" onclick="removeUnitByIdx(${i})">✕</button>`;
+    unitWrap.insertBefore(t,unitInput);
+  });
+  document.getElementById('unitData').value=JSON.stringify(currentUnits);
+}
+window.removeUnitByIdx=function(i){removeUnit(i);}
+
+// ============================================================ SERTIFIKASI
+let currentCerts=[];
+function renderCertList(){
+  const list=document.getElementById('certList');
+  list.innerHTML=currentCerts.map((c,i)=>`
+    <div class="cert-item">
+      <span class="cert-icon">🏅</span>
+      <span class="cert-name">${escapeHtml(c.nama)}</span>
+      <span class="cert-year">${escapeHtml(c.tahun||'')}</span>
+      <button class="cert-del" onclick="removeCert(${i})">✕</button>
+    </div>`).join('');
+  document.getElementById('certData').value=JSON.stringify(currentCerts);
+}
+window.addCert=function(){
+  const n=document.getElementById('certNama').value.trim();
+  const t=document.getElementById('certTahun').value.trim();
+  if(!n)return;
+  currentCerts.push({nama:n,tahun:t});
+  document.getElementById('certNama').value='';
+  document.getElementById('certTahun').value='';
+  renderCertList();
+};
+window.removeCert=function(i){currentCerts.splice(i,1);renderCertList();};
+
+// ============================================================ MODAL HELPERS
+window.closeModal=id=>document.getElementById(id).classList.add('hidden');
+window.openModal=id=>document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',e=>{if(e.target===m)m.classList.add('hidden')});
+});
+window.selectIcon=function(btn){
+  document.querySelectorAll('#iconPicker .icon-opt').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+};
+
+// ============================================================ PROGRAM MODAL
+window.openProgramModal=function(coachId,progId=null){
+  _ctx.progCoachId=coachId;
+  _ctx.progId=progId;
+  const p=progId&&allCoaches[coachId]?.program?.[progId];
+  document.getElementById('pNama').value=p?.nama||'';
+  document.getElementById('pTglMulai').value=p?.tglMulai||'';
+  document.getElementById('pTglSelesai').value=p?.tglSelesai||'';
+  document.getElementById('pTarget').value=p?.target||'';
+  document.getElementById('pDesc').value=p?.desc||'';
+  document.getElementById('btnSaveProgram').querySelector('span').textContent=progId?'✎ UPDATE PROGRAM':'✦ SIMPAN PROGRAM';
+  openModal('modalProgram');
+};
+window.saveProgram=async function(){
+  const nama=document.getElementById('pNama').value.trim();
+  const tglMulai=document.getElementById('pTglMulai').value;
+  const tglSelesai=document.getElementById('pTglSelesai').value;
+  const target=document.getElementById('pTarget').value.trim();
+  const desc=document.getElementById('pDesc').value.trim();
+  if(!nama){alert('Isi Nama Program!');return;}
+  const data={nama,tglMulai,tglSelesai,target,desc,createdAt:Date.now()};
+  const{progCoachId,progId}=_ctx;
+  if(progId){
+    await update(ref(db,`pelatih/${progCoachId}/program/${progId}`),{nama,tglMulai,tglSelesai,target,desc});
+  } else {
+    await push(ref(db,`pelatih/${progCoachId}/program`),data);
+  }
+  closeModal('modalProgram');
+};
+window.deleteProgram=function(coachId,progId){
+  if(confirm('Hapus program latihan ini?'))remove(ref(db,`pelatih/${coachId}/program/${progId}`));
+};
+
+// ============================================================ KATEGORI MODAL
+window.openKategoriModal=function(coachId,progId){
+  _ctx.katCoachId=coachId;_ctx.katProgId=progId;
+  document.getElementById('katNama').value='';
+  document.querySelectorAll('#iconPicker .icon-opt').forEach((b,i)=>b.classList.toggle('selected',i===0));
+  openModal('modalKategori');
+};
+window.saveKategori=async function(){
+  const nama=document.getElementById('katNama').value.trim();
+  const icon=document.querySelector('#iconPicker .icon-opt.selected')?.dataset.icon||'🔥';
+  if(!nama){alert('Isi nama kategori!');return;}
+  const{katCoachId,katProgId}=_ctx;
+  await push(ref(db,`pelatih/${katCoachId}/program/${katProgId}/kategori`),{nama,icon,createdAt:Date.now()});
+  closeModal('modalKategori');
+};
+window.deleteKategori=function(cId,pId,kId){
+  if(confirm('Hapus kategori ini beserta semua poin?'))remove(ref(db,`pelatih/${cId}/program/${pId}/kategori/${kId}`));
+};
+
+// ============================================================ POIN MODAL
+window.openPoinModal=function(cId,pId,kId){
+  _ctx.poinCoachId=cId;_ctx.poinProgId=pId;_ctx.poinKatId=kId;
+  ['poinJudul','poinDesc','poinReps','poinImgUrl','poinVidUrl'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('poinTipe').value='repetisi';
+  openModal('modalPoin');
+};
+window.savePoin=async function(){
+  const judul=document.getElementById('poinJudul').value.trim();
+  const desc=document.getElementById('poinDesc').value.trim();
+  const reps=document.getElementById('poinReps').value.trim();
+  const tipe=document.getElementById('poinTipe').value;
+  const imgUrl=document.getElementById('poinImgUrl').value.trim();
+  const vidUrl=document.getElementById('poinVidUrl').value.trim();
+  if(!judul){alert('Isi judul poin latihan!');return;}
+  const{poinCoachId,poinProgId,poinKatId}=_ctx;
+  await push(ref(db,`pelatih/${poinCoachId}/program/${poinProgId}/kategori/${poinKatId}/poin`),{judul,desc,reps,tipe,imgUrl,vidUrl,createdAt:Date.now()});
+  closeModal('modalPoin');
+};
+window.deletePoin=function(cId,pId,kId,tId){
+  remove(ref(db,`pelatih/${cId}/program/${pId}/kategori/${kId}/poin/${tId}`));
+};
+
+// ============================================================ GUIDEBOOK MODAL
+window.openGuidebookModal=function(coachId,gbId=null){
+  _ctx.gbCoachId=coachId;_ctx.gbId=gbId;
+  const gb=gbId&&allCoaches[coachId]?.guidebook?.[gbId];
+  document.getElementById('gbJudul').value=gb?.judul||'';
+  document.getElementById('gbDesc').value=gb?.desc||'';
+  document.getElementById('gbKategori').value=gb?.kategori||'teknik';
+  document.getElementById('gbVersi').value=gb?.versi||'';
+  document.getElementById('gbImgUrl').value=gb?.imgUrl||'';
+  document.getElementById('gbDriveUrl').value=gb?.driveUrl||'';
+  document.getElementById('btnSaveGuidebook').querySelector('span').textContent=gbId?'✎ UPDATE GUIDEBOOK':'📚 SIMPAN GUIDEBOOK';
+  openModal('modalGuidebook');
+};
+window.saveGuidebook=async function(){
+  const judul=document.getElementById('gbJudul').value.trim();
+  const desc=document.getElementById('gbDesc').value.trim();
+  const kategori=document.getElementById('gbKategori').value;
+  const versi=document.getElementById('gbVersi').value.trim();
+  const imgUrl=document.getElementById('gbImgUrl').value.trim();
+  const driveUrl=document.getElementById('gbDriveUrl').value.trim();
+  if(!judul){alert('Isi judul guidebook!');return;}
+  const data={judul,desc,kategori,versi,imgUrl,driveUrl,createdAt:Date.now()};
+  const{gbCoachId,gbId}=_ctx;
+  if(gbId){await update(ref(db,`pelatih/${gbCoachId}/guidebook/${gbId}`),{judul,desc,kategori,versi,imgUrl,driveUrl});}
+  else{await push(ref(db,`pelatih/${gbCoachId}/guidebook`),data);}
+  closeModal('modalGuidebook');
+};
+window.deleteGuidebook=function(cId,gbId){
+  if(confirm('Hapus guidebook ini?'))remove(ref(db,`pelatih/${cId}/guidebook/${gbId}`));
+};
+
+// ============================================================ NOTES
+window.addNote=function(cId){
+  const ta=document.getElementById(`note-input-${cId}`);
+  const val=ta?.value.trim();
+  if(!val)return;
+  push(ref(db,`pelatih/${cId}/notes`),{body:val,ts:Date.now()});
+  ta.value='';
+};
+window.deleteNote=function(cId,nId){remove(ref(db,`pelatih/${cId}/notes/${nId}`));};
+
+// ============================================================ RENDER PROGRAM PANE
+window.renderProgramPane=function(coachId){
+  const pane=document.getElementById(`pane-program-${coachId}`);
+  const d=allCoaches[coachId];
+  const programs=d?.program||{};
+  const entries=Object.entries(programs).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+  if(!entries.length){
+    pane.innerHTML=`<div class="prog-empty">⌀ Belum ada program latihan<br><small style="font-size:9px;opacity:.5">Tambah program untuk pelatih ini</small></div>
+    <button class="prog-add-btn" onclick="openProgramModal('${coachId}')">＋ BUAT PROGRAM LATIHAN</button>`;
+    return;
+  }
+  const today=new Date().toISOString().slice(0,10);
+  let html='';
+  entries.forEach(([pid,p])=>{
+    const status=!p.tglMulai?'upcoming':today<p.tglMulai?'upcoming':p.tglSelesai&&today>p.tglSelesai?'done':'active';
+    const sLabel={active:'● AKTIF',upcoming:'◌ AKAN DATANG',done:'✓ SELESAI'}[status];
+    const namaProgram=escapeHtml(p.nama);
+    const tglMulai=escapeHtml(p.tglMulai||'');
+    const tglSelesai=escapeHtml(p.tglSelesai||'');
+    const target=escapeHtml(p.target||'');
+    const desc=escapeHtml(p.desc||'');
+    const cats=Object.entries(p.kategori||{});
+    const totalPoin=cats.reduce((s,[,c])=>s+Object.keys(c.poin||{}).length,0);
+    html+=`<div class="prog-item" id="pitem-${pid}">
+      <div class="prog-item-header" onclick="toggleProgBody('${pid}')">
+        <div class="prog-item-left">
+          <div class="prog-item-title-row">
+            <span style="font-size:14px">📋</span>
+            <span class="prog-item-name">${namaProgram}</span>
+          </div>
+          <div class="prog-item-meta">
+            ${p.tglMulai?`<span>📅 ${tglMulai}${p.tglSelesai?' → '+tglSelesai:''}</span>`:''}
+            ${p.target?`<span>🎯 ${target}</span>`:''}
+            <span>⚡ ${totalPoin} poin latihan</span>
+          </div>
+        </div>
+        <div class="prog-item-right">
+          <span class="quest-status-badge ${status}" style="font-family:var(--font-mono);font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:3px;text-transform:uppercase">${sLabel}</span>
+          <button class="btn-prog-edit" onclick="event.stopPropagation();openProgramModal('${coachId}','${pid}')">✎</button>
+          <button class="btn-prog-del" onclick="event.stopPropagation();deleteProgram('${coachId}','${pid}')">✕</button>
+          <span class="prog-expand-icon" id="pexp-${pid}">▶</span>
+        </div>
+      </div>
+      <div class="prog-body" id="pbody-${pid}">
+        ${p.desc?`<div class="prog-desc">${desc}</div>`:''}
+        ${renderKategoriProgram(coachId,pid,p.kategori||{})}
+        <button class="add-cat-btn" onclick="openKategoriModal('${coachId}','${pid}')">+ Tambah Kategori</button>
+      </div>
+    </div>`;
+  });
+  html+=`<button class="prog-add-btn" onclick="openProgramModal('${coachId}')">＋ BUAT PROGRAM BARU</button>`;
+  pane.innerHTML=html;
+};
+
+function renderKategoriProgram(cId,pId,kategori){
+  const entries=Object.entries(kategori).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+  if(!entries.length)return'';
+  return entries.map(([kId,kat])=>{
+    const poin=Object.entries(kat.poin||{}).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+    const safeIcon=escapeHtml(kat.icon||'🔥');
+    const safeNama=escapeHtml(kat.nama);
+    return`<div class="cat-item" id="catitem-${kId}">
+      <div class="cat-header" onclick="toggleCatBody('${kId}')">
+        <span class="cat-icon">${safeIcon}</span>
+        <span class="cat-name">${safeNama}</span>
+        <span class="cat-count">${poin.length} poin</span>
+        <div class="cat-actions" onclick="event.stopPropagation()">
+          <button class="btn-cat-del" onclick="deleteKategori('${cId}','${pId}','${kId}')">✕</button>
+        </div>
+        <span class="cat-chevron" id="cchev-${kId}">▶</span>
+      </div>
+      <div class="cat-body" id="catbody-${kId}">
+        ${poin.map(([tid,t],idx)=>renderPoinItem(cId,pId,kId,tid,t,idx+1)).join('')}
+        <button class="add-task-btn" onclick="openPoinModal('${cId}','${pId}','${kId}')">+ Tambah Poin Latihan</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderPoinItem(cId,pId,kId,tId,t,num){
+  const title=escapeHtml(t.judul);
+  const desc=escapeHtml(t.desc);
+  const reps=escapeHtml(t.reps);
+  const tipe=escapeHtml(t.tipe||'repetisi');
+  const safeImgUrl=sanitizeUrl(t.imgUrl);
+  const safeVidUrl=sanitizeUrl(t.vidUrl);
+  const imgTag=safeImgUrl?`<img class="task-thumbnail" src="${safeImgUrl}" alt="ref" onerror="this.style.display='none'">` :'';
+  const links=[
+    safeImgUrl?`<a class="task-link img-link" href="${safeImgUrl}" target="_blank" rel="noopener noreferrer">🖼 Gambar</a>`:'',
+    safeVidUrl?`<a class="task-link vid-link" href="${safeVidUrl}" target="_blank" rel="noopener noreferrer">▶ Video</a>`:''
+  ].filter(Boolean).join('');
+  return`<div class="task-item">
+    <div class="task-item-header">
+      <div class="task-num">${num}</div>
+      <div class="task-info">
+        <div class="task-name">${title}</div>
+        ${t.desc?`<div class="task-desc">${desc}</div>`:''}
+        ${t.reps?`<div class="task-reps">◈ ${reps} <span style="font-size:8px;color:var(--text-dim)">[${tipe}]</span></div>`:''}
+        ${links?`<div class="task-links">${links}</div>`:''}
+        ${imgTag}
+      </div>
+      <button class="task-del-btn" onclick="deletePoin('${cId}','${pId}','${kId}','${tId}')">✕</button>
+    </div>
+  </div>`;
+}
+
+window.toggleProgBody=function(pid){
+  const body=document.getElementById('pbody-'+pid);
+  const icon=document.getElementById('pexp-'+pid);
+  const isOpen=body.classList.toggle('open');
+  icon?.classList.toggle('open',isOpen);
+};
+window.toggleCatBody=function(kId){
+  const body=document.getElementById('catbody-'+kId);
+  const chev=document.getElementById('cchev-'+kId);
+  const isOpen=body.classList.toggle('open');
+  chev?.classList.toggle('open',isOpen);
+};
+
+// ============================================================ RENDER GUIDEBOOK PANE
+window.renderGuidebookPane=function(coachId){
+  const pane=document.getElementById(`pane-guide-${coachId}`);
+  const d=allCoaches[coachId];
+  const books=d?.guidebook||{};
+  const entries=Object.entries(books).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+  const catLabel={teknik:'⚔ Teknik',fisik:'💪 Fisik',mental:'🧠 Mental',taktik:'🎯 Taktik',nutrisi:'🥗 Nutrisi',peraturan:'📜 Peraturan',lainnya:'📂 Lainnya'};
+  if(!entries.length){
+    pane.innerHTML=`<div class="guide-empty">⌀ Belum ada guidebook<br><small style="font-size:9px;opacity:.5">Tambahkan panduan untuk pelatih ini</small></div>
+    <button class="guide-add-btn" onclick="openGuidebookModal('${coachId}')">＋ TAMBAH GUIDEBOOK</button>`;
+    return;
+  }
+  let html=entries.map(([gbId,gb])=>{
+    const safeImgUrl=sanitizeUrl(gb.imgUrl);
+    const safeDriveUrl=sanitizeUrl(gb.driveUrl);
+    const judul=escapeHtml(gb.judul);
+    const desc=escapeHtml(gb.desc||'');
+    const versi=escapeHtml(gb.versi||'');
+    const thumb=safeImgUrl?`<img class="guide-thumb" src="${safeImgUrl}" alt="cover" onerror="this.style.display='none'">`:`<div class="guide-thumb-placeholder">📚</div>`;
+    return`<div class="guide-card">
+      <div class="guide-card-inner">
+        <div class="guide-card-top">
+          ${thumb}
+          <div class="guide-info">
+            <div class="guide-title">${judul}</div>
+            <div class="guide-desc">${desc}</div>
+            <div class="guide-meta">
+              ${catLabel[gb.kategori]?`<span class="guide-tag">${catLabel[gb.kategori]}</span>`:''}
+              ${gb.versi?`<span class="guide-tag">📌 ${versi}</span>`:''}
+            </div>
+          </div>
+        </div>
+        <div class="guide-actions">
+          <div class="guide-action-left">
+            ${safeDriveUrl?`<a class="guide-link-btn guide-link-drive" href="${safeDriveUrl}" target="_blank" rel="noopener noreferrer">📂 Buka File</a>`:''}
+            ${safeImgUrl?`<a class="guide-link-btn guide-link-img" href="${safeImgUrl}" target="_blank" rel="noopener noreferrer">🖼 Lihat Cover</a>`:''}
+          </div>
+          <div style="display:flex;gap:5px">
+            <button class="guide-edit-btn" onclick="openGuidebookModal('${coachId}','${gbId}')">✎ Edit</button>
+            <button class="guide-del-btn" onclick="deleteGuidebook('${coachId}','${gbId}')">✕ Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  html+=`<button class="guide-add-btn" onclick="openGuidebookModal('${coachId}')">＋ TAMBAH GUIDEBOOK BARU</button>`;
+  pane.innerHTML=html;
+};
+
+// ============================================================ RENDER NOTES PANE
+window.renderNotesPane=function(coachId){
+  const pane=document.getElementById(`pane-notes-${coachId}`);
+  const d=allCoaches[coachId];
+  const notes=d?.notes||{};
+  const entries=Object.entries(notes).sort(([,a],[,b])=>(b.ts||0)-(a.ts||0));
+  const notesHtml=entries.length
+    ?entries.map(([nId,n])=>`<div class="note-item">
+      <div class="note-item-header">
+        <span class="note-date">${new Date(n.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'})}</span>
+        <button class="note-del" onclick="deleteNote('${coachId}','${nId}')">✕</button>
+      </div>
+      <div class="note-body">${escapeHtml(n.body)}</div>
+    </div>`).join('')
+    :`<div class="guide-empty">⌀ Belum ada catatan perkembangan</div>`;
+  pane.innerHTML=`${notesHtml}
+  <div class="note-add-area">
+    <textarea id="note-input-${coachId}" placeholder="Tambah catatan perkembangan atau evaluasi pelatih..."></textarea>
+    <button class="note-add-btn" onclick="addNote('${coachId}')">+ SIMPAN CATATAN</button>
+  </div>`;
+};
+
+// ============================================================ RENDER INFO PANE
+window.renderInfoPane=function(coachId){
+  const pane=document.getElementById(`pane-info-${coachId}`);
+  const d=allCoaches[coachId];
+  if(!d)return;
+  const units=d.unit||[];
+  const certs=d.sertifikasi||[];
+  const ageVal=diffYearsAccurate(d.tglLahir);
+  const age=ageVal===null?'–':`${ageVal} tahun`;
+  const expVal=diffYearsAccurate(`${d.tahunMulai}-01-01`);
+  const pengalaman=d.tahunMulai&&expVal!==null?`${expVal} tahun (sejak ${escapeHtml(d.tahunMulai)})`:'–';
+  const safeBio=escapeHtml(d.bio);
+  const safeBirth=escapeHtml(d.tglLahir||'–');
+  const safeKontak=escapeHtml(d.kontak||'–');
+  const safeEmail=escapeHtml(d.email||'');
+  const safeAlamat=escapeHtml(d.alamat||'–');
+  const safeLisensi=escapeHtml(d.lisensi||'–');
+  pane.innerHTML=`
+    ${d.bio?`<div class="info-row"><span class="info-icon">💬</span><div><div class="info-label">Bio</div><div class="info-val" style="color:var(--text-muted)">${safeBio}</div></div></div>`:''}
+    <div class="info-row"><span class="info-icon">📅</span><div><div class="info-label">Tanggal Lahir & Usia</div><div class="info-val">${safeBirth} · <span style="color:var(--text-muted)">${age}</span></div></div></div>
+    <div class="info-row"><span class="info-icon">📱</span><div><div class="info-label">Kontak</div><div class="info-val">${safeKontak} ${d.email?`<span style="color:var(--text-muted)">/ ${safeEmail}</span>`:''}</div></div></div>
+    <div class="info-row"><span class="info-icon">📍</span><div><div class="info-label">Alamat</div><div class="info-val">${safeAlamat}</div></div></div>
+    <div class="info-row"><span class="info-icon">🏅</span><div><div class="info-label">Lisensi</div><div class="info-val">${safeLisensi}</div></div></div>
+    <div class="info-row"><span class="info-icon">⏱</span><div><div class="info-label">Pengalaman Melatih</div><div class="info-val">${pengalaman}</div></div></div>
+    ${units.length?`<div class="info-row"><span class="info-icon">🏟</span><div><div class="info-label">Unit yang Dipegang</div><div class="unit-chips-display">${units.map(u=>`<span class="unit-chip-display">${escapeHtml(u)}</span>`).join('')}</div></div></div>`:''}
+    ${certs.length?`<div class="info-row"><span class="info-icon">🏆</span><div><div class="info-label">Sertifikasi</div><div class="cert-display-list">${certs.map(c=>`<div class="cert-display-item">🏅 ${escapeHtml(c.nama)} <span class="cert-display-year">${escapeHtml(c.tahun||'')}</span></div>`).join('')}</div></div></div>`:''}
+  `;
+};
+
+// ============================================================ TABS
+window.switchTab=function(id,tab){
+  const card=document.getElementById('card-'+id);
+  card.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  card.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  card.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  card.querySelector(`#pane-${tab}-${id}`).classList.add('active');
+  if(tab==='info')renderInfoPane(id);
+  if(tab==='program')renderProgramPane(id);
+  if(tab==='guide')renderGuidebookPane(id);
+  if(tab==='notes')renderNotesPane(id);
+};
+
+// ============================================================ SEARCH
+searchInput.addEventListener('input',renderFiltered);
+function renderFiltered(){
+  const q=searchInput.value.trim().toLowerCase();
+  let html='';
+  let count=0;
+  Object.entries(allCoaches).forEach(([id,d])=>{
+    const matchName=d.nama?.toLowerCase().includes(q);
+    const matchUnit=(d.unit||[]).some(u=>u.toLowerCase().includes(q));
+    if(!q||matchName||matchUnit){
+      html+=renderCard(id,d);
+      count++;
+    }
+  });
+  grid.innerHTML=html;
+  document.getElementById('totalCount').textContent=Object.keys(allCoaches).length;
+  if(count===0)grid.innerHTML=`<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-text">${q?'Pelatih tidak ditemukan':'Belum ada pelatih terdaftar'}</div></div>`;
+}
+
+// ============================================================ RENDER CARD
+function getInitials(nama){return(nama||'').split(' ').slice(0,2).map(w=>w[0]?.toUpperCase()||'').join('')}
+function calcCoachLevel(d){
+  const certScore=Math.min((d.sertifikasi||[]).length*10,40);
+  const expScore=d.tahunMulai?Math.min((new Date().getFullYear()-Number(d.tahunMulai))*4,40):0;
+  const unitScore=Math.min((d.unit||[]).length*5,20);
+  return Math.min(certScore+expScore+unitScore,100);
+}
+function countPrograms(d){return Object.keys(d?.program||{}).length;}
+function countGuides(d){return Object.keys(d?.guidebook||{}).length;}
+
+function renderCard(id,d){
+  const safeNama=escapeHtml(d.nama);
+  const safeSpesialisasi=escapeHtml(d.spesialisasi||'Pelatih');
+  const initials=escapeHtml(getInitials(d.nama));
+  const level=calcCoachLevel(d);
+  const units=d.unit||[];
+  const certs=d.sertifikasi||[];
+  const ageVal=diffYearsAccurate(d.tglLahir);
+  const age=ageVal===null?'':` · ${ageVal} thn`;
+  const pC=countPrograms(d), gC=countGuides(d);
+  const isActive=d.statusAktif!=='nonaktif';
+  return`<div class="coach-card" id="card-${id}">
+    <div class="card-accent-coach"></div>
+    <div class="card-actions">
+      <button class="btn-card btn-card-edit" onclick="loadEdit('${id}')">EDIT</button>
+      <button class="btn-card btn-card-del" onclick="hapusPelatih('${id}')">DEL</button>
+    </div>
+    <div class="card-header">
+      <div style="display:flex;gap:10px;align-items:flex-start;flex:1;min-width:0">
+        <div class="coach-avatar"><div class="coach-avatar-initials">${initials}</div></div>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px">
+            <div class="coach-name">${safeNama}</div>
+            <div class="coach-status-dot ${isActive?'active':'inactive'}" title="${isActive?'Aktif':'Non-aktif'}"></div>
+          </div>
+          <div class="coach-bio">${safeSpesialisasi}${age}</div>
+          <div class="coach-badges">
+            <span class="badge badge-role">${safeSpesialisasi}</span>
+            ${certs.length?`<span class="badge badge-cert">🏅 ${certs.length} sertifikasi</span>`:''}
+            ${units.slice(0,2).map(u=>`<span class="badge badge-unit">${escapeHtml(u)}</span>`).join('')}
+            ${units.length>2?`<span class="badge badge-unit">+${units.length-2}</span>`:''}
+          </div>
+        </div>
+      </div>
+      <div class="coach-level-wrap">
+        <div class="coach-score-ring" style="--score:${level}"><div class="coach-score-num">${level}</div></div>
+        <div class="coach-score-label">Level</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="info" onclick="switchTab('${id}','info')">INFO</button>
+        <button class="tab-btn" data-tab="program" onclick="switchTab('${id}','program')">PROGRAM${pC>0?` (${pC})`:''}</button>
+        <button class="tab-btn" data-tab="guide" onclick="switchTab('${id}','guide')">GUIDEBOOK${gC>0?` (${gC})`:''}</button>
+        <button class="tab-btn" data-tab="notes" onclick="switchTab('${id}','notes')">CATATAN</button>
+      </div>
+      <div id="pane-info-${id}" class="tab-pane active">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:16px 0">⌀ Klik tab INFO untuk memuat detail</div>
+      </div>
+      <div id="pane-program-${id}" class="tab-pane">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:16px 0">⌀ Klik tab PROGRAM untuk memuat</div>
+      </div>
+      <div id="pane-guide-${id}" class="tab-pane">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:16px 0">⌀ Klik tab GUIDEBOOK untuk memuat</div>
+      </div>
+      <div id="pane-notes-${id}" class="tab-pane">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:16px 0">⌀ Klik tab CATATAN untuk memuat</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============================================================ LOAD EDIT
+window.loadEdit=function(id){
+  const d=allCoaches[id];if(!d)return;
+  editIdEl.value=id;
+  ['nama','tglLahir','kontak','email','alamat','tahunMulai','lisensi','bio'].forEach(k=>{
+    const el=document.getElementById(k);if(el)el.value=d[k]||'';
+  });
+  document.getElementById('spesialisasi').value=d.spesialisasi||'Asisten Pelatih';
+  document.getElementById('statusAktif').value=d.statusAktif||'aktif';
+  currentUnits=Array.isArray(d.unit)?[...d.unit]:[];
+  renderUnitTags();
+  currentCerts=Array.isArray(d.sertifikasi)?[...d.sertifikasi]:[];
+  renderCertList();
+  document.getElementById('formPanelTitle').textContent='✎ Edit Data Pelatih';
+  btnSimpan.querySelector('span').textContent='✎ UPDATE DATA PELATIH';
+  btnBatal.classList.remove('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+function resetFormState(){
+  editIdEl.value='';
+  ['nama','tglLahir','kontak','email','alamat','tahunMulai','lisensi','bio','certNama','certTahun','unitInput'].forEach(k=>{
+    const el=document.getElementById(k);
+    if(el)el.value='';
+  });
+  document.getElementById('spesialisasi').value='Pelatih Kepala';
+  document.getElementById('statusAktif').value='aktif';
+  currentUnits=[];
+  currentCerts=[];
+  renderUnitTags();
+  renderCertList();
+  document.getElementById('formPanelTitle').textContent='🧑‍🏫 Registrasi Pelatih';
+  btnSimpan.querySelector('span').textContent='▶ SIMPAN DATA PELATIH';
+  btnBatal.classList.add('hidden');
+}
+btnBatal.onclick=resetFormState;
+
+// ============================================================ SIMPAN
+btnSimpan.onclick=async function(){
+  const g=fid=>document.getElementById(fid).value;
+  const nama=g('nama').trim();
+  if(!nama){alert('Isi nama pelatih!');return;}
+  const data={
+    nama,
+    tglLahir:g('tglLahir'),
+    spesialisasi:g('spesialisasi'),
+    statusAktif:g('statusAktif'),
+    kontak:g('kontak'),
+    email:g('email'),
+    alamat:g('alamat'),
+    tahunMulai:g('tahunMulai'),
+    lisensi:g('lisensi'),
+    bio:g('bio'),
+    unit:currentUnits,
+    sertifikasi:currentCerts,
+    updatedAt:Date.now()
+  };
+  const id=editIdEl.value;
+  try{
+    if(id){await update(ref(db,`pelatih/${id}`),data);}
+    else{await push(ref(db,'pelatih'),{...data,createdAt:Date.now()});}
+    alert(id?'Data pelatih berhasil diupdate!':'Pelatih berhasil didaftarkan!');
+    resetFormState();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){alert('Error: '+e.message);}
+};
+
+window.hapusPelatih=function(id){
+  if(confirm('Hapus data pelatih ini permanen?'))remove(ref(db,'pelatih/'+id)).catch(e=>alert('Gagal: '+e.message));
+};
+
+// ============================================================ LISTEN
+onValue(ref(db,'pelatih'),snap=>{
+  allCoaches={};
+  snap.forEach(c=>{allCoaches[c.key]=c.val();});
+  renderFiltered();
+});
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
+</script>
+</body>
+</html>

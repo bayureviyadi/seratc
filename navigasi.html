@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="rpg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YD ATHLETE — Panel Navigasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================ THEMES */
+[data-theme="rpg"] {
+  --cyan:#00f5ff;--cyan-dim:#00b4cc;--gold:#ffc300;--gold-dim:#c99800;
+  --purple:#b57bee;--red:#ff4655;--green:#39ff87;--orange:#ff8c42;--teal:#00d4aa;
+  --bg-deep:#060a0f;--bg-panel:#0c1219;--bg-card:#0e1620;--bg-modal:#0a1018;
+  --border:rgba(0,245,255,0.15);--border-gold:rgba(255,195,0,0.25);--border-green:rgba(57,255,135,0.25);--border-teal:rgba(0,212,170,0.25);
+  --text-primary:#e8f4f8;--text-muted:#5a7a8a;--text-dim:#3a5060;
+  --bar-track:rgba(255,255,255,0.05);--tab-bg:rgba(0,0,0,0.3);
+  --input-bg:rgba(0,245,255,0.03);--skill-input-bg:rgba(255,195,0,0.05);
+  --header-bg:rgba(6,10,15,0.92);--sidebar-bg:#0c1219;
+  --card-hover-shadow:0 8px 40px rgba(0,0,0,0.5),0 0 0 1px rgba(0,245,255,0.12);
+  --score-track:#1a2a35;--btn-cancel-border:#2a3a45;
+  --chart-grid:rgba(0,245,255,0.06);
+  --quest-bg:rgba(255,195,0,0.04);--quest-border:rgba(255,195,0,0.2);--quest-header-bg:rgba(255,195,0,0.07);
+  --cat-bg:rgba(0,245,255,0.04);--cat-border:rgba(0,245,255,0.18);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --guide-bg:rgba(0,212,170,0.04);--guide-border:rgba(0,212,170,0.2);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Orbitron',monospace;--scanline:rgba(0,245,255,0.012);
+}
+[data-theme="dark"] {
+  --cyan:#60a5fa;--cyan-dim:#3b82f6;--gold:#f59e0b;--gold-dim:#d97706;
+  --purple:#a78bfa;--red:#f87171;--green:#4ade80;--orange:#fb923c;--teal:#2dd4bf;
+  --bg-deep:#0f172a;--bg-panel:#1e293b;--bg-card:#1e293b;--bg-modal:#0f172a;
+  --border:rgba(96,165,250,0.12);--border-gold:rgba(245,158,11,0.2);--border-green:rgba(74,222,128,0.2);--border-teal:rgba(45,212,191,0.2);
+  --text-primary:#f1f5f9;--text-muted:#64748b;--text-dim:#334155;
+  --bar-track:rgba(255,255,255,0.06);--tab-bg:rgba(0,0,0,0.25);
+  --input-bg:rgba(96,165,250,0.04);--skill-input-bg:rgba(245,158,11,0.05);
+  --header-bg:rgba(15,23,42,0.94);--sidebar-bg:#1e293b;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.4),0 0 0 1px rgba(96,165,250,0.12);
+  --score-track:#0f172a;--btn-cancel-border:#334155;
+  --quest-bg:rgba(245,158,11,0.04);--quest-border:rgba(245,158,11,0.18);--quest-header-bg:rgba(245,158,11,0.07);
+  --cat-bg:rgba(96,165,250,0.04);--cat-border:rgba(96,165,250,0.15);
+  --task-bg:rgba(255,255,255,0.02);--task-border:rgba(255,255,255,0.06);
+  --modal-overlay:rgba(0,0,0,0.85);
+  --guide-bg:rgba(45,212,191,0.04);--guide-border:rgba(45,212,191,0.18);
+  --font-body:'Rajdhani',sans-serif;--font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Rajdhani',sans-serif;--scanline:transparent;
+}
+[data-theme="light"] {
+  --cyan:#0066cc;--cyan-dim:#0052a3;--gold:#d97706;--gold-dim:#b45309;
+  --purple:#7c3aed;--red:#dc2626;--green:#16a34a;--orange:#ea580c;--teal:#0d9488;
+  --bg-deep:#f0f4f8;--bg-panel:#ffffff;--bg-card:#ffffff;--bg-modal:#f8fafc;
+  --border:rgba(0,102,204,0.14);--border-gold:rgba(217,119,6,0.22);--border-green:rgba(22,163,74,0.2);--border-teal:rgba(13,148,136,0.2);
+  --text-primary:#0f172a;--text-muted:#64748b;--text-dim:#94a3b8;
+  --bar-track:rgba(0,0,0,0.07);--tab-bg:rgba(0,0,0,0.04);
+  --input-bg:rgba(0,102,204,0.04);--skill-input-bg:rgba(217,119,6,0.05);
+  --header-bg:rgba(255,255,255,0.96);--sidebar-bg:#ffffff;
+  --card-hover-shadow:0 8px 30px rgba(0,0,0,0.1),0 0 0 1px rgba(0,102,204,0.15);
+  --score-track:#e2e8f0;--btn-cancel-border:#cbd5e1;
+  --quest-bg:rgba(217,119,6,0.04);--quest-border:rgba(217,119,6,0.18);--quest-header-bg:rgba(217,119,6,0.07);
+  --cat-bg:rgba(0,102,204,0.03);--cat-border:rgba(0,102,204,0.12);
+  --task-bg:rgba(0,0,0,0.02);--task-border:rgba(0,0,0,0.07);
+  --modal-overlay:rgba(0,0,0,0.6);
+  --guide-bg:rgba(13,148,136,0.04);--guide-border:rgba(13,148,136,0.18);
+  --font-body:'Inter',sans-serif;--font-mono:'Inter',sans-serif;
+  --font-display:'Inter',sans-serif;--scanline:transparent;
+}
+
+/* ============================================================ BASE */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg-deep);color:var(--text-primary);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px);pointer-events:none;z-index:9999}
+
+/* ============================================================ HEADER */
+.site-header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;backdrop-filter:blur(20px);gap:12px;flex-wrap:wrap}
+.logo{font-family:var(--font-display);font-size:17px;font-weight:900;letter-spacing:4px;color:var(--cyan);white-space:nowrap;flex-shrink:0}
+[data-theme="rpg"] .logo{text-shadow:0 0 20px rgba(0,245,255,.5)}
+.logo span{color:var(--gold)}
+.logo sub{font-size:9px;letter-spacing:2px;color:var(--teal);vertical-align:bottom;margin-left:4px}
+.header-nav{display:flex;gap:6px;align-items:center}
+.nav-link-head{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;padding:5px 12px;border:1px solid var(--border);color:var(--text-muted);border-radius:5px;text-decoration:none;transition:all .2s;text-transform:uppercase}
+.nav-link-head:hover,.nav-link-head.active{border-color:var(--cyan-dim);color:var(--cyan)}
+.header-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.header-status{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);display:flex;gap:8px;align-items:center}
+.status-dot{width:7px;height:7px;background:var(--teal);border-radius:50%;animation:pulse 2s infinite}
+[data-theme="rpg"] .status-dot{box-shadow:0 0 8px var(--teal)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.theme-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:20px;background:var(--bar-track);transition:all .2s;white-space:nowrap}
+.theme-toggle:hover{border-color:var(--cyan-dim)}
+.theme-toggle-icon{font-size:14px}
+.theme-toggle-label{font-family:var(--font-mono);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+
+/* ============================================================ LAYOUT */
+.main-layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 54px)}
+.sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);padding:20px 18px;overflow-y:auto;max-height:calc(100vh - 54px);position:sticky;top:54px;transition:background .3s}
+[data-theme="light"] .sidebar{box-shadow:2px 0 10px rgba(0,0,0,.05)}
+.content-area{padding:24px;overflow-y:auto}
+
+/* ============================================================ PANEL TITLE */
+.panel-title{font-family:var(--font-display);font-size:10px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin-bottom:16px;padding-bottom:9px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.panel-title::before{content:'';width:3px;height:13px;background:var(--teal);flex-shrink:0}
+[data-theme="rpg"] .panel-title::before{box-shadow:0 0 8px var(--teal)}
+
+/* ============================================================ SIDEBAR NAV LINKS */
+.sidebar-nav{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.sidebar-nav-link{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;text-decoration:none;border:1px solid var(--border);background:var(--input-bg);color:var(--text-muted);font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;transition:all .2s;position:relative;overflow:hidden}
+.sidebar-nav-link::before{content:'';position:absolute;inset:0;background:var(--teal);transform:translateX(-100%);transition:transform .3s ease;z-index:0}
+.sidebar-nav-link:hover{color:var(--bg-deep);border-color:var(--teal)}
+.sidebar-nav-link:hover::before{transform:translateX(0)}
+.sidebar-nav-link .link-icon{font-size:16px;flex-shrink:0;position:relative;z-index:1}
+.sidebar-nav-link .link-text{position:relative;z-index:1;flex:1}
+.sidebar-nav-link .link-arrow{font-size:10px;opacity:.4;position:relative;z-index:1;transition:opacity .2s,transform .2s}
+.sidebar-nav-link:hover .link-arrow{opacity:1;transform:translateX(3px)}
+
+/* Sidebar info block */
+.sidebar-info-block{background:var(--input-bg);border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:16px}
+.sidebar-info-label{font-family:var(--font-mono);font-size:8px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:6px}
+.sidebar-info-value{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);line-height:1.6}
+.sidebar-stat{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:10px}
+.sidebar-stat:last-child{border-bottom:none}
+.sidebar-stat-key{color:var(--text-muted)}
+.sidebar-stat-val{color:var(--teal);font-weight:700}
+
+/* ============================================================ CONTENT HEADER */
+.content-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+.content-title{font-family:var(--font-display);font-size:11px;letter-spacing:4px;color:var(--text-primary);text-transform:uppercase}
+.content-sub{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:3px}
+
+/* ============================================================ SECTION LABEL */
+.section-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ============================================================ PANEL BLOCK */
+.panel-block{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px;transition:border-color .2s}
+.panel-block:hover{border-color:rgba(0,212,170,.2)}
+.panel-block-accent{height:2px;background:linear-gradient(90deg,var(--teal) 0%,var(--cyan-dim) 60%,transparent 100%)}
+.panel-block-accent.gold{background:linear-gradient(90deg,var(--gold) 0%,var(--orange) 60%,transparent 100%)}
+.panel-block-accent.purple{background:linear-gradient(90deg,var(--purple) 0%,var(--cyan-dim) 60%,transparent 100%)}
+.panel-block-header{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.15)}
+.panel-block-icon{width:30px;height:30px;border-radius:5px;background:var(--cat-bg);border:1px solid var(--cat-border);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.panel-block-icon.gold{background:var(--quest-bg);border-color:var(--quest-border)}
+.panel-block-icon.guide{background:var(--guide-bg);border-color:var(--guide-border)}
+.panel-block-title{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--text-primary);letter-spacing:2px;text-transform:uppercase}
+.panel-block-sub{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);margin-top:2px}
+.panel-block-body{padding:16px}
+
+/* ============================================================ FORM */
+.form-row{display:flex;gap:7px;margin-bottom:8px}
+.form-field{flex:1;display:flex;flex-direction:column;gap:4px}
+.form-field label{font-size:9px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;font-family:var(--font-mono)}
+.form-field input,.form-field select,.form-field textarea{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:7px 9px;border-radius:5px;font-family:var(--font-body);font-size:13px;font-weight:500;outline:none;transition:border-color .2s;width:100%}
+[data-theme="light"] .form-field input,[data-theme="light"] .form-field select,[data-theme="light"] .form-field textarea{border-color:#e2e8f0}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{border-color:var(--teal)}
+.form-field select option{background:var(--bg-panel);color:var(--text-primary)}
+.form-field textarea{resize:vertical;min-height:70px;line-height:1.5}
+.form-field.full{flex:2}
+
+/* ============================================================ SEARCH */
+.search-wrap{position:relative}
+.search-wrap input{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:8px 10px;border-radius:5px;font-family:var(--font-body);font-size:13px;font-weight:500;outline:none;transition:border-color .2s;width:100%}
+[data-theme="light"] .search-wrap input{border-color:#e2e8f0}
+.search-wrap input:focus{border-color:var(--teal)}
+.search-results{margin-top:4px;border:1px solid var(--border);border-radius:6px;max-height:220px;overflow-y:auto;background:var(--bg-panel);box-shadow:0 8px 30px rgba(0,0,0,.5);display:none}
+[data-theme="light"] .search-results{box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.search-item{width:100%;text-align:left;border:0;background:transparent;padding:9px 12px;cursor:pointer;border-bottom:1px solid var(--border);font-size:12px;font-family:var(--font-mono);color:var(--text-muted);display:flex;align-items:center;gap:8px;transition:background .1s}
+.search-item:last-child{border-bottom:0}
+.search-item:hover{background:var(--cat-bg);color:var(--cyan)}
+.search-item::before{content:'◈';font-size:10px;opacity:.4;color:var(--teal)}
+
+/* ============================================================ ID CHIPS */
+.selected-ids{margin-top:10px;display:flex;flex-wrap:wrap;gap:5px;min-height:10px}
+.id-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,212,170,.06);border:1px solid var(--border-teal);color:var(--teal);border-radius:3px;padding:3px 8px;font-size:10px;font-weight:600;font-family:var(--font-mono);animation:chipIn .15s ease;letter-spacing:.5px}
+@keyframes chipIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+.id-chip button{border:0;background:transparent;color:var(--teal);cursor:pointer;font-size:12px;padding:0;line-height:1;opacity:.5;transition:opacity .1s}
+.id-chip button:hover{opacity:1}
+
+/* ============================================================ TOOL BUTTONS ROW */
+.search-tools{display:flex;gap:6px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.btn-tool{padding:5px 10px;background:transparent;border:1px solid var(--border);color:var(--text-muted);font-family:var(--font-mono);font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:4px;transition:all .2s;text-transform:uppercase;white-space:nowrap}
+.btn-tool:hover{border-color:var(--teal);color:var(--teal);background:rgba(0,212,170,.05)}
+.btn-tool.danger:hover{border-color:var(--red);color:var(--red);background:rgba(255,70,85,.05)}
+.filter-select{background:var(--input-bg);border:1px solid var(--border);color:var(--text-muted);padding:5px 8px;border-radius:4px;font-family:var(--font-mono);font-size:9px;letter-spacing:1px;outline:none;cursor:pointer;transition:border-color .2s;text-transform:uppercase}
+.filter-select:focus{border-color:var(--teal)}
+.filter-select option{background:var(--bg-panel);color:var(--text-primary)}
+
+/* ============================================================ DIVIDER */
+.sec-divider{border:0;border-top:1px solid var(--border);margin:14px 0}
+
+/* ============================================================ PROGRAM BUILDER */
+.builder-section{margin-bottom:10px}
+.builder-section-label{font-family:var(--font-display);font-size:8px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px;padding:5px 8px;background:var(--cat-bg);border:1px solid var(--cat-border);border-radius:4px;display:flex;align-items:center;gap:6px}
+.builder-section-label::before{content:'';width:2px;height:10px;background:var(--cyan);border-radius:2px;flex-shrink:0}
+[data-theme="rpg"] .builder-section-label::before{box-shadow:0 0 6px var(--cyan)}
+
+.program-builder-list{margin-top:10px;border:1px dashed var(--border);border-radius:6px;background:var(--task-bg);padding:10px;min-height:50px}
+.program-builder-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);margin:0;text-align:center;padding:8px 0}
+.category-preview{border:1px solid var(--cat-border);border-radius:5px;padding:9px 10px;margin-top:6px;background:var(--cat-bg)}
+.category-preview-title{margin:0;font-family:var(--font-display);font-size:9px;font-weight:700;color:var(--cyan);letter-spacing:1px;text-transform:uppercase}
+.category-preview-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+.category-preview ul{margin:0;padding-left:16px;color:var(--text-muted);font-size:11px;font-family:var(--font-mono);line-height:1.7}
+.preview-del-btn{padding:2px 6px;border-radius:3px;font-size:8px;cursor:pointer;border:1px solid rgba(255,70,85,.25);color:var(--red);background:transparent;font-family:var(--font-mono);transition:all .15s}
+.preview-del-btn:hover{background:rgba(255,70,85,.08)}
+
+/* ============================================================ BUTTONS */
+.btn-add{padding:7px 12px;background:transparent;border:1px solid var(--border-teal);color:var(--teal);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:4px;transition:all .2s;text-transform:uppercase;margin-top:8px}
+.btn-add:hover{background:rgba(0,212,170,.1);border-color:var(--teal)}
+.btn-primary{width:100%;padding:12px;background:transparent;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-display);font-size:11px;font-weight:700;letter-spacing:3px;cursor:pointer;border-radius:5px;transition:all .2s;position:relative;overflow:hidden;margin-top:14px}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--teal);transform:translateX(-100%);transition:transform .3s ease;z-index:0}
+.btn-primary span{position:relative;z-index:1}
+.btn-primary:hover{color:var(--bg-deep)}
+.btn-primary:hover::before{transform:translateX(0)}
+.btn-primary.gold-btn{border-color:var(--gold);color:var(--gold)}
+.btn-primary.gold-btn::before{background:var(--gold)}
+
+/* ============================================================ BULK IDS TEXTAREA */
+.bulk-textarea{background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:8px 10px;border-radius:5px;font-family:var(--font-mono);font-size:11px;outline:none;transition:border-color .2s;width:100%;resize:vertical;min-height:70px;line-height:1.6}
+.bulk-textarea:focus{border-color:var(--teal)}
+
+/* ============================================================ RESULT BOX */
+.result-box{margin-top:16px;padding:14px 16px;border-radius:6px;background:rgba(57,255,135,.04);border:1px solid var(--border-green);display:none}
+.result-title{margin:0 0 8px;font-family:var(--font-display);font-size:9px;font-weight:700;color:var(--green);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.result-title::before{content:'✓';font-size:11px}
+[data-theme="rpg"] .result-title{text-shadow:0 0 10px rgba(57,255,135,.3)}
+.result-list{margin:0;padding-left:16px;color:var(--text-muted);font-size:11px;font-family:var(--font-mono);line-height:1.8}
+
+/* ============================================================ BULK MANAGER */
+.manager-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.manager-col{background:var(--task-bg);border:1px solid var(--task-border);border-radius:6px;padding:10px}
+.manager-title{font-family:var(--font-display);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:8px}
+.manager-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim)}
+.manager-item{border:1px solid var(--border);border-radius:5px;padding:8px;margin-bottom:7px;background:var(--input-bg)}
+.manager-item-name{font-family:var(--font-display);font-size:10px;color:var(--text-primary);font-weight:700;letter-spacing:1px}
+.manager-item-meta{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);margin-top:3px}
+.manager-item-actions{display:flex;gap:6px;margin-top:7px}
+@media(max-width:860px){.manager-wrap{grid-template-columns:1fr}}
+
+/* ============================================================ MANAGER MODAL */
+.modal-overlay{position:fixed;inset:0;background:var(--modal-overlay);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:var(--bg-modal);border:1px solid var(--border);border-radius:10px;width:100%;max-width:760px;max-height:90vh;overflow-y:auto}
+.modal-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:var(--font-display);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal)}
+.modal-close{background:none;border:1px solid var(--border);color:var(--text-muted);width:28px;height:28px;border-radius:5px;cursor:pointer}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:14px 16px}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.recipient-wrap{border:1px solid var(--border);border-radius:6px;padding:8px;background:var(--task-bg)}
+.recipient-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.recipient-chip{display:inline-flex;gap:5px;align-items:center;background:rgba(0,212,170,.07);border:1px solid var(--border-teal);color:var(--teal);font-family:var(--font-mono);font-size:10px;padding:3px 8px;border-radius:4px}
+.recipient-chip button{border:0;background:transparent;color:var(--teal);cursor:pointer}
+.modal-foot{padding:12px 16px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+
+/* ============================================================ RESPONSIVE */
+@media(max-width:768px){
+  .main-layout{grid-template-columns:1fr}
+  .sidebar{position:relative;top:0;max-height:none;border-right:none;border-bottom:1px solid var(--border)}
+  .content-area{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ HEADER -->
+<header class="site-header">
+  <div class="logo">YD<span>·</span>ATHLETE<sub>NAV</sub></div>
+  <div class="header-nav">
+    <a href="atletseni.html" class="nav-link-head">◈ Seni</a>
+    <a href="atlettanding.html" class="nav-link-head">⚔ Tanding</a>
+    <a href="asistenpelatih.html" class="nav-link-head">🏅 Pelatih</a>
+    <a href="#" class="nav-link-head active">⚙ Nav</a>
+  </div>
+  <div class="header-right">
+    <div class="header-status">
+      <div class="status-dot"></div>
+      <span id="headerDate"></span>
+    </div>
+    <div class="theme-toggle" onclick="cycleTheme()">
+      <span class="theme-toggle-icon" id="themeIcon">◉</span>
+      <span class="theme-toggle-label" id="themeLabel">RPG</span>
+    </div>
+  </div>
+</header>
+
+<div class="main-layout">
+
+  <!-- ============================================================ SIDEBAR -->
+  <aside class="sidebar">
+    <div class="panel-title">⚙ Panel Navigasi</div>
+
+    <div class="sidebar-info-block" style="margin-bottom:14px">
+      <div class="sidebar-info-label">Navigasi Sistem</div>
+      <div class="sidebar-info-value">Akses cepat ke setiap modul YD Athlete</div>
+    </div>
+
+    <div class="sidebar-nav">
+      <a class="sidebar-nav-link" href="atletseni.html">
+        <span class="link-icon">🎨</span>
+        <span class="link-text">Atlet Seni</span>
+        <span class="link-arrow">▶</span>
+      </a>
+      <a class="sidebar-nav-link" href="atlettanding.html">
+        <span class="link-icon">🥋</span>
+        <span class="link-text">Atlet Tanding</span>
+        <span class="link-arrow">▶</span>
+      </a>
+      <a class="sidebar-nav-link" href="asistenpelatih.html">
+        <span class="link-icon">🏅</span>
+        <span class="link-text">Asisten Pelatih</span>
+        <span class="link-arrow">▶</span>
+      </a>
+    </div>
+
+    <div class="section-label">Status Sistem</div>
+    <div class="sidebar-info-block">
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Firebase</span>
+        <span class="sidebar-stat-val">● Online</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Database</span>
+        <span class="sidebar-stat-val">ydtc-5d55a</span>
+      </div>
+      <div class="sidebar-stat">
+        <span class="sidebar-stat-key">Region</span>
+        <span class="sidebar-stat-val">asia-se1</span>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:16px">Panduan</div>
+    <div class="sidebar-info-block">
+      <div class="sidebar-info-label">Cara Menggunakan</div>
+      <div class="sidebar-info-value">
+        1. Cari ID di kolom pencarian<br>
+        2. Pilih satu atau banyak ID<br>
+        3. Isi detail program / guidebook<br>
+        4. Klik tombol simpan
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================ CONTENT -->
+  <main class="content-area">
+
+    <div class="content-header">
+      <div>
+        <div class="content-title">Tambah Program / Guidebook Massal</div>
+        <div class="content-sub">Cari dan pilih ID, lalu isi detail program atau guidebook</div>
+      </div>
+    </div>
+
+    <!-- ── Pencarian ID ── -->
+    <div class="panel-block">
+      <div class="panel-block-accent"></div>
+      <div class="panel-block-header">
+        <div class="panel-block-icon">🔍</div>
+        <div>
+          <div class="panel-block-title">Cari ID dari Firebase</div>
+          <div class="panel-block-sub">Ketik nama atau ID untuk mencari atlet / pelatih</div>
+        </div>
+      </div>
+      <div class="panel-block-body">
+
+        <div class="form-field" style="margin-bottom:10px">
+          <label>Cari ID dari Firebase</label>
+          <div class="search-wrap">
+            <input
+              id="idSearch"
+              type="text"
+              placeholder="Ketik nama atau ID (minimal 2 karakter)"
+              autocomplete="off"
+            />
+            <div id="searchResults" class="search-results"></div>
+          </div>
+        </div>
+
+        <div class="search-tools">
+          <select id="sourceFilter" class="filter-select">
+            <option value="all">Semua Sumber</option>
+            <option value="atlet">Hanya Atlet</option>
+            <option value="pelatih">Hanya Pelatih</option>
+          </select>
+          <button id="pickAllBtn" type="button" class="btn-tool">✔ Semua Hasil</button>
+          <button id="pickAllCoachesBtn" type="button" class="btn-tool">🏅 Semua Pelatih</button>
+          <button id="pickAllSeniBtn" type="button" class="btn-tool">🎨 Semua Seni</button>
+          <button id="pickAllTandingBtn" type="button" class="btn-tool">🥋 Semua Tanding</button>
+          <button id="clearSelectedBtn" type="button" class="btn-tool danger">✕ Hapus Semua ID</button>
+        </div>
+
+        <div id="selectedIds" class="selected-ids"></div>
+
+        <div class="form-field" style="margin-top:12px">
+          <label>Daftar ID Terpilih</label>
+          <textarea
+            id="bulkIds"
+            class="bulk-textarea"
+            placeholder="ID akan terisi otomatis dari hasil pencarian Firebase"
+            readonly
+          ></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Program Latihan ── -->
+    <div class="panel-block">
+      <div class="panel-block-accent gold"></div>
+      <div class="panel-block-header">
+        <div class="panel-block-icon gold">🏋️</div>
+        <div>
+          <div class="panel-block-title">Program Latihan</div>
+          <div class="panel-block-sub">Buat dan tambahkan program latihan ke ID terpilih</div>
+        </div>
+      </div>
+      <div class="panel-block-body">
+
+        <div class="form-field" style="margin-bottom:10px">
+          <label>Nama Program</label>
+          <input id="programNama" type="text" placeholder="Contoh: Program Intensif Minggu 1" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Tanggal Mulai</label>
+            <input id="programMulai" type="date" />
+          </div>
+          <div class="form-field">
+            <label>Tanggal Selesai</label>
+            <input id="programSelesai" type="date" />
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Target Program</label>
+          <input id="programTarget" type="text" placeholder="Contoh: Meningkatkan stamina 15%" />
+        </div>
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Deskripsi Program</label>
+          <textarea id="programDesc" placeholder="Tujuan dan deskripsi singkat program"></textarea>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="builder-section">
+          <div class="builder-section-label">Kategori Program</div>
+          <div class="form-row">
+            <div class="form-field">
+              <label>Nama Kategori</label>
+              <input id="programKategoriNama" type="text" placeholder="Contoh: Pemanasan" />
+            </div>
+            <div class="form-field">
+              <label>Ikon Kategori</label>
+              <select id="programKategoriIcon">
+                <option value="flame">flame (Pemanasan)</option>
+                <option value="zap">zap (Intensitas)</option>
+                <option value="swords">swords (Teknik)</option>
+                <option value="person-standing">person-standing (Kondisi)</option>
+                <option value="dumbbell">dumbbell (Kekuatan)</option>
+                <option value="heart-pulse">heart-pulse (Recovery)</option>
+                <option value="target">target (Target Khusus)</option>
+              </select>
+            </div>
+          </div>
+          <button id="addCategoryBtn" type="button" class="btn-add">＋ Tambah Kategori</button>
+        </div>
+
+        <hr class="sec-divider">
+
+        <div class="builder-section">
+          <div class="builder-section-label">Detail Poin Latihan</div>
+
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Judul Gerakan / Latihan</label>
+            <input id="programPoinJudul" type="text" placeholder="Contoh: Jumping Jack" />
+          </div>
+
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Deskripsi</label>
+            <textarea id="programPoinDesc" placeholder="Jelaskan instruksi latihan"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Kategori Tujuan Poin</label>
+              <select id="programPoinKategoriTarget"></select>
+            </div>
+            <div class="form-field">
+              <label>Repetisi / Waktu</label>
+              <input id="programPoinReps" type="text" placeholder="Contoh: 3 x 10 reps" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label>Tipe</label>
+              <select id="programPoinTipe">
+                <option value="repetisi">Repetisi</option>
+                <option value="waktu">Waktu</option>
+                <option value="jarak">Jarak</option>
+                <option value="set">Set</option>
+                <option value="hitungan">Hitungan</option>
+                <option value="putaran">Putaran Jurus</option>
+                <option value="persentase">% Intensitas</option>
+              </select>
+            </div>
+            <div class="form-field"></div>
+          </div>
+
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Link Gambar (URL)</label>
+            <input id="programPoinImgUrl" type="url" placeholder="https://..." />
+          </div>
+
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Link Video (URL)</label>
+            <input id="programPoinVidUrl" type="url" placeholder="https://youtube.com/..." />
+          </div>
+
+          <button id="addPointBtn" type="button" class="btn-add">＋ Tambah Poin</button>
+
+          <div class="program-builder-list" id="programStructurePreview">
+            <p class="program-builder-empty">⌀ Belum ada kategori/poin ditambahkan.</p>
+          </div>
+        </div>
+
+        <button id="submitProgram" class="btn-primary" type="button">
+          <span>▶ TAMBAHKAN PROGRAM KE ID TERPILIH</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ── Guidebook ── -->
+    <div class="panel-block">
+      <div class="panel-block-accent purple"></div>
+      <div class="panel-block-header">
+        <div class="panel-block-icon guide">📖</div>
+        <div>
+          <div class="panel-block-title">Guidebook</div>
+          <div class="panel-block-sub">Tambahkan guidebook ke pelatih terpilih</div>
+        </div>
+      </div>
+      <div class="panel-block-body">
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Judul Guidebook</label>
+          <input id="guidebookJudul" type="text" placeholder="Contoh: Panduan Teknik Dasar" />
+        </div>
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Deskripsi Guidebook</label>
+          <textarea id="guidebookDesc" placeholder="Ringkasan isi guidebook"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label>Kategori</label>
+            <select id="guidebookKategori">
+              <option value="teknik">Teknik</option>
+              <option value="fisik">Fisik</option>
+              <option value="mental">Mental</option>
+              <option value="taktik">Taktik &amp; Strategi</option>
+              <option value="nutrisi">Nutrisi &amp; Recovery</option>
+              <option value="peraturan">Peraturan</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tahun / Versi</label>
+            <input id="guidebookVersi" type="text" placeholder="2026 / v1.0" />
+          </div>
+        </div>
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Link Cover (URL)</label>
+          <input id="guidebookImgUrl" type="url" placeholder="https://..." />
+        </div>
+
+        <div class="form-field" style="margin-bottom:8px">
+          <label>Link File Guidebook (URL)</label>
+          <input id="guidebookDriveUrl" type="url" placeholder="https://drive.google.com/..." />
+        </div>
+
+        <button id="submitGuidebook" class="btn-primary gold-btn" type="button">
+          <span>▶ TAMBAHKAN GUIDEBOOK (KHUSUS PELATIH)</span>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- ── Hasil ── -->
+    <div id="resultBox" class="result-box">
+      <p class="result-title">Hasil Proses</p>
+      <ul id="resultList" class="result-list"></ul>
+    </div>
+
+    <!-- ── Manajemen Data Massal ── -->
+    <div class="panel-block" style="margin-top:16px">
+      <div class="panel-block-accent"></div>
+      <div class="panel-block-header">
+        <div class="panel-block-icon">🗂️</div>
+        <div>
+          <div class="panel-block-title">Data Massal Tersimpan</div>
+          <div class="panel-block-sub">Edit atau hapus program/guidebook hasil input massal</div>
+        </div>
+      </div>
+      <div class="panel-block-body">
+        <div class="manager-wrap">
+          <div class="manager-col">
+            <div class="manager-title">Program Massal</div>
+            <div id="bulkProgramList" class="manager-empty">Memuat data...</div>
+          </div>
+          <div class="manager-col">
+            <div class="manager-title">Guidebook Massal</div>
+            <div id="bulkGuidebookList" class="manager-empty">Memuat data...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="managerModal" class="modal-overlay hidden">
+      <div class="modal-box">
+        <div class="modal-head">
+          <div id="managerModalTitle" class="modal-title">Edit Data Massal</div>
+          <button id="managerModalClose" class="modal-close" type="button">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Judul / Nama</label>
+            <input id="managerFieldTitle" type="text" />
+          </div>
+          <div class="form-field" style="margin-bottom:8px">
+            <label>Deskripsi</label>
+            <textarea id="managerFieldDesc"></textarea>
+          </div>
+          <div id="programOnlyFields">
+            <div class="modal-grid">
+              <div class="form-field">
+                <label>Tanggal Mulai</label>
+                <input id="managerFieldStart" type="date" />
+              </div>
+              <div class="form-field">
+                <label>Tanggal Selesai</label>
+                <input id="managerFieldEnd" type="date" />
+              </div>
+            </div>
+            <div class="form-field" style="margin-top:8px;margin-bottom:8px">
+              <label>Target Program</label>
+              <input id="managerFieldTarget" type="text" />
+            </div>
+            <div class="builder-section">
+              <div class="builder-section-label">Kategori Program</div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>Nama Kategori</label>
+                  <input id="managerCatName" type="text" placeholder="Contoh: Pemanasan" />
+                </div>
+                <div class="form-field">
+                  <label>Ikon</label>
+                  <select id="managerCatIcon">
+                    <option value="flame">flame</option>
+                    <option value="zap">zap</option>
+                    <option value="swords">swords</option>
+                    <option value="person-standing">person-standing</option>
+                    <option value="dumbbell">dumbbell</option>
+                    <option value="heart-pulse">heart-pulse</option>
+                    <option value="target">target</option>
+                  </select>
+                </div>
+              </div>
+              <button id="managerAddCategoryBtn" class="btn-add" type="button">+ Tambah Kategori</button>
+            </div>
+            <div class="builder-section" style="margin-top:10px">
+              <div class="builder-section-label">Poin Latihan</div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>Kategori Tujuan</label>
+                  <select id="managerPointCategoryTarget"></select>
+                </div>
+                <div class="form-field">
+                  <label>Judul Poin</label>
+                  <input id="managerPointTitle" type="text" placeholder="Contoh: Jumping Jack" />
+                </div>
+              </div>
+              <div class="form-field" style="margin-bottom:8px">
+                <label>Deskripsi</label>
+                <textarea id="managerPointDesc" style="min-height:64px"></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>Repetisi / Waktu</label>
+                  <input id="managerPointReps" type="text" />
+                </div>
+                <div class="form-field">
+                  <label>Tipe</label>
+                  <select id="managerPointType">
+                    <option value="repetisi">Repetisi</option>
+                    <option value="waktu">Waktu</option>
+                    <option value="jarak">Jarak</option>
+                    <option value="set">Set</option>
+                    <option value="hitungan">Hitungan</option>
+                    <option value="putaran">Putaran</option>
+                    <option value="persentase">% Intensitas</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-field">
+                  <label>URL Gambar</label>
+                  <input id="managerPointImg" type="url" />
+                </div>
+                <div class="form-field">
+                  <label>URL Video</label>
+                  <input id="managerPointVid" type="url" />
+                </div>
+              </div>
+              <button id="managerAddPointBtn" class="btn-add" type="button">+ Tambah Poin</button>
+            </div>
+            <div class="program-builder-list" id="managerProgramPreview">
+              <p class="program-builder-empty">Belum ada kategori/poin.</p>
+            </div>
+          </div>
+          <div id="guidebookOnlyFields" class="hidden">
+            <div class="modal-grid">
+              <div class="form-field">
+                <label>Kategori</label>
+                <input id="managerFieldGbKategori" type="text" />
+              </div>
+              <div class="form-field">
+                <label>Versi</label>
+                <input id="managerFieldGbVersi" type="text" />
+              </div>
+            </div>
+            <div class="form-field" style="margin-top:8px">
+              <label>Link Cover</label>
+              <input id="managerFieldGbImg" type="url" />
+            </div>
+            <div class="form-field" style="margin-top:8px">
+              <label>Link File</label>
+              <input id="managerFieldGbDrive" type="url" />
+            </div>
+          </div>
+
+          <div class="recipient-wrap" style="margin-top:10px">
+            <div class="form-field">
+              <label>Tambah ID Penerima</label>
+              <input id="managerRecipientSearch" type="text" placeholder="Cari nama / ID untuk ditambahkan..." />
+              <div id="managerRecipientResults" class="search-results"></div>
+            </div>
+            <div id="managerRecipientChips" class="recipient-chips"></div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button id="managerModalCancel" class="btn-tool" type="button">Batal</button>
+          <button id="managerModalSave" class="btn-tool" type="button">Simpan Perubahan</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── Theme ──
+const themes=['rpg','dark','light'];
+const themeLabels={rpg:'RPG',dark:'DARK',light:'LIGHT'};
+const themeIcons={rpg:'◉',dark:'◈',light:'◎'};
+function cycleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme')||'rpg';
+  const next=themes[(themes.indexOf(cur)+1)%themes.length];
+  document.documentElement.setAttribute('data-theme',next);
+  document.getElementById('themeLabel').textContent=themeLabels[next];
+  document.getElementById('themeIcon').textContent=themeIcons[next];
+  localStorage.setItem('yd-theme',next);
+}
+(function(){
+  const saved=localStorage.getItem('yd-theme');
+  if(saved&&themes.includes(saved)){
+    document.documentElement.setAttribute('data-theme',saved);
+    document.getElementById('themeLabel').textContent=themeLabels[saved];
+    document.getElementById('themeIcon').textContent=themeIcons[saved];
+  }
+})();
+
+// ── Date ──
+(function(){
+  const d=new Date();
+  const days=['MIN','SEN','SEL','RAB','KAM','JUM','SAB'];
+  document.getElementById('headerDate').textContent=days[d.getDay()]+' '+d.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});
+})();
+</script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, get, push, set, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  const app = initializeApp({
+    apiKey: "AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+    authDomain: "ydtc-5d55a.firebaseapp.com",
+    databaseURL: "https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "ydtc-5d55a",
+  });
+  const db = getDatabase(app);
+
+  const bulkIds = document.getElementById("bulkIds");
+  const idSearch = document.getElementById("idSearch");
+  const searchResults = document.getElementById("searchResults");
+  const sourceFilter = document.getElementById("sourceFilter");
+  const pickAllBtn = document.getElementById("pickAllBtn");
+  const pickAllCoachesBtn = document.getElementById("pickAllCoachesBtn");
+  const pickAllSeniBtn = document.getElementById("pickAllSeniBtn");
+  const pickAllTandingBtn = document.getElementById("pickAllTandingBtn");
+  const clearSelectedBtn = document.getElementById("clearSelectedBtn");
+  const selectedIdsEl = document.getElementById("selectedIds");
+  const programNama = document.getElementById("programNama");
+  const programMulai = document.getElementById("programMulai");
+  const programSelesai = document.getElementById("programSelesai");
+  const programTarget = document.getElementById("programTarget");
+  const programDesc = document.getElementById("programDesc");
+  const programKategoriNama = document.getElementById("programKategoriNama");
+  const programKategoriIcon = document.getElementById("programKategoriIcon");
+  const programPoinJudul = document.getElementById("programPoinJudul");
+  const programPoinDesc = document.getElementById("programPoinDesc");
+  const programPoinReps = document.getElementById("programPoinReps");
+  const programPoinTipe = document.getElementById("programPoinTipe");
+  const programPoinImgUrl = document.getElementById("programPoinImgUrl");
+  const programPoinVidUrl = document.getElementById("programPoinVidUrl");
+  const programPoinKategoriTarget = document.getElementById("programPoinKategoriTarget");
+  const addCategoryBtn = document.getElementById("addCategoryBtn");
+  const addPointBtn = document.getElementById("addPointBtn");
+  const programStructurePreview = document.getElementById("programStructurePreview");
+
+  const guidebookJudul = document.getElementById("guidebookJudul");
+  const guidebookDesc = document.getElementById("guidebookDesc");
+  const guidebookKategori = document.getElementById("guidebookKategori");
+  const guidebookVersi = document.getElementById("guidebookVersi");
+  const guidebookImgUrl = document.getElementById("guidebookImgUrl");
+  const guidebookDriveUrl = document.getElementById("guidebookDriveUrl");
+
+  const submitProgram = document.getElementById("submitProgram");
+  const submitGuidebook = document.getElementById("submitGuidebook");
+  const resultBox = document.getElementById("resultBox");
+  const resultList = document.getElementById("resultList");
+  const bulkProgramList = document.getElementById("bulkProgramList");
+  const bulkGuidebookList = document.getElementById("bulkGuidebookList");
+  const managerModal = document.getElementById("managerModal");
+  const managerModalTitle = document.getElementById("managerModalTitle");
+  const managerModalClose = document.getElementById("managerModalClose");
+  const managerModalCancel = document.getElementById("managerModalCancel");
+  const managerModalSave = document.getElementById("managerModalSave");
+  const managerFieldTitle = document.getElementById("managerFieldTitle");
+  const managerFieldDesc = document.getElementById("managerFieldDesc");
+  const managerFieldStart = document.getElementById("managerFieldStart");
+  const managerFieldEnd = document.getElementById("managerFieldEnd");
+  const managerFieldTarget = document.getElementById("managerFieldTarget");
+  const managerCatName = document.getElementById("managerCatName");
+  const managerCatIcon = document.getElementById("managerCatIcon");
+  const managerAddCategoryBtn = document.getElementById("managerAddCategoryBtn");
+  const managerPointCategoryTarget = document.getElementById("managerPointCategoryTarget");
+  const managerPointTitle = document.getElementById("managerPointTitle");
+  const managerPointDesc = document.getElementById("managerPointDesc");
+  const managerPointReps = document.getElementById("managerPointReps");
+  const managerPointType = document.getElementById("managerPointType");
+  const managerPointImg = document.getElementById("managerPointImg");
+  const managerPointVid = document.getElementById("managerPointVid");
+  const managerAddPointBtn = document.getElementById("managerAddPointBtn");
+  const managerProgramPreview = document.getElementById("managerProgramPreview");
+  const managerFieldGbKategori = document.getElementById("managerFieldGbKategori");
+  const managerFieldGbVersi = document.getElementById("managerFieldGbVersi");
+  const managerFieldGbImg = document.getElementById("managerFieldGbImg");
+  const managerFieldGbDrive = document.getElementById("managerFieldGbDrive");
+  const managerRecipientSearch = document.getElementById("managerRecipientSearch");
+  const managerRecipientResults = document.getElementById("managerRecipientResults");
+  const managerRecipientChips = document.getElementById("managerRecipientChips");
+  const programOnlyFields = document.getElementById("programOnlyFields");
+  const guidebookOnlyFields = document.getElementById("guidebookOnlyFields");
+  const selectedIds = new Map();
+  const programCategories = [];
+  const managerProgramCategories = [];
+  let managerSearchTimer;
+  const managerState = { type: null, registryId: null, registry: null, data: null, recipients: new Map() };
+  let searchTimer;
+  let lastSearchResults = [];
+
+  function updateBulkIdsField() {
+    bulkIds.value = Array.from(selectedIds.keys()).join(", ");
+  }
+
+  function renderSelectedIds() {
+    selectedIdsEl.innerHTML = "";
+    selectedIds.forEach((meta, id) => {
+      const chip = document.createElement("div");
+      chip.className = "id-chip";
+      chip.innerHTML = `<span>${id} - ${meta.nama}</span><button type="button" data-id="${id}" title="Hapus">×</button>`;
+      selectedIdsEl.appendChild(chip);
+    });
+    updateBulkIdsField();
+  }
+
+  selectedIdsEl.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-id]");
+    if (btn) {
+      selectedIds.delete(btn.dataset.id);
+      renderSelectedIds();
+    }
+  });
+
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function iconHtml(name) {
+    const safe = escapeHtml(name || "circle");
+    return `<i data-lucide="${safe}" style="width:12px;height:12px;vertical-align:middle"></i>`;
+  }
+
+  function refreshLucideIcons() {
+    if (window.lucide && typeof window.lucide.createIcons === "function") {
+      window.lucide.createIcons();
+    }
+  }
+
+  function parseIds(raw) {
+    return raw
+      .split(/[\s,]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
+  function renderManagedItems(container, items, type) {
+    if (!items.length) {
+      container.innerHTML = `<div class="manager-empty">Belum ada data.</div>`;
+      return;
+    }
+
+    container.innerHTML = items.map((item) => {
+      const title = escapeHtml(item.title || "-");
+      const target = escapeHtml(item.targetName || item.targetId || "-");
+      const meta = escapeHtml(item.root || "-");
+      return `<div class="manager-item">
+        <div class="manager-item-name">${title}</div>
+        <div class="manager-item-meta">Target: ${target} (${meta})</div>
+        <div class="manager-item-actions">
+          <button class="btn-tool" data-action="edit" data-type="${type}" data-reg="${item.registryId}">Edit</button>
+          <button class="btn-tool danger" data-action="delete" data-type="${type}" data-reg="${item.registryId}">Hapus</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  async function loadBulkRegistry() {
+    try {
+      const [programSnap, guideSnap] = await Promise.all([
+        get(ref(db, "bulk_registry/programs")),
+        get(ref(db, "bulk_registry/guidebooks")),
+      ]);
+
+      const programs = [];
+      if (programSnap.exists()) {
+        programSnap.forEach((child) => {
+          const val = child.val() || {};
+          programs.push({
+            registryId: child.key,
+            title: val.nama,
+            targetId: val.targetId,
+            targetName: val.targetName,
+            root: val.root,
+          });
+        });
+      }
+
+      const guidebooks = [];
+      if (guideSnap.exists()) {
+        guideSnap.forEach((child) => {
+          const val = child.val() || {};
+          guidebooks.push({
+            registryId: child.key,
+            title: val.judul,
+            targetId: val.targetId,
+            targetName: val.targetName,
+            root: val.root,
+          });
+        });
+      }
+
+      renderManagedItems(bulkProgramList, programs.reverse(), "program");
+      renderManagedItems(bulkGuidebookList, guidebooks.reverse(), "guidebook");
+    } catch (_) {
+      bulkProgramList.innerHTML = `<div class="manager-empty">Gagal memuat data.</div>`;
+      bulkGuidebookList.innerHTML = `<div class="manager-empty">Gagal memuat data.</div>`;
+    }
+  }
+
+  function getDbRootByType(jenis) {
+    if (jenis === "pelatih") return "pelatih";
+    if (jenis === "atlet_seni") return "atlet_seni";
+    if (jenis === "atlet_tanding") return "atlet";
+    return null;
+  }
+
+  function addToSelected(id, nama, jenis) {
+    if (!selectedIds.has(id)) {
+      selectedIds.set(id, { nama, jenis });
+      renderSelectedIds();
+    }
+  }
+
+  async function fetchAndAddAll(path, jenis) {
+    try {
+      const snap = await get(ref(db, path));
+      if (snap.exists()) {
+        snap.forEach((child) => {
+          const val = child.val();
+          addToSelected(child.key, val.nama || child.key, jenis);
+        });
+      }
+    } catch (err) {
+      alert("Gagal mengambil data: " + err.message);
+    }
+  }
+
+  pickAllCoachesBtn.addEventListener("click", () => fetchAndAddAll("pelatih", "pelatih"));
+  pickAllSeniBtn.addEventListener("click", () => fetchAndAddAll("atlet_seni", "atlet_seni"));
+  pickAllTandingBtn.addEventListener("click", () => fetchAndAddAll("atlet", "atlet_tanding"));
+
+  pickAllBtn.addEventListener("click", () => {
+    lastSearchResults.forEach(({ id, nama, jenis }) => addToSelected(id, nama, jenis));
+  });
+
+  clearSelectedBtn.addEventListener("click", () => {
+    selectedIds.clear();
+    renderSelectedIds();
+  });
+
+  idSearch.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    const q = idSearch.value.trim();
+    if (q.length < 2) {
+      searchResults.style.display = "none";
+      return;
+    }
+    searchTimer = setTimeout(() => doSearch(q), 300);
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-wrap")) searchResults.style.display = "none";
+  });
+
+  async function doSearch(q) {
+    const filter = sourceFilter.value;
+    const sources = [];
+    if (filter === "all" || filter === "pelatih") sources.push({ path: "pelatih", jenis: "pelatih" });
+    if (filter === "all" || filter === "atlet") {
+      sources.push({ path: "atlet_seni", jenis: "atlet_seni" });
+      sources.push({ path: "atlet", jenis: "atlet_tanding" });
+    }
+
+    const results = [];
+    for (const src of sources) {
+      try {
+        const snap = await get(ref(db, src.path));
+        if (snap.exists()) {
+          snap.forEach((child) => {
+            const val = child.val();
+            const name = val.nama || "";
+            if (
+              name.toLowerCase().includes(q.toLowerCase()) ||
+              child.key.toLowerCase().includes(q.toLowerCase())
+            ) {
+              results.push({ id: child.key, nama: name, jenis: src.jenis });
+            }
+          });
+        }
+      } catch {}
+    }
+
+    lastSearchResults = results;
+    searchResults.innerHTML = "";
+
+    if (!results.length) {
+      const el = document.createElement("div");
+      el.className = "search-item";
+      el.textContent = "Tidak ada hasil ditemukan.";
+      el.style.pointerEvents = "none";
+      el.style.opacity = ".5";
+      searchResults.appendChild(el);
+    } else {
+      results.slice(0, 20).forEach(({ id, nama, jenis }) => {
+        const btn = document.createElement("button");
+        btn.className = "search-item";
+        btn.type = "button";
+        btn.textContent = `${nama} (${id}) — ${jenis}`;
+        btn.addEventListener("click", () => {
+          addToSelected(id, nama, jenis);
+          idSearch.value = "";
+          searchResults.style.display = "none";
+        });
+        searchResults.appendChild(btn);
+      });
+    }
+
+    searchResults.style.display = "block";
+  }
+
+  // ── Program Builder ──
+  function refreshCategoryTargetOptions() {
+    if (!programCategories.length) {
+      programPoinKategoriTarget.innerHTML = `<option value="">Pilih kategori dulu</option>`;
+      return;
+    }
+    programPoinKategoriTarget.innerHTML = programCategories
+      .map((cat) => `<option value="${cat.id}">${escapeHtml(cat.icon)} ${escapeHtml(cat.nama)}</option>`)
+      .join("");
+  }
+
+  function renderProgramStructurePreview() {
+    if (!programCategories.length) {
+      programStructurePreview.innerHTML = `<p class="program-builder-empty">⌀ Belum ada kategori/poin ditambahkan.</p>`;
+      refreshCategoryTargetOptions();
+      refreshLucideIcons();
+      return;
+    }
+
+    programStructurePreview.innerHTML = programCategories
+      .map((cat) => {
+        const pointsHtml = cat.poin.length
+          ? `<ul>${cat.poin.map((p) => `<li>${escapeHtml(p.judul)} (${escapeHtml(p.tipe || "-")})</li>`).join("")}</ul>`
+          : `<p class="program-builder-empty">Belum ada poin di kategori ini.</p>`;
+
+        return `<div class="category-preview"><p class="category-preview-title">${iconHtml(cat.icon)} ${escapeHtml(cat.nama)}</p>${pointsHtml}</div>`;
+      })
+      .join("");
+
+    refreshCategoryTargetOptions();
+    refreshLucideIcons();
+  }
+
+  function resetPointInputs() {
+    programPoinJudul.value = "";
+    programPoinDesc.value = "";
+    programPoinReps.value = "";
+    programPoinTipe.value = "repetisi";
+    programPoinImgUrl.value = "";
+    programPoinVidUrl.value = "";
+  }
+
+  addCategoryBtn.addEventListener("click", () => {
+    const name = programKategoriNama.value.trim();
+    if (!name) {
+      alert("Isi Nama Kategori terlebih dahulu.");
+      return;
+    }
+
+    programCategories.push({
+      id: "cat_" + Date.now() + "_" + Math.random().toString(16).slice(2, 7),
+      nama: name,
+      icon: programKategoriIcon.value || "flame",
+      createdAt: Date.now(),
+      poin: [],
+    });
+
+    programKategoriNama.value = "";
+    renderProgramStructurePreview();
+  });
+
+  addPointBtn.addEventListener("click", () => {
+    if (!programCategories.length) {
+      alert("Tambahkan kategori terlebih dahulu.");
+      return;
+    }
+
+    const targetCategoryId = programPoinKategoriTarget.value;
+    const pointTitle = programPoinJudul.value.trim();
+    if (!targetCategoryId) {
+      alert("Pilih kategori tujuan poin.");
+      return;
+    }
+    if (!pointTitle) {
+      alert("Isi Judul Poin Latihan.");
+      return;
+    }
+
+    const targetCategory = programCategories.find((cat) => cat.id === targetCategoryId);
+    if (!targetCategory) {
+      alert("Kategori tujuan tidak ditemukan.");
+      return;
+    }
+
+    targetCategory.poin.push({
+      judul: pointTitle,
+      desc: programPoinDesc.value.trim(),
+      reps: programPoinReps.value.trim(),
+      tipe: programPoinTipe.value,
+      imgUrl: programPoinImgUrl.value.trim(),
+      vidUrl: programPoinVidUrl.value.trim(),
+      selesai: false,
+      createdAt: Date.now(),
+    });
+
+    resetPointInputs();
+    renderProgramStructurePreview();
+  });
+
+  renderProgramStructurePreview();
+
+  async function getRegistryItem(type, registryId) {
+    const snap = await get(ref(db, `bulk_registry/${type}/${registryId}`));
+    return snap.exists() ? snap.val() : null;
+  }
+
+  async function handleManagerAction(type, registryId, action) {
+    const registry = await getRegistryItem(type, registryId);
+    if (!registry) {
+      alert("Data registry tidak ditemukan.");
+      return;
+    }
+
+    if (action === "delete") {
+      if (!confirm("Hapus data ini dari target dan daftar massal?")) return;
+      const dataPath = type === "programs"
+        ? `${registry.root}/${registry.targetId}/program/${registry.itemId}`
+        : `${registry.root}/${registry.targetId}/guidebook/${registry.itemId}`;
+      await remove(ref(db, dataPath));
+      await remove(ref(db, `bulk_registry/${type}/${registryId}`));
+      await loadBulkRegistry();
+      return;
+    }
+
+    if (action === "edit") await openManagerModal(type, registryId, registry);
+  }
+
+  bulkProgramList.addEventListener("click", async (event) => {
+    const btn = event.target.closest("button[data-action]");
+    if (!btn) return;
+    await handleManagerAction("programs", btn.dataset.reg, btn.dataset.action);
+  });
+
+  bulkGuidebookList.addEventListener("click", async (event) => {
+    const btn = event.target.closest("button[data-action]");
+    if (!btn) return;
+    await handleManagerAction("guidebooks", btn.dataset.reg, btn.dataset.action);
+  });
+
+  function refreshManagerCategoryTargetOptions() {
+    if (!managerProgramCategories.length) {
+      managerPointCategoryTarget.innerHTML = `<option value="">Pilih kategori dulu</option>`;
+      return;
+    }
+    managerPointCategoryTarget.innerHTML = managerProgramCategories
+      .map((cat) => `<option value="${cat.id}">${escapeHtml(cat.icon || "🔥")} ${escapeHtml(cat.nama || "-")}</option>`)
+      .join("");
+  }
+
+  function renderManagerProgramPreview() {
+    if (!managerProgramCategories.length) {
+      managerProgramPreview.innerHTML = `<p class="program-builder-empty">Belum ada kategori/poin.</p>`;
+      refreshManagerCategoryTargetOptions();
+      refreshLucideIcons();
+      return;
+    }
+    managerProgramPreview.innerHTML = managerProgramCategories.map((cat) => {
+      const points = cat.poin || [];
+      const list = points.length
+        ? `<ul>${points.map((p, idx) => `<li>${escapeHtml(p.judul || "-")} (${escapeHtml(p.tipe || "-")}) <button type="button" class="preview-del-btn" data-del-point="${cat.id}" data-point-idx="${idx}">hapus poin</button></li>`).join("")}</ul>`
+        : `<p class="program-builder-empty">Belum ada poin.</p>`;
+      return `<div class="category-preview">
+        <div class="category-preview-head">
+          <p class="category-preview-title">${iconHtml(cat.icon || "flame")} ${escapeHtml(cat.nama || "-")}</p>
+          <button type="button" class="preview-del-btn" data-del-category="${cat.id}">hapus kategori</button>
+        </div>
+        ${list}
+      </div>`;
+    }).join("");
+    refreshManagerCategoryTargetOptions();
+    refreshLucideIcons();
+  }
+
+  managerProgramPreview.addEventListener("click", (event) => {
+    const delCatBtn = event.target.closest("button[data-del-category]");
+    if (delCatBtn) {
+      const catId = delCatBtn.dataset.delCategory;
+      const idx = managerProgramCategories.findIndex((c) => c.id === catId);
+      if (idx >= 0) managerProgramCategories.splice(idx, 1);
+      renderManagerProgramPreview();
+      return;
+    }
+
+    const delPointBtn = event.target.closest("button[data-del-point]");
+    if (delPointBtn) {
+      const catId = delPointBtn.dataset.delPoint;
+      const pointIdx = Number(delPointBtn.dataset.pointIdx);
+      const cat = managerProgramCategories.find((c) => c.id === catId);
+      if (cat && Number.isInteger(pointIdx) && pointIdx >= 0 && pointIdx < cat.poin.length) {
+        cat.poin.splice(pointIdx, 1);
+      }
+      renderManagerProgramPreview();
+    }
+  });
+
+  managerAddCategoryBtn.addEventListener("click", () => {
+    const nama = managerCatName.value.trim();
+    if (!nama) {
+      alert("Isi nama kategori.");
+      return;
+    }
+    managerProgramCategories.push({
+      id: "mcat_" + Date.now() + "_" + Math.random().toString(16).slice(2, 6),
+      nama,
+      icon: managerCatIcon.value.trim() || "flame",
+      createdAt: Date.now(),
+      poin: [],
+    });
+    managerCatName.value = "";
+    managerCatIcon.value = "flame";
+    renderManagerProgramPreview();
+  });
+
+  managerAddPointBtn.addEventListener("click", () => {
+    const catId = managerPointCategoryTarget.value;
+    const title = managerPointTitle.value.trim();
+    if (!catId) {
+      alert("Pilih kategori tujuan.");
+      return;
+    }
+    if (!title) {
+      alert("Isi judul poin.");
+      return;
+    }
+    const cat = managerProgramCategories.find((c) => c.id === catId);
+    if (!cat) return;
+    cat.poin.push({
+      judul: title,
+      desc: managerPointDesc.value.trim(),
+      reps: managerPointReps.value.trim(),
+      tipe: managerPointType.value,
+      imgUrl: managerPointImg.value.trim(),
+      vidUrl: managerPointVid.value.trim(),
+      selesai: false,
+      createdAt: Date.now(),
+    });
+    managerPointTitle.value = "";
+    managerPointDesc.value = "";
+    managerPointReps.value = "";
+    managerPointType.value = "repetisi";
+    managerPointImg.value = "";
+    managerPointVid.value = "";
+    renderManagerProgramPreview();
+  });
+
+  function closeManagerModal() {
+    managerModal.classList.add("hidden");
+    managerRecipientResults.style.display = "none";
+  }
+
+  function renderManagerRecipients() {
+    managerRecipientChips.innerHTML = "";
+    managerState.recipients.forEach((meta, id) => {
+      const div = document.createElement("div");
+      div.className = "recipient-chip";
+      div.innerHTML = `<span>${escapeHtml(meta.nama)} (${id})</span><button type="button" data-id="${id}">×</button>`;
+      managerRecipientChips.appendChild(div);
+    });
+  }
+
+  managerRecipientChips.addEventListener("click", (event) => {
+    const btn = event.target.closest("button[data-id]");
+    if (!btn) return;
+    managerState.recipients.delete(btn.dataset.id);
+    renderManagerRecipients();
+  });
+
+  async function searchMembersForManager(query) {
+    const q = query.toLowerCase();
+    const sources = managerState.type === "guidebooks"
+      ? [{ path: "pelatih", jenis: "pelatih" }]
+      : [{ path: "pelatih", jenis: "pelatih" }, { path: "atlet_seni", jenis: "atlet_seni" }, { path: "atlet", jenis: "atlet_tanding" }];
+    const found = [];
+    for (const src of sources) {
+      const snap = await get(ref(db, src.path));
+      if (!snap.exists()) continue;
+      snap.forEach((child) => {
+        const v = child.val() || {};
+        const nama = String(v.nama || "");
+        if (nama.toLowerCase().includes(q) || child.key.toLowerCase().includes(q)) {
+          found.push({ id: child.key, nama: nama || child.key, jenis: src.jenis });
+        }
+      });
+    }
+    return found.slice(0, 15);
+  }
+
+  managerRecipientSearch.addEventListener("input", () => {
+    clearTimeout(managerSearchTimer);
+    const q = managerRecipientSearch.value.trim();
+    if (q.length < 2) {
+      managerRecipientResults.style.display = "none";
+      return;
+    }
+    managerSearchTimer = setTimeout(async () => {
+      const items = await searchMembersForManager(q);
+      managerRecipientResults.innerHTML = "";
+      items.forEach((item) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "search-item";
+        btn.textContent = `${item.nama} (${item.id}) — ${item.jenis}`;
+        btn.addEventListener("click", () => {
+          managerState.recipients.set(item.id, { nama: item.nama, jenis: item.jenis });
+          renderManagerRecipients();
+          managerRecipientSearch.value = "";
+          managerRecipientResults.style.display = "none";
+        });
+        managerRecipientResults.appendChild(btn);
+      });
+      managerRecipientResults.style.display = items.length ? "block" : "none";
+    }, 250);
+  });
+
+  async function openManagerModal(type, registryId, registry) {
+    managerState.type = type;
+    managerState.registryId = registryId;
+    managerState.registry = registry;
+    managerState.recipients = new Map([[registry.targetId, { nama: registry.targetName || registry.targetId, jenis: registry.root === "pelatih" ? "pelatih" : (registry.root === "atlet_seni" ? "atlet_seni" : "atlet_tanding") }]]);
+
+    const dataPath = type === "programs"
+      ? `${registry.root}/${registry.targetId}/program/${registry.itemId}`
+      : `${registry.root}/${registry.targetId}/guidebook/${registry.itemId}`;
+    const snap = await get(ref(db, dataPath));
+    if (!snap.exists()) {
+      alert("Data utama tidak ditemukan.");
+      return;
+    }
+    managerState.data = snap.val() || {};
+
+    const isProgram = type === "programs";
+    managerModalTitle.textContent = isProgram ? "Edit Program Massal" : "Edit Guidebook Massal";
+    programOnlyFields.classList.toggle("hidden", !isProgram);
+    guidebookOnlyFields.classList.toggle("hidden", isProgram);
+
+    if (isProgram) {
+      managerFieldTitle.value = managerState.data.nama || "";
+      managerFieldDesc.value = managerState.data.desc || "";
+      managerFieldStart.value = managerState.data.tglMulai || "";
+      managerFieldEnd.value = managerState.data.tglSelesai || "";
+      managerFieldTarget.value = managerState.data.target || "";
+      managerProgramCategories.length = 0;
+      const kategoriObj = managerState.data.kategori || {};
+      Object.entries(kategoriObj).forEach(([katId, katVal]) => {
+        const kat = katVal || {};
+        managerProgramCategories.push({
+          id: katId,
+          nama: kat.nama || "Kategori",
+          icon: kat.icon || "flame",
+          createdAt: kat.createdAt || Date.now(),
+          poin: Object.values(kat.poin || {}).map((p) => ({
+            judul: p.judul || "",
+            desc: p.desc || "",
+            reps: p.reps || "",
+            tipe: p.tipe || "repetisi",
+            imgUrl: p.imgUrl || "",
+            vidUrl: p.vidUrl || "",
+            selesai: Boolean(p.selesai),
+            createdAt: p.createdAt || Date.now(),
+          })),
+        });
+      });
+      renderManagerProgramPreview();
+    } else {
+      managerFieldTitle.value = managerState.data.judul || "";
+      managerFieldDesc.value = managerState.data.desc || "";
+      managerFieldGbKategori.value = managerState.data.kategori || "";
+      managerFieldGbVersi.value = managerState.data.versi || "";
+      managerFieldGbImg.value = managerState.data.imgUrl || "";
+      managerFieldGbDrive.value = managerState.data.driveUrl || "";
+      managerProgramCategories.length = 0;
+      renderManagerProgramPreview();
+    }
+
+    renderManagerRecipients();
+    managerModal.classList.remove("hidden");
+  }
+
+  managerModalClose.addEventListener("click", closeManagerModal);
+  managerModalCancel.addEventListener("click", closeManagerModal);
+
+  managerModalSave.addEventListener("click", async () => {
+    if (!managerState.type || !managerState.registry) return;
+    const recipients = Array.from(managerState.recipients.entries()).map(([id, meta]) => ({ id, ...meta }));
+    if (!recipients.length) {
+      alert("Minimal harus ada 1 penerima.");
+      return;
+    }
+
+    const isProgram = managerState.type === "programs";
+    let payload;
+    if (isProgram) {
+      if (!managerProgramCategories.length) {
+        alert("Tambahkan minimal 1 kategori di editor program.");
+        return;
+      }
+      const kategoriData = {};
+      managerProgramCategories.forEach((cat) => {
+        const poinMap = {};
+        (cat.poin || []).forEach((p) => {
+          const key = "poin_" + (p.createdAt || Date.now()) + "_" + Math.random().toString(16).slice(2, 6);
+          poinMap[key] = {
+            judul: p.judul || "",
+            desc: p.desc || "",
+            reps: p.reps || "",
+            tipe: p.tipe || "repetisi",
+            imgUrl: p.imgUrl || "",
+            vidUrl: p.vidUrl || "",
+            selesai: Boolean(p.selesai),
+            createdAt: p.createdAt || Date.now(),
+          };
+        });
+        const katKey = cat.id || ("kat_" + Date.now() + "_" + Math.random().toString(16).slice(2, 6));
+        kategoriData[katKey] = {
+          nama: cat.nama || "Kategori",
+          icon: cat.icon || "🔥",
+          createdAt: cat.createdAt || Date.now(),
+          poin: poinMap,
+        };
+      });
+      payload = {
+        nama: managerFieldTitle.value.trim(),
+        desc: managerFieldDesc.value.trim(),
+        tglMulai: managerFieldStart.value,
+        tglSelesai: managerFieldEnd.value,
+        target: managerFieldTarget.value.trim(),
+        kategori: kategoriData,
+      };
+    } else {
+      if (recipients.some((r) => r.jenis !== "pelatih")) {
+        alert("Guidebook hanya boleh untuk pelatih.");
+        return;
+      }
+      payload = {
+        judul: managerFieldTitle.value.trim(),
+        desc: managerFieldDesc.value.trim(),
+        kategori: managerFieldGbKategori.value.trim(),
+        versi: managerFieldGbVersi.value.trim(),
+        imgUrl: managerFieldGbImg.value.trim(),
+        driveUrl: managerFieldGbDrive.value.trim(),
+      };
+    }
+
+    const registry = managerState.registry;
+    const currentStillExists = recipients.some((r) => r.id === registry.targetId);
+    const currentPath = isProgram
+      ? `${registry.root}/${registry.targetId}/program/${registry.itemId}`
+      : `${registry.root}/${registry.targetId}/guidebook/${registry.itemId}`;
+
+    if (currentStillExists) {
+      await update(ref(db, currentPath), payload);
+      await update(ref(db, `bulk_registry/${managerState.type}/${managerState.registryId}`), isProgram
+        ? { nama: payload.nama, desc: payload.desc }
+        : { judul: payload.judul, desc: payload.desc });
+    } else {
+      await remove(ref(db, currentPath));
+      await remove(ref(db, `bulk_registry/${managerState.type}/${managerState.registryId}`));
+    }
+
+    for (const rec of recipients) {
+      if (rec.id === registry.targetId) continue;
+      const root = isProgram ? getDbRootByType(rec.jenis) : "pelatih";
+      if (!root) continue;
+      const newRef = push(ref(db, isProgram ? `${root}/${rec.id}/program` : `${root}/${rec.id}/guidebook`));
+      await set(newRef, { ...payload, createdAt: Date.now() });
+      await set(push(ref(db, `bulk_registry/${managerState.type}`)), isProgram
+        ? {
+            root,
+            targetId: rec.id,
+            targetName: rec.nama,
+            itemId: newRef.key,
+            nama: payload.nama,
+            desc: payload.desc || "",
+            createdAt: Date.now(),
+          }
+        : {
+            root,
+            targetId: rec.id,
+            targetName: rec.nama,
+            itemId: newRef.key,
+            judul: payload.judul,
+            desc: payload.desc || "",
+            createdAt: Date.now(),
+          });
+    }
+
+    closeManagerModal();
+    await loadBulkRegistry();
+  });
+
+  loadBulkRegistry();
+
+  submitProgram.addEventListener("click", async () => {
+    const ids = parseIds(bulkIds.value);
+
+    const programData = {
+      nama: programNama.value.trim(),
+      tglMulai: programMulai.value,
+      tglSelesai: programSelesai.value,
+      target: programTarget.value.trim(),
+      desc: programDesc.value.trim(),
+      kategori: programCategories.map((cat) => ({
+        nama: cat.nama,
+        icon: cat.icon,
+        createdAt: cat.createdAt,
+        poin: cat.poin.map((p) => ({
+          judul: p.judul,
+          desc: p.desc,
+          reps: p.reps,
+          tipe: p.tipe,
+          imgUrl: p.imgUrl,
+          vidUrl: p.vidUrl,
+          selesai: p.selesai,
+          createdAt: p.createdAt,
+        })),
+      })),
+      createdAt: Date.now(),
+    };
+
+    const hasProgram = Boolean(programData.nama);
+
+    if (!ids.length) {
+      alert("Masukkan minimal 1 ID.");
+      return;
+    }
+
+    if (!hasProgram) {
+      alert("Isi Nama Program terlebih dahulu.");
+      return;
+    }
+
+    if (hasProgram && !programData.tglMulai) {
+      alert("Jika menambahkan program, Tanggal Mulai wajib diisi.");
+      return;
+    }
+
+    if (!programData.kategori.length) {
+      alert("Tambahkan minimal 1 kategori.");
+      return;
+    }
+
+    const hasAnyPoint = programData.kategori.some((cat) => cat.poin.length > 0);
+    if (!hasAnyPoint) {
+      alert("Tambahkan minimal 1 poin latihan pada kategori.");
+      return;
+    }
+
+    resultList.innerHTML = "";
+    for (const id of ids) {
+      const meta = selectedIds.get(id);
+      const root = getDbRootByType(meta?.jenis);
+      if (!root) {
+        const item = document.createElement("li");
+        item.textContent = "ID " + id + " gagal diproses (tipe data tidak dikenali).";
+        resultList.appendChild(item);
+        continue;
+      }
+
+      try {
+        const programRef = push(ref(db, `${root}/${id}/program`));
+        await set(programRef, {
+          nama: programData.nama,
+          tglMulai: programData.tglMulai,
+          tglSelesai: programData.tglSelesai,
+          target: programData.target,
+          desc: programData.desc,
+          createdAt: programData.createdAt,
+        });
+
+        for (const kategori of programData.kategori) {
+          const katRef = push(ref(db, `${root}/${id}/program/${programRef.key}/kategori`));
+          await set(katRef, {
+            nama: kategori.nama,
+            icon: kategori.icon,
+            createdAt: kategori.createdAt,
+          });
+
+          for (const poin of kategori.poin) {
+            const poinRef = push(ref(db, `${root}/${id}/program/${programRef.key}/kategori/${katRef.key}/poin`));
+            await set(poinRef, {
+              judul: poin.judul,
+              desc: poin.desc,
+              reps: poin.reps,
+              tipe: poin.tipe,
+              imgUrl: poin.imgUrl,
+              vidUrl: poin.vidUrl,
+              selesai: false,
+              createdAt: poin.createdAt,
+            });
+          }
+        }
+
+        await set(push(ref(db, "bulk_registry/programs")), {
+          root,
+          targetId: id,
+          targetName: meta?.nama || id,
+          itemId: programRef.key,
+          nama: programData.nama,
+          desc: programData.desc || "",
+          createdAt: Date.now(),
+        });
+
+        const item = document.createElement("li");
+        item.textContent = "ID " + id + " berhasil ditambahkan Program: " + programData.nama;
+        resultList.appendChild(item);
+      } catch (err) {
+        const item = document.createElement("li");
+        item.textContent = "ID " + id + " gagal simpan program: " + (err?.message || "Unknown error");
+        resultList.appendChild(item);
+      }
+    }
+
+    resultBox.style.display = "block";
+    await loadBulkRegistry();
+  });
+
+  submitGuidebook.addEventListener("click", async () => {
+    const ids = parseIds(bulkIds.value);
+    const guidebookData = {
+      judul: guidebookJudul.value.trim(),
+      desc: guidebookDesc.value.trim(),
+      kategori: guidebookKategori.value,
+      versi: guidebookVersi.value.trim(),
+      imgUrl: guidebookImgUrl.value.trim(),
+      driveUrl: guidebookDriveUrl.value.trim(),
+      createdAt: Date.now(),
+    };
+
+    if (!ids.length) {
+      alert("Masukkan minimal 1 ID.");
+      return;
+    }
+
+    if (!guidebookData.judul) {
+      alert("Isi Judul Guidebook terlebih dahulu.");
+      return;
+    }
+
+    const nonCoachIds = ids.filter((id) => {
+      const meta = selectedIds.get(id);
+      return !meta || meta.jenis !== "pelatih";
+    });
+
+    if (nonCoachIds.length) {
+      alert("Guidebook hanya untuk pelatih. ID berikut bukan pelatih: " + nonCoachIds.join(", "));
+      return;
+    }
+
+    resultList.innerHTML = "";
+    for (const id of ids) {
+      try {
+        const gbRef = push(ref(db, `pelatih/${id}/guidebook`));
+        await set(gbRef, {
+          judul: guidebookData.judul,
+          desc: guidebookData.desc,
+          kategori: guidebookData.kategori,
+          versi: guidebookData.versi,
+          imgUrl: guidebookData.imgUrl,
+          driveUrl: guidebookData.driveUrl,
+          createdAt: guidebookData.createdAt,
+        });
+
+        const meta = selectedIds.get(id);
+        await set(push(ref(db, "bulk_registry/guidebooks")), {
+          root: "pelatih",
+          targetId: id,
+          targetName: meta?.nama || id,
+          itemId: gbRef.key,
+          judul: guidebookData.judul,
+          desc: guidebookData.desc || "",
+          createdAt: Date.now(),
+        });
+
+        const item = document.createElement("li");
+        item.textContent = "ID " + id + " berhasil ditambahkan Guidebook: " + guidebookData.judul;
+        resultList.appendChild(item);
+      } catch (err) {
+        const item = document.createElement("li");
+        item.textContent = "ID " + id + " gagal simpan guidebook: " + (err?.message || "Unknown error");
+        resultList.appendChild(item);
+      }
+    }
+
+    resultBox.style.display = "block";
+    await loadBulkRegistry();
+  });
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
+
+</script>
+</body>
+</html>

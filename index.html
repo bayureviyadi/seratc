@@ -1,145 +1,2183 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SERA TRAINING CENTER</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
-    <!-- style -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-  </head>
-  <body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ATHLETE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<style>
+:root{--ff:'Outfit',sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--r2:8px;--r3:20px}
+[data-theme="default"]{color-scheme:light dark}
+@media(prefers-color-scheme:dark){[data-theme="default"]{--c0:#070b12;--c1:#0d1420;--c2:#111c2e;--c3:#162035;--border:rgba(99,179,237,.1);--border2:rgba(99,179,237,.18);--blue:#63b3ed;--blue2:#4299e1;--blue3:#2b6cb0;--gold:#f6c90e;--gold2:#d4a017;--green:#48bb78;--green2:#276749;--red:#fc5c7d;--purple:#b794f4;--muted:#4a6080;--muted2:#334e68;--text:#e2ecf7;--text2:#8aa6c0;--shadow:0 4px 24px rgba(0,0,0,.4);--topbar-bg:rgba(7,11,18,.92);--nav-bg:#0d1420}}
+@media(prefers-color-scheme:light){[data-theme="default"]{--c0:#f0f4f8;--c1:#ffffff;--c2:#e8edf3;--c3:#dde4ec;--border:rgba(50,100,180,.12);--border2:rgba(50,100,180,.22);--blue:#2563eb;--blue2:#1d4ed8;--blue3:#1e40af;--gold:#b45309;--gold2:#92400e;--green:#16a34a;--green2:#14532d;--red:#dc2626;--purple:#7c3aed;--muted:#64748b;--muted2:#94a3b8;--text:#1e293b;--text2:#475569;--shadow:0 4px 24px rgba(0,0,0,.1);--topbar-bg:rgba(240,244,248,.95);--nav-bg:#ffffff}}
+[data-theme="dark"]{--c0:#0a0a0a;--c1:#111111;--c2:#1a1a1a;--c3:#222222;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);--blue:#e0e0e0;--blue2:#c0c0c0;--blue3:#888888;--gold:#aaaaaa;--gold2:#888888;--green:#888888;--green2:#555555;--red:#cc4444;--purple:#9966cc;--muted:#555555;--muted2:#333333;--text:#e8e8e8;--text2:#999999;--shadow:0 4px 24px rgba(0,0,0,.6);--topbar-bg:rgba(10,10,10,.95);--nav-bg:#111111}
+[data-theme="light"]{--c0:#f0f4f8;--c1:#ffffff;--c2:#e8edf3;--c3:#dde4ec;--border:rgba(50,100,180,.12);--border2:rgba(50,100,180,.22);--blue:#2563eb;--blue2:#1d4ed8;--blue3:#1e40af;--gold:#b45309;--gold2:#92400e;--green:#16a34a;--green2:#14532d;--red:#dc2626;--purple:#7c3aed;--muted:#64748b;--muted2:#94a3b8;--text:#1e293b;--text2:#475569;--shadow:0 4px 24px rgba(0,0,0,.1);--topbar-bg:rgba(240,244,248,.95);--nav-bg:#ffffff}
+[data-theme="sporty"]{--c0:#0f1923;--c1:#162232;--c2:#1a2a3e;--c3:#1f3049;--border:rgba(255,69,0,.15);--border2:rgba(255,69,0,.25);--blue:#ff4500;--blue2:#e03d00;--blue3:#c23400;--gold:#ffcc00;--gold2:#e0b300;--green:#00e676;--green2:#00994d;--red:#ff1744;--purple:#d500f9;--muted:#4a5a6a;--muted2:#2d3d4d;--text:#f0f4f8;--text2:#8aa0b0;--shadow:0 4px 24px rgba(255,69,0,.15);--topbar-bg:rgba(15,25,35,.95);--nav-bg:#162232}
+[data-theme="luxury"]{--c0:#0c0a07;--c1:#151208;--c2:#1c170e;--c3:#231c12;--border:rgba(212,175,55,.12);--border2:rgba(212,175,55,.22);--blue:#d4af37;--blue2:#c09b2e;--blue3:#a07f22;--gold:#f0d060;--gold2:#d4af37;--green:#8fbc8f;--green2:#5a8a5a;--red:#cc6666;--purple:#b088cc;--muted:#6b5a3a;--muted2:#3d3220;--text:#f5e8c8;--text2:#b8a070;--shadow:0 4px 24px rgba(0,0,0,.6);--topbar-bg:rgba(12,10,7,.95);--nav-bg:#151208}
+[data-theme="classic"]{--c0:#faf8f5;--c1:#ffffff;--c2:#f0ede8;--c3:#e5e0d8;--border:rgba(100,80,50,.12);--border2:rgba(100,80,50,.22);--blue:#4a3728;--blue2:#3d2c1e;--blue3:#2d1e12;--gold:#8b6914;--gold2:#6b5010;--green:#3a6b3a;--green2:#1e4a1e;--red:#8b2020;--purple:#5a3a7a;--muted:#8c7a60;--muted2:#b8a888;--text:#2c2015;--text2:#6b5a40;--shadow:0 4px 24px rgba(0,0,0,.12);--topbar-bg:rgba(250,248,245,.96);--nav-bg:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s}
+/* Hide scrollbar but keep scrolling */
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{width:0;height:0;display:none}
+#loadScreen{position:fixed;inset:0;background:var(--c0);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;transition:opacity .5s}
+#loadScreen.out{opacity:0;pointer-events:none}
+.load-logo{font-size:28px;font-weight:900;letter-spacing:4px;color:var(--blue)}
+.load-logo span{color:var(--gold)}
+.load-bar{width:160px;height:2px;background:rgba(128,128,128,.15);border-radius:2px;overflow:hidden}
+.load-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--gold));border-radius:2px;animation:loadAnim 1.4s ease forwards}
+@keyframes loadAnim{from{width:0}to{width:100%}}
+.load-txt{font-family:var(--fm);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+#loginScreen{position:fixed;inset:0;background:var(--c0);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;transition:opacity .4s}
+#loginScreen.out{opacity:0;pointer-events:none}
+.login-box{position:relative;width:100%;max-width:400px;z-index:1}
+.login-header{text-align:center;margin-bottom:40px}
+.login-logo{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--blue);display:block;margin-bottom:6px}
+.login-logo span{color:var(--gold)}
+.login-subtitle{font-family:var(--fm);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.login-tagline{font-size:13px;color:var(--text2);margin-top:8px;font-weight:400}
+.login-form{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:28px;box-shadow:var(--shadow)}
+.login-field{margin-bottom:18px}
+.login-field label{font-family:var(--fm);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.login-field input{width:100%;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:13px 16px;border-radius:var(--r2);font-family:var(--ff);font-size:15px;font-weight:500;outline:none;transition:border-color .2s}
+.login-field input:focus{border-color:var(--blue2)}
+.login-field input::placeholder{color:var(--muted2)}
+.login-hint{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:5px;letter-spacing:.5px}
+.login-btn{width:100%;padding:14px;background:var(--blue2);border:none;color:var(--c0);font-family:var(--ff);font-size:14px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:var(--r2);transition:all .2s;margin-top:8px;text-transform:uppercase}
+.login-btn:hover{background:var(--blue);opacity:.9}
+.login-btn:active{transform:scale(.98)}
+.login-err{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);color:var(--red);font-family:var(--fm);font-size:11px;padding:10px 14px;border-radius:var(--r2);margin-top:12px;display:none;letter-spacing:.5px}
+.login-err.show{display:block;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.login-controls{display:flex;justify-content:center;gap:10px;margin-top:20px;flex-wrap:wrap}
+.login-ctrl-btn{background:var(--c1);border:1px solid var(--border);color:var(--text2);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .2s}
+.login-ctrl-btn:hover{border-color:var(--blue2);color:var(--blue)}
+#app{display:none;min-height:100vh;max-width:480px;margin:0 auto;position:relative}
+#app.show{display:block}
+.topbar{background:var(--topbar-bg);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 18px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.topbar-left{display:flex;flex-direction:column;gap:2px}
+.topbar-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:.3px}
+.topbar-meta{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:1px}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.score-ring-sm{width:44px;height:44px;border-radius:50%;background:conic-gradient(var(--blue) calc(var(--s)*1%),rgba(128,128,128,.1) 0%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.score-ring-sm::before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--c0)}
+.score-ring-num{position:relative;font-size:11px;font-weight:800;color:var(--blue);font-family:var(--ff)}
+.topbar-actions{display:flex;gap:6px;align-items:center}
+.tb-btn{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap}
+.tb-btn:hover{border-color:var(--blue2);color:var(--blue)}
+.nav-tabs{display:flex;background:var(--nav-bg);border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{flex:1;min-width:56px;padding:10px 4px 9px;background:transparent;border:none;color:var(--muted);font-family:var(--ff);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;letter-spacing:.2px;position:relative;white-space:nowrap}
+.nav-tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.nav-tab.active{color:var(--blue)}
+.nav-tab.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:var(--blue);border-radius:2px 2px 0 0}
+.mb-nav-wrap{display:none}
+.mb-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(94vw,480px);background:var(--c1);border:1px solid var(--border2);border-radius:28px;box-shadow:0 16px 40px rgba(0,0,0,.45);display:grid;grid-template-columns:repeat(5,1fr);padding:10px 8px 8px;z-index:500;gap:2px}
+.mb-btn{background:transparent;border:none;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 2px;cursor:pointer;transition:color .2s;border-radius:8px}
+.mb-btn .mb-ic{font-size:18px;line-height:1;display:block}
+.mb-btn .mb-ic iconify-icon{font-size:18px}
+.mb-btn .mb-txt{font-family:var(--ff);font-size:10px;font-weight:600;line-height:1}
+.mb-btn.active{color:var(--blue)}
+.mb-menu-panel{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);width:min(92vw,320px);background:var(--c1);border:1px solid var(--border2);border-radius:14px;box-shadow:var(--shadow);padding:10px;z-index:510;display:none}
+.mb-menu-panel.show{display:block}
+.mb-menu-item{width:100%;display:flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:10px;cursor:pointer;font-family:var(--fm);font-size:10px;letter-spacing:.4px}
+.mb-menu-item + .mb-menu-item{margin-top:8px}
+.mb-menu-item iconify-icon{font-size:15px;color:var(--blue)}
+.settings-x-btn{margin-left:auto;background:transparent;border:1px solid var(--border2);color:var(--muted);width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.settings-x-btn iconify-icon{font-size:14px}
+.page{display:none;padding:0 0 90px;animation:fadeUp .25s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media (max-width:700px){
+  #app.bottom-nav-on .topbar{display:none}
+  #app.bottom-nav-on .nav-tabs{display:none}
+  #app.bottom-nav-on .mb-nav-wrap{display:block}
+  #app.bottom-nav-on .mb-menu-panel{display:none}
+  #app.bottom-nav-on .mb-menu-panel.show{display:block}
+  #app.bottom-nav-on.settings-open .mb-nav-wrap{display:none}
+  #app.bottom-nav-on .bottom-sp{height:96px}
+}
+.hero{padding:20px 18px 0;background:linear-gradient(180deg,rgba(99,179,237,.03) 0%,transparent 100%)}
+.hero-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px}
+.hero-main{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.hero-avatar-btn{width:44px;height:44px;border-radius:12px;border:1px solid var(--border2);background:var(--c2);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;flex-shrink:0}
+.hero-avatar-btn iconify-icon{font-size:18px;color:var(--blue)}
+.hero-avatar-btn img{width:100%;height:100%;object-fit:cover}
+.hero-overall{display:flex;flex-direction:column;align-items:center;gap:4px}
+.hero-overall-label{font-family:var(--fm);font-size:8px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.hero-name{font-size:22px;font-weight:800;color:var(--text);letter-spacing:.5px;line-height:1.1;text-transform:uppercase}
+.hero-sub{font-family:var(--fm);font-size:10px;color:var(--text2);letter-spacing:1px;margin-top:2px}
+.hero-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-bottom:18px}
+.hero-medals{display:flex;gap:6px;flex-wrap:wrap;margin-top:-8px;padding-bottom:18px}
+.hero-medals .hbadge{display:inline-flex;align-items:center;gap:6px}
+.hero-medals iconify-icon{font-size:13px}
+.hbadge{font-family:var(--fm);font-size:9px;letter-spacing:1px;padding:3px 10px;border-radius:20px;text-transform:uppercase;font-weight:600;border:1px solid var(--border)}
+.hbadge-blue{background:rgba(99,179,237,.08);border-color:rgba(99,179,237,.2);color:var(--blue)}
+.hbadge-gold{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.2);color:var(--gold)}
+.hbadge-green{background:rgba(72,187,120,.08);border-color:rgba(72,187,120,.2);color:var(--green)}
+.hbadge-purple{background:rgba(183,148,244,.08);border-color:rgba(183,148,244,.2);color:var(--purple)}
+.hbadge-red{background:rgba(252,92,125,.08);border-color:rgba(252,92,125,.2);color:var(--red)}
+.overview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 18px}
+.ov-cell{background:var(--c1);border:1px solid var(--border);border-radius:var(--r2);padding:12px 10px;text-align:center}
+.ov-val{font-size:20px;font-weight:800;letter-spacing:-1px}
+.ov-label{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.sec{padding:0 18px;margin-bottom:20px}
+.sec-title{font-family:var(--fm);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.stat-row2{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.sname{font-size:12px;font-weight:600;color:var(--text2);width:115px;flex-shrink:0;letter-spacing:.2px}
+.strack{flex:1;height:6px;background:rgba(128,128,128,.1);border-radius:3px;overflow:visible;position:relative}
+.sfill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue3),var(--blue));position:relative;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.sfill::after{content:'';position:absolute;right:-2px;top:-3px;width:12px;height:12px;border-radius:50%;background:var(--blue)}
+.sfill.p{background:linear-gradient(90deg,var(--blue3),var(--purple))}
+.sfill.p::after{background:var(--purple)}
+.sval{font-family:var(--fm);font-size:11px;color:var(--blue);width:28px;text-align:right;font-weight:700;flex-shrink:0}
+.sval.p{color:var(--purple)}
+.skill-display-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.sdchip{background:var(--c2);border:1px solid var(--border);border-radius:var(--r2);padding:10px 8px;text-align:center}
+.sdchip-name{font-family:var(--fm);font-size:8px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.sdchip-val{font-size:18px;font-weight:800;letter-spacing:-1px}
+.sdchip-tier{font-family:var(--fm);font-size:8px;letter-spacing:1px;font-weight:700}
+.tier-s{color:var(--red)}.tier-a{color:var(--gold)}.tier-b{color:var(--blue)}.tier-c{color:var(--muted)}
+.skill-group-title{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.chart-block{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:14px}
+.chart-block-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.chart-wrap{position:relative;height:170px}
+.no-data-txt{font-family:var(--fm);font-size:10px;color:var(--muted);text-align:center;padding:30px 0}
+.cal-container{padding:0 18px}
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-title{font-size:15px;font-weight:700;color:var(--text)}
+.cal-arr{background:transparent;border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:var(--r2);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.cal-arr:hover{border-color:var(--blue2);color:var(--blue)}
+.cal-grid2{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.cal-dn{font-family:var(--fm);font-size:9px;text-align:center;color:var(--muted);padding:5px 0;letter-spacing:.5px}
+.cal-d{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-family:var(--fm);font-size:11px;color:var(--muted2);position:relative;transition:background .15s}
+.cal-d.today{background:rgba(99,179,237,.15);color:var(--blue);font-weight:700}
+.cal-d.marked{background:rgba(72,187,120,.12);color:var(--green);font-weight:600}
+.cal-d.marked::after{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--green)}
+.cal-d.other{opacity:.25}
+.training-list{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.tl-header{padding:12px 14px;border-bottom:1px solid var(--border);font-family:var(--fm);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.tl-item{padding:12px 14px;border-bottom:1px solid rgba(128,128,128,.06);display:flex;align-items:flex-start;gap:12px}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:4px}
+.tl-date{font-family:var(--fm);font-size:10px;color:var(--gold);width:40px;flex-shrink:0;font-weight:600}
+.tl-note{font-size:13px;color:var(--text2);flex:1}
+.tl-rpe{font-family:var(--fm);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:auto;flex-shrink:0}
+.tl-empty{padding:24px;text-align:center;font-family:var(--fm);font-size:10px;color:var(--muted)}
+.quest-page{padding:0 18px}
+.qp-empty{text-align:center;padding:50px 20px;font-family:var(--fm);font-size:11px;color:var(--muted);letter-spacing:1px}
+.today-banner{margin-bottom:12px;padding:10px 12px;border:1px solid var(--border2);border-radius:10px;background:rgba(99,179,237,.08);display:flex;align-items:flex-start;gap:8px}
+.today-banner iconify-icon{font-size:15px;color:var(--blue);margin-top:1px}
+.today-banner-title{font-family:var(--fm);font-size:9px;letter-spacing:1px;color:var(--blue);text-transform:uppercase;margin-bottom:3px}
+.today-banner-text{font-size:12px;color:var(--text2);line-height:1.4}
+.prog-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);margin-bottom:16px;overflow:hidden;transition:border-color .2s}
+.prog-card.active-prog{border-color:rgba(72,187,120,.3)}
+.prog-card.upcoming-prog{border-color:rgba(212,175,55,.25)}
+.prog-header{padding:14px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.prog-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:rgba(128,128,128,.06);border:1px solid var(--border)}
+.prog-icon svg{width:18px;height:18px;stroke:var(--blue);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.prog-icon.green svg{stroke:var(--green)}
+.prog-icon.gold svg{stroke:var(--gold)}
+.prog-icon.muted svg{stroke:var(--muted)}
+.prog-info{flex:1;min-width:0}
+.prog-name{font-size:14px;font-weight:700;color:var(--text);letter-spacing:.3px;margin-bottom:3px}
+.prog-meta{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:.5px;display:flex;gap:10px;flex-wrap:wrap}
+.prog-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.prog-badge{font-family:var(--fm);font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:20px;text-transform:uppercase;font-weight:600;white-space:nowrap;border:1px solid}
+.pb-green{background:rgba(72,187,120,.08);border-color:rgba(72,187,120,.3);color:var(--green)}
+.pb-gold{background:rgba(212,175,55,.08);border-color:rgba(212,175,55,.25);color:var(--gold)}
+.pb-muted{background:rgba(128,128,128,.06);border-color:var(--border);color:var(--muted)}
+.prog-chevron{color:var(--muted);font-size:12px;transition:transform .2s;margin-top:2px;line-height:1}
+.prog-ring-wrap{display:flex;align-items:center;gap:6px;font-family:var(--fm);font-size:10px;color:var(--muted)}
+.mini-ring{width:28px;height:28px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--pr)*1%),rgba(128,128,128,.1) 0%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.mini-ring::before{content:'';position:absolute;inset:4px;border-radius:50%;background:var(--c1)}
+.mini-ring-num{position:relative;font-size:7px;font-weight:700;color:var(--green);font-family:var(--fm)}
+.prog-bar-wrap{padding:0 16px 12px}
+.prog-bar-bg{height:3px;background:rgba(128,128,128,.1);border-radius:2px;overflow:hidden}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:2px;transition:width .5s}
+.prog-body{display:none;border-top:1px solid var(--border)}
+.prog-body.open{display:block}
+.prog-desc{padding:12px 16px;font-size:12px;color:var(--text2);line-height:1.6;border-bottom:1px solid rgba(128,128,128,.06)}
+/* Complete-all checkbox */
+.prog-complete-all{padding:10px 16px;border-bottom:1px solid rgba(128,128,128,.08);display:flex;align-items:center;gap:10px;background:rgba(72,187,120,.04);cursor:pointer;transition:background .15s}
+.prog-complete-all:hover{background:rgba(72,187,120,.08)}
+.prog-complete-all-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--muted2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.prog-complete-all-check.done{background:var(--green);border-color:var(--green)}
+.prog-complete-all-check.done::after{content:'';width:6px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px);display:block}
+.prog-complete-all-check.partial{background:rgba(72,187,120,.2);border-color:var(--green)}
+.prog-complete-all-label{font-family:var(--fm);font-size:10px;font-weight:700;color:var(--green);letter-spacing:1px;text-transform:uppercase;flex:1}
+.prog-complete-all-count{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:.5px}
+.kat-item{border-bottom:1px solid rgba(128,128,128,.06)}
+.kat-item:last-child{border-bottom:none}
+.kat-header2{padding:11px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;background:rgba(128,128,128,.01)}
+.kat-icon2{width:18px;height:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.kat-icon2 svg{width:16px;height:16px;stroke:var(--blue);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.kat-icon2 iconify-icon{font-size:14px;color:var(--blue)}
+.kat-name2{font-size:13px;font-weight:600;color:var(--text);flex:1;letter-spacing:.2px}
+.kat-count2{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:.5px}
+.kat-chev{color:var(--muted);font-size:11px;transition:transform .2s;line-height:1}
+.kat-body2{display:none;background:rgba(0,0,0,.04)}
+.kat-body2.open{display:block}
+.poin-item{padding:12px 16px 12px 42px;border-bottom:1px solid rgba(128,128,128,.03);display:flex;align-items:flex-start;gap:12px;transition:background .15s}
+.poin-item:last-child{border-bottom:none}
+.poin-check{width:20px;height:20px;border-radius:5px;border:1.5px solid var(--muted2);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:1px}
+.poin-check.done{background:var(--green);border-color:var(--green)}
+.poin-check.done::after{content:'';width:5px;height:9px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg) translateY(-1px);display:block}
+.poin-info{flex:1;min-width:0}
+.poin-title{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.2px;transition:all .2s}
+.poin-title.done{text-decoration:line-through;color:var(--muted);opacity:.6}
+.poin-desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+.poin-reps{font-family:var(--fm);font-size:10px;color:var(--purple);margin-top:4px;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.poin-links{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.poin-link{font-family:var(--fm);font-size:9px;padding:4px 10px;border-radius:4px;text-decoration:none;transition:all .15s;display:inline-flex;align-items:center;gap:4px;font-weight:600;border:1px solid}
+.poin-link.img{background:rgba(212,175,55,.07);border-color:rgba(212,175,55,.2);color:var(--gold)}
+.poin-link.vid{background:rgba(220,38,38,.07);border-color:rgba(220,38,38,.2);color:var(--red)}
+.poin-link:hover{filter:brightness(1.15)}
+.poin-img-preview{margin-top:8px;border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);max-width:100%;display:block}
+.poin-img-preview img{width:100%;display:block;object-fit:cover;max-height:200px}
 
-    <!-- ═══════════════ LOAD SCREEN ═══════════════ -->
-    <div id="loadScreen">
-      <div class="load-logo">SERA<span>.</span>ATHLETE</div>
-      <div class="load-bar"><div class="load-bar-fill"></div></div>
-      <div class="load-txt">Memuat data...</div>
+/* ── RPE INPUT ── */
+.rpe-input-wrap{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.rpe-label{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.rpe-btns{display:flex;gap:4px;flex-wrap:wrap}
+.rpe-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--c2);color:var(--muted);font-family:var(--fm);font-size:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.rpe-btn:hover{border-color:var(--blue2);color:var(--blue)}
+.rpe-btn.active-1,.rpe-btn.active-2,.rpe-btn.active-3{background:rgba(72,187,120,.15);border-color:rgba(72,187,120,.4);color:var(--green)}
+.rpe-btn.active-4,.rpe-btn.active-5,.rpe-btn.active-6{background:rgba(246,201,14,.12);border-color:rgba(246,201,14,.3);color:var(--gold)}
+.rpe-btn.active-7,.rpe-btn.active-8{background:rgba(255,140,0,.12);border-color:rgba(255,140,0,.3);color:#f97316}
+.rpe-btn.active-9,.rpe-btn.active-10{background:rgba(252,92,125,.12);border-color:rgba(252,92,125,.3);color:var(--red)}
+.rpe-sel-label{font-family:var(--fm);font-size:10px;font-weight:700;padding:3px 10px;border-radius:12px}
+
+/* ── STATS PANEL (new) ── */
+.stats-panel{padding:0 18px;margin-bottom:6px}
+.stats-row-wide{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.stat-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px;position:relative;overflow:hidden}
+.stat-card-icon{font-size:20px;margin-bottom:6px;display:block;font-style:normal}
+.stat-card-val{font-size:26px;font-weight:800;letter-spacing:-1.5px;line-height:1}
+.stat-card-label{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+.stat-card-sub{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px}
+.stat-card-badge{position:absolute;top:10px;right:10px;font-family:var(--fm);font-size:8px;font-weight:700;padding:3px 8px;border-radius:20px;border:1px solid}
+
+/* ── STREAK ── */
+.streak-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.streak-flame{font-size:28px;font-style:normal;line-height:1}
+.streak-info{flex:1}
+.streak-num{font-size:28px;font-weight:900;letter-spacing:-1.5px;line-height:1;color:var(--gold)}
+.streak-label{font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.streak-best{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px}
+.streak-dots{display:flex;gap:3px;align-items:center}
+.streak-dot{width:10px;height:10px;border-radius:3px;background:var(--c2);border:1px solid var(--border)}
+.streak-dot.hit{background:var(--gold);border-color:var(--gold)}
+.streak-dot.today{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px rgba(246,201,14,.4)}
+
+/* ── ATTENDANCE RATE ── */
+.attendance-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.att-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.att-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.att-pct{font-size:22px;font-weight:800;letter-spacing:-1px}
+.att-bars{display:flex;gap:3px;height:32px;align-items:flex-end;margin-bottom:8px}
+.att-bar{flex:1;border-radius:3px 3px 0 0;transition:height .3s}
+.att-bar.hit{background:var(--green)}
+.att-bar.miss{background:rgba(128,128,128,.12)}
+.att-bar.future{background:rgba(128,128,128,.06);border:1px dashed rgba(128,128,128,.15)}
+.att-legend{display:flex;gap:12px;flex-wrap:wrap}
+.att-leg-item{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--muted)}
+.att-leg-dot{width:8px;height:8px;border-radius:2px}
+
+/* ── PERIODISASI ── */
+.period-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;overflow:hidden}
+.period-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.period-timeline{position:relative;margin-bottom:10px}
+.period-track{height:24px;background:rgba(128,128,128,.08);border-radius:6px;overflow:hidden;display:flex;margin-bottom:8px}
+.period-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:8px;font-weight:700;letter-spacing:.5px;transition:all .2s;position:relative;cursor:pointer}
+.period-seg iconify-icon{font-size:12px;line-height:1}
+.period-seg:hover{filter:brightness(1.1)}
+.period-seg-prep{background:rgba(99,179,237,.25);color:var(--blue)}
+.period-seg-comp{background:rgba(72,187,120,.25);color:var(--green)}
+.period-seg-peak{background:rgba(252,92,125,.25);color:var(--red)}
+.period-seg-rest{background:rgba(128,128,128,.15);color:var(--muted)}
+.period-seg-tran{background:rgba(183,148,244,.25);color:var(--purple)}
+.period-seg.current{outline:2px solid var(--blue);outline-offset:-2px}
+.period-seg.selected{box-shadow:inset 0 0 0 2px #fff,inset 0 0 0 4px rgba(0,0,0,.25)}
+.period-labels{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.period-leg{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--muted)}
+.period-leg-dot{width:8px;height:8px;border-radius:2px}
+.period-prog-info{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:.5px}
+.period-prog-info b{color:var(--text);font-size:11px}
+
+/* ── PERSONAL RECORDS ── */
+.pr-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px}
+.pr-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.pr-add-btn{font-family:var(--fm);font-size:9px;padding:4px 10px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--blue);cursor:pointer;letter-spacing:.5px;transition:all .2s}
+.pr-add-btn:hover{background:rgba(99,179,237,.08)}
+.pr-list{display:flex;flex-direction:column;gap:8px}
+.pr-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--c2);border-radius:var(--r2);border:1px solid var(--border)}
+.pr-item-gold{border-color:rgba(212,175,55,.3);background:rgba(212,175,55,.05)}
+.pr-medal{font-size:16px;font-style:normal;flex-shrink:0;line-height:1}
+.pr-info{flex:1;min-width:0}
+.pr-name{font-size:12px;font-weight:700;color:var(--text);letter-spacing:.2px}
+.pr-val{font-size:11px;color:var(--gold);font-family:var(--fm);font-weight:700;margin-top:2px}
+.pr-date{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:1px}
+.pr-empty{font-family:var(--fm);font-size:10px;color:var(--muted);text-align:center;padding:20px;letter-spacing:.5px}
+.pr-modal{background:var(--c2);border:1px solid var(--border2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.pr-modal-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.pr-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.pr-field input{width:100%;background:var(--c1);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--r2);font-family:var(--fm);font-size:11px;outline:none;transition:border-color .2s}
+.pr-field input:focus{border-color:var(--blue2)}
+.pr-field input::placeholder{color:var(--muted2)}
+.pr-field label{font-family:var(--fm);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+.pr-field.full{grid-column:1/-1}
+.pr-medal-pick{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pr-medal-btn{display:flex;align-items:center;justify-content:center;gap:4px;height:36px;border:1px solid var(--border);border-radius:8px;background:var(--c1);color:var(--muted);cursor:pointer;transition:all .2s}
+.pr-medal-btn iconify-icon{font-size:16px}
+.pr-medal-btn.active{border-color:var(--blue2);color:var(--blue);background:rgba(99,179,237,.08)}
+.pr-note{font-family:var(--ff);font-size:11px;color:var(--text2);margin-top:4px;line-height:1.4}
+.pr-actions{display:flex;gap:8px}
+.pr-save-btn{flex:1;padding:9px;background:var(--blue2);border:none;color:#fff;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:1px;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;transition:all .2s}
+.pr-save-btn:hover{opacity:.85}
+.pr-cancel-btn{padding:9px 14px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:10px;letter-spacing:.5px;border-radius:var(--r2);cursor:pointer;transition:all .2s}
+.pr-cancel-btn:hover{border-color:var(--red);color:var(--red)}
+.lb-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:12px}
+.lb-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lb-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(128,128,128,.08)}
+.lb-row:last-child{border-bottom:none}
+.lb-avatar{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--c2);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.lb-avatar iconify-icon{font-size:14px;color:var(--blue)}
+.lb-avatar img{width:100%;height:100%;object-fit:cover}
+.lb-rank{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:9px;font-weight:700;background:var(--c2);color:var(--gold);flex-shrink:0}
+.lb-info{flex:1;min-width:0}
+.lb-name{font-size:12px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-name-btn{background:transparent;border:none;color:inherit;font:inherit;font-weight:700;cursor:pointer;padding:0;text-align:left;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-name-btn:hover{color:var(--blue)}
+.lb-meta{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:1px}
+.lb-score{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--blue)}
+.lb-class-wrap{display:grid;grid-template-columns:1fr;gap:10px}
+
+/* ── RPE LOGGING (Calendar) ── */
+.rpe-log-btn{font-family:var(--fm);font-size:9px;padding:5px 12px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--blue);cursor:pointer;letter-spacing:.5px;transition:all .2s;margin-left:auto}
+.rpe-log-btn:hover{background:rgba(99,179,237,.08)}
+.rpe-modal{background:var(--c2);border:1px solid var(--border2);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.rpe-modal-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.rpe-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+.rpe-grid-btn{padding:10px 4px;border-radius:8px;border:1px solid var(--border);background:var(--c1);cursor:pointer;text-align:center;transition:all .15s}
+.rpe-grid-btn-num{font-family:var(--fm);font-size:14px;font-weight:800;display:block;margin-bottom:2px}
+.rpe-grid-btn-lbl{font-family:var(--fm);font-size:7px;color:var(--muted);letter-spacing:.3px;display:block;line-height:1.2}
+.rpe-grid-btn.selected{border-width:2px}
+.rpe-input-note{width:100%;background:var(--c1);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s;margin-bottom:10px;resize:none}
+.rpe-input-note:focus{border-color:var(--blue2)}
+.rpe-save-btn{width:100%;padding:10px;background:var(--blue2);border:none;color:#fff;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:1px;border-radius:var(--r2);cursor:pointer;text-transform:uppercase;transition:all .2s}
+.rpe-save-btn:hover{opacity:.85}
+
+/* RPE color helpers */
+.rpe1,.rpe2,.rpe3{color:var(--green)}
+.rpe4,.rpe5,.rpe6{color:var(--gold)}
+.rpe7,.rpe8{color:#f97316}
+.rpe9,.rpe10{color:var(--red)}
+.rpebg1,.rpebg2,.rpebg3{background:rgba(72,187,120,.12);border-color:rgba(72,187,120,.3)}
+.rpebg4,.rpebg5,.rpebg6{background:rgba(246,201,14,.1);border-color:rgba(246,201,14,.25)}
+.rpebg7,.rpebg8{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.25)}
+.rpebg9,.rpebg10{background:rgba(252,92,125,.1);border-color:rgba(252,92,125,.3)}
+
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.panel-overlay.open{display:flex}
+.profile-icon-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:620;display:none;align-items:center;justify-content:center;padding:16px}
+.profile-icon-modal.show{display:flex}
+.profile-icon-box{width:min(92vw,360px);background:var(--c1);border:1px solid var(--border2);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.profile-icon-title{font-family:var(--fm);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.profile-icon-input{width:100%;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--ff);font-size:13px;outline:none}
+.profile-icon-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+.lb-action-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:630;display:none;align-items:center;justify-content:center;padding:16px}
+.lb-action-modal.show{display:flex}
+.lb-action-box{width:min(90vw,320px);background:var(--c1);border:1px solid var(--border2);border-radius:12px;padding:12px;box-shadow:var(--shadow)}
+.lb-action-title{font-family:var(--fm);font-size:10px;letter-spacing:1px;color:var(--muted);margin-bottom:10px}
+.lb-profile-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:640;display:none;align-items:center;justify-content:center;padding:16px}
+.lb-profile-modal.show{display:flex}
+.lb-profile-box{width:min(92vw,420px);max-height:85vh;overflow:auto;background:var(--c1);border:1px solid var(--border2);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.lb-profile-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.lb-profile-avatar{width:48px;height:48px;border-radius:12px;overflow:hidden;border:1px solid var(--border2);background:var(--c2);display:flex;align-items:center;justify-content:center}
+.lb-profile-avatar img{width:100%;height:100%;object-fit:cover}
+.lb-profile-avatar iconify-icon{font-size:20px;color:var(--blue)}
+.lb-profile-name{font-size:14px;font-weight:800;color:var(--text)}
+.lb-profile-sub{font-family:var(--fm);font-size:9px;color:var(--muted)}
+.chat-shell{padding:0 18px}
+.chat-list{display:grid;gap:8px}
+.chat-room-item{background:var(--c1);border:1px solid var(--border);border-radius:10px;padding:10px;cursor:pointer}
+.chat-room-item.active{border-color:var(--blue2);box-shadow:0 0 0 1px rgba(66,153,225,.3) inset}
+.chat-room-name{font-size:12px;font-weight:700;color:var(--text)}
+.chat-room-meta{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-box{margin-top:12px;background:var(--c1);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.chat-head{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.chat-head-name{font-size:12px;font-weight:700;color:var(--text)}
+.chat-msgs{max-height:42vh;overflow:auto;padding:10px;display:grid;gap:8px;background:var(--c0)}
+.chat-bubble{max-width:82%;padding:8px 10px;border-radius:10px;font-size:12px;line-height:1.35;border:1px solid var(--border)}
+.chat-bubble.me{margin-left:auto;background:rgba(66,153,225,.16);border-color:rgba(66,153,225,.35)}
+.chat-bubble.other{margin-right:auto;background:var(--c1)}
+.chat-time{display:block;font-family:var(--fm);font-size:8px;color:var(--muted);margin-top:4px}
+.chat-form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);background:var(--c1)}
+.chat-input{flex:1;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:9px 10px;border-radius:8px;font-size:12px;outline:none}
+.panel-sheet{background:var(--c1);border-radius:20px 20px 0 0;border:1px solid var(--border);width:100%;max-width:480px;padding:24px;padding-bottom:40px;animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.panel-handle{width:36px;height:3px;background:var(--border2);border-radius:2px;margin:0 auto 20px;cursor:pointer}
+.panel-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.panel-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.panel-chip{flex:1;min-width:90px;padding:10px 8px;background:var(--c2);border:1px solid var(--border);border-radius:var(--r2);cursor:pointer;transition:all .2s;text-align:center}
+.panel-chip.active{border-color:var(--blue2);background:rgba(99,179,237,.06)}
+.panel-chip-icon{font-size:18px;margin-bottom:4px;display:block}
+.panel-chip-label{font-family:var(--fm);font-size:10px;color:var(--text2);letter-spacing:.3px;display:block}
+.panel-chip.active .panel-chip-label{color:var(--blue)}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--c2);border:1px solid var(--border2);color:var(--text);font-family:var(--fm);font-size:10px;letter-spacing:1px;padding:10px 18px;border-radius:20px;z-index:500;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(72,187,120,.4);color:var(--green)}
+.toast.info{border-color:rgba(99,179,237,.4);color:var(--blue)}
+.bottom-sp{height:80px}
+@media(min-width:481px){#app{border-left:1px solid var(--border);border-right:1px solid var(--border)}}
+</style>
+</head>
+<body>
+
+<div id="loadScreen">
+  <div class="load-logo">YD<span>.</span>ATHLETE</div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
+  <div class="load-txt" id="loadTxt">Memuat data...</div>
+</div>
+
+<div id="loginScreen" style="display:none">
+  <div class="login-box">
+    <div class="login-header">
+      <span class="login-logo">YD<span>.</span>ATHLETE</span>
+      <div class="login-subtitle">Portal Atlet</div>
+      <div class="login-tagline" id="loginTagline">Masuk untuk melihat performa dan program latihanmu</div>
     </div>
+    <div class="login-form">
+      <div class="login-field">
+        <label id="lblNama">Nama Lengkap</label>
+        <input type="text" id="inputNama" placeholder="Ketik namamu..." autocomplete="off" autocapitalize="words">
+      </div>
+      <div class="login-field">
+        <label id="lblKode">Kode Akses</label>
+        <input type="password" id="inputKode" placeholder="••••••••" autocomplete="off">
+        <div class="login-hint" id="loginHint">Kode akses diberikan oleh pelatih</div>
+      </div>
+      <button class="login-btn" id="loginBtn" onclick="doLogin()">MASUK →</button>
+      <div class="login-err" id="loginErr">Nama atau kode akses tidak valid. Coba lagi.</div>
+    </div>
+    <div class="login-controls">
+      <button class="login-ctrl-btn" onclick="openPanel('theme')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        Tema
+      </button>
+      <button class="login-ctrl-btn" onclick="openPanel('lang')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:inline;vertical-align:middle;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        Bahasa
+      </button>
+    </div>
+  </div>
+</div>
 
-    <!-- ═══════════════ LOGIN SCREEN ═══════════════ -->
-    <div id="loginScreen" style="display:none">
-      <div class="login-bg"></div>
-      <div class="login-box">
-        <div class="login-header">
-          <span class="login-logo">SERA<span>.</span>ATHLETE</span>
-          <div class="login-subtitle">Portal Atlet</div>
-          <div class="login-tagline">Masuk untuk melihat performa dan program latihanmu</div>
-        </div>
-        <div class="login-form">
-          <div class="login-field">
-            <label>Nama Lengkap</label>
-            <input type="text" id="inputNama" placeholder="Ketik namamu..." autocomplete="off" autocapitalize="words">
-          </div>
-          <div class="login-field">
-            <label>Kode Akses</label>
-            <input type="password" id="inputKode" placeholder="••••••••" autocomplete="off">
-            <div class="login-hint">Kode akses diberikan oleh pelatih</div>
-          </div>
-          <button class="login-btn" onclick="doLogin()">MASUK →</button>
-          <div class="login-err" id="loginErr">Nama atau kode akses tidak valid. Coba lagi.</div>
-        </div>
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-name" id="tbName">—</div>
+      <div class="topbar-meta" id="tbMeta">ATHLETE</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-actions">
+        <button class="tb-btn" onclick="openPanel('settings')" title="Settings" style="width:32px;height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center">
+          <iconify-icon icon="lucide:settings"></iconify-icon>
+        </button>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════ MAIN APP ═══════════════ -->
-    <div id="app">
-      <!-- Topbar -->
-      <div class="topbar">
-        <div class="topbar-left">
-          <div class="topbar-name" id="tbName">—</div>
-          <div class="topbar-meta" id="tbMeta">SERA ATHLETE</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-page="profil" onclick="showPage('profil',this)">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="t-profil">Profil</span>
+    </button>
+    <button class="nav-tab" data-page="quest" onclick="showPage('quest',this)">
+      <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="t-program">Program</span>
+    </button>
+    <button class="nav-tab" data-page="grafik" onclick="showPage('grafik',this)">
+      <svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+      <span class="t-grafik">Grafik</span>
+    </button>
+    <button class="nav-tab" data-page="kalender" onclick="showPage('kalender',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="t-kalender">Kalender</span>
+    </button>
+    <button class="nav-tab" data-page="stats" onclick="showPage('stats',this)">
+      <svg viewBox="0 0 24 24"><rect x="2" y="14" width="4" height="7"/><rect x="9" y="9" width="4" height="12"/><rect x="16" y="3" width="4" height="18"/></svg>
+      <span class="t-stats">Stats</span>
+    </button>
+  </div>
+
+  <div class="mb-nav-wrap">
+    <nav class="mb-nav">
+      <button class="mb-btn active" data-page="profil" onclick="showPage('profil',this)">
+        <span class="mb-ic"><iconify-icon icon="lucide:user"></iconify-icon></span><span class="mb-txt mb-txt-profile">Profile</span>
+      </button>
+      <button class="mb-btn" data-page="quest" onclick="showPage('quest',this)">
+        <span class="mb-ic"><iconify-icon icon="lucide:clipboard-list"></iconify-icon></span><span class="mb-txt mb-txt-program">Program</span>
+      </button>
+      <button class="mb-btn" data-page="grafik" onclick="showPage('grafik',this)">
+        <span class="mb-ic"><iconify-icon icon="lucide:line-chart"></iconify-icon></span><span class="mb-txt mb-txt-grafik">Grafik</span>
+      </button>
+      <button class="mb-btn" data-page="stats" onclick="showPage('stats',this)">
+        <span class="mb-ic"><iconify-icon icon="lucide:bar-chart-3"></iconify-icon></span><span class="mb-txt mb-txt-stats">Stats</span>
+      </button>
+      <button class="mb-btn" id="mbMenuToggle" onclick="toggleBottomMenu()">
+        <span class="mb-ic"><iconify-icon icon="lucide:menu"></iconify-icon></span><span class="mb-txt mb-txt-more">Lainnya</span>
+      </button>
+    </nav>
+    <div class="mb-menu-panel" id="mbMenuPanel">
+      <button class="mb-menu-item" onclick="openLeaderboard();closeBottomMenu()">
+        <iconify-icon icon="lucide:trophy"></iconify-icon><span>Leaderboard</span>
+      </button>
+      <button class="mb-menu-item" onclick="openChatFile();closeBottomMenu()">
+        <iconify-icon icon="lucide:message-circle"></iconify-icon><span>Chat</span>
+      </button>
+      <button class="mb-menu-item" onclick="showPage('kalender',null);closeBottomMenu()">
+        <iconify-icon icon="lucide:calendar-days"></iconify-icon><span class="mb-txt-kalender">Kalender</span>
+      </button>
+      <button class="mb-menu-item" onclick="openPanel('settings');closeBottomMenu()">
+        <iconify-icon icon="lucide:settings"></iconify-icon><span class="mb-txt-settings">Setting</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE PROFIL -->
+  <div class="page active" id="page-profil">
+    <div class="hero" id="heroBlock"></div>
+    <div class="overview-grid" id="overviewGrid"></div>
+    <div class="sec"><div class="sec-title t-fisik">Statistik Fisik</div><div id="fisikBars"></div></div>
+    <div class="sec"><div class="sec-title t-pasif">Skill Pasif</div><div id="pasifBars"></div></div>
+    <div class="sec"><div class="sec-title t-skillAktif">Skill Aktif</div><div id="skillDisplay"></div></div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <!-- PAGE QUEST -->
+  <div class="page" id="page-quest">
+    <div style="padding:16px 18px 0"><div class="sec-title" style="margin-bottom:0" id="questTitle">Program Latihan</div></div>
+    <div class="quest-page" id="questPage" style="padding-top:14px"></div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <!-- PAGE GRAFIK -->
+  <div class="page" id="page-grafik">
+    <div style="padding:16px 18px 0"><div class="sec-title" style="margin-bottom:16px" id="grafikTitle">Grafik Perkembangan</div></div>
+    <div style="padding:0 18px" id="grafikWrap"></div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <!-- PAGE KALENDER -->
+  <div class="page" id="page-kalender">
+    <div style="padding:16px 18px 0"><div class="sec-title" style="margin-bottom:16px" id="kalenderTitle">Kalender Latihan</div></div>
+    <div class="cal-container" id="calWrap"></div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <!-- PAGE STATS (NEW) -->
+  <div class="page" id="page-stats">
+    <div style="padding:16px 18px 0"><div class="sec-title" style="margin-bottom:16px" id="statsTitle">Statistik & Records</div></div>
+    <div class="stats-panel">
+      <div id="streakSection"></div>
+      <div id="attendanceSection"></div>
+      <div id="periodSection"></div>
+      <div id="prSection"></div>
+    </div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <div class="page" id="page-leaderboard">
+    <div style="padding:16px 18px 0"><div class="sec-title" style="margin-bottom:16px">Leaderboard</div></div>
+    <div style="padding:0 18px" id="leaderboardWrap">
+      <div class="no-data-txt">Memuat leaderboard...</div>
+    </div>
+    <div class="bottom-sp"></div>
+  </div>
+
+  <div class="page" id="page-chat" style="padding:0;display:none;height:calc(100vh - 130px)">
+    <iframe
+      id="chatIframe"
+      src="chat.html"
+      style="width:100%;height:100%;border:none;display:block;"
+      allow="clipboard-write"
+      title="Chat YD Athlete"
+    ></iframe>
+  </div>
+</div>
+
+<div class="panel-overlay" id="panelOverlay" onclick="closePanel(event)">
+  <div class="panel-sheet" id="panelSheet" onclick="event.stopPropagation()">
+    <div class="panel-handle" onclick="closePanel()"></div>
+    <div id="panelContent"></div>
+  </div>
+</div>
+
+<div class="profile-icon-modal" id="profileIconModal" onclick="if(event.target===this)closeProfileIconModal()">
+  <div class="profile-icon-box">
+    <div class="profile-icon-title">URL Gambar Profil</div>
+    <input id="profileIconUrlInput" class="profile-icon-input" type="url" placeholder="https://..." />
+    <div class="profile-icon-actions">
+      <button class="tb-btn" onclick="closeProfileIconModal()">Batal</button>
+      <button class="tb-btn" onclick="saveProfileIconUrl()" style="border-color:var(--blue2);color:var(--blue)">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<div class="lb-action-modal" id="lbActionModal" onclick="if(event.target===this)closeLeaderboardActionModal()">
+  <div class="lb-action-box">
+    <div class="lb-action-title" id="lbActionTitle">Aksi Leaderboard</div>
+    <button class="mb-menu-item" onclick="openLeaderboardChat()">Kirim Pesan</button>
+    <button class="mb-menu-item" onclick="openLeaderboardFullStats()">Lihat Statistik Lengkap</button>
+    <button class="mb-menu-item" onclick="closeLeaderboardActionModal()">Tutup</button>
+  </div>
+</div>
+
+<div class="lb-profile-modal" id="lbProfileModal" onclick="if(event.target===this)closeLeaderboardProfile()">
+  <div class="lb-profile-box">
+    <div class="profile-icon-actions" style="margin-top:0;margin-bottom:8px">
+      <button class="tb-btn" onclick="closeLeaderboardProfile()">Tutup</button>
+    </div>
+    <div id="lbProfileContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script>
+const KODE_AKSES = 'SERAGM';
+const FB_CFG = {
+  apiKey:"AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+  authDomain:"ydtc-5d55a.firebaseapp.com",
+  databaseURL:"https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"ydtc-5d55a"
+};
+firebase.initializeApp(FB_CFG);
+const db = firebase.database();
+
+let currentAtletId = null;
+let currentAtletData = null;
+let editingCompetitionId = null;
+let selectedPeriodSegmentId = null;
+let showCompetitionSchedule = true;
+let calState = {year: new Date().getFullYear(), month: new Date().getMonth()};
+let chartInst = {};
+let unsubFn = null;
+let currentTheme = localStorage.getItem('yd_theme') || 'default';
+let currentLang = localStorage.getItem('yd_lang') || 'id';
+const savedBottomNav = localStorage.getItem('yd_bottom_nav');
+let bottomNavEnabled = savedBottomNav === null ? true : savedBottomNav === '1';
+let prModalOpen = false;
+let rpeModalOpen = false;
+let chatListUnsub = null;
+let chatMsgUnsub = null;
+let activeChatRoomId = null;
+let activeChatPeer = null;
+
+/* ── RPE labels ── */
+const RPE_LABELS = {
+  id: {1:'Sangat Ringan',2:'Sangat Ringan',3:'Ringan',4:'Agak Ringan',5:'Sedang',6:'Sedang-Berat',7:'Berat',8:'Sangat Berat',9:'Ekstrem',10:'Maksimal'},
+  en: {1:'Very Light',2:'Very Light',3:'Light',4:'Somewhat Hard',5:'Moderate',6:'Moderate-Hard',7:'Hard',8:'Very Hard',9:'Extreme',10:'Max'},
+  ko: {1:'매우 가벼움',2:'매우 가벼움',3:'가벼움',4:'약간 힘듦',5:'보통',6:'보통-힘듦',7:'힘듦',8:'매우 힘듦',9:'극도로 힘듦',10:'최대'},
+  ja: {1:'非常に楽',2:'非常に楽',3:'楽',4:'やや辛い',5:'普通',6:'やや辛い',7:'辛い',8:'とても辛い',9:'極めて辛い',10:'最大'},
+  ar: {1:'خفيف جداً',2:'خفيف جداً',3:'خفيف',4:'صعب نسبياً',5:'معتدل',6:'معتدل صعب',7:'صعب',8:'صعب جداً',9:'شديد',10:'أقصى'},
+  zh: {1:'非常轻松',2:'非常轻松',3:'轻松',4:'有点费力',5:'适中',6:'中等费力',7:'费力',8:'非常费力',9:'极度费力',10:'最大'}
+};
+function rpeLabel(v){return (RPE_LABELS[currentLang]||RPE_LABELS.id)[v]||'';}
+
+/* ══════════════════════════════════════════════
+   TRANSLATIONS
+══════════════════════════════════════════════ */
+const LANG = {
+  id:{loading:'Memuat data...',loginTagline:'Masuk untuk melihat performa dan program latihanmu',lblNama:'Nama Lengkap',lblKode:'Kode Akses',loginHint:'Kode akses diberikan oleh pelatih',loginBtn:'MASUK →',loginErr:'Nama atau kode akses tidak valid. Coba lagi.',logoutBtn:'Keluar',tabProfil:'Profil',tabProgram:'Program',tabGrafik:'Grafik',tabKalender:'Kalender',tabStats:'Stats',profil:'Profil',program:'Program Latihan',grafik:'Grafik Perkembangan',kalender:'Kalender Latihan',statsTitle:'Statistik & Records',fisik:'Statistik Fisik',pasif:'Skill Pasif',skillAktif:'Skill Aktif',level:'Level',sesiLatihan:'Sesi Latihan',dayaTahan:'Daya Tahan',stamina:'Stamina',kecepatan:'Kecepatan',kelincahan:'Kelincahan',keseimbangan:'Keseimbangan',powerTungkai:'Power Tungkai',kekuatanLengan:'Kekuatan Lengan',fleksibilitas:'Fleksibilitas',fightIq:'Fight IQ',reflek:'Reflek',mental:'Mental',taktik:'Taktik & Strategi',hafalan:'Hafalan',penghayatan:'Penghayatan',irama:'Irama & Tempo',koordinasi:'Koordinasi',manajemenWaktu:'Manaj. Waktu',serangTitle:'Menyerang',bertahanTitle:'Bertahan',jatuhanTitle:'Jatuhan',teknikTitle:'Teknik Seni',lurus:'Lurus',upper:'Uppercut',depan:'T.Depan',sabit:'T.Sabit',t:'Tend.T',tangkis:'Tangkisan',elak:'Elakan',tangkap:'Tangkapan',banting:'Bantingan',ungkit:'Ungkitan',sapu:'Sapuan',gunting:'Guntingan',pukulan:'Pukulan',tendangan:'Tendangan',tangkisan:'Tangkisan',elakan:'Elakan',polaLangkah:'Pola Langkah',kudaKuda:'Kuda-kuda',aktif:'AKTIF',akanDatang:'AKAN DATANG',selesai:'SELESAI',totalPoin:'poin',selesaiPoin:'selesai',poinSelesai:'Poin selesai!',poinBatal:'Poin dibatalkan',gagalSimpan:'Gagal menyimpan',belumAda:'Belum ada program latihan',belumAda2:'Pelatih belum membuat program',minData:'Minimal 2 update data untuk menampilkan grafik perkembangan',catatanLatihan:'Catatan Latihan',tidakAdaCatatan:'Tidak ada catatan latihan bulan ini',latihan:'Latihan',overall:'Overall Level',statFisik:'Statistik Fisik',skillPasif:'Skill Pasif',bulan:['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],hari:['Min','Sen','Sel','Rab','Kam','Jum','Sab'],gambar:'Gambar',video:'Video',tanding:'TANDING',seni:'SENI',pria:'PRIA',wanita:'WANITA',temaJudul:'Pilih Tema',bahasaJudul:'Pilih Bahasa',temaDefault:'Otomatis',temaDark:'Gelap',temaLight:'Terang',temaSporty:'Sporty',temaLuxury:'Mewah',temaClassic:'Klasik',catatOtomatis:'Sesi latihan dicatat!',completeAll:'Selesaikan Semua',streakTitle:'Streak Latihan',streakHari:'hari berturut-turut',streakTerbaik:'Terbaik:',attendTitle:'Tingkat Kehadiran',attendHari:'hari',attend30:'30 Hari Terakhir',prTitle:'Personal Records',prAdd:'+ Tambah',prNamaPlaceholder:'Nama rekor (cth: Max Push-up)',prValPlaceholder:'Nilai (cth: 50 reps)',prSimpan:'Simpan',prBatal:'Batal',prHapus:'Hapus',prEmpty:'Belum ada personal record',periodTitle:'Periodisasi Program',periodPrep:'Persiapan',periodComp:'Kompetisi',periodPeak:'Puncak',periodRest:'Recovery',periodTran:'Transisi',periodCurrent:'Fase Saat Ini:',rpeTitle:'Catat RPE Latihan',rpeSimpan:'Simpan',rpeNote:'Catatan latihan...',rpeLabel:'RPE',attendHit:'Latihan',attendMiss:'Absen'},
+  en:{loading:'Loading data...',loginTagline:'Sign in to view your performance and training program',lblNama:'Full Name',lblKode:'Access Code',loginHint:'Access code is provided by your coach',loginBtn:'SIGN IN →',loginErr:'Name or access code is invalid. Try again.',logoutBtn:'Sign Out',tabProfil:'Profile',tabProgram:'Program',tabGrafik:'Charts',tabKalender:'Calendar',tabStats:'Stats',profil:'Profile',program:'Training Program',grafik:'Progress Charts',kalender:'Training Calendar',statsTitle:'Statistics & Records',fisik:'Physical Stats',pasif:'Passive Skills',skillAktif:'Active Skills',level:'Level',sesiLatihan:'Training Sessions',dayaTahan:'Endurance',stamina:'Stamina',kecepatan:'Speed',kelincahan:'Agility',keseimbangan:'Balance',powerTungkai:'Leg Power',kekuatanLengan:'Arm Strength',fleksibilitas:'Flexibility',fightIq:'Fight IQ',reflek:'Reflex',mental:'Mental',taktik:'Tactics & Strategy',hafalan:'Memorization',penghayatan:'Expression',irama:'Rhythm & Tempo',koordinasi:'Coordination',manajemenWaktu:'Time Mgmt',serangTitle:'Attack',bertahanTitle:'Defense',jatuhanTitle:'Takedowns',teknikTitle:'Art Technique',lurus:'Straight',upper:'Uppercut',depan:'Front Kick',sabit:'Roundhouse',t:'Side Kick',tangkis:'Block',elak:'Dodge',tangkap:'Catch',banting:'Throw',ungkit:'Sweep',sapu:'Leg Sweep',gunting:'Scissors',pukulan:'Punch',tendangan:'Kick',tangkisan:'Block',elakan:'Dodge',polaLangkah:'Foot Pattern',kudaKuda:'Horse Stance',aktif:'ACTIVE',akanDatang:'UPCOMING',selesai:'DONE',totalPoin:'points',selesaiPoin:'done',poinSelesai:'Point completed!',poinBatal:'Point undone',gagalSimpan:'Failed to save',belumAda:'No training programs yet',belumAda2:'Coach has not created a program',minData:'Need at least 2 data updates to show progress charts',catatanLatihan:'Training Notes',tidakAdaCatatan:'No training notes this month',latihan:'Training',overall:'Overall Level',statFisik:'Physical Stats',skillPasif:'Passive Skills',bulan:['January','February','March','April','May','June','July','August','September','October','November','December'],hari:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],gambar:'Image',video:'Video',tanding:'COMBAT',seni:'ARTS',pria:'MALE',wanita:'FEMALE',temaJudul:'Choose Theme',bahasaJudul:'Choose Language',temaDefault:'Auto',temaDark:'Dark',temaLight:'Light',temaSporty:'Sporty',temaLuxury:'Luxury',temaClassic:'Classic',catatOtomatis:'Training session recorded!',completeAll:'Complete All',streakTitle:'Training Streak',streakHari:'days in a row',streakTerbaik:'Best:',attendTitle:'Attendance Rate',attendHari:'days',attend30:'Last 30 Days',prTitle:'Personal Records',prAdd:'+ Add',prNamaPlaceholder:'Record name (e.g. Max Push-up)',prValPlaceholder:'Value (e.g. 50 reps)',prSimpan:'Save',prBatal:'Cancel',prHapus:'Delete',prEmpty:'No personal records yet',periodTitle:'Program Periodization',periodPrep:'Preparation',periodComp:'Competition',periodPeak:'Peak',periodRest:'Recovery',periodTran:'Transition',periodCurrent:'Current Phase:',rpeTitle:'Log Training RPE',rpeSimpan:'Save',rpeNote:'Training notes...',rpeLabel:'RPE',attendHit:'Training',attendMiss:'Absent'},
+  ko:{loading:'데이터 로딩 중...',loginTagline:'퍼포먼스와 훈련 프로그램을 확인하려면 로그인하세요',lblNama:'전체 이름',lblKode:'접근 코드',loginHint:'접근 코드는 코치가 제공합니다',loginBtn:'로그인 →',loginErr:'이름 또는 접근 코드가 올바르지 않습니다.',logoutBtn:'로그아웃',tabProfil:'프로필',tabProgram:'프로그램',tabGrafik:'차트',tabKalender:'달력',tabStats:'통계',profil:'프로필',program:'훈련 프로그램',grafik:'발전 차트',kalender:'훈련 달력',statsTitle:'통계 & 기록',fisik:'신체 통계',pasif:'패시브 스킬',skillAktif:'액티브 스킬',level:'레벨',sesiLatihan:'훈련 세션',dayaTahan:'지구력',stamina:'스태미나',kecepatan:'속도',kelincahan:'민첩성',keseimbangan:'균형',powerTungkai:'다리 파워',kekuatanLengan:'팔 근력',fleksibilitas:'유연성',fightIq:'파이트 IQ',reflek:'반사신경',mental:'멘탈',taktik:'전술 & 전략',hafalan:'암기',penghayatan:'표현력',irama:'리듬 & 템포',koordinasi:'협응력',manajemenWaktu:'시간 관리',serangTitle:'공격',bertahanTitle:'방어',jatuhanTitle:'태클',teknikTitle:'예술 기술',lurus:'직선',upper:'어퍼컷',depan:'앞차기',sabit:'돌려차기',t:'옆차기',tangkis:'막기',elak:'피하기',tangkap:'잡기',banting:'던지기',ungkit:'들어올리기',sapu:'발걸기',gunting:'가위걸기',pukulan:'주먹',tendangan:'발차기',tangkisan:'막기',elakan:'피하기',polaLangkah:'발 패턴',kudaKuda:'기마 자세',aktif:'진행 중',akanDatang:'예정',selesai:'완료',totalPoin:'포인트',selesaiPoin:'완료',poinSelesai:'포인트 완료!',poinBatal:'포인트 취소됨',gagalSimpan:'저장 실패',belumAda:'훈련 프로그램이 없습니다',belumAda2:'코치가 아직 프로그램을 만들지 않았습니다',minData:'진행 차트를 표시하려면 최소 2개의 데이터가 필요합니다',catatanLatihan:'훈련 기록',tidakAdaCatatan:'이번 달 훈련 기록 없음',latihan:'훈련',overall:'전체 레벨',statFisik:'신체 통계',skillPasif:'패시브 스킬',bulan:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],hari:['일','월','화','수','목','금','토'],gambar:'이미지',video:'동영상',tanding:'격투',seni:'예술',pria:'남성',wanita:'여성',temaJudul:'테마 선택',bahasaJudul:'언어 선택',temaDefault:'자동',temaDark:'어두운',temaLight:'밝은',temaSporty:'스포티',temaLuxury:'럭셔리',temaClassic:'클래식',catatOtomatis:'훈련 세션이 기록되었습니다!',completeAll:'모두 완료',streakTitle:'훈련 스트릭',streakHari:'일 연속',streakTerbaik:'최고:',attendTitle:'출석률',attendHari:'일',attend30:'최근 30일',prTitle:'개인 기록',prAdd:'+ 추가',prNamaPlaceholder:'기록 이름',prValPlaceholder:'값',prSimpan:'저장',prBatal:'취소',prHapus:'삭제',prEmpty:'개인 기록 없음',periodTitle:'프로그램 주기화',periodPrep:'준비',periodComp:'경쟁',periodPeak:'최고조',periodRest:'회복',periodTran:'전환',periodCurrent:'현재 단계:',rpeTitle:'RPE 기록',rpeSimpan:'저장',rpeNote:'훈련 노트...',rpeLabel:'RPE',attendHit:'훈련',attendMiss:'결석'},
+  ja:{loading:'データを読み込み中...',loginTagline:'パフォーマンスとトレーニングプログラムを確認するにはログインしてください',lblNama:'フルネーム',lblKode:'アクセスコード',loginHint:'アクセスコードはコーチが提供します',loginBtn:'ログイン →',loginErr:'名前またはアクセスコードが無効です。',logoutBtn:'ログアウト',tabProfil:'プロフィール',tabProgram:'プログラム',tabGrafik:'グラフ',tabKalender:'カレンダー',tabStats:'統計',profil:'プロフィール',program:'トレーニングプログラム',grafik:'成長グラフ',kalender:'トレーニングカレンダー',statsTitle:'統計 & 記録',fisik:'身体統計',pasif:'パッシブスキル',skillAktif:'アクティブスキル',level:'レベル',sesiLatihan:'練習回数',dayaTahan:'持久力',stamina:'スタミナ',kecepatan:'スピード',kelincahan:'敏捷性',keseimbangan:'バランス',powerTungkai:'脚力',kekuatanLengan:'腕力',fleksibilitas:'柔軟性',fightIq:'ファイトIQ',reflek:'反射神経',mental:'メンタル',taktik:'戦術＆戦略',hafalan:'暗記',penghayatan:'表現力',irama:'リズム＆テンポ',koordinasi:'協調性',manajemenWaktu:'時間管理',serangTitle:'攻撃',bertahanTitle:'防御',jatuhanTitle:'投げ技',teknikTitle:'演武技術',lurus:'ストレート',upper:'アッパーカット',depan:'前蹴り',sabit:'回し蹴り',t:'横蹴り',tangkis:'受け',elak:'躱し',tangkap:'捕り',banting:'投げ',ungkit:'払い',sapu:'足払い',gunting:'はさみ',pukulan:'パンチ',tendangan:'蹴り',tangkisan:'受け',elakan:'躱し',polaLangkah:'足型',kudaKuda:'騎馬立ち',aktif:'進行中',akanDatang:'予定',selesai:'完了',totalPoin:'ポイント',selesaiPoin:'完了',poinSelesai:'ポイント完了！',poinBatal:'ポイント取消',gagalSimpan:'保存失敗',belumAda:'トレーニングプログラムなし',belumAda2:'コーチはまだプログラムを作成していません',minData:'成長グラフを表示するには最低2つのデータが必要です',catatanLatihan:'練習記録',tidakAdaCatatan:'今月の練習記録はありません',latihan:'練習',overall:'総合レベル',statFisik:'身体統計',skillPasif:'パッシブスキル',bulan:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],hari:['日','月','火','水','木','金','土'],gambar:'画像',video:'動画',tanding:'組手',seni:'演武',pria:'男性',wanita:'女性',temaJudul:'テーマ選択',bahasaJudul:'言語選択',temaDefault:'自動',temaDark:'ダーク',temaLight:'ライト',temaSporty:'スポーティ',temaLuxury:'ラグジュアリー',temaClassic:'クラシック',catatOtomatis:'練習セッションが記録されました！',completeAll:'すべて完了',streakTitle:'練習ストリーク',streakHari:'日連続',streakTerbaik:'最高:',attendTitle:'出席率',attendHari:'日',attend30:'直近30日',prTitle:'個人記録',prAdd:'+ 追加',prNamaPlaceholder:'記録名',prValPlaceholder:'値',prSimpan:'保存',prBatal:'キャンセル',prHapus:'削除',prEmpty:'個人記録なし',periodTitle:'プログラム期分け',periodPrep:'準備',periodComp:'競技',periodPeak:'ピーク',periodRest:'回復',periodTran:'移行',periodCurrent:'現在のフェーズ:',rpeTitle:'RPE記録',rpeSimpan:'保存',rpeNote:'練習メモ...',rpeLabel:'RPE',attendHit:'練習',attendMiss:'欠席'},
+  ar:{loading:'جارٍ تحميل البيانات...',loginTagline:'سجّل الدخول لعرض أدائك وبرنامج تدريبك',lblNama:'الاسم الكامل',lblKode:'رمز الدخول',loginHint:'رمز الدخول يُقدّمه المدرّب',loginBtn:'دخول →',loginErr:'الاسم أو رمز الدخول غير صحيح. حاول مجدداً.',logoutBtn:'خروج',tabProfil:'الملف',tabProgram:'البرنامج',tabGrafik:'الرسوم',tabKalender:'التقويم',tabStats:'إحصاء',profil:'الملف الشخصي',program:'برنامج التدريب',grafik:'مخططات التقدم',kalender:'تقويم التدريب',statsTitle:'الإحصاء والسجلات',fisik:'الإحصاءات البدنية',pasif:'المهارات السلبية',skillAktif:'المهارات النشطة',level:'المستوى',sesiLatihan:'جلسات التدريب',dayaTahan:'التحمّل',stamina:'اللياقة',kecepatan:'السرعة',kelincahan:'الرشاقة',keseimbangan:'التوازن',powerTungkai:'قوة الساق',kekuatanLengan:'قوة الذراع',fleksibilitas:'المرونة',fightIq:'الذكاء القتالي',reflek:'ردود الفعل',mental:'الذهنية',taktik:'التكتيك والاستراتيجية',hafalan:'الحفظ',penghayatan:'التعبير',irama:'الإيقاع والتمبو',koordinasi:'التنسيق',manajemenWaktu:'إدارة الوقت',serangTitle:'الهجوم',bertahanTitle:'الدفاع',jatuhanTitle:'الإسقاط',teknikTitle:'تقنية الفنون',lurus:'مستقيم',upper:'أبركات',depan:'ركلة أمامية',sabit:'ركلة دائرية',t:'ركلة جانبية',tangkis:'الحجب',elak:'التهرب',tangkap:'الإمساك',banting:'الرمي',ungkit:'الرفع',sapu:'كنس الساق',gunting:'المقص',pukulan:'اللكمة',tendangan:'الركلة',tangkisan:'الحجب',elakan:'التهرب',polaLangkah:'نمط الخطوات',kudaKuda:'وضعية الحصان',aktif:'نشط',akanDatang:'قادم',selesai:'منتهي',totalPoin:'نقاط',selesaiPoin:'منجز',poinSelesai:'اكتملت النقطة!',poinBatal:'تم إلغاء النقطة',gagalSimpan:'فشل الحفظ',belumAda:'لا توجد برامج تدريب',belumAda2:'لم يُنشئ المدرّب برنامجاً بعد',minData:'يلزم بيانان على الأقل لعرض مخططات التقدم',catatanLatihan:'ملاحظات التدريب',tidakAdaCatatan:'لا توجد ملاحظات تدريبية هذا الشهر',latihan:'تدريب',overall:'المستوى الإجمالي',statFisik:'الإحصاءات البدنية',skillPasif:'المهارات السلبية',bulan:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],hari:['أح','إث','ثل','أر','خم','جم','سب'],gambar:'صورة',video:'فيديو',tanding:'قتالي',seni:'فنون',pria:'ذكر',wanita:'أنثى',temaJudul:'اختر الثيم',bahasaJudul:'اختر اللغة',temaDefault:'تلقائي',temaDark:'داكن',temaLight:'فاتح',temaSporty:'رياضي',temaLuxury:'فاخر',temaClassic:'كلاسيكي',catatOtomatis:'تم تسجيل جلسة التدريب!',completeAll:'إكمال الكل',streakTitle:'سلسلة التدريب',streakHari:'أيام متتالية',streakTerbaik:'الأفضل:',attendTitle:'معدل الحضور',attendHari:'يوم',attend30:'آخر 30 يوم',prTitle:'الأرقام القياسية',prAdd:'+ إضافة',prNamaPlaceholder:'اسم السجل',prValPlaceholder:'القيمة',prSimpan:'حفظ',prBatal:'إلغاء',prHapus:'حذف',prEmpty:'لا توجد أرقام قياسية بعد',periodTitle:'دورية البرنامج',periodPrep:'تحضير',periodComp:'منافسة',periodPeak:'ذروة',periodRest:'استرداد',periodTran:'انتقال',periodCurrent:'المرحلة الحالية:',rpeTitle:'تسجيل RPE',rpeSimpan:'حفظ',rpeNote:'ملاحظات التدريب...',rpeLabel:'RPE',attendHit:'تدريب',attendMiss:'غياب'},
+  zh:{loading:'正在加载数据...',loginTagline:'登录以查看您的表现和训练计划',lblNama:'全名',lblKode:'访问码',loginHint:'访问码由教练提供',loginBtn:'登录 →',loginErr:'姓名或访问码无效，请重试。',logoutBtn:'退出',tabProfil:'档案',tabProgram:'计划',tabGrafik:'图表',tabKalender:'日历',tabStats:'统计',profil:'个人档案',program:'训练计划',grafik:'进步图表',kalender:'训练日历',statsTitle:'统计与记录',fisik:'体能统计',pasif:'被动技能',skillAktif:'主动技能',level:'等级',sesiLatihan:'训练次数',dayaTahan:'耐力',stamina:'体力',kecepatan:'速度',kelincahan:'敏捷',keseimbangan:'平衡',powerTungkai:'腿部力量',kekuatanLengan:'臂力',fleksibilitas:'柔韧性',fightIq:'格斗智商',reflek:'反应力',mental:'心理素质',taktik:'战术与策略',hafalan:'记忆',penghayatan:'表现力',irama:'节奏与节拍',koordinasi:'协调性',manajemenWaktu:'时间管理',serangTitle:'进攻',bertahanTitle:'防守',jatuhanTitle:'摔法',teknikTitle:'武术技术',lurus:'直拳',upper:'上勾拳',depan:'前踢',sabit:'弧形踢',t:'侧踢',tangkis:'格挡',elak:'闪避',tangkap:'抓握',banting:'摔投',ungkit:'撬拨',sapu:'扫腿',gunting:'剪腿',pukulan:'拳法',tendangan:'踢法',tangkisan:'格挡',elakan:'闪避',polaLangkah:'步法',kudaKuda:'马步',aktif:'进行中',akanDatang:'即将开始',selesai:'已完成',totalPoin:'积分',selesaiPoin:'已完成',poinSelesai:'积分完成！',poinBatal:'积分已撤销',gagalSimpan:'保存失败',belumAda:'暂无训练计划',belumAda2:'教练尚未创建计划',minData:'需要至少2次数据更新才能显示进度图表',catatanLatihan:'训练记录',tidakAdaCatatan:'本月无训练记录',latihan:'训练',overall:'综合等级',statFisik:'体能统计',skillPasif:'被动技能',bulan:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],hari:['日','一','二','三','四','五','六'],gambar:'图片',video:'视频',tanding:'竞技',seni:'武术套路',pria:'男性',wanita:'女性',temaJudul:'选择主题',bahasaJudul:'选择语言',temaDefault:'自动',temaDark:'深色',temaLight:'浅色',temaSporty:'运动',temaLuxury:'奢华',temaClassic:'经典',catatOtomatis:'训练记录已保存！',completeAll:'全部完成',streakTitle:'训练连续记录',streakHari:'天连续',streakTerbaik:'最佳:',attendTitle:'出勤率',attendHari:'天',attend30:'最近30天',prTitle:'个人记录',prAdd:'+ 添加',prNamaPlaceholder:'记录名称',prValPlaceholder:'值',prSimpan:'保存',prBatal:'取消',prHapus:'删除',prEmpty:'暂无个人记录',periodTitle:'程序周期化',periodPrep:'准备',periodComp:'竞技',periodPeak:'顶峰',periodRest:'恢复',periodTran:'过渡',periodCurrent:'当前阶段:',rpeTitle:'记录RPE',rpeSimpan:'保存',rpeNote:'训练备注...',rpeLabel:'RPE',attendHit:'训练',attendMiss:'缺席'}
+};
+function T(key){return(LANG[currentLang]||LANG.id)[key]||key;}
+function scheduleStatusText(isScheduled){
+  const pack={
+    id:{on:'Hari ini jadwal',off:'Hari ini bukan jadwal'},
+    en:{on:'Scheduled today',off:'Not scheduled today'},
+    ko:{on:'오늘 일정 있음',off:'오늘 일정 없음'},
+    ja:{on:'本日は予定日',off:'本日は予定外'},
+    ar:{on:'مجدول اليوم',off:'غير مجدول اليوم'},
+    zh:{on:'今日有安排',off:'今日未安排'}
+  };
+  const txt=pack[currentLang]||pack.id;
+  return isScheduled?txt.on:txt.off;
+}
+function bottomNavToggleLabel(){
+  const pack={
+    id:bottomNavEnabled?'Nonaktifkan Bottom Navbar':'Aktifkan Bottom Navbar',
+    en:bottomNavEnabled?'Disable Bottom Navbar':'Enable Bottom Navbar',
+    ko:bottomNavEnabled?'하단 네비 비활성화':'하단 네비 활성화',
+    ja:bottomNavEnabled?'下部ナビを無効化':'下部ナビを有効化',
+    ar:bottomNavEnabled?'تعطيل شريط التنقل السفلي':'تفعيل شريط التنقل السفلي',
+    zh:bottomNavEnabled?'关闭底部导航':'启用底部导航'
+  };
+  return pack[currentLang]||pack.id;
+}
+function moreMenuLabel(){
+  const pack={
+    id:'Lainnya',
+    en:'More',
+    ko:'더보기',
+    ja:'その他',
+    ar:'المزيد',
+    zh:'更多'
+  };
+  return pack[currentLang]||pack.id;
+}
+function settingsMenuLabel(){
+  const pack={id:'Setting',en:'Settings',ko:'설정',ja:'設定',ar:'الإعدادات',zh:'设置'};
+  return pack[currentLang]||pack.id;
+}
+function applyBottomNavState(){
+  const app=document.getElementById('app');
+  if(!app)return;
+  app.classList.toggle('bottom-nav-on',bottomNavEnabled);
+}
+window.toggleBottomMenu=function(){
+  const panel=document.getElementById('mbMenuPanel');
+  if(!panel) return;
+  panel.classList.toggle('show');
+};
+window.closeBottomMenu=function(){
+  const panel=document.getElementById('mbMenuPanel');
+  if(panel) panel.classList.remove('show');
+};
+window.toggleBottomNav=function(){
+  bottomNavEnabled=!bottomNavEnabled;
+  localStorage.setItem('yd_bottom_nav',bottomNavEnabled?'1':'0');
+  applyBottomNavState();
+  if(window._panelType==='settings') openPanel('settings');
+};
+
+/* ── THEME & LANG ── */
+function applyTheme(t){currentTheme=t;localStorage.setItem('yd_theme',t);document.documentElement.setAttribute('data-theme',t);}
+function applyLang(l){currentLang=l;localStorage.setItem('yd_lang',l);updateStaticText();if(currentAtletData)renderAll();}
+function updateStaticText(){
+  const s=(id,key)=>{const el=document.getElementById(id);if(el)el.textContent=T(key);};
+  s('loadTxt','loading');s('loginTagline','loginTagline');s('lblNama','lblNama');s('lblKode','lblKode');s('loginHint','loginHint');
+  const lb=document.getElementById('loginBtn');if(lb)lb.textContent=T('loginBtn');
+  document.querySelectorAll('.t-profil').forEach(e=>e.textContent=T('tabProfil'));
+  document.querySelectorAll('.t-program').forEach(e=>e.textContent=T('tabProgram'));
+  document.querySelectorAll('.t-grafik').forEach(e=>e.textContent=T('tabGrafik'));
+  document.querySelectorAll('.t-kalender').forEach(e=>e.textContent=T('tabKalender'));
+  document.querySelectorAll('.t-stats').forEach(e=>e.textContent=T('tabStats'));
+  document.querySelectorAll('.mb-txt-profile').forEach(e=>e.textContent=T('tabProfil'));
+  document.querySelectorAll('.mb-txt-program').forEach(e=>e.textContent=T('tabProgram'));
+  document.querySelectorAll('.mb-txt-grafik').forEach(e=>e.textContent=T('tabGrafik'));
+  document.querySelectorAll('.mb-txt-kalender').forEach(e=>e.textContent=T('tabKalender'));
+  document.querySelectorAll('.mb-txt-stats').forEach(e=>e.textContent=T('tabStats'));
+  document.querySelectorAll('.mb-txt-settings').forEach(e=>e.textContent=settingsMenuLabel());
+  document.querySelectorAll('.mb-txt-more').forEach(e=>e.textContent=moreMenuLabel());
+  s('questTitle','program');s('grafikTitle','grafik');s('kalenderTitle','kalender');s('statsTitle','statsTitle');
+  document.querySelectorAll('.t-fisik').forEach(e=>e.textContent=T('fisik'));
+  document.querySelectorAll('.t-pasif').forEach(e=>e.textContent=T('pasif'));
+  document.querySelectorAll('.t-skillAktif').forEach(e=>e.textContent=T('skillAktif'));
+}
+
+/* ── PANEL ── */
+window.openPanel=function(type){
+  const themes=[{id:'default',icon:'◐',label:T('temaDefault')},{id:'light',icon:'○',label:T('temaLight')},{id:'dark',icon:'●',label:T('temaDark')},{id:'sporty',icon:'◆',label:T('temaSporty')},{id:'luxury',icon:'◈',label:T('temaLuxury')},{id:'classic',icon:'◇',label:T('temaClassic')}];
+  const langs=[{id:'id',label:'Indonesia',sub:'Bahasa Indonesia'},{id:'en',label:'English',sub:'English'},{id:'ko',label:'한국어',sub:'Korean'},{id:'ja',label:'日本語',sub:'Japanese'},{id:'ar',label:'العربية',sub:'Arabic'},{id:'zh',label:'中文',sub:'Chinese'}];
+  let html='';
+  if(type==='settings'){
+    html=`<div class="panel-title" style="display:flex;align-items:center;gap:10px">Settings<button class="settings-x-btn" onclick="closePanel()"><iconify-icon icon="lucide:x"></iconify-icon></button></div>
+    <div class="panel-row" style="display:grid;grid-template-columns:1fr;gap:8px">
+      <button class="tb-btn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px" onclick="openPanel('theme')"><iconify-icon icon="lucide:palette"></iconify-icon>${T('temaJudul')}</button>
+      <button class="tb-btn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px" onclick="openPanel('lang')"><iconify-icon icon="lucide:languages"></iconify-icon>${T('bahasaJudul')}</button>
+      <button class="tb-btn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px" onclick="toggleBottomNav()"><iconify-icon icon="lucide:panel-bottom"></iconify-icon>${bottomNavToggleLabel()}</button>
+      <button class="tb-btn" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 12px;border-color:rgba(220,38,38,.35);color:var(--red)" onclick="doLogout()"><iconify-icon icon="lucide:log-out"></iconify-icon>${T('logoutBtn')}</button>
+    </div>`;
+  } else if(type==='theme'){
+    html=`<div class="panel-title">${T('temaJudul')}</div><div class="panel-row">${themes.map(t=>`<div class="panel-chip${currentTheme===t.id?' active':''}" onclick="applyTheme('${t.id}');renderPanel('theme')"><span class="panel-chip-icon" style="font-size:16px;display:block;text-align:center;margin-bottom:4px;color:var(--text)">${t.icon}</span><span class="panel-chip-label">${t.label}</span></div>`).join('')}</div>`;
+  } else {
+    html=`<div class="panel-title">${T('bahasaJudul')}</div><div class="panel-row">${langs.map(l=>`<div class="panel-chip${currentLang===l.id?' active':''}" onclick="applyLang('${l.id}');renderPanel('lang')"><span class="panel-chip-label" style="font-size:16px;font-weight:700;display:block;margin-bottom:2px;color:var(--text)">${l.label}</span><span class="panel-chip-label" style="font-size:9px;opacity:.6">${l.sub}</span></div>`).join('')}</div>`;
+  }
+  document.getElementById('panelContent').innerHTML=html;
+  document.getElementById('panelOverlay').classList.add('open');
+  const app=document.getElementById('app');
+  if(app) app.classList.toggle('settings-open', type==='settings'||type==='theme'||type==='lang');
+  window._panelType=type;
+};
+function renderPanel(type){openPanel(type);}
+window.closePanel=function(e){
+  if(!e||e.target===document.getElementById('panelOverlay')){
+    document.getElementById('panelOverlay').classList.remove('open');
+    const app=document.getElementById('app');
+    if(app) app.classList.remove('settings-open');
+  }
+};
+
+/* ── HELPERS ── */
+function toast(msg,type='info'){const t=document.getElementById('toast');t.textContent=msg;t.className='toast '+type+' show';setTimeout(()=>t.classList.remove('show'),2400);}
+function getWeightClass(kg){const w=Number(kg);if(w<=45)return'≤45 KG';if(w<=50)return'≤50 KG';if(w<=52)return'≤52 KG';if(w<=55)return'≤55 KG';if(w<=60)return'≤60 KG';if(w<=67)return'≤67 KG';if(w<=75)return'≤75 KG';if(w<=84)return'≤84 KG';return'+84 KG';}
+function calcAge(dob){if(!dob)return'—';return(new Date().getFullYear()-new Date(dob).getFullYear())+' thn';}
+function calcOverall(d){
+  if(!d)return 0;
+  const f=d.fisik||{},p=d.pasif||{},s=d.skill||{};
+  const fKeys=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
+  const p1Keys=['fightIq','reflek','mental','taktik'];
+  const p2Keys=['hafalan','penghayatan','irama','koordinasi','manajemenWaktu'];
+  const pKeys=p2Keys.some(k=>p[k]!==undefined)?p2Keys:p1Keys;
+  const sVals=[];
+  if(s.serang){Object.values(s.serang).forEach(v=>sVals.push(Number(v||0)));}
+  if(s.tahan){Object.values(s.tahan).forEach(v=>sVals.push(Number(v||0)));}
+  if(s.teknik){Object.values(s.teknik).forEach(v=>sVals.push(Number(v||0)));}
+  if(s.jatuh){Object.values(s.jatuh).forEach(v=>sVals.push(Number(v||0)));}
+  const all=[...fKeys.map(k=>Number(f[k]||0)),...pKeys.map(k=>Number(p[k]||0)),...sVals];
+  if(!all.length)return 0;
+  return Math.round(all.reduce((a,b)=>a+b,0)/all.length);
+}
+window.openProfileIconModal=function(){
+  const modal=document.getElementById('profileIconModal');
+  const input=document.getElementById('profileIconUrlInput');
+  if(input) input.value=String(currentAtletData?.profileIconUrl||currentAtletData?.iconUrl||'');
+  if(modal) modal.classList.add('show');
+};
+window.closeProfileIconModal=function(){
+  const modal=document.getElementById('profileIconModal');
+  if(modal) modal.classList.remove('show');
+};
+window.saveProfileIconUrl=async function(){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const input=document.getElementById('profileIconUrlInput');
+  const url=(input?.value||'').trim();
+  try{
+    await db.ref(`${node}/${currentAtletId}`).update({profileIconUrl:url});
+    toast('✓ Foto profil diperbarui','success');
+    closeProfileIconModal();
+  }catch(e){
+    toast(T('gagalSimpan'),'info');
+  }
+};
+let leaderboardActionCtx=null;
+window.openLeaderboardAction=function(node,id,nama){
+  leaderboardActionCtx={node,id,nama};
+  const title=document.getElementById('lbActionTitle');
+  if(title) title.textContent=`Aksi: ${nama||'Atlet'}`;
+  const modal=document.getElementById('lbActionModal');
+  if(modal) modal.classList.add('show');
+};
+window.closeLeaderboardActionModal=function(){
+  const modal=document.getElementById('lbActionModal');
+  if(modal) modal.classList.remove('show');
+};
+function selfNodeTag(){
+  const raw=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  return raw==='atlet_seni'?'seni':'tanding';
+}
+function buildParticipantKey(nodeTag,id){return `${nodeTag}:${id}`;}
+function buildRoomId(a,b){return [a,b].sort().join('__');}
+function escHtml(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function formatChatTime(ts){
+  const d=new Date(Number(ts||Date.now()));
+  if(Number.isNaN(d.getTime())) return '';
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+function openChatFile(roomId='',peer=null){
+  try{
+    if(currentAtletData){
+      sessionStorage.setItem('yd_atlet_data',JSON.stringify(currentAtletData));
+      sessionStorage.setItem('yd_atlet_nama',String(currentAtletData?.nama||''));
+    }
+  }catch(e){}
+  const params=new URLSearchParams();
+  if(roomId) params.set('room',roomId);
+  if(peer?.id) params.set('peer',peer.id);
+  if(peer?.node) params.set('peerNode',peer.node);
+  if(peer?.nama) params.set('peerName',peer.nama);
+  const q=params.toString();
+  window.location.href=`chat.html${q?`?${q}`:''}`;
+}
+window.openLeaderboardChat=async function(){
+  const ctx=leaderboardActionCtx;
+  if(!ctx?.id){closeLeaderboardActionModal();return;}
+  const selfKey=buildParticipantKey(selfNodeTag(),currentAtletId);
+  const peerKey=buildParticipantKey(ctx.node,ctx.id);
+  const roomId=buildRoomId(selfKey,peerKey);
+  const now=Date.now();
+  const selfName=String(currentAtletData?.nama||'Saya');
+  const peerName=String(ctx.nama||'Atlet');
+  const updates={};
+  updates[`room_chat/${roomId}/participants/${selfKey}`]={id:currentAtletId,node:selfNodeTag(),nama:selfName};
+  updates[`room_chat/${roomId}/participants/${peerKey}`]={id:ctx.id,node:ctx.node,nama:peerName};
+  updates[`room_chat/${roomId}/updatedAt`]=now;
+  updates[`user_rooms/${selfKey}/${roomId}`]={updatedAt:now,peerId:ctx.id,peerNode:ctx.node,peerName};
+  updates[`user_rooms/${peerKey}/${roomId}`]={updatedAt:now,peerId:currentAtletId,peerNode:selfNodeTag(),peerName:selfName};
+  try{
+    await db.ref('/').update(updates);
+  }catch(e){}
+  closeLeaderboardActionModal();
+  openChatFile(roomId,{id:ctx.id,node:ctx.node,nama:peerName});
+};
+async function renderLeaderboardReadOnlyProfile(mode='profile'){
+  const ctx=leaderboardActionCtx;
+  if(!ctx?.node||!ctx?.id) return;
+  closeLeaderboardActionModal();
+  const wrap=document.getElementById('lbProfileContent');
+  if(wrap) wrap.innerHTML=`<div class="no-data-txt">${mode==='stats'?'Memuat statistik...':'Memuat profil...'}</div>`;
+  const modal=document.getElementById('lbProfileModal');
+  if(modal) modal.classList.add('show');
+  try{
+    const snap=await db.ref(`${ctx.node==='seni'?'atlet_seni':'atlet'}/${ctx.id}`).once('value');
+    const d=snap.val()||{};
+    const avatar=String(d.profileIconUrl||d.iconUrl||'').trim();
+    const esc=(v)=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const fisik=d.fisik||{},pasif=d.pasif||{},skill=d.skill||{};
+    const pasifItems=(ctx.node==='seni'
+      ? [[T('hafalan'),pasif.hafalan],[T('penghayatan'),pasif.penghayatan],[T('irama'),pasif.irama],[T('koordinasi'),pasif.koordinasi],[T('manajemenWaktu'),pasif.manajemenWaktu]]
+      : [[T('fightIq'),pasif.fightIq],[T('reflek'),pasif.reflek],[T('mental'),pasif.mental],[T('taktik'),pasif.taktik]]
+    );
+    const skillItems=[];
+    const skillLabelMap={
+      lurus:T('lurus'),upper:T('upper'),depan:T('depan'),sabit:T('sabit'),t:T('t'),
+      tangkis:T('tangkis'),elak:T('elak'),tangkap:T('tangkap'),
+      banting:T('banting'),ungkit:T('ungkit'),sapu:T('sapu'),gunting:T('gunting'),
+      pukulan:T('pukulan'),tendangan:T('tendangan'),tangkisan:T('tangkisan'),elakan:T('elakan'),
+      polaLangkah:T('polaLangkah'),kudaKuda:T('kudaKuda')
+    };
+    ['serang','tahan','teknik','jatuh'].forEach((sec)=>{
+      const obj=skill?.[sec]||{};
+      Object.keys(obj).forEach((k)=>{
+        const secTitle=sec==='serang'?T('serangTitle'):sec==='tahan'?T('bertahanTitle'):sec==='teknik'?T('teknikTitle'):T('jatuhanTitle');
+        skillItems.push([`${secTitle} · ${skillLabelMap[k]||k}`,obj[k]]);
+      });
+    });
+    const fisikItems=[[T('dayaTahan'),fisik.dayaTahan],[T('stamina'),fisik.stamina],[T('kecepatan'),fisik.kecepatan],[T('kelincahan'),fisik.kelincahan],[T('keseimbangan'),fisik.keseimbangan],[T('powerTungkai'),fisik.powerTungkai],[T('kekuatanLengan'),fisik.kekuatanLengan],[T('fleksibilitas'),fisik.fleksibilitas]];
+    const fisikBarHtml=fisikItems.filter(([,v])=>Number(v||0)>0).map(([n,v])=>statRow(n,v,false)).join('');
+    const pasifBarHtml=pasifItems.filter(([,v])=>Number(v||0)>0).map(([n,v])=>statRow(n,v,true)).join('');
+    const skillBarHtml=skillItems.filter(([,v])=>Number(v||0)>0).map(([n,v])=>statRow(esc(n),v,false)).join('');
+    const profileHeadHtml=`
+      <div class="lb-profile-head">
+        <div class="lb-profile-avatar">${avatar?`<img src="${avatar}" alt="avatar" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;iconify-icon icon=&quot;lucide:user-circle-2&quot;&gt;&lt;/iconify-icon&gt;'" />`:`<iconify-icon icon="lucide:user-circle-2"></iconify-icon>`}</div>
+        <div>
+          <div class="lb-profile-name">${esc(d.nama||'-')}</div>
+          <div class="lb-profile-sub">${ctx.node==='seni'?'Atlet Seni':'Atlet Tanding'} · ${esc(getWeightClass(d.berat))}</div>
         </div>
-        <div class="topbar-right">
-          <div class="topbar-score">
-            <div class="score-ring-sm" id="topRing" style="--s:0">
-              <span class="score-ring-num" id="topScore">—</span>
-            </div>
-          </div>
-          <button class="logout-btn" onclick="doLogout()">Keluar</button>
+      </div>`;
+    const profileHtml=`
+      ${profileHeadHtml}
+      <div class="lb-card" style="margin-bottom:10px"><div class="lb-title">Fisik</div>
+        ${fisikItems.map(([n,v])=>`<div class="lb-row"><div class="lb-info"><div class="lb-name">${n}</div></div><div class="lb-score">${Number(v||0)}</div></div>`).join('')}
+      </div>
+      <div class="lb-card" style="margin-bottom:0"><div class="lb-title">${T('pasif')} & ${T('skillAktif')}</div>
+        ${pasifItems.map(([n,v])=>`<div class="lb-row"><div class="lb-info"><div class="lb-name">${n}</div></div><div class="lb-score">${Number(v||0)}</div></div>`).join('')}
+        <div class="lb-row"><div class="lb-info"><div class="lb-name">${T('overall')}</div></div><div class="lb-score">${calcOverall(d)}</div></div>
+      </div>`;
+    const statsHtml=`
+      ${profileHeadHtml}
+      ${fisikBarHtml?`<div class="lb-card" style="margin-top:10px;margin-bottom:10px"><div class="lb-title">${T('fisik')}</div>${fisikBarHtml}</div>`:''}
+      ${pasifBarHtml?`<div class="lb-card" style="margin-bottom:10px"><div class="lb-title">${T('pasif')}</div>${pasifBarHtml}</div>`:''}
+      ${skillBarHtml?`<div class="lb-card" style="margin-bottom:10px"><div class="lb-title">${T('skillAktif')}</div>${skillBarHtml}</div>`:''}
+      ${(!fisikBarHtml&&!pasifBarHtml&&!skillBarHtml)?`<div class="no-data-txt">Belum ada data statistik.</div>`:''}
+    `;
+    wrap.innerHTML=mode==='stats'?statsHtml:profileHtml;
+  }catch(e){
+    if(wrap) wrap.innerHTML=`<div class="no-data-txt">${mode==='stats'?'Gagal memuat statistik.':'Gagal memuat profil.'}</div>`;
+  }
+}
+window.openLeaderboardFullStats=async function(){
+  await renderLeaderboardReadOnlyProfile('stats');
+};
+window.closeLeaderboardProfile=function(){
+  const modal=document.getElementById('lbProfileModal');
+  if(modal) modal.classList.remove('show');
+};
+window.openChatPage=function(roomId='',peer=null){
+  return openChatFile(roomId,peer);
+};
+function stopChatListeners(){
+  if(chatListUnsub){chatListUnsub();chatListUnsub=null;}
+  if(chatMsgUnsub){chatMsgUnsub();chatMsgUnsub=null;}
+}
+function setActiveChatRoom(roomId,peer){
+  activeChatRoomId=roomId;
+  activeChatPeer=peer||null;
+  document.querySelectorAll('.chat-room-item').forEach(el=>el.classList.toggle('active',el.dataset.room===roomId));
+  const title=document.getElementById('chatRoomTitle');
+  if(title) title.textContent=peer?.nama?`Chat: ${peer.nama}`:'Room Chat';
+  const msgWrap=document.getElementById('chatMessages');
+  if(msgWrap) msgWrap.innerHTML='<div class="no-data-txt">Memuat pesan...</div>';
+  if(chatMsgUnsub){chatMsgUnsub();chatMsgUnsub=null;}
+  const ref=db.ref(`room_chat/${roomId}/messages`).limitToLast(120);
+  const handler=(snap)=>{
+    const items=[];
+    snap.forEach(ch=>items.push(ch.val()||{}));
+    if(!msgWrap) return;
+    if(!items.length){msgWrap.innerHTML='<div class="no-data-txt">Belum ada pesan.</div>';return;}
+    const selfKey=buildParticipantKey(selfNodeTag(),currentAtletId);
+    msgWrap.innerHTML=items.map(it=>{
+      const mine=it.senderKey===selfKey;
+      return `<div class="chat-bubble ${mine?'me':'other'}">${escHtml(it.text||'')}<span class="chat-time">${formatChatTime(it.ts)}</span></div>`;
+    }).join('');
+    msgWrap.scrollTop=msgWrap.scrollHeight;
+  };
+  ref.on('value',handler);
+  chatMsgUnsub=()=>ref.off('value',handler);
+}
+function renderChatRooms(preselectRoomId='',preselectPeer=null){
+  const listEl=document.getElementById('chatRoomList');
+  if(!listEl||!currentAtletId) return;
+  listEl.innerHTML='<div class="no-data-txt">Memuat room chat...</div>';
+  if(chatListUnsub){chatListUnsub();chatListUnsub=null;}
+  const selfKey=buildParticipantKey(selfNodeTag(),currentAtletId);
+  const ref=db.ref(`user_rooms/${selfKey}`);
+  const handler=(snap)=>{
+    const rooms=[];
+    snap.forEach(ch=>rooms.push({id:ch.key,...(ch.val()||{})}));
+    rooms.sort((a,b)=>Number(b.updatedAt||0)-Number(a.updatedAt||0));
+    if(!rooms.length){
+      listEl.innerHTML='<div class="no-data-txt">Belum ada room chat.</div>';
+      const msgWrap=document.getElementById('chatMessages');
+      if(msgWrap) msgWrap.innerHTML='<div class="no-data-txt">Mulai chat dari leaderboard.</div>';
+      return;
+    }
+    listEl.innerHTML=rooms.map(r=>{
+      const peerName=String(r.peerName||'Tanpa Nama');
+      return `<button class="chat-room-item${r.id===activeChatRoomId?' active':''}" data-room="${r.id}" onclick="openChatRoom('${r.id}','${encodeURIComponent(String(r.peerId||''))}','${encodeURIComponent(String(r.peerNode||''))}','${encodeURIComponent(peerName)}')"><div class="chat-room-name">${escHtml(peerName)}</div><div class="chat-room-meta">${escHtml(r.lastMessage||'Belum ada pesan')}</div></button>`;
+    }).join('');
+    if(preselectRoomId){
+      const rs=rooms.find(r=>r.id===preselectRoomId);
+      setActiveChatRoom(preselectRoomId,preselectPeer||{id:rs?.peerId,node:rs?.peerNode,nama:rs?.peerName||'Tanpa Nama'});
+    }else if(!activeChatRoomId){
+      const first=rooms[0];
+      setActiveChatRoom(first.id,{id:first.peerId,node:first.peerNode,nama:first.peerName||'Tanpa Nama'});
+    }else{
+      const active=rooms.find(r=>r.id===activeChatRoomId);
+      if(active) setActiveChatRoom(active.id,{id:active.peerId,node:active.peerNode,nama:active.peerName||'Tanpa Nama'});
+    }
+  };
+  ref.on('value',handler);
+  chatListUnsub=()=>ref.off('value',handler);
+}
+window.openChatRoom=function(roomId,peerId,peerNode,peerName){
+  setActiveChatRoom(roomId,{id:decodeURIComponent(peerId||''),node:decodeURIComponent(peerNode||''),nama:decodeURIComponent(peerName||'')});
+};
+window.sendChatMessage=async function(){
+  if(!activeChatRoomId){toast('Pilih room chat dulu','info');return;}
+  const input=document.getElementById('chatInput');
+  const text=(input?.value||'').trim();
+  if(!text) return;
+  const selfKey=buildParticipantKey(selfNodeTag(),currentAtletId);
+  const now=Date.now();
+  const msgRef=db.ref(`room_chat/${activeChatRoomId}/messages`).push();
+  const selfName=String(currentAtletData?.nama||'Saya');
+  const peerKey=activeChatPeer?.id?buildParticipantKey(activeChatPeer.node,activeChatPeer.id):'';
+  const updates={};
+  updates[`room_chat/${activeChatRoomId}/messages/${msgRef.key}`]={senderKey:selfKey,senderName:selfName,text,ts:now};
+  updates[`room_chat/${activeChatRoomId}/updatedAt`]=now;
+  updates[`room_chat/${activeChatRoomId}/lastMessage`]=text;
+  updates[`room_chat/${activeChatRoomId}/lastSender`]=selfKey;
+  updates[`user_rooms/${selfKey}/${activeChatRoomId}/updatedAt`]=now;
+  updates[`user_rooms/${selfKey}/${activeChatRoomId}/lastMessage`]=text;
+  if(peerKey){
+    updates[`user_rooms/${peerKey}/${activeChatRoomId}/updatedAt`]=now;
+    updates[`user_rooms/${peerKey}/${activeChatRoomId}/lastMessage`]=text;
+  }
+  try{
+    await db.ref('/').update(updates);
+    if(input) input.value='';
+  }catch(e){
+    toast(T('gagalSimpan'),'info');
+  }
+};
+window.openLeaderboard=function(){
+  showPage('leaderboard',null);
+  renderLeaderboardPage();
+};
+async function renderLeaderboardPage(){
+  const wrap=document.getElementById('leaderboardWrap');
+  if(!wrap) return;
+  wrap.innerHTML=`<div class="no-data-txt">Memuat leaderboard...</div>`;
+  const esc=(v)=>String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  try{
+    const [tandingSnap,seniSnap]=await Promise.all([db.ref('atlet').once('value'),db.ref('atlet_seni').once('value')]);
+    const avg=(arr)=>arr.length?Math.round((arr.reduce((a,b)=>a+b,0)/arr.length)*10)/10:0;
+    const calcFisikAvg=(d)=>{
+      const f=d?.fisik||{};
+      const keys=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
+      return avg(keys.map(k=>Number(f[k]||0)));
+    };
+    const calcSkillAvg=(d)=>{
+      const s=d?.skill||{};
+      const vals=[];
+      ['serang','tahan','teknik','jatuh'].forEach(k=>{
+        Object.values(s[k]||{}).forEach(v=>vals.push(Number(v||0)));
+      });
+      return avg(vals);
+    };
+    const calcMedalPoint=(d)=>{
+      let point=0;
+      Object.values(d?.pr||{}).forEach((rec)=>{
+        const m=String(rec?.medali||rec?.nilai||'').toLowerCase();
+        if(/emas|gold/.test(m)) point+=5;
+        else if(/perak|silver/.test(m)) point+=3;
+        else if(/perunggu|bronze/.test(m)) point+=1;
+      });
+      return point;
+    };
+    const all=[];
+    tandingSnap.forEach(ch=>{
+      const d=ch.val()||{};
+      all.push({
+        id:ch.key,nama:d.nama||'—',overall:calcOverall(d),kelas:getWeightClass(d.berat),node:'tanding',
+        fisikAvg:calcFisikAvg(d),skillAvg:calcSkillAvg(d),medalPoint:calcMedalPoint(d),profileIconUrl:String(d.profileIconUrl||d.iconUrl||'')
+      });
+    });
+    seniSnap.forEach(ch=>{
+      const d=ch.val()||{};
+      all.push({
+        id:ch.key,nama:d.nama||'—',overall:calcOverall(d),kelas:getWeightClass(d.berat),node:'seni',
+        fisikAvg:calcFisikAvg(d),skillAvg:calcSkillAvg(d),medalPoint:calcMedalPoint(d),profileIconUrl:String(d.profileIconUrl||d.iconUrl||'')
+      });
+    });
+    if(!all.length){wrap.innerHTML=`<div class="no-data-txt">Belum ada data atlet.</div>`;return;}
+    const sorted=[...all].sort((a,b)=>b.overall-a.overall||a.nama.localeCompare(b.nama)).slice(0,20);
+    const avatar=(url)=>url?`<img src="${url}" alt="avatar" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;iconify-icon icon=&quot;lucide:user-circle-2&quot;&gt;&lt;/iconify-icon&gt;'" />`:`<iconify-icon icon="lucide:user-circle-2"></iconify-icon>`;
+    const overallHtml=sorted.map((it,idx)=>`<div class="lb-row"><div class="lb-rank">${idx+1}</div><div class="lb-avatar">${avatar(it.profileIconUrl)}</div><div class="lb-info"><button class="lb-name-btn" onclick="openLeaderboardAction('${it.node}','${it.id}','${esc(it.nama)}')">${esc(it.nama)}</button><div class="lb-meta">${it.node==='seni'?'Atlet Seni':'Atlet Tanding'} · ${esc(it.kelas||'-')}</div></div><div class="lb-score">${it.overall}</div></div>`).join('');
+    const topFisik=[...all].sort((a,b)=>b.fisikAvg-a.fisikAvg||a.nama.localeCompare(b.nama)).slice(0,10);
+    const topSkill=[...all].sort((a,b)=>b.skillAvg-a.skillAvg||a.nama.localeCompare(b.nama)).slice(0,10);
+    const topMedal=[...all].sort((a,b)=>b.medalPoint-a.medalPoint||a.nama.localeCompare(b.nama)).slice(0,10);
+    const otherHtml=`
+      <div class="lb-card">
+        <div class="lb-title">Fisik Terbaik (Rata-rata Fisik)</div>
+        ${topFisik.map((it,idx)=>`<div class="lb-row"><div class="lb-rank">${idx+1}</div><div class="lb-avatar">${avatar(it.profileIconUrl)}</div><div class="lb-info"><button class="lb-name-btn" onclick="openLeaderboardAction('${it.node}','${it.id}','${esc(it.nama)}')">${esc(it.nama)}</button><div class="lb-meta">${it.node==='seni'?'Atlet Seni':'Atlet Tanding'}</div></div><div class="lb-score">${it.fisikAvg}</div></div>`).join('')}
+      </div>
+      <div class="lb-card">
+        <div class="lb-title">Skill Terbaik (Rata-rata Skill)</div>
+        ${topSkill.map((it,idx)=>`<div class="lb-row"><div class="lb-rank">${idx+1}</div><div class="lb-avatar">${avatar(it.profileIconUrl)}</div><div class="lb-info"><button class="lb-name-btn" onclick="openLeaderboardAction('${it.node}','${it.id}','${esc(it.nama)}')">${esc(it.nama)}</button><div class="lb-meta">${it.node==='seni'?'Atlet Seni':'Atlet Tanding'}</div></div><div class="lb-score">${it.skillAvg}</div></div>`).join('')}
+      </div>
+      <div class="lb-card">
+        <div class="lb-title">Perolehan Medali Terbanyak (Emas:5, Perak:3, Perunggu:1)</div>
+        ${topMedal.map((it,idx)=>`<div class="lb-row"><div class="lb-rank">${idx+1}</div><div class="lb-avatar">${avatar(it.profileIconUrl)}</div><div class="lb-info"><button class="lb-name-btn" onclick="openLeaderboardAction('${it.node}','${it.id}','${esc(it.nama)}')">${esc(it.nama)}</button><div class="lb-meta">${it.node==='seni'?'Atlet Seni':'Atlet Tanding'}</div></div><div class="lb-score">${it.medalPoint}</div></div>`).join('')}
+      </div>`;
+    wrap.innerHTML=`
+      <div class="lb-card">
+        <div class="lb-title">Leaderboard Utama · Overall Level</div>
+        ${overallHtml}
+      </div>
+      <div class="lb-class-wrap">${otherHtml}</div>
+    `;
+  }catch(e){
+    wrap.innerHTML=`<div class="no-data-txt">Gagal memuat leaderboard.</div>`;
+  }
+}
+function tier(v){const n=Number(v)||0;return n>=85?'S':n>=70?'A':n>=50?'B':'C';}
+function tierClass(v){return{S:'tier-s',A:'tier-a',B:'tier-b',C:'tier-c'}[tier(v)];}
+function rpeColor(v){const n=Number(v);if(!n)return'var(--muted)';if(n<=3)return'var(--green)';if(n<=6)return'var(--gold)';if(n<=8)return'#f97316';return'var(--red)';}
+function rpeBg(v){const n=Number(v);if(!n)return'rgba(128,128,128,.1)';if(n<=3)return'rgba(72,187,120,.15)';if(n<=6)return'rgba(246,201,14,.12)';if(n<=8)return'rgba(249,115,22,.12)';return'rgba(252,92,125,.15)';}
+
+/* ── STREAK CALCULATION ── */
+function calcStreak(training){
+  if(!training)return{current:0,best:0,last7:[]};
+  const today=new Date();
+  const dateStr=(d)=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  let current=0,best=0,streak=0;
+  const checkDate=new Date(today);
+  while(true){
+    const k=dateStr(checkDate);
+    if(training[k]){streak++;if(streak>best)best=streak;}
+    else{if(streak>best)best=streak;streak=0;if(current===0&&checkDate<today)break;}
+    if(current===0)current=streak;
+    checkDate.setDate(checkDate.getDate()-1);
+    if(checkDate.getFullYear()<today.getFullYear()-1)break;
+  }
+  const last7=[];
+  for(let i=6;i>=0;i--){const d=new Date(today);d.setDate(d.getDate()-i);last7.push(!!training[dateStr(d)]);}
+  return{current,best,last7};
+}
+
+/* ── ATTENDANCE CALCULATION ── */
+function calcAttendance(training,days=30){
+  if(!training)return{rate:0,bars:[]};
+  const today=new Date();
+  let hit=0;const bars=[];
+  for(let i=days-1;i>=0;i--){
+    const d=new Date(today);d.setDate(d.getDate()-i);
+    const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const isHit=!!training[k];
+    if(isHit)hit++;
+    bars.push(isHit);
+  }
+  return{rate:Math.round(hit/days*100),bars,hit,total:days};
+}
+
+/* ── LOAD SCREEN ── */
+applyTheme(currentTheme);
+window.addEventListener('load',()=>{
+  updateStaticText();
+  setTimeout(()=>{
+    document.getElementById('loadScreen').classList.add('out');
+    setTimeout(()=>{
+      document.getElementById('loadScreen').style.display='none';
+      const saved=sessionStorage.getItem('yd_atlet_id');
+      if(saved){currentAtletId=saved;startApp();}
+      else{document.getElementById('loginScreen').style.display='flex';}
+    },500);
+  },1500);
+});
+
+/* ── LOGIN ── */
+document.getElementById('inputKode').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+document.getElementById('inputNama').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('inputKode').focus();});
+window.doLogin=async function(){
+  const nama=document.getElementById('inputNama').value.trim();
+  const kode=document.getElementById('inputKode').value.trim().toUpperCase();
+  const errEl=document.getElementById('loginErr');
+  errEl.classList.remove('show');errEl.textContent=T('loginErr');
+  if(!nama||!kode){errEl.classList.add('show');return;}
+  if(kode!==KODE_AKSES){errEl.classList.add('show');return;}
+  let found=null,foundNode=null;
+  for(const node of['atlet','atlet_seni']){
+    const snap=await db.ref(node).once('value');
+    snap.forEach(c=>{const d=c.val();if(d&&d.nama&&d.nama.trim().toLowerCase()===nama.toLowerCase()){found=c.key;foundNode=node;}});
+    if(found)break;
+  }
+  if(!found){errEl.classList.add('show');return;}
+  currentAtletId=found;
+  sessionStorage.setItem('yd_atlet_id',found);
+  sessionStorage.setItem('yd_atlet_node',foundNode);
+  sessionStorage.setItem('yd_atlet_nama',nama);
+  document.getElementById('loginScreen').classList.add('out');
+  setTimeout(()=>{document.getElementById('loginScreen').style.display='none';startApp();},400);
+};
+window.doLogout=function(){sessionStorage.clear();if(unsubFn){unsubFn();unsubFn=null;}stopChatListeners();location.reload();};
+
+/* ── START APP ── */
+function startApp(){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  document.getElementById('app').classList.add('show');
+  applyBottomNavState();
+
+  // Kirim session ke chat iframe setelah siap
+  function sendSessionToIframe(){
+    const iframe=document.getElementById('chatIframe');
+    if(!iframe) return;
+    const payload={
+      type:'yd_session',
+      atletId:sessionStorage.getItem('yd_atlet_id'),
+      atletNode:sessionStorage.getItem('yd_atlet_node')||'atlet',
+      atletNama:sessionStorage.getItem('yd_atlet_nama')||''
+    };
+    try{iframe.contentWindow.postMessage(payload,'*');}catch(e){}
+  }
+  const iframe=document.getElementById('chatIframe');
+  if(iframe){
+    iframe.addEventListener('load',sendSessionToIframe,{once:false});
+    // Kirim juga langsung kalau iframe sudah loaded sebelumnya
+    setTimeout(sendSessionToIframe,500);
+  }
+
+  const ref=db.ref(`${node}/${currentAtletId}`);
+  const listener=ref.on('value',snap=>{
+    currentAtletData=snap.val();
+    if(!currentAtletData)return;
+    renderAll();
+  });
+  unsubFn=()=>ref.off('value',listener);
+}
+
+function renderAll(){
+  updateStaticText();
+  const d=currentAtletData;
+  try{
+    sessionStorage.setItem('yd_atlet_id',String(currentAtletId||''));
+    sessionStorage.setItem('yd_atlet_node',sessionStorage.getItem('yd_atlet_node')||'atlet');
+    sessionStorage.setItem('yd_atlet_nama',String(d?.nama||''));
+    sessionStorage.setItem('yd_atlet_data',JSON.stringify(d||{}));
+  }catch(e){}
+  const overall=calcOverall(d);
+  const isSeni=sessionStorage.getItem('yd_atlet_node')==='atlet_seni';
+  document.getElementById('tbName').textContent=d.nama||'—';
+  document.getElementById('tbMeta').textContent=(isSeni?T('seni'):T('tanding'))+' · YD ATHLETE';
+  renderProfil(d,overall,isSeni);
+  renderQuest(d);
+  renderGrafik(d,isSeni);
+  renderKalender(d);
+  renderStats(d);
+}
+
+/* ══════════════════════════════════════════════
+   PROFIL
+══════════════════════════════════════════════ */
+function renderProfil(d,overall,isSeni){
+  const f=d.fisik||{},p=d.pasif||{},s=d.skill||{serang:{},tahan:{}};
+  const age=calcAge(d.tglLahir);
+  const streak=calcStreak(d.training);
+  const medalStats={emas:0,perak:0,perunggu:0,total:0};
+  Object.values(d.pr||{}).forEach((rec)=>{
+    const m=String(rec?.medali||'').toLowerCase();
+    const legacy=String(rec?.nilai||'').toLowerCase();
+    const key=m||(/emas|gold/.test(legacy)?'emas':/perak|silver/.test(legacy)?'perak':/perunggu|bronze/.test(legacy)?'perunggu':'');
+    if(key==='emas'||key==='perak'||key==='perunggu'){
+      medalStats[key]+=1;
+      medalStats.total+=1;
+    }
+  });
+  const avatarUrl=String(d?.profileIconUrl||d?.iconUrl||'').trim();
+  const avatarHtml=avatarUrl?`<img src="${avatarUrl}" alt="Avatar" onerror="this.style.display='none';this.parentElement.innerHTML='&lt;iconify-icon icon=&quot;lucide:user-circle-2&quot;&gt;&lt;/iconify-icon&gt;'" />`:`<iconify-icon icon="lucide:user-circle-2"></iconify-icon>`;
+  document.getElementById('heroBlock').innerHTML=`
+    <div class="hero-head">
+      <div class="hero-main">
+        <button class="hero-avatar-btn" type="button" onclick="openProfileIconModal()">${avatarHtml}</button>
+        <div style="min-width:0">
+          <div class="hero-name">${d.nama}</div>
+          <div class="hero-sub">${d.berat||'—'}kg · ${d.tinggi||'—'}cm · ${age}</div>
         </div>
       </div>
-
-      <!-- Nav Tabs -->
-      <div class="nav-tabs">
-        <button class="nav-tab active" data-page="profil" onclick="showPage('profil',this)">
-          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Profil
-        </button>
-        <button class="nav-tab" data-page="quest" onclick="showPage('quest',this)">
-          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      Program
-        </button>
-        <button class="nav-tab" data-page="grafik" onclick="showPage('grafik',this)">
-          <svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
-          Grafik
-        </button>
-        <button class="nav-tab" data-page="kalender" onclick="showPage('kalender',this)">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Kalender
-        </button>
-      </div>
-
-      <!-- ─── PAGE: PROFIL ─── -->
-      <div class="page active" id="page-profil">
-        <div class="hero" id="heroBlock"></div>
-        <div class="overview-grid" id="overviewGrid"></div>
-        <div class="sec">
-          <div class="sec-title">Statistik Fisik</div>
-          <div id="fisikBars"></div>
+      <div class="hero-overall">
+        <div class="score-ring-sm" style="--s:${overall}">
+          <span class="score-ring-num">${overall}</span>
         </div>
-        <div class="sec">
-          <div class="sec-title">Skill Pasif</div>
-          <div id="pasifBars"></div>
-        </div>
-        <div class="sec">
-          <div class="sec-title">Skill Aktif</div>
-          <div id="skillDisplay"></div>
-        </div>
-        <div class="bottom-sp"></div>
-      </div>
-
-      <!-- ─── PAGE: QUEST ─── -->
-      <div class="page" id="page-quest">
-        <div style="padding:16px 18px 0">
-          <div class="sec-title" style="margin-bottom:0">Program Latihan</div>
-        </div>
-        <div class="quest-page" id="questPage" style="padding-top:14px"></div>
-        <div class="bottom-sp"></div>
-      </div>
-
-      <!-- ─── PAGE: GRAFIK ─── -->
-      <div class="page" id="page-grafik">
-        <div style="padding:16px 18px 0">
-          <div class="sec-title" style="margin-bottom:16px">Grafik Perkembangan</div>
-        </div>
-        <div style="padding:0 18px" id="grafikWrap"></div>
-        <div class="bottom-sp"></div>
-      </div>
-
-      <!-- ─── PAGE: KALENDER ─── -->
-      <div class="page" id="page-kalender">
-        <div style="padding:16px 18px 0">
-          <div class="sec-title" style="margin-bottom:16px">Kalender Latihan</div>
-        </div>
-        <div class="cal-container" id="calWrap"></div>
-        <div class="bottom-sp"></div>
+        <div class="hero-overall-label">${T('overall')}</div>
       </div>
     </div>
+    <div class="hero-badges">
+      <span class="hbadge hbadge-blue">${d.gender==='Laki-laki'?'♂ '+T('pria'):'♀ '+T('wanita')}</span>
+      <span class="hbadge hbadge-gold">${getWeightClass(d.berat)}</span>
+      <span class="hbadge ${isSeni?'hbadge-purple':'hbadge-green'}">${isSeni?T('seni'):T('tanding')}</span>
+    </div>
+    <div class="hero-medals">
+      <span class="hbadge hbadge-gold"><iconify-icon icon="lucide:trophy"></iconify-icon>${medalStats.total}</span>
+      <span class="hbadge hbadge-gold"><iconify-icon icon="lucide:medal" style="color:#facc15"></iconify-icon>${medalStats.emas}</span>
+      <span class="hbadge hbadge-blue"><iconify-icon icon="lucide:medal" style="color:#cbd5e1"></iconify-icon>${medalStats.perak}</span>
+      <span class="hbadge hbadge-red"><iconify-icon icon="lucide:medal" style="color:#d97706"></iconify-icon>${medalStats.perunggu}</span>
+    </div>`;
+  const qCount=d.program?Object.keys(d.program).length:0;
+  const trCount=d.training?Object.keys(d.training).length:0;
+  document.getElementById('overviewGrid').innerHTML=`
+    <div class="ov-cell"><div class="ov-val t-level" style="color:var(--blue)">${overall}</div><div class="ov-label t-level">${T('level')}</div></div>
+    <div class="ov-cell"><div class="ov-val" style="color:var(--gold)">${qCount}</div><div class="ov-label t-program">${T('tabProgram')}</div></div>
+    <div class="ov-cell"><div class="ov-val" style="color:var(--green)">${trCount}</div><div class="ov-label t-sesiLatihan">${T('sesiLatihan')}</div></div>`;
+  const fisikList=[[T('dayaTahan'),f.dayaTahan],[T('stamina'),f.stamina],[T('kecepatan'),f.kecepatan],[T('kelincahan'),f.kelincahan],[T('keseimbangan'),f.keseimbangan],[T('powerTungkai'),f.powerTungkai],[T('kekuatanLengan'),f.kekuatanLengan],[T('fleksibilitas'),f.fleksibilitas]];
+  document.getElementById('fisikBars').innerHTML=fisikList.map(([n,v])=>statRow(n,v,false)).join('');
+  const pasifList=isSeni?[[T('hafalan'),p.hafalan],[T('penghayatan'),p.penghayatan],[T('irama'),p.irama],[T('koordinasi'),p.koordinasi],[T('manajemenWaktu'),p.manajemenWaktu]]:[[T('fightIq'),p.fightIq],[T('reflek'),p.reflek],[T('mental'),p.mental],[T('taktik'),p.taktik]];
+  document.getElementById('pasifBars').innerHTML=pasifList.map(([n,v])=>statRow(n,v,true)).join('');
+  let skillHtml='';
+  if(isSeni){
+    skillHtml+=skillGroup(T('serangTitle'),[[T('pukulan'),s.serang?.pukulan],[T('tendangan'),s.serang?.tendangan]]);
+    skillHtml+=skillGroup(T('bertahanTitle'),[[T('tangkisan'),s.tahan?.tangkisan],[T('elakan'),s.tahan?.elakan]]);
+    skillHtml+=skillGroup(T('teknikTitle'),[[T('polaLangkah'),s.teknik?.polaLangkah],[T('kudaKuda'),s.teknik?.kudaKuda]]);
+  } else {
+    skillHtml+=skillGroup(T('serangTitle'),[[T('lurus'),s.serang?.lurus],[T('upper'),s.serang?.upper],[T('depan'),s.serang?.depan],[T('sabit'),s.serang?.sabit],[T('t'),s.serang?.t]]);
+    skillHtml+=skillGroup(T('bertahanTitle'),[[T('tangkis'),s.tahan?.tangkis],[T('elak'),s.tahan?.elak],[T('tangkap'),s.tahan?.tangkap]]);
+    skillHtml+=skillGroup(T('jatuhanTitle'),[[T('banting'),s.jatuh?.banting],[T('ungkit'),s.jatuh?.ungkit],[T('sapu'),s.jatuh?.sapu],[T('gunting'),s.jatuh?.gunting]]);
+  }
+  document.getElementById('skillDisplay').innerHTML=skillHtml;
+}
+function statRow(n,v,isPasif){const val=Number(v)||0;return`<div class="stat-row2"><div class="sname">${n}</div><div class="strack"><div class="sfill${isPasif?' p':''}" style="width:${val}%"></div></div><div class="sval${isPasif?' p':''}">${val}</div></div>`;}
+function skillGroup(title,skills){return`<div class="skill-group-title">${title}</div><div class="skill-display-grid" style="margin-bottom:16px">${skills.map(([n,v])=>{const lv=Number(v)||0;const t=tier(lv);const tc=tierClass(lv);return`<div class="sdchip"><div class="sdchip-name">${n}</div><div class="sdchip-val ${tc}">${lv}</div><div class="sdchip-tier ${tc}">${t}-TIER</div></div>`;}).join('')}</div>`;}
 
-    <!-- Toast -->
-    <div class="toast" id="toast"></div>
-    <!-- js -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-    <script src="assets/js/script.js"></script>
+/* ══════════════════════════════════════════════
+   QUEST / PROGRAM + COMPLETE-ALL CHECKBOX
+══════════════════════════════════════════════ */
+const DAY_KEYS=['sun','mon','tue','wed','thu','fri','sat'];
+const DAY_LABELS={sun:'M',mon:'S',tue:'S',wed:'R',thu:'K',fri:'J',sat:'S'};
+function todayStr(){return new Date().toISOString().slice(0,10);}
+function dayKeyFromDate(dateStr){
+  const d=new Date(dateStr||todayStr());
+  return DAY_KEYS[d.getDay()]||'mon';
+}
+function normalizeScheduleDays(v){
+  if(Array.isArray(v)&&v.length){
+    const normalized=v.map(x=>String(x||'').toLowerCase()).filter(x=>DAY_KEYS.includes(x));
+    if(normalized.length) return [...new Set(normalized)];
+  }
+  return [...DAY_KEYS];
+}
+function buildPoinProgressKey(questId,katId,poinId){
+  return `${questId}__${katId}__${poinId}`;
+}
+function isDateWithinProgram(dateStr,start,end){
+  if(start&&dateStr<start) return false;
+  if(end&&dateStr>end) return false;
+  return true;
+}
+function isProgramScheduledToday(program,dateStr=todayStr()){
+  const dayKey=dayKeyFromDate(dateStr);
+  const progDays=normalizeScheduleDays(program?.hariLatihan||program?.jadwalHari||program?.hari);
+  return isDateWithinProgram(dateStr,program?.tglMulai,program?.tglSelesai)&&progDays.includes(dayKey);
+}
+function getNearestProgramScheduleDistance(program, baseDateStr=todayStr()){
+  const MS_DAY=24*60*60*1000;
+  const base=new Date(baseDateStr);
+  base.setHours(0,0,0,0);
+  const start=program?.tglMulai?new Date(program.tglMulai):null;
+  const end=program?.tglSelesai?new Date(program.tglSelesai):null;
+  if(start) start.setHours(0,0,0,0);
+  if(end) end.setHours(0,0,0,0);
+  if(end&&base>end) return 10000+Math.floor((base-end)/MS_DAY); // already finished -> lower priority
 
-    <script>
-      firebase.initializeApp(FB_CFG);
-      const db = firebase.database();
-    </script>
-  </body>
+  const days=normalizeScheduleDays(program?.hariLatihan||program?.jadwalHari||program?.hari);
+  const searchStart=start&&base<start?start:base;
+  const searchEnd=end||new Date(searchStart.getTime()+365*MS_DAY);
+
+  let cursor=new Date(searchStart);
+  while(cursor<=searchEnd){
+    const key=DAY_KEYS[cursor.getDay()];
+    if(days.includes(key)){
+      return Math.floor((cursor-base)/MS_DAY);
+    }
+    cursor=new Date(cursor.getTime()+MS_DAY);
+  }
+  return 9999;
+}
+function getTodayProgramProgressMap(data){
+  const tr=data?.training||{};
+  return tr?.[todayStr()]?.programProgress||{};
+}
+function buildTodayProgressSummary(data,progressMap){
+  const programs=data?.program||{};
+  const today=todayStr();
+  const dayKey=dayKeyFromDate(today);
+  let total=0,done=0;
+  Object.entries(programs).forEach(([qid,q])=>{
+    if(!isDateWithinProgram(today,q?.tglMulai,q?.tglSelesai)) return;
+    Object.entries(q?.kategori||{}).forEach(([katId,kat])=>{
+      Object.entries(kat?.poin||{}).forEach(([pid,pt])=>{
+        const progDays=normalizeScheduleDays(q?.hariLatihan||q?.jadwalHari||q?.hari);
+        if(!progDays.includes(dayKey)) return;
+        total+=1;
+        const key=buildPoinProgressKey(qid,katId,pid);
+        if(!!progressMap[key]?.done) done+=1;
+      });
+    });
+  });
+  return {total,done,text:total?`${done}/${total} poin program`:''};
+}
+function todayBannerText(activeNames,unfinished){
+  const count=activeNames.length;
+  const names=activeNames.join(', ');
+  const pack={
+    id: count ? `${count} program aktif hari ini (${names}). Sisa ${unfinished} poin belum selesai.` : 'Tidak ada program aktif hari ini.',
+    en: count ? `${count} active programs today (${names}). ${unfinished} unfinished points remaining.` : 'No active programs today.',
+    ko: count ? `오늘 활성 프로그램 ${count}개 (${names}). 미완료 포인트 ${unfinished}개.` : '오늘 활성 프로그램이 없습니다.',
+    ja: count ? `本日のアクティブプログラム ${count}件（${names}）。未完了ポイント ${unfinished}件。` : '本日のアクティブプログラムはありません。',
+    ar: count ? `${count} برامج نشطة اليوم (${names}). المتبقي ${unfinished} نقاط غير مكتملة.` : 'لا توجد برامج نشطة اليوم.',
+    zh: count ? `今日有 ${count} 个进行中计划（${names}），还剩 ${unfinished} 个未完成点。` : '今天没有进行中的计划。'
+  };
+  return pack[currentLang]||pack.id;
+}
+function renderQuest(d){
+  const renderKatIcon = (icon) => {
+    const val = String(icon || 'flame').trim();
+    if (/^[a-z0-9-]+$/i.test(val)) return `<iconify-icon icon="lucide:${val}"></iconify-icon>`;
+    return `<iconify-icon icon="lucide:flame"></iconify-icon>`;
+  };
+  const programs=d?.program||{};
+  const progressToday=getTodayProgramProgressMap(d);
+  const today=todayStr();
+  const todayDayKey=dayKeyFromDate(today);
+  const el=document.getElementById('questPage');
+  const entries=Object.entries(programs).sort(([,a],[,b])=>{
+    const da=getNearestProgramScheduleDistance(a,today);
+    const db=getNearestProgramScheduleDistance(b,today);
+    if(da!==db) return da-db;
+    const sa=(a?.tglMulai||'');
+    const sb=(b?.tglMulai||'');
+    if(sa!==sb) return sa.localeCompare(sb);
+    return (b.createdAt||0)-(a.createdAt||0);
+  });
+  if(!entries.length){el.innerHTML=`<div class="qp-empty">— ${T('belumAda')}<br><span style="opacity:.5">${T('belumAda2')}</span></div>`;return;}
+  const activeProgramNames=[];
+  let unfinishedTotal=0;
+  const cardsHtml=entries.map(([qid,q])=>{
+    const status=!q.tglMulai?'upcoming':today<q.tglMulai?'upcoming':q.tglSelesai&&today>q.tglSelesai?'done':'active';
+    const cats=Object.entries(q.kategori||{});
+    let total=0,done=0;
+    const inProgramRange=isDateWithinProgram(today,q.tglMulai,q.tglSelesai);
+    const progDays=normalizeScheduleDays(q?.hariLatihan||q?.jadwalHari||q?.hari);
+    const isProgramToday=inProgramRange&&progDays.includes(todayDayKey);
+    if(isProgramToday) activeProgramNames.push(q.nama||'Program');
+    const progDayButtons=DAY_KEYS.map(k=>`<button type="button" onclick="event.stopPropagation();toggleProgramDay('${qid}','${k}')" style="width:16px;height:16px;border-radius:4px;border:1px solid var(--border);background:${progDays.includes(k)?'rgba(99,179,237,.15)':'transparent'};color:${progDays.includes(k)?'var(--blue)':'var(--muted)'};font-family:var(--fm);font-size:7px;cursor:pointer;line-height:1">${DAY_LABELS[k]}</button>`).join('');
+    const catsHtml=cats.sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0)).map(([katId,kat])=>{
+      const poinEntries=Object.entries(kat.poin||{}).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+      const visiblePoin=isProgramToday?poinEntries:[];
+      total+=visiblePoin.length;
+      done+=visiblePoin.filter(([pid])=>!!progressToday[buildPoinProgressKey(qid,katId,pid)]?.done).length;
+      if(!visiblePoin.length){
+        return`<div class="kat-item"><div class="kat-header2" ${isProgramToday?`onclick="toggleKat('${katId}')"`:''} style="${isProgramToday?'':'cursor:default'}"><span class="kat-icon2">${renderKatIcon(kat.icon)}</span><span class="kat-name2">${kat.nama}</span><span class="kat-count2">0 ${T('totalPoin')}</span>${isProgramToday?`<span class="kat-chev" id="kchev-${katId}">▶</span>`:''}</div><div class="kat-body2" id="kbody-${katId}"><div class="no-data-txt" style="font-size:10px;padding:8px 0">— ${scheduleStatusText(false)}</div></div></div>`;
+      }
+      return`<div class="kat-item"><div class="kat-header2" ${isProgramToday?`onclick="toggleKat('${katId}')"`:''} style="${isProgramToday?'':'cursor:default'}"><span class="kat-icon2">${renderKatIcon(kat.icon)}</span><span class="kat-name2">${kat.nama}</span><span class="kat-count2">${visiblePoin.length} ${T('totalPoin')}</span>${isProgramToday?`<span class="kat-chev" id="kchev-${katId}">▶</span>`:''}</div><div class="kat-body2" id="kbody-${katId}">${visiblePoin.map(([pid,pt])=>renderPoin(qid,katId,pid,pt,!!progressToday[buildPoinProgressKey(qid,katId,pid)]?.done)).join('')}</div></div>`;
+    }).join('');
+    const pct=total>0?Math.round(done/total*100):0;
+    if(isProgramToday) unfinishedTotal+=Math.max(0,total-done);
+    const allDone=total>0&&done===total;
+    const partial=done>0&&done<total;
+    const pbClass={active:'pb-green',upcoming:'pb-gold',done:'pb-muted'}[status];
+    const pbLabel={active:'● '+T('aktif'),upcoming:'◌ '+T('akanDatang'),done:'✓ '+T('selesai')}[status];
+    const iconClass=status==='active'?'green':status==='upcoming'?'gold':'muted';
+    const iconSvg={active:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>`,upcoming:`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,8 12,12 14,14"/><line x1="3.05" y1="11" x2="5" y2="11"/><line x1="19" y1="11" x2="20.95" y2="11"/></svg>`,done:`<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`}[status];
+    const checkState=allDone?'done':partial?'partial':'';
+    return`<div class="prog-card ${status}-prog" id="prog-${qid}">
+      <div class="prog-header" ${isProgramToday?`onclick="toggleProg('${qid}')"`:''} style="${isProgramToday?'':'cursor:default'}">
+        <div class="prog-icon ${iconClass}">${iconSvg}</div>
+        <div class="prog-info">
+          <div class="prog-name">${q.nama}</div>
+          <div class="prog-meta">${q.tglMulai?`<span>${q.tglMulai}${q.tglSelesai?' → '+q.tglSelesai:''}</span>`:''}<span>${total} ${T('totalPoin')} · ${done} ${T('selesaiPoin')}</span></div>
+          <div style="display:flex;gap:2px;align-items:center;margin-top:4px"><span style="font-family:var(--fm);font-size:8px;color:var(--muted);margin-right:2px">Hari:</span>${progDayButtons}</div>
+          <div style="margin-top:4px;font-family:var(--fm);font-size:8px;letter-spacing:.5px;color:${isProgramToday?'var(--green)':'var(--gold)'}">${scheduleStatusText(isProgramToday)}</div>
+        </div>
+        <div class="prog-right">
+          <span class="prog-badge ${pbClass}">${pbLabel}</span>
+          <div class="prog-ring-wrap"><div class="mini-ring" style="--pr:${pct}"><span class="mini-ring-num">${pct}%</span></div><span>${pct}%</span></div>
+          ${isProgramToday?`<span class="prog-chevron" id="pchev-${qid}">▶</span>`:''}
+        </div>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct}%"></div></div></div>
+      <div class="prog-body" id="pbody-${qid}">
+        ${q.desc?`<div class="prog-desc">${q.desc}</div>`:''}
+        ${!inProgramRange?`<div class="no-data-txt" style="font-size:10px;margin-bottom:8px">— Program aktif pada rentang ${q.tglMulai||'-'} s/d ${q.tglSelesai||'-'}</div>`:''}
+        ${isProgramToday?`<div class="prog-complete-all" onclick="toggleCompleteAll('${qid}',${allDone})">
+          <div class="prog-complete-all-check ${checkState}" id="ca-chk-${qid}"></div>
+          <span class="prog-complete-all-label">${T('completeAll')}</span>
+          <span class="prog-complete-all-count">${done}/${total}</span>
+        </div>`:''}
+        ${catsHtml}
+      </div>
+    </div>`;
+  }).join('');
+  const bannerHtml=`<div class="today-banner">
+    <iconify-icon icon="lucide:bell-ring"></iconify-icon>
+    <div>
+      <div class="today-banner-title">Notifikasi Jadwal Hari Ini</div>
+      <div class="today-banner-text">${todayBannerText(activeProgramNames,unfinishedTotal)}</div>
+    </div>
+  </div>`;
+  el.innerHTML=bannerHtml+cardsHtml;
+}
+
+/* Toggle complete-all */
+window.toggleCompleteAll=function(questId, allCurrentlyDone){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const today=todayStr();
+  const newVal=!allCurrentlyDone;
+  const q=currentAtletData?.program?.[questId];
+  if(!q)return;
+  if(!isProgramScheduledToday(q,today)){
+    toast('Program ini tidak dijadwalkan hari ini','info');
+    return;
+  }
+  const updates={};
+  const dayKey=dayKeyFromDate(today);
+  const cats=Object.entries(q.kategori||{});
+  cats.forEach(([katId,kat])=>{
+    const poinEntries=Object.entries(kat.poin||{});
+    const progDays=normalizeScheduleDays(q?.hariLatihan||q?.jadwalHari||q?.hari);
+    if(!progDays.includes(dayKey)) return;
+    poinEntries.forEach(([pid])=>{
+      if(!isDateWithinProgram(today,q.tglMulai,q.tglSelesai)) return;
+      const key=buildPoinProgressKey(questId,katId,pid);
+      updates[`${node}/${currentAtletId}/training/${today}/programProgress/${key}`]={done:newVal,updatedAt:Date.now()};
+    });
+  });
+  if(Object.keys(updates).length===0)return;
+  db.ref('/').update(updates).then(()=>{
+    const trMap={...(currentAtletData?.training?.[today]?.programProgress||{})};
+    Object.entries(updates).forEach(([path,val])=>{
+      const k=path.split('/programProgress/')[1];
+      if(k) trMap[k]=val;
+    });
+    const sum=buildTodayProgressSummary(currentAtletData,trMap);
+    db.ref(`${node}/${currentAtletId}/training/${today}`).update({note:T('latihan'),programSummary:sum.text,ts:Date.now()});
+    toast(newVal?'✓ '+T('poinSelesai'):'↩ '+T('poinBatal'),newVal?'success':'info');
+    if(newVal)autoRecordTraining();
+  }).catch(()=>toast(T('gagalSimpan'),'info'));
+};
+
+function renderPoin(questId,katId,poinId,pt,isDoneToday){
+  const links=[];
+  if(pt.vidUrl)links.push(`<a class="poin-link vid" href="${pt.vidUrl}" target="_blank"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5,3 19,12 5,21 5,3"/></svg> ${T('video')}</a>`);
+  const imgHtml=pt.imgUrl?`<div class="poin-img-preview"><img src="${pt.imgUrl}" alt="${pt.judul}" loading="lazy" onerror="this.parentElement.style.display='none'"/></div>`:'';
+  return`<div class="poin-item" id="poin-wrap-${poinId}"><div class="poin-check${isDoneToday?' done':''}" id="poin-chk-${poinId}" onclick="togglePoin('${questId}','${katId}','${poinId}',${!!isDoneToday})"></div><div class="poin-info"><div class="poin-title${isDoneToday?' done':''}" id="poin-ttl-${poinId}">${pt.judul}</div>${pt.desc?`<div class="poin-desc">${pt.desc}</div>`:''} ${pt.reps?`<div class="poin-reps">◈ ${pt.reps} <span style="opacity:.5;font-size:9px">[${pt.tipe||'repetisi'}]</span></div>`:''} ${imgHtml} ${links.length?`<div class="poin-links">${links.join('')}</div>`:''}</div></div>`;
+}
+
+window.togglePoin=function(questId,katId,poinId,current){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const today=todayStr();
+  const q=currentAtletData?.program?.[questId];
+  if(!isProgramScheduledToday(q,today)){
+    toast('Poin hanya bisa dicentang pada hari jadwal program','info');
+    return;
+  }
+  const newVal=!current;
+  const chk=document.getElementById('poin-chk-'+poinId);
+  const ttl=document.getElementById('poin-ttl-'+poinId);
+  if(chk)chk.classList.toggle('done',newVal);
+  if(ttl)ttl.classList.toggle('done',newVal);
+  const key=buildPoinProgressKey(questId,katId,poinId);
+  db.ref(`${node}/${currentAtletId}/training/${today}/programProgress/${key}`).set({done:newVal,updatedAt:Date.now()})
+    .then(()=>{
+      const trMap={...(currentAtletData?.training?.[today]?.programProgress||{}),[key]:{done:newVal,updatedAt:Date.now()}};
+      const sum=buildTodayProgressSummary(currentAtletData,trMap);
+      return db.ref(`${node}/${currentAtletId}/training/${today}`).update({note:T('latihan'),programSummary:sum.text,ts:Date.now()});
+    })
+    .then(()=>{toast(newVal?'✓ '+T('poinSelesai'):'↩ '+T('poinBatal'),newVal?'success':'info');if(newVal)autoRecordTraining();})
+    .catch(()=>{toast(T('gagalSimpan'),'info');if(chk)chk.classList.toggle('done',current);if(ttl)ttl.classList.toggle('done',current);});
+};
+
+window.toggleProgramDay=function(questId,dayKey){
+  if(!DAY_KEYS.includes(dayKey)) return;
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const prog=currentAtletData?.program?.[questId]||{};
+  const curr=normalizeScheduleDays(prog?.hariLatihan||prog?.jadwalHari||prog?.hari);
+  let next=curr.includes(dayKey)?curr.filter(d=>d!==dayKey):[...curr,dayKey];
+  if(!next.length) next=[dayKey];
+  db.ref(`${node}/${currentAtletId}/program/${questId}/hariLatihan`).set(next)
+    .then(()=>toast('✓ Jadwal hari program diperbarui','success'))
+    .catch(()=>toast(T('gagalSimpan'),'info'));
+};
+
+function autoRecordTraining(){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const today=new Date().toISOString().slice(0,10);
+  const ref=db.ref(`${node}/${currentAtletId}/training/${today}`);
+  ref.once('value').then(snap=>{
+    if(!snap.exists()){ref.set({note:T('latihan'),ts:Date.now()}).then(()=>{toast(T('catatOtomatis'),'success');});}
+  });
+}
+
+window.toggleProg=function(qid){const body=document.getElementById('pbody-'+qid);const chev=document.getElementById('pchev-'+qid);const o=body.classList.toggle('open');if(chev)chev.style.transform=o?'rotate(90deg)':'';};
+window.toggleKat=function(katId){const body=document.getElementById('kbody-'+katId);const chev=document.getElementById('kchev-'+katId);const o=body.classList.toggle('open');if(chev)chev.style.transform=o?'rotate(90deg)':'';};
+
+/* ══════════════════════════════════════════════
+   GRAFIK
+══════════════════════════════════════════════ */
+function renderGrafik(d,isSeni){
+  const wrap=document.getElementById('grafikWrap');
+  if(!d.history||Object.keys(d.history).length<2){wrap.innerHTML=`<div class="no-data-txt">— ${T('minData')}</div>`;return;}
+  const sorted=Object.values(d.history).sort((a,b)=>a.ts-b.ts);
+  const labels=sorted.map(h=>new Date(h.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+  const overall=sorted.map(h=>calcOverall({fisik:h.fisik,pasif:h.pasif,skill:h.skill}));
+  wrap.innerHTML=`
+    <div class="chart-block"><div class="chart-block-title">▸ ${T('overall')}</div><div class="chart-wrap"><canvas id="ch-ovr"></canvas></div></div>
+    <div class="chart-block"><div class="chart-block-title">▸ ${T('statFisik')}</div><div class="chart-wrap"><canvas id="ch-fisik"></canvas></div></div>
+    <div class="chart-block"><div class="chart-block-title">▸ ${T('skillPasif')}</div><div class="chart-wrap"><canvas id="ch-pasif"></canvas></div></div>`;
+  const grid='rgba(128,128,128,.1)';
+  const opts=(ds)=>({type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:600},plugins:{legend:{labels:{color:'#888',font:{family:'JetBrains Mono',size:9},boxWidth:10,padding:10}}},scales:{x:{grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9}}},y:{min:0,max:100,grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9},stepSize:25}}}}});
+  ['ch-ovr','ch-fisik','ch-pasif'].forEach(k=>{if(chartInst[k]){chartInst[k].destroy();delete chartInst[k];}});
+  chartInst['ch-ovr']=new Chart(document.getElementById('ch-ovr'),opts([{label:T('overall'),data:overall,borderColor:'var(--blue)',backgroundColor:'rgba(99,179,237,.07)',fill:true,tension:.4,pointRadius:4,borderWidth:2,pointBackgroundColor:'var(--blue)'}]));
+  const fisikK=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
+  const fisikN=[T('dayaTahan'),T('stamina'),T('kecepatan'),T('kelincahan'),T('keseimbangan'),T('powerTungkai'),T('kekuatanLengan'),T('fleksibilitas')];
+  const fisikC=['#63b3ed','#48bb78','#f6c90e','#b794f4','#fc5c7d','#4299e1','#ed8936','#34d399'];
+  chartInst['ch-fisik']=new Chart(document.getElementById('ch-fisik'),opts(fisikK.map((k,i)=>({label:fisikN[i],data:sorted.map(h=>Number((h.fisik||{})[k]||0)),borderColor:fisikC[i],backgroundColor:'transparent',fill:false,tension:.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:fisikC[i]}))));
+  const pasifK=isSeni?['hafalan','penghayatan','irama','koordinasi','manajemenWaktu']:['fightIq','reflek','mental','taktik'];
+  const pasifN=isSeni?[T('hafalan'),T('penghayatan'),T('irama'),T('koordinasi'),T('manajemenWaktu')]:[T('fightIq'),T('reflek'),T('mental'),T('taktik')];
+  const pasifC=['#b794f4','#fc5c7d','#63b3ed','#f6c90e','#48bb78'];
+  chartInst['ch-pasif']=new Chart(document.getElementById('ch-pasif'),opts(pasifK.map((k,i)=>({label:pasifN[i],data:sorted.map(h=>Number((h.pasif||{})[k]||0)),borderColor:pasifC[i],backgroundColor:'transparent',fill:false,tension:.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:pasifC[i]}))));
+}
+
+/* ══════════════════════════════════════════════
+   KALENDER + RPE LOG BUTTON
+══════════════════════════════════════════════ */
+function renderKalender(d){
+  const tr=d?.training||{};
+  const {year,month}=calState;
+  const mN=T('bulan');const dN=T('hari');
+  const today=new Date();
+  const fd=new Date(year,month,1).getDay();
+  const dim=new Date(year,month+1,0).getDate();
+  const dip=new Date(year,month,0).getDate();
+  let cells='';
+  for(let i=fd-1;i>=0;i--)cells+=`<div class="cal-d other">${dip-i}</div>`;
+  for(let d2=1;d2<=dim;d2++){
+    const k=`${year}-${String(month+1).padStart(2,'0')}-${String(d2).padStart(2,'0')}`;
+    const isT=today.getFullYear()===year&&today.getMonth()===month&&today.getDate()===d2;
+    const isM=!!tr[k];
+    const rpe=tr[k]?.rpe;
+    const progSummary=tr[k]?.programSummary;
+    const rpeStyle=rpe?`border:2px solid ${rpeColor(rpe)}`:'';
+    const tt=isM?[(tr[k].note||T('latihan')),progSummary,rpe?`RPE ${rpe}`:''].filter(Boolean).join(' · '):'';
+    cells+=`<div class="cal-d${isT?' today':''}${isM?' marked':''}" style="${rpeStyle}" title="${tt}"><span>${d2}</span>${rpe?`<span style="position:absolute;top:1px;right:2px;font-size:7px;font-weight:800;color:${rpeColor(rpe)};font-family:var(--fm)">${rpe}</span>`:''}</div>`;
+  }
+  const rem=42-fd-dim;for(let i=1;i<=rem;i++)cells+=`<div class="cal-d other">${i}</div>`;
+  const monthKey=`${year}-${String(month+1).padStart(2,'0')}`;
+  const notes=Object.entries(tr).filter(([k])=>k.startsWith(monthKey)).sort(([a],[b])=>a.localeCompare(b));
+  const notesHtml=notes.length
+    ?notes.map(([k,v])=>{
+      const rpe=v.rpe;const rpeStyle=rpe?`background:${rpeBg(rpe)};color:${rpeColor(rpe)};border-color:${rpeColor(rpe)}`:''
+      return`<div class="tl-item"><div class="tl-dot" style="${rpe?'background:'+rpeColor(rpe):''}"></div><div class="tl-date">${k.slice(8)}</div><div class="tl-note">${v.note||T('latihan')}${v.programSummary?` · ${v.programSummary}`:''}</div>${rpe?`<div class="tl-rpe" style="${rpeStyle}">RPE ${rpe}</div>`:''}</div>`;
+    }).join('')
+    :`<div class="tl-empty">— ${T('tidakAdaCatatan')}</div>`;
+  const rpeModalHtml=rpeModalOpen?renderRpeModal():'';
+  document.getElementById('calWrap').innerHTML=`
+    ${rpeModalHtml}
+    <div class="cal-header">
+      <button class="cal-arr" onclick="calNav(-1)">‹</button>
+      <div class="cal-month-title">${mN[month]} ${year}</div>
+      <button class="cal-arr" onclick="calNav(1)">›</button>
+    </div>
+    <div class="cal-grid2">
+      ${dN.map(n=>`<div class="cal-dn">${n}</div>`).join('')}
+      ${cells}
+    </div>
+    <div class="training-list">
+      <div class="tl-header" style="display:flex;align-items:center">${T('catatanLatihan')} — ${mN[month]} <button class="rpe-log-btn" onclick="toggleRpeModal()">${T('rpeTitle')}</button></div>
+      ${notesHtml}
+    </div>`;
+}
+
+function renderRpeModal(){
+  const rpeData=[1,2,3,4,5,6,7,8,9,10];
+  return`<div class="rpe-modal">
+    <div class="rpe-modal-title">${T('rpeTitle')} — ${new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'long'})}</div>
+    <div class="rpe-grid">
+      ${rpeData.map(n=>`<div class="rpe-grid-btn rpebg${n}" id="rpebtn-${n}" onclick="selectRpe(${n})">
+        <span class="rpe-grid-btn-num rpe${n}">${n}</span>
+        <span class="rpe-grid-btn-lbl">${rpeLabel(n)}</span>
+      </div>`).join('')}
+    </div>
+    <textarea class="rpe-input-note" id="rpeNoteInput" placeholder="${T('rpeNote')}" rows="2"></textarea>
+    <button class="rpe-save-btn" onclick="saveRpe()">${T('rpeSimpan')}</button>
+  </div>`;
+}
+let selectedRpe=null;
+window.toggleRpeModal=function(){rpeModalOpen=!rpeModalOpen;selectedRpe=null;renderKalender(currentAtletData);};
+window.selectRpe=function(n){
+  selectedRpe=n;
+  document.querySelectorAll('.rpe-grid-btn').forEach(b=>b.style.outline='none');
+  const el=document.getElementById('rpebtn-'+n);
+  if(el)el.style.outline=`2px solid ${rpeColor(n)}`;
+};
+window.saveRpe=function(){
+  if(!selectedRpe){toast('Pilih RPE dulu','info');return;}
+  const note=document.getElementById('rpeNoteInput')?.value.trim()||T('latihan');
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const today=new Date().toISOString().slice(0,10);
+  const ref=db.ref(`${node}/${currentAtletId}/training/${today}`);
+  ref.set({note,rpe:selectedRpe,ts:Date.now()}).then(()=>{
+    toast(`✓ RPE ${selectedRpe} ${T('poinSelesai')}`.replace('Poin selesai','tersimpan').replace('completed','saved'),'success');
+    rpeModalOpen=false;selectedRpe=null;
+  }).catch(()=>toast(T('gagalSimpan'),'info'));
+};
+window.calNav=function(dir){let{year,month}=calState;month+=dir;if(month>11){month=0;year++;}if(month<0){month=11;year--;}calState={year,month};renderKalender(currentAtletData);};
+
+/* ══════════════════════════════════════════════
+   STATS PAGE: Streak, Attendance, Periodization, PR
+══════════════════════════════════════════════ */
+function renderStats(d){
+  renderStreak(d.training);
+  renderAttendance(d.training);
+  renderPeriodization(d);
+  renderPR(d.pr);
+}
+
+/* ── STREAK ── */
+function renderStreak(training){
+  const {current,best,last7}=calcStreak(training||{});
+  const todayHit=last7[6];
+  document.getElementById('streakSection').innerHTML=`
+    <div class="streak-card">
+      <em class="streak-flame">${current>0?(current>=7?'🔥':'🔥'):'⚪'}</em>
+      <div class="streak-info">
+        <div class="streak-num">${current}</div>
+        <div class="streak-label">${T('streakTitle')}</div>
+        <div class="streak-best">${T('streakHari')} · ${T('streakTerbaik')} ${best} ${T('attendHari')}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <div class="streak-dots">
+          ${last7.map((hit,i)=>`<div class="streak-dot${hit?' hit':''}${i===6?' today':''}"></div>`).join('')}
+        </div>
+        <div style="font-family:var(--fm);font-size:8px;color:var(--muted);letter-spacing:.5px">7 HARI TERAKHIR</div>
+      </div>
+    </div>`;
+}
+
+/* ── ATTENDANCE ── */
+function renderAttendance(training){
+  const{rate,bars,hit,total}=calcAttendance(training||{},30);
+  const maxH=28;
+  const barsHtml=bars.map(hit=>`<div class="att-bar${hit?' hit':' miss'}" style="height:${hit?maxH:Math.max(4,maxH*0.15)}px"></div>`).join('');
+  document.getElementById('attendanceSection').innerHTML=`
+    <div class="attendance-card">
+      <div class="att-header">
+        <span class="att-title">${T('attendTitle')} · ${T('attend30')}</span>
+        <span class="att-pct" style="color:${rate>=70?'var(--green)':rate>=40?'var(--gold)':'var(--red)'}">${rate}%</span>
+      </div>
+      <div class="att-bars">${barsHtml}</div>
+      <div class="att-legend">
+        <div class="att-leg-item"><div class="att-leg-dot" style="background:var(--green)"></div>${hit} ${T('attendHit')}</div>
+        <div class="att-leg-item"><div class="att-leg-dot" style="background:rgba(128,128,128,.15)"></div>${total-hit} ${T('attendMiss')}</div>
+        <div class="att-leg-item" style="margin-left:auto;font-weight:700;color:${rate>=70?'var(--green)':rate>=40?'var(--gold)':'var(--red)'}">${rate>=80?'🏆 Konsisten':rate>=60?'👍 Bagus':rate>=40?'⚠ Cukup':'⚡ Tingkatkan'}</div>
+      </div>
+    </div>`;
+}
+
+/* ── PERIODISASI ── */
+function renderPeriodization(data){
+  const programs=data?.program||{};
+  const competitions=data?.kompetisi||{};
+  const esc=(v)=>String(v??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const todayStr=today.toISOString().slice(0,10);
+  const toDate=(v)=>{const d=new Date(v||'');return isNaN(d)?null:d;};
+  const normalizePhase=(raw)=>String(raw||'comp').toLowerCase().replace('persiapan','prep').replace('kompetisi','comp').replace('puncak','peak').replace('recovery','rest').replace('transisi','tran').replace('preparation','prep').replace('competition','comp').replace('transition','tran');
+
+  const programEntries=Object.entries(programs)
+    .filter(([,q])=>q.tglMulai&&q.tglSelesai&&toDate(q.tglMulai)&&toDate(q.tglSelesai))
+    .sort(([,a],[,b])=>a.tglMulai?.localeCompare(b.tglMulai||'')||0);
+  const compEntries=Object.entries(competitions)
+    .filter(([,c])=>c.tanggal&&toDate(c.tanggal))
+    .sort(([,a],[,b])=>(a.tanggal||'').localeCompare(b.tanggal||''));
+
+  if(!programEntries.length&&!compEntries.length){
+    document.getElementById('periodSection').innerHTML=`<div class="period-card"><div class="period-title">${T('periodTitle')}</div><div class="no-data-txt" style="font-size:10px">— ${T('belumAda2')}</div>${renderCompetitionManager(competitions)}</div>`;
+    return;
+  }
+
+  const datePoints=[];
+  programEntries.forEach(([,q])=>{datePoints.push(toDate(q.tglMulai),toDate(q.tglSelesai));});
+  compEntries.forEach(([,c])=>datePoints.push(toDate(c.tanggal)));
+  const sortedDates=datePoints.filter(Boolean).sort((a,b)=>a-b);
+  const allStart=sortedDates[0]||today;
+  const allEnd=sortedDates[sortedDates.length-1]||today;
+  const totalDays=Math.max(1,(allEnd-allStart)/(1000*60*60*24));
+
+  const PHASE_LABELS={'prep':T('periodPrep'),'comp':T('periodComp'),'peak':T('periodPeak'),'rest':T('periodRest'),'tran':T('periodTran')};
+  const periodColors=['#3b82f6','#22c55e','#ef4444','#f59e0b','#a855f7','#14b8a6','#f97316','#e11d48'];
+  let currentPhase=null;
+
+  const programSegs=programEntries.map(([pid,q],idx)=>{
+    const s=toDate(q.tglMulai),e=toDate(q.tglSelesai);
+    const segDays=Math.max(1,(e-s)/(1000*60*60*24));
+    const pct=Math.max(3,Math.round(segDays/totalDays*100));
+    const phase=normalizePhase(q.fase);
+    const isCurrent=todayStr>=q.tglMulai&&todayStr<=q.tglSelesai;
+    if(isCurrent)currentPhase={name:q.nama,phase,label:PHASE_LABELS[phase]||phase};
+    const color=periodColors[idx%periodColors.length];
+    const segId=`prog:${pid}`;
+    const isSelected=selectedPeriodSegmentId===segId;
+    return {
+      id:segId,
+      nama:q.nama||'Program',
+      start:q.tglMulai||'-',
+      end:q.tglSelesai||'-',
+      type:'program',
+      html:`<div class="period-seg${isCurrent?' current':''}${isSelected?' selected':''}" onclick="selectPeriodSegment('${segId}')" style="width:${pct}%;min-width:8px;background:${color};color:#fff" title="${q.nama} (${q.tglMulai} - ${q.tglSelesai})">${pct>10?esc(q.nama||PHASE_LABELS[phase]||'Program'):''}</div>`,
+      legend:`<div class="period-leg"><div class="period-leg-dot" style="background:${color}"></div>${esc(q.nama||PHASE_LABELS[phase]||phase)}</div>`
+    };
+  });
+
+  const competitionSegs=compEntries.map(([cid,c])=>{
+    const compDate=toDate(c.tanggal);
+    if(!compDate) return null;
+    const pct=Math.max(2,Math.round((1/totalDays)*100));
+    const isToday=c.tanggal===todayStr;
+    const segId=`comp:${cid}`;
+    const isSelected=selectedPeriodSegmentId===segId;
+    return {
+      id:segId,
+      nama:c.nama||'Kompetisi',
+      start:c.tanggal||'-',
+      end:c.tanggal||'-',
+      type:'kompetisi',
+      html:`<div class="period-seg${isToday?' current':''}${isSelected?' selected':''}" onclick="selectPeriodSegment('${segId}')" style="width:${pct}%;min-width:6px;background:var(--gold);color:var(--c0)" title="Kompetisi: ${esc(c.nama||'Kompetisi')} (${c.tanggal})">${pct>20?`<span style="display:flex;align-items:center;gap:4px"><iconify-icon icon="lucide:trophy"></iconify-icon><span>${esc(c.nama||'Kompetisi')}</span></span>`:pct>8?'<iconify-icon icon="lucide:trophy"></iconify-icon>':''}</div>`,
+      legend:`<div class="period-leg"><div class="period-leg-dot" style="background:var(--gold)"></div>Kompetisi: ${esc(c.nama||'Untitled')}</div>`
+    };
+  }).filter(Boolean);
+
+  const allSegs=[...programSegs,...competitionSegs];
+  if(!selectedPeriodSegmentId&&allSegs.length){
+    selectedPeriodSegmentId=allSegs[0].id;
+  }
+  let activeSeg=allSegs.find(s=>s.id===selectedPeriodSegmentId)||null;
+  if(!activeSeg&&allSegs.length){
+    selectedPeriodSegmentId=allSegs[0].id;
+    activeSeg=allSegs[0];
+  }
+  const segsHtml=allSegs.map(s=>s.html).join('');
+  const legendHtml=[...programSegs.map(s=>s.legend),...competitionSegs.map(s=>s.legend)].join('');
+
+  let nearestComp=null;
+  if(compEntries.length){
+    nearestComp=compEntries.map(([,c])=>{
+      const d=toDate(c.tanggal);
+      const diff=d?Math.abs(d-today):Number.MAX_SAFE_INTEGER;
+      return {...c,diff};
+    }).sort((a,b)=>a.diff-b.diff)[0];
+  }
+  const currentInfo=currentPhase
+    ? `<b>${currentPhase.label||currentPhase.phase}</b> — ${esc(currentPhase.name)}`
+    : `<span style="color:var(--muted)">${T('belumAda')}</span>`;
+  const compInfo=nearestComp
+    ? `<div style="margin-top:4px">Kompetisi terdekat: <b>${esc(nearestComp.nama||'-')}</b> (${esc(nearestComp.tanggal||'-')})</div>`
+    : '';
+  const selectedInfo=activeSeg
+    ? `<div style="margin-top:4px">Dipilih: <b>${esc(activeSeg.nama)}</b> (${esc(activeSeg.start)} - ${esc(activeSeg.end)})</div>`
+    : '';
+
+  document.getElementById('periodSection').innerHTML=`
+    <div class="period-card">
+      <div class="period-title">${T('periodTitle')}</div>
+      <div class="period-track">${segsHtml}</div>
+      <div class="period-labels">${legendHtml}</div>
+      <div class="period-prog-info">${T('periodCurrent')} ${currentInfo}${selectedInfo}${compInfo}</div>
+      ${renderCompetitionManager(competitions)}
+    </div>`;
+}
+
+window.selectPeriodSegment=function(segId){
+  selectedPeriodSegmentId=segId||null;
+  if(currentAtletData) renderPeriodization(currentAtletData);
+};
+
+function renderCompetitionManager(competitions){
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const toDate=(v)=>{const d=new Date(v||'');return isNaN(d)?null:d;};
+  const entries=Object.entries(competitions||{}).sort(([,a],[,b])=>{
+    const da=toDate(a.tanggal), db=toDate(b.tanggal);
+    if(!da&&!db) return 0;
+    if(!da) return 1;
+    if(!db) return -1;
+    const diffA=Math.abs(da-today);
+    const diffB=Math.abs(db-today);
+    if(diffA!==diffB) return diffA-diffB;
+    return da-db;
+  });
+  const listHtml=entries.length?entries.map(([id,c])=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;background:var(--c2)">
+      <div style="min-width:0">
+        <div style="font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.nama||'—'}</div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--muted)">${c.tanggal||'—'}</div>
+      </div>
+      <div style="display:flex;gap:5px;align-items:center">
+        <button onclick="editCompetition('${id}')" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:9px;padding:4px 8px;border-radius:5px;cursor:pointer;flex-shrink:0">Edit</button>
+        <button onclick="deleteCompetition('${id}')" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:9px;padding:4px 8px;border-radius:5px;cursor:pointer;flex-shrink:0">✕</button>
+      </div>
+    </div>`).join(''):`<div class="no-data-txt" style="font-size:10px;margin-top:8px">— Belum ada jadwal kompetisi</div>`;
+  const bodyDisplay=showCompetitionSchedule?'block':'none';
+  return `
+    <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">
+        <div class="period-title" style="margin:0">Jadwal Kompetisi</div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <button onclick="toggleCompetitionSchedule()" title="${showCompetitionSchedule?'Sembunyikan jadwal':'Tampilkan jadwal'}" style="display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer">
+            <iconify-icon icon="lucide:${showCompetitionSchedule?'eye-off':'eye'}"></iconify-icon>
+          </button>
+          <button onclick="toggleCompetitionForm()" style="background:var(--blue2);border:none;color:var(--c0);font-family:var(--fm);font-size:10px;padding:6px 9px;border-radius:6px;cursor:pointer">＋</button>
+        </div>
+      </div>
+      <div style="display:${bodyDisplay}">
+        <div id="competitionForm" style="display:none;margin-bottom:8px;padding:8px;border:1px solid var(--border);border-radius:6px;background:var(--c2)">
+          <div style="display:grid;grid-template-columns:1fr 130px;gap:6px">
+            <input id="compNama" type="text" placeholder="Nama kompetisi" style="background:var(--c1);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;font-size:12px;outline:none">
+            <input id="compTanggal" type="date" style="background:var(--c1);border:1px solid var(--border);color:var(--text);padding:8px;border-radius:6px;font-size:12px;outline:none">
+          </div>
+          <input id="compEditId" type="hidden" value="">
+          <div style="display:flex;justify-content:flex-end;gap:6px;margin-top:8px">
+            <button onclick="cancelCompetitionEdit()" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:9px;padding:5px 10px;border-radius:5px;cursor:pointer">Batal</button>
+            <button onclick="saveCompetition()" style="background:var(--green);border:none;color:#fff;font-family:var(--fm);font-size:9px;padding:5px 10px;border-radius:5px;cursor:pointer">Simpan</button>
+          </div>
+        </div>
+        ${listHtml}
+      </div>
+    </div>`;
+}
+
+/* ── PERSONAL RECORDS ── */
+function renderPR(pr){
+  const records=pr?Object.entries(pr).sort(([,a],[,b])=>(b.ts||0)-(a.ts||0)):[];
+  const MEDAL_META={
+    emas:{icon:'lucide:medal',color:'#facc15',label:'Emas'},
+    perak:{icon:'lucide:medal',color:'#cbd5e1',label:'Perak'},
+    perunggu:{icon:'lucide:medal',color:'#d97706',label:'Perunggu'},
+    tidak:{icon:'lucide:circle-x',color:'var(--muted)',label:'Tidak dapat'}
+  };
+  const medalChip=(key)=>{
+    const m=MEDAL_META[key]||MEDAL_META.tidak;
+    return `<span style="display:inline-flex;align-items:center;gap:6px;color:${m.color}"><iconify-icon icon="${m.icon}"></iconify-icon><span>${m.label}</span></span>`;
+  };
+  const recMedal=(rec)=>{
+    if(rec?.medali) return rec.medali;
+    const n=String(rec?.nilai||'').toLowerCase();
+    if(/emas|gold/.test(n)) return 'emas';
+    if(/perak|silver/.test(n)) return 'perak';
+    if(/perunggu|bronze/.test(n)) return 'perunggu';
+    return 'tidak';
+  };
+  const addFormHtml=`<div class="pr-modal" id="prForm" style="display:none">
+    <div class="pr-modal-title">Tambah Riwayat Pertandingan</div>
+    <div class="pr-fields">
+      <div class="pr-field full"><label>Hasil Medali</label>
+        <div class="pr-medal-pick" id="prMedalPick">
+          <button type="button" class="pr-medal-btn active" data-medal="emas" onclick="setPrMedal('emas')"><iconify-icon icon="lucide:medal" style="color:#facc15"></iconify-icon></button>
+          <button type="button" class="pr-medal-btn" data-medal="perak" onclick="setPrMedal('perak')"><iconify-icon icon="lucide:medal" style="color:#cbd5e1"></iconify-icon></button>
+          <button type="button" class="pr-medal-btn" data-medal="perunggu" onclick="setPrMedal('perunggu')"><iconify-icon icon="lucide:medal" style="color:#d97706"></iconify-icon></button>
+          <button type="button" class="pr-medal-btn" data-medal="tidak" onclick="setPrMedal('tidak')"><iconify-icon icon="lucide:circle-x"></iconify-icon></button>
+        </div>
+        <input type="hidden" id="prInputMedal" value="emas">
+      </div>
+      <div class="pr-field full"><label>Nama Kompetisi</label><input type="text" id="prInputKompetisi" placeholder="Contoh: Kejurda Pencak Silat 2026" autocomplete="off"></div>
+      <div class="pr-field"><label>Tanggal</label><input type="date" id="prInputDate" value="${new Date().toISOString().slice(0,10)}"></div>
+      <div class="pr-field"><label>Catatan</label><input type="text" id="prInputCatatan" placeholder="Contoh: Menang 2-1 di final" autocomplete="off"></div>
+    </div>
+    <div class="pr-actions">
+      <button class="pr-cancel-btn" onclick="togglePrForm()">Batal</button>
+      <button class="pr-save-btn" onclick="savePR()">Simpan</button>
+    </div>
+  </div>`;
+  const emptyHtml=records.length?'':` <div class="pr-empty">— Belum ada riwayat pertandingan</div>`;
+  const listHtml=records.map(([id,rec],idx)=>`
+    <div class="pr-item${idx<3?' pr-item-gold':''}">
+      <em class="pr-medal">${medalChip(recMedal(rec))}</em>
+      <div class="pr-info">
+        <div class="pr-name">${rec.kompetisi||rec.nama||'—'}</div>
+        <div class="pr-val">${(MEDAL_META[recMedal(rec)]||MEDAL_META.tidak).label}</div>
+        <div class="pr-date">${rec.tanggal||''}</div>
+        ${rec.catatan?`<div class="pr-note">${rec.catatan}</div>`:''}
+      </div>
+      <button onclick="deletePR('${id}')" style="background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:9px;padding:4px 8px;border-radius:5px;cursor:pointer;flex-shrink:0" title="${T('prHapus')}">✕</button>
+    </div>`).join('');
+  document.getElementById('prSection').innerHTML=`
+    <div class="pr-card">
+      <div class="pr-title">Riwayat Pertandingan<button class="pr-add-btn" onclick="togglePrForm()">Tambah</button></div>
+      ${addFormHtml}
+      <div class="pr-list">${listHtml}${emptyHtml}</div>
+    </div>`;
+}
+
+window.setPrMedal=function(medal){
+  const val=['emas','perak','perunggu','tidak'].includes(medal)?medal:'emas';
+  const input=document.getElementById('prInputMedal');
+  if(input) input.value=val;
+  document.querySelectorAll('#prMedalPick .pr-medal-btn').forEach((btn)=>{
+    btn.classList.toggle('active',btn.dataset.medal===val);
+  });
+};
+
+window.togglePrForm=function(){
+  const form=document.getElementById('prForm');
+  if(form)form.style.display=form.style.display==='none'?'block':'none';
+};
+window.savePR=function(){
+  const kompetisi=(document.getElementById('prInputKompetisi')?.value||'').trim();
+  const tanggal=document.getElementById('prInputDate')?.value||new Date().toISOString().slice(0,10);
+  const catatan=(document.getElementById('prInputCatatan')?.value||'').trim();
+  const medali=(document.getElementById('prInputMedal')?.value||'emas').trim();
+  if(!kompetisi||!tanggal){toast('Isi nama kompetisi dan tanggal','info');return;}
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const ref=db.ref(`${node}/${currentAtletId}/pr`).push();
+  ref.set({kompetisi,tanggal,catatan,medali,ts:Date.now()}).then(()=>{toast('✓ Riwayat pertandingan tersimpan!','success');}).catch(()=>toast(T('gagalSimpan'),'info'));
+};
+window.deletePR=function(id){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  db.ref(`${node}/${currentAtletId}/pr/${id}`).remove().then(()=>toast('↩ PR dihapus','info')).catch(()=>toast(T('gagalSimpan'),'info'));
+};
+
+window.toggleCompetitionForm=function(){
+  if(!showCompetitionSchedule){
+    showCompetitionSchedule=true;
+    if(currentAtletData) renderPeriodization(currentAtletData);
+  }
+  const form=document.getElementById('competitionForm');
+  if(!form)return;
+  form.style.display=form.style.display==='none'?'block':'none';
+};
+
+window.toggleCompetitionSchedule=function(){
+  showCompetitionSchedule=!showCompetitionSchedule;
+  if(!showCompetitionSchedule) editingCompetitionId=null;
+  if(currentAtletData) renderPeriodization(currentAtletData);
+};
+
+window.cancelCompetitionEdit=function(){
+  editingCompetitionId=null;
+  const idEl=document.getElementById('compEditId');
+  const namaEl=document.getElementById('compNama');
+  const tglEl=document.getElementById('compTanggal');
+  if(idEl)idEl.value='';
+  if(namaEl)namaEl.value='';
+  if(tglEl)tglEl.value='';
+  const form=document.getElementById('competitionForm');
+  if(form)form.style.display='none';
+};
+
+window.editCompetition=function(id){
+  const item=(currentAtletData?.kompetisi||{})[id];
+  if(!item)return;
+  editingCompetitionId=id;
+  const form=document.getElementById('competitionForm');
+  const idEl=document.getElementById('compEditId');
+  const namaEl=document.getElementById('compNama');
+  const tglEl=document.getElementById('compTanggal');
+  if(form)form.style.display='block';
+  if(idEl)idEl.value=id;
+  if(namaEl)namaEl.value=item.nama||'';
+  if(tglEl)tglEl.value=item.tanggal||'';
+};
+
+window.saveCompetition=function(){
+  const nama=(document.getElementById('compNama')?.value||'').trim();
+  const tanggal=document.getElementById('compTanggal')?.value||'';
+  if(!nama||!tanggal){toast('Isi nama dan tanggal kompetisi','info');return;}
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  const id=document.getElementById('compEditId')?.value||editingCompetitionId;
+  const targetRef=id?db.ref(`${node}/${currentAtletId}/kompetisi/${id}`):db.ref(`${node}/${currentAtletId}/kompetisi`).push();
+  targetRef.set({nama,tanggal,ts:Date.now()})
+    .then(()=>{toast(id?'✓ Jadwal kompetisi diperbarui':'✓ Jadwal kompetisi tersimpan','success');window.cancelCompetitionEdit();})
+    .catch(()=>toast(T('gagalSimpan'),'info'));
+};
+
+window.deleteCompetition=function(id){
+  const node=sessionStorage.getItem('yd_atlet_node')||'atlet';
+  db.ref(`${node}/${currentAtletId}/kompetisi/${id}`).remove()
+    .then(()=>toast('↩ Jadwal kompetisi dihapus','info'))
+    .catch(()=>toast(T('gagalSimpan'),'info'));
+};
+
+/* ── NAVIGATION ── */
+window.showPage=function(pageId,btn){
+  stopChatListeners();
+  closeBottomMenu();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab,.mb-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+pageId).classList.add('active');
+  if(btn&&btn.classList)btn.classList.add('active');
+  document.querySelectorAll(`.nav-tab[data-page="${pageId}"], .mb-btn[data-page="${pageId}"]`).forEach(b=>b.classList.add('active'));
+  if(pageId==='kalender')rpeModalOpen=false;
+  if(pageId==='chat'){
+    // Kirim ulang session ke iframe agar langsung sync
+    const iframe=document.getElementById('chatIframe');
+    if(iframe&&currentAtletId){
+      const payload={
+        type:'yd_session',
+        atletId:currentAtletId,
+        atletNode:sessionStorage.getItem('yd_atlet_node')||'atlet',
+        atletNama:currentAtletData?.nama||sessionStorage.getItem('yd_atlet_nama')||''
+      };
+      try{iframe.contentWindow.postMessage(payload,'*');}catch(e){}
+    }
+  }
+};
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
+</script>
+</body>
 </html>

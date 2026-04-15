@@ -377,6 +377,128 @@ input[type="range"].pasif::-webkit-slider-thumb{background:var(--purple)}
 .hidden{display:none!important}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 @media(max-width:860px){.main-layout{grid-template-columns:1fr}.sidebar{position:static;max-height:none}.site-header{padding:10px 14px}.header-center{order:3;max-width:100%;width:100%;min-width:0}}
+
+/* ============================================================ RPE */
+.rpe-wrap{padding:4px 0}
+.rpe-value-big{font-family:var(--font-display);font-size:32px;font-weight:900;text-align:center;line-height:1;margin-bottom:4px;transition:color .2s}
+.rpe-desc-text{font-family:var(--font-mono);font-size:9px;text-align:center;color:var(--text-muted);margin-bottom:8px;min-height:13px}
+.rpe-slider-labels{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:7px;color:var(--text-dim);margin-bottom:3px;letter-spacing:.5px}
+input[type="range"].rpe-range{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;outline:none;border:none;cursor:pointer;background:linear-gradient(90deg,#39ff87,#ffc300,#ff4655)}
+input[type="range"].rpe-range::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.4);border:2px solid var(--bg-card);transition:transform .15s}
+input[type="range"].rpe-range::-webkit-slider-thumb:hover{transform:scale(1.25)}
+.rpe-input-row{display:flex;gap:6px;margin-top:8px}
+.rpe-input-row input[type="date"]{flex:0 0 130px;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:6px 8px;border-radius:5px;font-family:var(--font-mono);font-size:11px;outline:none}
+.rpe-input-row input[type="date"]:focus{border-color:var(--cyan-dim)}
+.rpe-input-row input[type="text"]{flex:1;background:var(--input-bg);border:1px solid var(--border);color:var(--text-primary);padding:6px 9px;border-radius:5px;font-family:var(--font-body);font-size:12px;outline:none}
+.rpe-input-row input[type="text"]:focus{border-color:var(--cyan-dim)}
+.rpe-input-row input::placeholder{color:var(--text-dim)}
+.btn-rpe-log{flex:0 0 auto;padding:6px 12px;background:transparent;border:1px solid var(--red);color:var(--red);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:5px;transition:all .2s;white-space:nowrap;position:relative;overflow:hidden}
+.btn-rpe-log::before{content:'';position:absolute;inset:0;background:var(--red);transform:translateX(-100%);transition:transform .25s;z-index:0}
+.btn-rpe-log span{position:relative;z-index:1}
+.btn-rpe-log:hover{color:var(--bg-deep)}
+.btn-rpe-log:hover::before{transform:translateX(0)}
+.rpe-chart-inner{position:relative;height:110px;margin:10px 0 6px}
+.rpe-log-list{max-height:120px;overflow-y:auto;margin-top:6px}
+.rpe-log-item{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:4px;background:var(--bar-track);margin-bottom:4px}
+.rpe-log-date{font-family:var(--font-mono);font-size:8px;color:var(--text-muted);flex-shrink:0;width:60px}
+.rpe-log-val{font-family:var(--font-display);font-size:13px;font-weight:900;flex-shrink:0;width:24px}
+.rpe-log-bar{flex:1;height:4px;border-radius:2px;background:var(--bar-track);overflow:hidden}
+.rpe-log-bar-fill{height:100%;border-radius:2px}
+.rpe-log-note{font-family:var(--font-mono);font-size:9px;color:var(--text-dim);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rpe-log-del{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:10px;padding:0 3px;transition:color .15s;flex-shrink:0}
+.rpe-log-del:hover{color:var(--red)}
+.rpe-section-label{font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin:8px 0 4px}
+
+/* ============================================================ STREAK */
+.streak-wrap{padding:4px 0}
+.streak-hero{text-align:center;padding:8px 0 10px}
+.streak-fire-icon{font-size:30px;display:inline-block;animation:fireFlicker 1.6s ease infinite}
+@keyframes fireFlicker{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.1) rotate(2deg)}}
+.streak-big-num{font-family:var(--font-display);font-size:42px;font-weight:900;color:var(--orange);line-height:1;display:block;margin:4px 0 2px}
+[data-theme="rpg"] .streak-big-num{text-shadow:0 0 24px rgba(255,140,66,.45)}
+.streak-unit-label{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)}
+.streak-best-line{font-family:var(--font-mono);font-size:10px;color:var(--gold);margin-top:6px}
+.streak-dots{display:flex;justify-content:center;gap:5px;flex-wrap:wrap;margin:10px 0 4px}
+.streak-dot{width:9px;height:9px;border-radius:50%;background:var(--bar-track);border:1px solid var(--border);transition:all .2s}
+.streak-dot.hit{background:var(--orange);border-color:var(--orange)}
+[data-theme="rpg"] .streak-dot.hit{box-shadow:0 0 6px rgba(255,140,66,.5)}
+.streak-dot.today-dot{border-color:var(--cyan)}
+.streak-days-label{font-family:var(--font-mono);font-size:8px;color:var(--text-dim);text-align:center;letter-spacing:1px}
+.streak-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px}
+.streak-stat-box{background:var(--bar-track);border-radius:5px;padding:7px;text-align:center}
+.streak-stat-val{font-family:var(--font-display);font-size:15px;font-weight:900;color:var(--orange)}
+.streak-stat-lbl{font-family:var(--font-mono);font-size:8px;color:var(--text-dim);margin-top:2px;letter-spacing:.5px}
+
+/* ============================================================ ATTENDANCE */
+.attend-wrap{padding:4px 0}
+.attend-ring-center{display:flex;justify-content:center;margin-bottom:10px}
+.attend-ring-svg{position:relative;width:90px;height:90px}
+.attend-ring-svg svg{transform:rotate(-90deg)}
+.attend-track{fill:none;stroke:var(--bar-track);stroke-width:9}
+.attend-fill{fill:none;stroke:var(--green);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)}
+[data-theme="rpg"] .attend-fill{filter:drop-shadow(0 0 5px var(--green))}
+.attend-ring-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+.attend-pct-big{font-family:var(--font-display);font-size:17px;font-weight:900;color:var(--green)}
+.attend-pct-sub{font-family:var(--font-mono);font-size:7px;color:var(--text-muted);letter-spacing:1px;margin-top:1px}
+.attend-stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.attend-stat-box{background:var(--bar-track);border-radius:5px;padding:7px;text-align:center}
+.attend-stat-val{font-family:var(--font-display);font-size:14px;font-weight:900;color:var(--green)}
+.attend-stat-lbl{font-family:var(--font-mono);font-size:8px;color:var(--text-dim);margin-top:2px;letter-spacing:.5px}
+.attend-heatmap-label{font-family:var(--font-mono);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);margin-bottom:5px}
+.attend-heatmap{display:grid;grid-template-columns:repeat(15,1fr);gap:2px}
+.attend-cell{aspect-ratio:1;border-radius:2px;background:var(--bar-track);transition:background .2s;position:relative}
+.attend-cell.has-data{background:var(--green);opacity:.75}
+.attend-cell.today-cell{outline:2px solid var(--cyan);outline-offset:1px}
+.attend-cell:hover::after{content:attr(title);position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--bg-modal);border:1px solid var(--border);color:var(--text-primary);font-family:var(--font-mono);font-size:8px;padding:2px 6px;border-radius:3px;white-space:nowrap;z-index:100}
+
+/* ============================================================ PERIODISASI */
+.period-wrap{padding:4px 0}
+.period-track-outer{position:relative;height:44px;background:var(--bar-track);border-radius:6px;overflow:hidden;margin-bottom:6px}
+.period-seg{position:absolute;top:4px;bottom:4px;border-radius:4px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:default;transition:filter .2s}
+.period-seg:hover{filter:brightness(1.2)}
+.period-seg-label{font-family:var(--font-mono);font-size:8px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 5px}
+.period-today-line{position:absolute;top:0;bottom:0;width:2px;background:var(--cyan);z-index:5}
+[data-theme="rpg"] .period-today-line{box-shadow:0 0 8px var(--cyan)}
+.period-today-line::after{content:'▼';position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:8px;color:var(--cyan)}
+.period-week-labels{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:7px;color:var(--text-dim);margin-bottom:8px;padding:0 2px}
+.period-legend-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.period-legend-item{display:flex;align-items:center;gap:3px;font-family:var(--font-mono);font-size:8px;color:var(--text-muted)}
+.period-legend-dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.period-list-items{max-height:160px;overflow-y:auto}
+.period-list-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:5px;background:var(--bar-track);margin-bottom:5px;transition:background .15s}
+.period-list-item.is-active{background:var(--input-bg);border:1px solid var(--border)}
+.period-list-stripe{width:4px;height:30px;border-radius:2px;flex-shrink:0}
+.period-list-info{flex:1;min-width:0}
+.period-list-name{font-family:var(--font-display);font-size:10px;font-weight:700;color:var(--text-primary);letter-spacing:.5px}
+.period-list-dates{font-family:var(--font-mono);font-size:8px;color:var(--text-muted);margin-top:2px}
+.period-list-type-badge{font-family:var(--font-mono);font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:2px 6px;border-radius:3px;flex-shrink:0}
+.period-del-btn{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:11px;padding:0 3px;transition:color .15s;flex-shrink:0}
+.period-del-btn:hover{color:var(--red)}
+.period-add-btn{width:100%;padding:7px;background:transparent;border:1px dashed rgba(181,123,238,.3);color:var(--purple);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;margin-top:6px;text-transform:uppercase}
+.period-add-btn:hover{background:rgba(181,123,238,.07);border-style:solid}
+.period-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:16px 0}
+
+/* ============================================================ PERSONAL RECORDS */
+.pr-wrap{padding:4px 0}
+.pr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin-bottom:8px}
+.pr-card{background:var(--bar-track);border:1px solid var(--border-gold);border-radius:7px;padding:8px 9px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.pr-card:hover{border-color:var(--gold);transform:translateY(-1px)}
+.pr-card-cat{font-family:var(--font-mono);font-size:7px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);margin-bottom:3px}
+.pr-card-name{font-family:var(--font-display);font-size:9px;font-weight:700;color:var(--text-primary);letter-spacing:.5px;margin-bottom:5px;line-height:1.3}
+.pr-card-val{font-family:var(--font-display);font-size:18px;font-weight:900;color:var(--gold);line-height:1}
+.pr-card-unit{font-family:var(--font-mono);font-size:8px;color:var(--gold-dim);margin-left:2px}
+.pr-card-date{font-family:var(--font-mono);font-size:7px;color:var(--text-dim);margin-top:4px}
+.pr-card-del{position:absolute;top:5px;right:6px;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:9px;opacity:0;transition:opacity .15s,color .15s}
+.pr-card:hover .pr-card-del{opacity:1}
+.pr-card-del:hover{color:var(--red)}
+.pr-empty{font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:14px 0}
+.pr-add-btn{width:100%;padding:7px;background:var(--skill-input-bg);border:1px dashed var(--border-gold);color:var(--gold);font-family:var(--font-display);font-size:9px;font-weight:700;letter-spacing:2px;cursor:pointer;border-radius:5px;transition:all .2s;text-transform:uppercase}
+.pr-add-btn:hover{background:rgba(255,195,0,.1);border-style:solid}
+
+/* ============================================================ MODAL TAMBAHAN */
+.modal-title.orange{color:var(--orange)}
+.modal-title.green{color:var(--green)}
+
 </style>
 </head>
 <body>
@@ -426,6 +548,7 @@ input[type="range"].pasif::-webkit-slider-thumb{background:var(--purple)}
       <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Keseimbangan</span><span class="stat-slider-val" id="v_keseimbangan">50</span></div><input type="range" id="keseimbangan" value="50" min="0" max="100" oninput="document.getElementById('v_keseimbangan').textContent=this.value"></div>
       <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Power Tungkai</span><span class="stat-slider-val" id="v_powerTungkai">50</span></div><input type="range" id="powerTungkai" value="50" min="0" max="100" oninput="document.getElementById('v_powerTungkai').textContent=this.value"></div>
       <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Kekuatan Lengan</span><span class="stat-slider-val" id="v_kekuatanLengan">50</span></div><input type="range" id="kekuatanLengan" value="50" min="0" max="100" oninput="document.getElementById('v_kekuatanLengan').textContent=this.value"></div>
+      <div class="stat-slider"><div class="stat-slider-header"><span class="stat-slider-name">Fleksibilitas</span><span class="stat-slider-val" id="v_fleksibilitas">50</span></div><input type="range" id="fleksibilitas" value="50" min="0" max="100" oninput="document.getElementById('v_fleksibilitas').textContent=this.value"></div>
     </div>
     <div class="form-section">
       <div class="section-label">Skill Pasif (0–100)</div>
@@ -593,9 +716,105 @@ input[type="range"].pasif::-webkit-slider-thumb{background:var(--purple)}
   </div>
 </div>
 
-<!-- THEME -->
+<!-- ===== MODAL PERIODISASI ===== -->
+<div class="modal-overlay hidden" id="modalPeriod">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" style="color:var(--purple)">📊 Tambah Fase Latihan</div>
+      <button class="modal-close" onclick="closeModal('modalPeriod')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Nama Fase</label>
+        <input type="text" id="pNama" placeholder="Contoh: Persiapan Umum, Fase Puncak...">
+      </div>
+      <div class="modal-field">
+        <label>Tipe Fase</label>
+        <select id="pTipe">
+          <option value="prep">🔵 Persiapan</option>
+          <option value="base">🟢 Dasar (Base)</option>
+          <option value="build">🟡 Pembangunan</option>
+          <option value="peak">🔴 Puncak (Peak)</option>
+          <option value="comp">🟣 Kompetisi</option>
+          <option value="rest">⚫ Pemulihan</option>
+        </select>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Tanggal Mulai</label>
+          <input type="date" id="pStart">
+        </div>
+        <div class="modal-field">
+          <label>Tanggal Selesai</label>
+          <input type="date" id="pEnd">
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Tujuan / Catatan (opsional)</label>
+        <textarea id="pNote" placeholder="Target dan fokus fase ini..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalPeriod')">Batal</button>
+      <button class="btn-modal-save" id="btnSavePeriod" onclick="savePeriod()"><span>✦ SIMPAN FASE</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL PERSONAL RECORD ===== -->
+<div class="modal-overlay hidden" id="modalPR">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title gold">⭐ Catat Personal Record</div>
+      <button class="modal-close" onclick="closeModal('modalPR')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Kategori</label>
+          <select id="prKat">
+            <option value="Kecepatan">⚡ Kecepatan</option>
+            <option value="Kekuatan">💪 Kekuatan</option>
+            <option value="Daya Tahan">🫀 Daya Tahan</option>
+            <option value="Teknik">🥊 Teknik</option>
+            <option value="Lainnya">📌 Lainnya</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Jenis Latihan</label>
+          <input type="text" id="prNama" placeholder="Push Up, Sprint 30m...">
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Nilai / Hasil</label>
+          <input type="number" id="prVal" placeholder="Angka..." step="any">
+        </div>
+        <div class="modal-field">
+          <label>Satuan</label>
+          <input type="text" id="prUnit" placeholder="reps / detik / kg / m">
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Tanggal Dicapai</label>
+          <input type="date" id="prDate">
+        </div>
+        <div class="modal-field">
+          <label>Catatan</label>
+          <input type="text" id="prNote" placeholder="Kondisi / konteks...">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-cancel" onclick="closeModal('modalPR')">Batal</button>
+      <button class="btn-modal-save" onclick="savePR()"><span>⭐ SIMPAN RECORD</span></button>
+    </div>
+  </div>
+</div>
+
 <script>
-const THEMES=['rpg','dark','light'];
+  const THEMES=['rpg','dark','light'];
 const THEME_META={rpg:{icon:'◉',label:'RPG'},dark:{icon:'◐',label:'MALAM'},light:{icon:'○',label:'TERANG'}};
 window.cycleTheme=function(){const cur=document.documentElement.getAttribute('data-theme')||'rpg';const next=THEMES[(THEMES.indexOf(cur)+1)%THEMES.length];applyTheme(next)};
 window.applyTheme=function(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').textContent=THEME_META[t].icon;document.getElementById('themeLabel').textContent=THEME_META[t].label;localStorage.setItem('apex_theme',t);if(window._chartRerender)window._chartRerender()};
@@ -874,6 +1093,11 @@ window.switchTab = function(id, tab) {
   if (tab==='history') renderHistory(id);
   if (tab==='kalender') renderCalendar(id);
   if (tab==='quest') renderQuestPane(id);
+  if (tab==='rpe') renderRPEPane(id);
+  if (tab==='streak') renderStreakPane(id);
+  if (tab==='attend') renderAttendPane(id);
+  if (tab==='period') renderPeriodPane(id);
+  if (tab==='pr') renderPRPane(id);
 };
 
 // ============================================================ HISTORY CHART
@@ -889,9 +1113,9 @@ function renderHistory(id) {
   const sorted=Object.values(d.history).sort((a,b)=>a.ts-b.ts);
   const labels=sorted.map(h=>new Date(h.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
   const clr=getChartColors();
-  const fisikKeys=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'];
+  const fisikKeys=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
   const pasifKeys=['fightIq','reflek','mental','taktik'];
-  const fisikColors=['#00f5ff','#39ff87','#ffc300','#b57bee','#ff4655','#60a5fa','#f59e0b'];
+  const fisikColors=['#00f5ff','#39ff87','#ffc300','#b57bee','#ff4655','#60a5fa','#f59e0b','#34d399'];
   const pasifColors=['#b57bee','#ff4655','#60a5fa','#ffc300'];
   const overallData=sorted.map(h=>calcOverall(h.fisik||{},h.pasif||{},h.skill||{}));
   pane.innerHTML=`<div class="chart-pane"><div class="chart-section-label">▸ Overall Level</div><div class="chart-pane-inner"><canvas id="chart-ovr-${id}"></canvas></div></div>
@@ -900,7 +1124,7 @@ function renderHistory(id) {
   const cfg=(ds)=>({type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:500},plugins:{legend:{labels:{color:clr.text,font:{family:'IBM Plex Mono',size:9},boxWidth:10,padding:8}}},scales:{x:{grid:{color:clr.grid},ticks:{color:clr.text,font:{family:'IBM Plex Mono',size:8}}},y:{min:0,max:100,grid:{color:clr.grid},ticks:{color:clr.text,font:{family:'IBM Plex Mono',size:8},stepSize:20}}}}});
   ['ovr','fisik','pasif'].forEach(k=>{const key=`${id}-${k}`;if(chartInstances[key]){chartInstances[key].destroy();delete chartInstances[key];}});
   chartInstances[`${id}-ovr`]=new Chart(document.getElementById(`chart-ovr-${id}`),cfg([{label:'Overall',data:overallData,borderColor:clr.line,backgroundColor:clr.fill,fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:clr.line,borderWidth:2}]));
-  chartInstances[`${id}-fisik`]=new Chart(document.getElementById(`chart-fisik-${id}`),cfg(fisikKeys.map((k,i)=>({label:['Daya Tahan','Stamina','Kecepatan','Kelincahan','Keseimbangan','Pow.Tungkai','Kek.Lengan'][i],data:sorted.map(h=>Number((h.fisik||{})[k]||0)),borderColor:fisikColors[i],backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:fisikColors[i]}))));
+  chartInstances[`${id}-fisik`]=new Chart(document.getElementById(`chart-fisik-${id}`),cfg(fisikKeys.map((k,i)=>({label:['Daya Tahan','Stamina','Kecepatan','Kelincahan','Keseimbangan','Pow.Tungkai','Kek.Lengan','Fleksibilitas'][i],data:sorted.map(h=>Number((h.fisik||{})[k]||0)),borderColor:fisikColors[i],backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:fisikColors[i]}))));
   chartInstances[`${id}-pasif`]=new Chart(document.getElementById(`chart-pasif-${id}`),cfg(pasifKeys.map((k,i)=>({label:['Fight IQ','Reflek','Mental','Taktik'][i],data:sorted.map(h=>Number((h.pasif||{})[k]||0)),borderColor:pasifColors[i],backgroundColor:'transparent',fill:false,tension:0.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:pasifColors[i]}))));
 }
 window._chartRerender=function(){Object.keys(allAthletes).forEach(id=>{const card=document.getElementById('card-'+id);if(!card)return;const hp=card.querySelector('#pane-history-'+id);if(hp&&hp.classList.contains('active'))renderHistory(id);});};
@@ -931,7 +1155,7 @@ window.loadEdit=function(id){
   onValue(ref(db,'atlet/'+id),snap=>{const d=snap.val();if(!d)return;
     editIdEl.value=id;
     ['nama','tglLahir','gender','berat','tinggi'].forEach(k=>document.getElementById(k).value=d[k]||'');
-    const f=d.fisik||{};['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'].forEach(k=>{const v=f[k]??50;document.getElementById(k).value=v;document.getElementById('v_'+k).textContent=v;});
+    const f=d.fisik||{};['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'].forEach(k=>{const v=f[k]??50;document.getElementById(k).value=v;document.getElementById('v_'+k).textContent=v;});
     const p=d.pasif||{};['fightIq','reflek','mental','taktik'].forEach(k=>{const v=p[k]??50;document.getElementById(k).value=v;document.getElementById('v_'+k).textContent=v;});
     const s=d.skill||{serang:{},tahan:{},jatuh:{}};
     Object.entries({sk_pukulan:s.serang?.lurus,sk_uppercut:s.serang?.upper,sk_tdepan:s.serang?.depan,sk_tsabit:s.serang?.sabit,sk_tt:s.serang?.t,sk_tangkisan:s.tahan?.tangkis,sk_elakan:s.tahan?.elak,sk_tangkapan:s.tahan?.tangkap,sk_bantingan:s.jatuh?.banting,sk_ungkitan:s.jatuh?.ungkit,sk_sapuan:s.jatuh?.sapu,sk_guntingan:s.jatuh?.gunting}).forEach(([fid,v])=>document.getElementById(fid).value=v??0);
@@ -947,7 +1171,7 @@ btnBatal.onclick=()=>location.reload();
 btnSimpan.onclick=async function(){
   const id=editIdEl.value;
   const g=fid=>document.getElementById(fid).value;
-  const fisik={dayaTahan:g('dayaTahan'),stamina:g('stamina'),kecepatan:g('kecepatan'),kelincahan:g('kelincahan'),keseimbangan:g('keseimbangan'),powerTungkai:g('powerTungkai'),kekuatanLengan:g('kekuatanLengan')};
+  const fisik={dayaTahan:g('dayaTahan'),stamina:g('stamina'),kecepatan:g('kecepatan'),kelincahan:g('kelincahan'),keseimbangan:g('keseimbangan'),powerTungkai:g('powerTungkai'),kekuatanLengan:g('kekuatanLengan'),fleksibilitas:g('fleksibilitas')};
   const pasif={fightIq:g('fightIq'),reflek:g('reflek'),mental:g('mental'),taktik:g('taktik')};
   const skill={serang:{lurus:g('sk_pukulan'),upper:g('sk_uppercut'),depan:g('sk_tdepan'),sabit:g('sk_tsabit'),t:g('sk_tt')},tahan:{tangkis:g('sk_tangkisan'),elak:g('sk_elakan'),tangkap:g('sk_tangkapan')},jatuh:{banting:g('sk_bantingan'),ungkit:g('sk_ungkitan'),sapu:g('sk_sapuan'),gunting:g('sk_guntingan')}};
   const data={nama:g('nama'),tglLahir:g('tglLahir'),gender:g('gender'),berat:g('berat'),tinggi:g('tinggi'),fisik,pasif,skill};
@@ -964,7 +1188,7 @@ btnSimpan.onclick=async function(){
 window.hapusAtlet=function(id){if(confirm("Hapus data atlet ini permanen?"))remove(ref(db,'atlet/'+id)).catch(e=>alert("Gagal: "+e.message));};
 
 // ============================================================ HELPERS
-function calcOverall(f,p,s){const v=[...['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'].map(k=>Number(f[k]||0)),...['fightIq','reflek','mental','taktik'].map(k=>Number(p[k]||0)),...['lurus','upper','depan','sabit','t'].map(k=>Number((s.serang||{})[k]||0)),...['tangkis','elak','tangkap'].map(k=>Number((s.tahan||{})[k]||0)),...['banting','ungkit','sapu','gunting'].map(k=>Number((s.jatuh||{})[k]||0))];return Math.round(v.reduce((a,b)=>a+b,0)/v.length);}
+function calcOverall(f,p,s){const v=[...['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'].map(k=>Number(f[k]||0)),...['fightIq','reflek','mental','taktik'].map(k=>Number(p[k]||0)),...['lurus','upper','depan','sabit','t'].map(k=>Number((s.serang||{})[k]||0)),...['tangkis','elak','tangkap'].map(k=>Number((s.tahan||{})[k]||0)),...['banting','ungkit','sapu','gunting'].map(k=>Number((s.jatuh||{})[k]||0))];return Math.round(v.reduce((a,b)=>a+b,0)/v.length);}
 window.calcOverall=calcOverall;
 
 function renderStat(n,v,p){const val=Number(v)||0;return`<div class="stat-row"><div class="stat-name">${n}</div><div class="bar-track"><div class="bar-fill${p?' pasif':''}" style="width:${val}%"></div></div><div class="bar-val${p?' pasif':''}">${val}</div></div>`;}
@@ -981,6 +1205,11 @@ function renderCard(id,d){
   const age=d.tglLahir?` · ${new Date().getFullYear()-new Date(d.tglLahir).getFullYear()} thn`:'';
   const hC=d.history?Object.keys(d.history).length:0;
   const qC=questCount(d);
+  const rpeC=d.rpe?Object.keys(d.rpe).length:0;
+  const prC=d.pr?Object.keys(d.pr).length:0;
+  const periodC=d.periodisasi?Object.keys(d.periodisasi).length:0;
+  const streakData=calcStreak(d.training||{});
+  const streakBadge=streakData.current>0?`<span class="badge" style="background:rgba(255,140,66,.1);border:1px solid rgba(255,140,66,.3);color:var(--orange)">🔥 ${streakData.current}d</span>`:'';
   return`<div class="athlete-card" id="card-${id}">
     <div class="card-accent"></div>
     <div class="card-actions">
@@ -994,6 +1223,7 @@ function renderCard(id,d){
         <div class="athlete-badges">
           <span class="badge badge-gender">${d.gender==='Laki-laki'?'♂ PRIA':'♀ WANITA'}</span>
           <span class="badge badge-weight">${getWeightClass(d.berat)}</span>
+          ${streakBadge}
         </div>
       </div>
       <div class="overall-score">
@@ -1007,13 +1237,18 @@ function renderCard(id,d){
         <button class="tab-btn" data-tab="pasif" onclick="switchTab('${id}','pasif')">PASIF</button>
         <button class="tab-btn" data-tab="skill" onclick="switchTab('${id}','skill')">SKILL</button>
         <button class="tab-btn" data-tab="quest" onclick="switchTab('${id}','quest')">QUEST${qC>0?` (${qC})`:''}</button>
+        <button class="tab-btn" data-tab="rpe" onclick="switchTab('${id}','rpe')">RPE${rpeC>0?` (${rpeC})`:''}</button>
+        <button class="tab-btn" data-tab="streak" onclick="switchTab('${id}','streak')">STREAK</button>
+        <button class="tab-btn" data-tab="attend" onclick="switchTab('${id}','attend')">HADIR</button>
+        <button class="tab-btn" data-tab="period" onclick="switchTab('${id}','period')">PERIOD${periodC>0?` (${periodC})`:''}</button>
+        <button class="tab-btn" data-tab="pr" onclick="switchTab('${id}','pr')">PR${prC>0?` (${prC})`:''}</button>
         <button class="tab-btn" data-tab="history" onclick="switchTab('${id}','history')">GRAFIK${hC>0?` (${hC})`:''}</button>
         <button class="tab-btn" data-tab="kalender" onclick="switchTab('${id}','kalender')">KALENDER</button>
       </div>
       <div id="pane-fisik-${id}" class="tab-pane active">
         ${renderStat('Daya Tahan',f.dayaTahan)}${renderStat('Stamina',f.stamina)}${renderStat('Kecepatan',f.kecepatan)}
         ${renderStat('Kelincahan',f.kelincahan)}${renderStat('Keseimbangan',f.keseimbangan)}
-        ${renderStat('Power Tungkai',f.powerTungkai)}${renderStat('Kekuatan Lengan',f.kekuatanLengan)}
+        ${renderStat('Power Tungkai',f.powerTungkai)}${renderStat('Kekuatan Lengan',f.kekuatanLengan)}${renderStat('Fleksibilitas',f.fleksibilitas)}
       </div>
       <div id="pane-pasif-${id}" class="tab-pane">
         ${renderStat('Fight IQ',p.fightIq,true)}${renderStat('Reflek',p.reflek,true)}
@@ -1027,6 +1262,21 @@ function renderCard(id,d){
       <div id="pane-quest-${id}" class="tab-pane">
         <div class="quest-empty">⌀ Klik tab QUEST untuk memuat</div>
       </div>
+      <div id="pane-rpe-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab RPE untuk memuat</div>
+      </div>
+      <div id="pane-streak-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab STREAK untuk memuat</div>
+      </div>
+      <div id="pane-attend-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab HADIR untuk memuat</div>
+      </div>
+      <div id="pane-period-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab PERIOD untuk memuat</div>
+      </div>
+      <div id="pane-pr-${id}" class="tab-pane">
+        <div class="no-history">⌀ Klik tab PR untuk memuat</div>
+      </div>
       <div id="pane-history-${id}" class="tab-pane">
         <div class="no-history">⌀ Klik tab GRAFIK untuk memuat</div>
       </div>
@@ -1037,12 +1287,415 @@ function renderCard(id,d){
   </div>`;
 }
 
+// ============================================================ HELPERS BARU
+const TODAY_STR = new Date().toISOString().slice(0,10);
+
+const RPE_DESCS = {1:'Sangat Ringan — hampir tidak ada usaha',2:'Sangat Ringan — bisa berbicara panjang',3:'Ringan — nyaman, bisa ngobrol',4:'Agak Ringan — napas sedikit cepat',5:'Moderat — terasa nyaman, bisa berbicara',6:'Agak Berat — napas lebih cepat, bicara pendek',7:'Berat — sulit bicara, keringat deras',8:'Sangat Berat — hanya kata singkat',9:'Hampir Maksimal — sangat sulit dipertahankan',10:'MAKSIMAL — tidak bisa lebih keras!'};
+
+const PERIOD_COLORS = {prep:'#60a5fa',base:'#39ff87',build:'#ffc300',peak:'#ff4655',comp:'#b57bee',rest:'#5a7a8a'};
+const PERIOD_LABELS = {prep:'Persiapan',base:'Dasar',build:'Pembangunan',peak:'Puncak',comp:'Kompetisi',rest:'Pemulihan'};
+
+function calcStreak(training) {
+  const today = new Date();
+  let cur = 0, best = 0, tmp = 0;
+  // current streak from today backwards
+  for (let i=0; i<365; i++) {
+    const d = new Date(today); d.setDate(d.getDate()-i);
+    const k = d.toISOString().slice(0,10);
+    if (training[k]) cur++;
+    else if (i>0) break;
+  }
+  // best streak all time
+  const sorted = Object.keys(training||{}).sort();
+  for (let i=0; i<sorted.length; i++) {
+    if (i===0) { tmp=1; best=1; continue; }
+    const prev=new Date(sorted[i-1]); prev.setDate(prev.getDate()+1);
+    if (prev.toISOString().slice(0,10)===sorted[i]) { tmp++; if(tmp>best)best=tmp; }
+    else tmp=1;
+  }
+  if (tmp>best) best=tmp;
+  return {current:cur, best:Math.max(best,cur)};
+}
+
+function calcAttendance(training) {
+  const today = new Date();
+  const all = Object.keys(training||{}).length;
+  let c30=0, c7=0;
+  for (let i=0; i<30; i++) {
+    const d = new Date(today); d.setDate(d.getDate()-i);
+    const k = d.toISOString().slice(0,10);
+    if ((training||{})[k]) { c30++; if(i<7) c7++; }
+  }
+  return {all, c30, c7, pct:Math.round(c30/30*100)};
+}
+
+function getRpeColor(v) {
+  const n=Number(v);
+  if(n<=3) return '#39ff87';
+  if(n<=6) return '#ffc300';
+  return '#ff4655';
+}
+
+// ============================================================ RPE PANE
+window.renderRPEPane = function(id) {
+  const d = allAthletes[id]||{};
+  const pane = document.getElementById(`pane-rpe-${id}`);
+  const rpeData = d.rpe||{};
+  const sorted = Object.entries(rpeData).sort(([,a],[,b])=>b.ts-a.ts);
+  const forChart = Object.entries(rpeData).sort(([,a],[,b])=>a.ts-b.ts).slice(-20);
+
+  pane.innerHTML = `<div class="rpe-wrap">
+    <div class="rpe-value-big" id="rpeValBig-${id}" style="color:#39ff87">5</div>
+    <div class="rpe-desc-text" id="rpeDescTxt-${id}">${RPE_DESCS[5]}</div>
+    <div class="rpe-slider-labels"><span>1 RINGAN</span><span>5 SEDANG</span><span>10 MAKS</span></div>
+    <input type="range" class="rpe-range" id="rpeSlider-${id}" min="1" max="10" value="5"
+      oninput="updateRpeVal('${id}',this.value)">
+    <div class="rpe-input-row">
+      <input type="date" id="rpeDate-${id}" value="${TODAY_STR}">
+      <input type="text" id="rpeNote-${id}" placeholder="Catatan sesi...">
+      <button class="btn-rpe-log" onclick="logRPE('${id}')"><span>▶ LOG</span></button>
+    </div>
+    <div class="rpe-section-label" style="margin-top:10px">GRAFIK BEBAN</div>
+    <div class="rpe-chart-inner"><canvas id="rpeChart-${id}"></canvas></div>
+    <div class="rpe-section-label">LOG TERAKHIR</div>
+    <div class="rpe-log-list">
+      ${sorted.length===0?`<div style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim);text-align:center;padding:10px">Belum ada log RPE</div>`
+        :sorted.slice(0,12).map(([eid,e])=>{
+          const clr=getRpeColor(e.val);
+          const pct=(Number(e.val)-1)/9*100;
+          return`<div class="rpe-log-item">
+            <div class="rpe-log-date">${e.date}</div>
+            <div class="rpe-log-val" style="color:${clr}">${e.val}</div>
+            <div class="rpe-log-bar"><div class="rpe-log-bar-fill" style="width:${pct}%;background:${clr}"></div></div>
+            <div class="rpe-log-note">${e.note||'—'}</div>
+            <button class="rpe-log-del" onclick="deleteRPE('${id}','${eid}')">✕</button>
+          </div>`;
+        }).join('')}
+    </div>
+  </div>`;
+
+  // Draw chart
+  const theme = document.documentElement.getAttribute('data-theme')||'rpg';
+  const gridClr = theme==='light'?'rgba(0,0,0,.05)':'rgba(255,255,255,.04)';
+  const txtClr  = theme==='light'?'#94a3b8':'#5a7a8a';
+  const chartKey = `rpe-${id}`;
+  if(chartInstances[chartKey]) { chartInstances[chartKey].destroy(); }
+  if(forChart.length) {
+    chartInstances[chartKey] = new Chart(document.getElementById(`rpeChart-${id}`),{
+      type:'bar',
+      data:{
+        labels:forChart.map(([,e])=>e.date.slice(5)),
+        datasets:[{
+          label:'RPE',
+          data:forChart.map(([,e])=>Number(e.val)),
+          backgroundColor:forChart.map(([,e])=>{
+            const v=Number(e.val);
+            return v<=3?'rgba(57,255,135,.5)':v<=6?'rgba(255,195,0,.5)':'rgba(255,70,85,.5)';
+          }),
+          borderColor:forChart.map(([,e])=>getRpeColor(e.val)),
+          borderWidth:1,borderRadius:3
+        }]
+      },
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`RPE: ${c.raw} — ${RPE_DESCS[c.raw]||''}`}}},
+        scales:{x:{grid:{color:gridClr},ticks:{color:txtClr,font:{family:'IBM Plex Mono',size:8}}},
+          y:{min:0,max:10,grid:{color:gridClr},ticks:{color:txtClr,font:{family:'IBM Plex Mono',size:8},stepSize:2}}}}
+    });
+  } else {
+    const ctx = document.getElementById(`rpeChart-${id}`).getContext('2d');
+    ctx.fillStyle=txtClr; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center';
+    ctx.fillText('Belum ada data RPE',ctx.canvas.width/2,55);
+  }
+};
+
+window.updateRpeVal = function(id, v) {
+  const num = Number(v);
+  const el = document.getElementById(`rpeValBig-${id}`);
+  if(!el) return;
+  const pct=(num-1)/9;
+  const r=Math.round(pct*255), g=Math.round((1-pct)*200);
+  el.style.color=`rgb(${r},${g},60)`;
+  el.textContent=num;
+  const desc=document.getElementById(`rpeDescTxt-${id}`);
+  if(desc) desc.textContent=RPE_DESCS[num]||'';
+};
+
+window.logRPE = async function(id) {
+  const date = document.getElementById(`rpeDate-${id}`)?.value;
+  const val  = Number(document.getElementById(`rpeSlider-${id}`)?.value||5);
+  const note = document.getElementById(`rpeNote-${id}`)?.value.trim()||'';
+  if(!date){alert('Pilih tanggal!');return;}
+  await push(ref(db,`atlet/${id}/rpe`),{date,val,note,ts:Date.now()});
+  if(document.getElementById(`rpeNote-${id}`)) document.getElementById(`rpeNote-${id}`).value='';
+};
+
+window.deleteRPE = function(id,eid) {
+  remove(ref(db,`atlet/${id}/rpe/${eid}`));
+};
+
+// ============================================================ STREAK PANE
+window.renderStreakPane = function(id) {
+  const d = allAthletes[id]||{};
+  const training = d.training||{};
+  const {current,best} = calcStreak(training);
+  const pane = document.getElementById(`pane-streak-${id}`);
+  const attend = calcAttendance(training);
+
+  let dots='';
+  for(let i=13;i>=0;i--){
+    const dt=new Date(); dt.setDate(dt.getDate()-i);
+    const k=dt.toISOString().slice(0,10);
+    const hit=!!training[k];
+    dots+=`<div class="streak-dot${hit?' hit':''}${i===0?' today-dot':''}" title="${k}"></div>`;
+  }
+
+  pane.innerHTML=`<div class="streak-wrap">
+    <div class="streak-hero">
+      <span class="streak-fire-icon">🔥</span>
+      <span class="streak-big-num">${current}</span>
+      <div class="streak-unit-label">HARI BERTURUT-TURUT</div>
+      <div class="streak-best-line">🏆 Rekor terbaik: ${best} hari</div>
+    </div>
+    <div class="streak-dots">${dots}</div>
+    <div class="streak-days-label">14 HARI TERAKHIR</div>
+    <div class="streak-stats-row">
+      <div class="streak-stat-box">
+        <div class="streak-stat-val" style="color:var(--orange)">${current}</div>
+        <div class="streak-stat-lbl">STREAK</div>
+      </div>
+      <div class="streak-stat-box">
+        <div class="streak-stat-val" style="color:var(--gold)">${best}</div>
+        <div class="streak-stat-lbl">TERBAIK</div>
+      </div>
+      <div class="streak-stat-box">
+        <div class="streak-stat-val" style="color:var(--green)">${attend.all}</div>
+        <div class="streak-stat-lbl">TOTAL SESI</div>
+      </div>
+    </div>
+  </div>`;
+};
+
+// ============================================================ ATTENDANCE PANE
+window.renderAttendPane = function(id) {
+  const d = allAthletes[id]||{};
+  const training = d.training||{};
+  const {all,c30,c7,pct} = calcAttendance(training);
+  const pane = document.getElementById(`pane-attend-${id}`);
+
+  const circ = 2*Math.PI*35;
+  const offset = circ - (pct/100)*circ;
+  const clr = pct>=80?'var(--green)':pct>=50?'var(--gold)':'var(--red)';
+
+  // heatmap 30 days
+  let cells='';
+  for(let i=29;i>=0;i--){
+    const dt=new Date(); dt.setDate(dt.getDate()-i);
+    const k=dt.toISOString().slice(0,10);
+    const has=!!training[k];
+    const isToday=i===0;
+    cells+=`<div class="attend-cell${has?' has-data':''}${isToday?' today-cell':''}" title="${k}${has?' ✓':''}"></div>`;
+  }
+
+  pane.innerHTML=`<div class="attend-wrap">
+    <div class="attend-ring-center">
+      <div class="attend-ring-svg">
+        <svg width="90" height="90" viewBox="0 0 90 90">
+          <circle class="attend-track" cx="45" cy="45" r="35"/>
+          <circle class="attend-fill" cx="45" cy="45" r="35"
+            stroke="${pct>=80?'#39ff87':pct>=50?'#ffc300':'#ff4655'}"
+            stroke-dasharray="${circ.toFixed(2)}"
+            stroke-dashoffset="${offset.toFixed(2)}"/>
+        </svg>
+        <div class="attend-ring-label">
+          <div class="attend-pct-big" style="color:${clr}">${pct}%</div>
+          <div class="attend-pct-sub">HADIR</div>
+        </div>
+      </div>
+    </div>
+    <div class="attend-stats-row">
+      <div class="attend-stat-box">
+        <div class="attend-stat-val" style="color:${clr}">${c7}</div>
+        <div class="attend-stat-lbl">7 HARI</div>
+      </div>
+      <div class="attend-stat-box">
+        <div class="attend-stat-val" style="color:${clr}">${c30}</div>
+        <div class="attend-stat-lbl">30 HARI</div>
+      </div>
+      <div class="attend-stat-box">
+        <div class="attend-stat-val" style="color:${clr}">${all}</div>
+        <div class="attend-stat-lbl">TOTAL</div>
+      </div>
+    </div>
+    <div class="attend-heatmap-label">HEATMAP 30 HARI TERAKHIR</div>
+    <div class="attend-heatmap">${cells}</div>
+    <div style="font-family:var(--font-mono);font-size:8px;color:var(--text-dim);margin-top:6px">▸ Catatan kehadiran dikelola di tab KALENDER</div>
+  </div>`;
+};
+
+// ============================================================ PERIODISASI PANE
+let _periodCtx = {};
+
+window.renderPeriodPane = function(id) {
+  const d = allAthletes[id]||{};
+  const pane = document.getElementById(`pane-period-${id}`);
+  const periodisasi = d.periodisasi||{};
+  const entries = Object.entries(periodisasi).sort(([,a],[,b])=>(a.start||'').localeCompare(b.start||''));
+
+  let trackHtml='', listHtml='', weekLabels='', legendHtml='';
+  const legendItems={prep:false,base:false,build:false,peak:false,comp:false,rest:false};
+
+  if(entries.length) {
+    const allStarts=entries.map(([,p])=>p.start).filter(Boolean);
+    const allEnds  =entries.map(([,p])=>p.end).filter(Boolean);
+    const minDate=allStarts.reduce((a,b)=>a<b?a:b);
+    const maxDate=allEnds.reduce((a,b)=>a>b?a:b);
+    const totalMs=(new Date(maxDate)-new Date(minDate))||1;
+
+    entries.forEach(([pid,p])=>{
+      const left=Math.max(0,(new Date(p.start)-new Date(minDate))/totalMs*100);
+      const wid =Math.min(100,(new Date(p.end)-new Date(p.start)+86400000)/totalMs*100);
+      const clr =PERIOD_COLORS[p.tipe]||'#5a7a8a';
+      legendItems[p.tipe]=true;
+      trackHtml+=`<div class="period-seg" style="left:${left}%;width:${Math.max(wid,2)}%;background:${clr}22;border:1px solid ${clr}60" title="${p.nama}: ${p.start}→${p.end}">
+        <span class="period-seg-label" style="color:${clr}">${p.nama}</span>
+      </div>`;
+      const isActive=TODAY_STR>=p.start&&TODAY_STR<=p.end;
+      const clrLight=clr+'33', clrBorder=clr+'66';
+      listHtml+=`<div class="period-list-item${isActive?' is-active':''}">
+        <div class="period-list-stripe" style="background:${clr}"></div>
+        <div class="period-list-info">
+          <div class="period-list-name">${p.nama}${isActive?` <span style="font-family:var(--font-mono);font-size:8px;color:var(--green)">● AKTIF</span>`:''}</div>
+          <div class="period-list-dates">${p.start} → ${p.end}${p.note?` · ${p.note}`:''}</div>
+        </div>
+        <span class="period-list-type-badge" style="background:${clrLight};border:1px solid ${clrBorder};color:${clr}">${PERIOD_LABELS[p.tipe]||p.tipe}</span>
+        <button class="period-del-btn" onclick="deletePeriod('${id}','${pid}')">✕</button>
+      </div>`;
+    });
+
+    // today marker
+    if(TODAY_STR>=minDate&&TODAY_STR<=maxDate){
+      const todayLeft=(new Date(TODAY_STR)-new Date(minDate))/totalMs*100;
+      trackHtml+=`<div class="period-today-line" style="left:${todayLeft.toFixed(1)}%"></div>`;
+    }
+
+    // week labels
+    const totalWeeks=Math.ceil((new Date(maxDate)-new Date(minDate))/(7*86400000));
+    const step=Math.max(1,Math.floor(totalWeeks/6));
+    for(let w=0;w<=totalWeeks;w+=step){
+      const dt=new Date(minDate); dt.setDate(dt.getDate()+w*7);
+      weekLabels+=`<span>${dt.toLocaleDateString('id-ID',{day:'2-digit',month:'short'})}</span>`;
+    }
+  }
+
+  Object.entries(legendItems).forEach(([k,v])=>{
+    if(!v) return;
+    const clr=PERIOD_COLORS[k];
+    legendHtml+=`<div class="period-legend-item"><div class="period-legend-dot" style="background:${clr}"></div>${PERIOD_LABELS[k]}</div>`;
+  });
+
+  pane.innerHTML=`<div class="period-wrap">
+    <div class="period-track-outer">${entries.length?trackHtml:`<div style="font-family:var(--font-mono);font-size:9px;color:var(--text-dim);text-align:center;line-height:44px">Belum ada fase latihan</div>`}</div>
+    ${weekLabels?`<div class="period-week-labels">${weekLabels}</div>`:''}
+    ${legendHtml?`<div class="period-legend-row">${legendHtml}</div>`:''}
+    <div class="period-list-items">${listHtml||`<div class="period-empty">⌀ Belum ada fase — klik tombol di bawah untuk menambah</div>`}</div>
+    <button class="period-add-btn" onclick="openPeriodModal('${id}')">＋ TAMBAH FASE LATIHAN</button>
+  </div>`;
+};
+
+window.openPeriodModal = function(id) {
+  _periodCtx.id = id;
+  _periodCtx.pid = null;
+  document.getElementById('pNama').value='';
+  document.getElementById('pTipe').value='prep';
+  document.getElementById('pStart').value=TODAY_STR;
+  document.getElementById('pEnd').value='';
+  document.getElementById('pNote').value='';
+  openModal('modalPeriod');
+};
+
+window.savePeriod = async function() {
+  const nama  = document.getElementById('pNama').value.trim();
+  const tipe  = document.getElementById('pTipe').value;
+  const start = document.getElementById('pStart').value;
+  const end   = document.getElementById('pEnd').value;
+  const note  = document.getElementById('pNote').value.trim();
+  if(!nama||!start||!end){alert('Isi nama, tanggal mulai, dan tanggal selesai!');return;}
+  const {id} = _periodCtx;
+  await push(ref(db,`atlet/${id}/periodisasi`),{nama,tipe,start,end,note,createdAt:Date.now()});
+  closeModal('modalPeriod');
+  document.getElementById('pNama').value='';
+  document.getElementById('pNote').value='';
+};
+
+window.deletePeriod = function(id,pid) {
+  if(confirm('Hapus fase ini?')) remove(ref(db,`atlet/${id}/periodisasi/${pid}`));
+};
+
+// ============================================================ PERSONAL RECORDS PANE
+let _prCtx = {};
+
+window.renderPRPane = function(id) {
+  const d = allAthletes[id]||{};
+  const pane = document.getElementById(`pane-pr-${id}`);
+  const prData = d.pr||{};
+  const entries = Object.entries(prData).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+
+  const cards = entries.map(([pid,pr])=>`
+    <div class="pr-card">
+      <div class="pr-card-cat">${pr.kategori||'—'}</div>
+      <div class="pr-card-name">${pr.nama}</div>
+      <div><span class="pr-card-val">${pr.val}</span><span class="pr-card-unit">${pr.unit||''}</span></div>
+      <div class="pr-card-date">📅 ${pr.date||'—'}${pr.note?`<br><span style="opacity:.7">${pr.note}</span>`:''}</div>
+      <button class="pr-card-del" onclick="deletePR('${id}','${pid}')">✕</button>
+    </div>`).join('');
+
+  pane.innerHTML=`<div class="pr-wrap">
+    <div class="pr-grid">
+      ${cards||`<div class="pr-empty" style="grid-column:1/-1">⌀ Belum ada personal record — klik tombol di bawah</div>`}
+    </div>
+    <button class="pr-add-btn" onclick="openPRModal('${id}')">＋ CATAT PERSONAL RECORD</button>
+  </div>`;
+};
+
+window.openPRModal = function(id) {
+  _prCtx.id = id;
+  ['prNama','prVal','prUnit','prNote'].forEach(f=>document.getElementById(f).value='');
+  document.getElementById('prKat').value='Kecepatan';
+  document.getElementById('prDate').value=TODAY_STR;
+  openModal('modalPR');
+};
+
+window.savePR = async function() {
+  const kat  = document.getElementById('prKat').value;
+  const nama = document.getElementById('prNama').value.trim();
+  const val  = parseFloat(document.getElementById('prVal').value);
+  const unit = document.getElementById('prUnit').value.trim();
+  const date = document.getElementById('prDate').value;
+  const note = document.getElementById('prNote').value.trim();
+  if(!nama||isNaN(val)){alert('Isi nama latihan dan nilai!');return;}
+  await push(ref(db,`atlet/${_prCtx.id}/pr`),{kategori:kat,nama,val,unit,date,note,createdAt:Date.now()});
+  closeModal('modalPR');
+};
+
+window.deletePR = function(id,pid) {
+  if(confirm('Hapus personal record ini?')) remove(ref(db,`atlet/${id}/pr/${pid}`));
+};
+
 // ============================================================ LISTEN
 onValue(ref(db,'atlet'),snap=>{
   allAthletes={};
   snap.forEach(c=>{allAthletes[c.key]=c.val();});
   renderFiltered();
 });
+
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = function(e) {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
 </script>
 </body>
 </html>
