@@ -661,22 +661,24 @@ body{
 <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
 <script>
 let db;
-try {
-  const fbCfgRaw = sessionStorage.getItem('fb_cfg');
-  if(fbCfgRaw) {
-    firebase.initializeApp(JSON.parse(fbCfgRaw));
-  } else {
-    firebase.initializeApp({
+(function initFirebase(){
+  try {
+    const fbCfgRaw = sessionStorage.getItem('fb_cfg');
+    const cfg = fbCfgRaw ? JSON.parse(fbCfgRaw) : {
       apiKey: "AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
       authDomain: "ydtc-5d55a.firebaseapp.com",
       databaseURL: "https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "ydtc-5d55a"
-    });
+    };
+    if (!firebase.apps.length) {
+      firebase.initializeApp(cfg);
+    }
+    db = firebase.database();
+  } catch(e) {
+    console.error('Firebase init error:', e);
+    try { db = firebase.database(); } catch(e2) { console.error('Firebase fallback error:', e2); }
   }
-  db = firebase.database();
-} catch(e) {
-  db = firebase.database();
-}
+})();
 
 /* ══════════════════════════════════════════════════════
    INSTRUMENT — 5 DOMAIN, 10 ITEM EACH (TOTAL 50)
