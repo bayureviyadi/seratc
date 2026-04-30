@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ATHLETE</title>
+<title>YD ATHLETE — Portal Atlet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
@@ -69,6 +69,11 @@ html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--tex
 .tb-btn{background:transparent;border:1px solid var(--border2);color:var(--muted);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:all .2s;text-transform:uppercase;white-space:nowrap}
 .tb-btn:hover{border-color:var(--blue2);color:var(--blue)}
 .nav-tabs{display:flex;background:var(--nav-bg);border-bottom:1px solid var(--border);position:sticky;top:64px;z-index:99;overflow-x:auto;scrollbar-width:none}
+.test-tabs{display:flex!important;background:var(--nav-bg);overflow-x:auto;scrollbar-width:none}
+.test-tabs::-webkit-scrollbar{display:none}
+.test-tabs .nav-tab{flex:1;min-width:56px;padding:10px 4px 9px;background:transparent;border:none;color:var(--muted);font-family:var(--ff);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;letter-spacing:.2px;position:relative;white-space:nowrap}
+.test-tabs .nav-tab.active{color:var(--blue)}
+.test-tabs .nav-tab.active::after{content:'';position:absolute;bottom:0;left:15%;right:15%;height:2px;background:var(--blue);border-radius:2px 2px 0 0}
 .nav-tabs::-webkit-scrollbar{display:none}
 .nav-tab{flex:1;min-width:56px;padding:10px 4px 9px;background:transparent;border:none;color:var(--muted);font-family:var(--ff);font-size:10px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;letter-spacing:.2px;position:relative;white-space:nowrap}
 .nav-tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -435,12 +440,71 @@ html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--tex
 .toast.info{border-color:rgba(99,179,237,.4);color:var(--blue)}
 .bottom-sp{height:80px}
 @media(min-width:481px){#app{border-left:1px solid var(--border);border-right:1px solid var(--border)}}
+
+/* ── TES FISIK ── */
+.tf-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:16px}
+.tf-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.tf-title{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.tf-meta{font-family:var(--fm);font-size:9px;color:var(--muted);text-align:right}
+.tf-meta-date{font-size:10px;color:var(--text2);font-weight:600}
+.tf-score-banner{padding:18px 16px;display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,rgba(99,179,237,.06) 0%,transparent 70%);border-bottom:1px solid var(--border)}
+.tf-score-ring{width:72px;height:72px;border-radius:50%;background:conic-gradient(var(--blue) calc(var(--s)*1%),rgba(128,128,128,.1) 0%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.tf-score-ring::before{content:'';position:absolute;inset:6px;border-radius:50%;background:var(--c1)}
+.tf-score-num{position:relative;font-size:20px;font-weight:900;color:var(--blue);font-family:var(--ff);letter-spacing:-1px}
+.tf-score-num.grade-sangat-baik{color:var(--green)}
+.tf-score-num.grade-baik{color:var(--blue)}
+.tf-score-num.grade-cukup{color:var(--gold)}
+.tf-score-num.grade-kurang{color:#f97316}
+.tf-score-num.grade-sangat-kurang{color:var(--red)}
+.tf-score-info{flex:1;min-width:0}
+.tf-score-grade{font-size:16px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.tf-score-grade.grade-sangat-baik{color:var(--green)}
+.tf-score-grade.grade-baik{color:var(--blue)}
+.tf-score-grade.grade-cukup{color:var(--gold)}
+.tf-score-grade.grade-kurang{color:#f97316}
+.tf-score-grade.grade-sangat-kurang{color:var(--red)}
+.tf-score-sub{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:.5px}
+.tf-score-unit{font-family:var(--fm);font-size:8px;color:var(--muted);margin-top:2px}
+.tf-radar-wrap{padding:12px 16px 4px}
+.tf-radar-title{font-family:var(--fm);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.tf-components{padding:4px 16px 14px;display:grid;gap:0}
+.tf-comp-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(128,128,128,.05)}
+.tf-comp-row:last-child{border-bottom:none}
+.tf-comp-icon{width:28px;height:28px;border-radius:7px;background:var(--c2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tf-comp-icon iconify-icon{font-size:13px;color:var(--blue)}
+.tf-comp-name{font-size:11px;font-weight:600;color:var(--text2);width:110px;flex-shrink:0;letter-spacing:.1px;line-height:1.2}
+.tf-comp-name small{display:block;font-size:9px;color:var(--muted);font-weight:400;font-family:var(--fm)}
+.tf-comp-track{flex:1;height:5px;background:rgba(128,128,128,.1);border-radius:3px;position:relative;overflow:visible}
+.tf-comp-fill{height:100%;border-radius:3px;position:relative;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.tf-comp-fill.grade-sangat-baik{background:linear-gradient(90deg,#276749,var(--green))}
+.tf-comp-fill.grade-baik{background:linear-gradient(90deg,var(--blue3),var(--blue))}
+.tf-comp-fill.grade-cukup{background:linear-gradient(90deg,var(--gold2),var(--gold))}
+.tf-comp-fill.grade-kurang{background:linear-gradient(90deg,#c2410c,#f97316)}
+.tf-comp-fill.grade-sangat-kurang{background:linear-gradient(90deg,#991b1b,var(--red))}
+.tf-comp-fill::after{content:'';position:absolute;right:-2px;top:-3px;width:11px;height:11px;border-radius:50%;background:inherit;background-size:200% 100%;background-position:right}
+.tf-comp-score{font-family:var(--fm);font-size:11px;font-weight:700;width:26px;text-align:right;flex-shrink:0}
+.tf-comp-score.grade-sangat-baik{color:var(--green)}
+.tf-comp-score.grade-baik{color:var(--blue)}
+.tf-comp-score.grade-cukup{color:var(--gold)}
+.tf-comp-score.grade-kurang{color:#f97316}
+.tf-comp-score.grade-sangat-kurang{color:var(--red)}
+.tf-comp-raw{font-family:var(--fm);font-size:9px;color:var(--muted);width:56px;text-align:right;flex-shrink:0}
+.tf-history-toggle{display:flex;align-items:center;gap:6px;padding:10px 16px;border-top:1px solid var(--border);cursor:pointer;background:transparent;border-left:none;border-right:none;border-bottom:none;width:100%;text-align:left;color:var(--muted);font-family:var(--fm);font-size:9px;letter-spacing:1px;text-transform:uppercase;transition:color .2s}
+.tf-history-toggle:hover{color:var(--blue)}
+.tf-history-list{padding:0 16px 12px;display:none;grid-template-columns:1fr;gap:6px}
+.tf-history-list.open{display:grid}
+.tf-history-item{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--c2);border:1px solid var(--border);border-radius:var(--r2)}
+.tf-history-date{font-family:var(--fm);font-size:10px;color:var(--gold);font-weight:600;width:80px;flex-shrink:0}
+.tf-history-score{font-family:var(--fm);font-size:13px;font-weight:800}
+.tf-history-grade{font-family:var(--fm);font-size:9px;color:var(--muted);flex:1}
+.tf-empty{padding:24px;text-align:center;font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:.5px}
+#tesSliderWrap .tf-card { border: none; border-radius: 0; margin-bottom: 0; }
 </style>
 </head>
 <body>
 
 <div id="loadScreen">
-  <div class="load-logo"><span></span>ATHLETE</div>
+  <div class="load-logo">YD<span>.</span>ATHLETE</div>
   <div class="load-bar"><div class="load-bar-fill"></div></div>
   <div class="load-txt" id="loadTxt">Memuat data...</div>
 </div>
@@ -460,7 +524,7 @@ html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--tex
       <div class="login-field">
         <label id="lblKode">Kode Akses</label>
         <input type="password" id="inputKode" placeholder="••••••••" autocomplete="off">
-        <div class="login-hint" id="loginHint">Kode akses diberikan oleh @bayu</div>
+        <div class="login-hint" id="loginHint">Kode akses diberikan oleh pelatih</div>
       </div>
       <button class="login-btn" id="loginBtn" onclick="doLogin()">MASUK →</button>
       <div class="login-err" id="loginErr">Nama atau kode akses tidak valid. Coba lagi.</div>
@@ -482,7 +546,7 @@ html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--tex
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-name" id="tbName">—</div>
-      <div class="topbar-meta" id="tbMeta">ATHLETE</div>
+      <div class="topbar-meta" id="tbMeta">YD ATHLETE</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-actions">
@@ -588,6 +652,37 @@ html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--tex
       <div id="streakSection"></div>
       <div id="attendanceSection"></div>
       <div id="periodSection"></div>
+      
+      <!-- NEW COMBINED TEST SECTION -->
+      <div class="tf-card" style="margin-bottom:16px" id="combinedTestSection">
+        <div class="test-tabs" id="testTabs" style="border-bottom:1px solid var(--border); position:static; display:flex; overflow-x:auto; scrollbar-width:none; background:var(--nav-bg);">
+          <button class="nav-tab active" onclick="switchTestSlide(0)" style="flex:1; min-width:0;">
+            <iconify-icon icon="lucide:layout-dashboard" style="font-size:15px; margin-bottom:3px;"></iconify-icon>
+            <span>Semua</span>
+          </button>
+          <button class="nav-tab" onclick="switchTestSlide(1)" style="flex:1; min-width:0;">
+            <iconify-icon icon="lucide:activity" style="font-size:15px; margin-bottom:3px;"></iconify-icon>
+            <span>Fisik</span>
+          </button>
+          <button class="nav-tab" onclick="switchTestSlide(2)" style="flex:1; min-width:0;">
+            <iconify-icon icon="lucide:swords" style="font-size:15px; margin-bottom:3px;"></iconify-icon>
+            <span id="lblTabTanding">Tanding</span>
+          </button>
+          <button class="nav-tab" onclick="switchTestSlide(3)" style="flex:1; min-width:0;">
+            <iconify-icon icon="lucide:brain" style="font-size:15px; margin-bottom:3px;"></iconify-icon>
+            <span>Psikologi</span>
+          </button>
+        </div>
+        <div style="overflow:hidden; width:100%;">
+          <div id="tesSliderWrap" style="display:flex; transition:transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); width:400%;">
+            <div style="width:25%" id="tesSemuaSection"></div>
+            <div style="width:25%" id="tesFisikSection"></div>
+            <div style="width:25%" id="tesTandingSection"></div>
+            <div style="width:25%" id="tesPsikologisSection"></div>
+          </div>
+        </div>
+      </div>
+
       <div id="prSection"></div>
     </div>
     <div class="bottom-sp"></div>
@@ -1657,28 +1752,119 @@ window.toggleKat=function(katId){const body=document.getElementById('kbody-'+kat
 /* ══════════════════════════════════════════════
    GRAFIK
 ══════════════════════════════════════════════ */
-function renderGrafik(d,isSeni){
+async function renderGrafik(d,isSeni){
   const wrap=document.getElementById('grafikWrap');
-  if(!d.history||Object.keys(d.history).length<2){wrap.innerHTML=`<div class="no-data-txt">— ${T('minData')}</div>`;return;}
-  const sorted=Object.values(d.history).sort((a,b)=>a.ts-b.ts);
-  const labels=sorted.map(h=>new Date(h.ts).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
-  const overall=sorted.map(h=>calcOverall({fisik:h.fisik,pasif:h.pasif,skill:h.skill}));
-  wrap.innerHTML=`
-    <div class="chart-block"><div class="chart-block-title">▸ ${T('overall')}</div><div class="chart-wrap"><canvas id="ch-ovr"></canvas></div></div>
-    <div class="chart-block"><div class="chart-block-title">▸ ${T('statFisik')}</div><div class="chart-wrap"><canvas id="ch-fisik"></canvas></div></div>
-    <div class="chart-block"><div class="chart-block-title">▸ ${T('skillPasif')}</div><div class="chart-wrap"><canvas id="ch-pasif"></canvas></div></div>`;
-  const grid='rgba(128,128,128,.1)';
-  const opts=(ds)=>({type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:600},plugins:{legend:{labels:{color:'#888',font:{family:'JetBrains Mono',size:9},boxWidth:10,padding:10}}},scales:{x:{grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9}}},y:{min:0,max:100,grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9},stepSize:25}}}}});
-  ['ch-ovr','ch-fisik','ch-pasif'].forEach(k=>{if(chartInst[k]){chartInst[k].destroy();delete chartInst[k];}});
-  chartInst['ch-ovr']=new Chart(document.getElementById('ch-ovr'),opts([{label:T('overall'),data:overall,borderColor:'var(--blue)',backgroundColor:'rgba(99,179,237,.07)',fill:true,tension:.4,pointRadius:4,borderWidth:2,pointBackgroundColor:'var(--blue)'}]));
-  const fisikK=['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
-  const fisikN=[T('dayaTahan'),T('stamina'),T('kecepatan'),T('kelincahan'),T('keseimbangan'),T('powerTungkai'),T('kekuatanLengan'),T('fleksibilitas')];
-  const fisikC=['#63b3ed','#48bb78','#f6c90e','#b794f4','#fc5c7d','#4299e1','#ed8936','#34d399'];
-  chartInst['ch-fisik']=new Chart(document.getElementById('ch-fisik'),opts(fisikK.map((k,i)=>({label:fisikN[i],data:sorted.map(h=>Number((h.fisik||{})[k]||0)),borderColor:fisikC[i],backgroundColor:'transparent',fill:false,tension:.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:fisikC[i]}))));
-  const pasifK=isSeni?['hafalan','penghayatan','irama','koordinasi','manajemenWaktu']:['fightIq','reflek','mental','taktik'];
-  const pasifN=isSeni?[T('hafalan'),T('penghayatan'),T('irama'),T('koordinasi'),T('manajemenWaktu')]:[T('fightIq'),T('reflek'),T('mental'),T('taktik')];
-  const pasifC=['#b794f4','#fc5c7d','#63b3ed','#f6c90e','#48bb78'];
-  chartInst['ch-pasif']=new Chart(document.getElementById('ch-pasif'),opts(pasifK.map((k,i)=>({label:pasifN[i],data:sorted.map(h=>Number((h.pasif||{})[k]||0)),borderColor:pasifC[i],backgroundColor:'transparent',fill:false,tension:.3,pointRadius:3,borderWidth:1.5,pointBackgroundColor:pasifC[i]}))));
+  wrap.innerHTML=`<div class="tf-empty" style="padding:40px"><iconify-icon icon="lucide:loader-2" class="spin" style="font-size:24px;color:var(--blue)"></iconify-icon></div>`;
+  
+  try {
+    const atletId = currentAtletId;
+    
+    // Fetch latest fisik to get unitId
+    const fisikLatestSnap = await db.ref(`tesFisikLatest/${atletId}`).once('value');
+    let unitId = fisikLatestSnap.exists() ? fisikLatestSnap.val().unitId : '';
+    
+    let fisikHist = [];
+    if(unitId) {
+      const fSnap = await db.ref(`tesFisik/${unitId}/${atletId}`).once('value');
+      if(fSnap.exists()) fSnap.forEach(s => { fisikHist.push({ ts: Number(s.key), ...s.val() }); });
+    }
+    
+    let tandingHist = [];
+    const tSnap = await db.ref(`tes_${isSeni ? 'seni' : 'tanding'}/${atletId}`).once('value');
+    if(tSnap.exists()) tSnap.forEach(s => { tandingHist.push({ ts: Number(s.key), ...s.val() }); });
+
+    let psikoHist = [];
+    const pSnap = await db.ref(`tes_psikologis/${atletId}`).once('value');
+    if(pSnap.exists()) pSnap.forEach(s => { psikoHist.push({ ts: Number(s.key), ...s.val() }); });
+
+    const sortByDate = (a,b) => new Date(a.tanggal) - new Date(b.tanggal);
+    fisikHist.sort(sortByDate);
+    tandingHist.sort(sortByDate);
+    psikoHist.sort(sortByDate);
+
+    if(!fisikHist.length && !tandingHist.length && !psikoHist.length){
+      wrap.innerHTML=`<div class="no-data-txt">— Belum ada data riwayat tes</div>`;
+      return;
+    }
+
+    const allDates = [...new Set([
+      ...fisikHist.map(h => h.tanggal),
+      ...tandingHist.map(h => h.tanggal),
+      ...psikoHist.map(h => h.tanggal)
+    ])].filter(Boolean).sort((a,b) => new Date(a) - new Date(b));
+
+    const ovrLabels = allDates.map(d => new Date(d).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+    const getScore = (hist, d, k) => { const x = hist.find(h=>h.tanggal===d); return x ? x[k] : null; };
+    
+    const ovrDatasets = [
+      {label:'Fisik', data:allDates.map(d=>getScore(fisikHist,d,'skorAkhir')), borderColor:'var(--blue)', backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:2, pointBackgroundColor:'var(--blue)', spanGaps:true},
+      {label:isSeni?'Seni':'Tanding', data:allDates.map(d=>getScore(tandingHist,d,'skor_total')), borderColor:'var(--red)', backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:2, pointBackgroundColor:'var(--red)', spanGaps:true},
+      {label:'Psikologi', data:allDates.map(d=>getScore(psikoHist,d,'skor_total')), borderColor:'var(--purple)', backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:2, pointBackgroundColor:'var(--purple)', spanGaps:true}
+    ];
+
+    wrap.innerHTML=`
+      <div class="chart-block"><div class="chart-block-title">▸ Skor Tes Keseluruhan</div><div class="chart-wrap"><canvas id="ch-ovr"></canvas></div></div>
+      ${fisikHist.length ? `<div class="chart-block"><div class="chart-block-title">▸ Komponen Tes Fisik</div><div class="chart-wrap"><canvas id="ch-fisik"></canvas></div></div>` : ''}
+      ${tandingHist.length ? `<div class="chart-block"><div class="chart-block-title">▸ Komponen Tes ${isSeni?'Seni':'Tanding'}</div><div class="chart-wrap"><canvas id="ch-tanding"></canvas></div></div>` : ''}
+      ${psikoHist.length ? `<div class="chart-block"><div class="chart-block-title">▸ Domain Psikologi</div><div class="chart-wrap"><canvas id="ch-psiko"></canvas></div></div>` : ''}
+    `;
+
+    const grid='rgba(128,128,128,.1)';
+    const opts=(labels, ds)=>({type:'line',data:{labels,datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:{duration:600},plugins:{legend:{labels:{color:'#888',font:{family:'JetBrains Mono',size:9},boxWidth:10,padding:10}}},scales:{x:{grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9}}},y:{min:0,max:100,grid:{color:grid},ticks:{color:'#888',font:{family:'JetBrains Mono',size:9},stepSize:25}}}}});
+    
+    ['ch-ovr','ch-fisik','ch-tanding','ch-psiko','ch-pasif'].forEach(k=>{if(chartInst[k]){chartInst[k].destroy();delete chartInst[k];}});
+
+    chartInst['ch-ovr'] = new Chart(document.getElementById('ch-ovr'), opts(ovrLabels, ovrDatasets));
+
+    if(fisikHist.length) {
+      const fLabels = fisikHist.map(h=>new Date(h.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+      const TF_COMPS = typeof TF_COMPONENTS !== 'undefined' ? TF_COMPONENTS : [];
+      const fColors = ['#63b3ed','#48bb78','#f6c90e','#b794f4','#fc5c7d','#4299e1','#ed8936','#34d399','#facc15'];
+      const fDatasets = TF_COMPS.map((c,i) => ({
+        label:c.short, data:fisikHist.map(h=>{const comp=(h.komponen||[]).find(x=>x.id===c.id); return comp?comp.score:null;}),
+        borderColor:fColors[i%fColors.length], backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:1.5, pointBackgroundColor:fColors[i%fColors.length], spanGaps:true
+      })).filter(ds => ds.data.some(v => v !== null));
+      chartInst['ch-fisik'] = new Chart(document.getElementById('ch-fisik'), opts(fLabels, fDatasets));
+    }
+
+    if(tandingHist.length) {
+      const tLabels = tandingHist.map(h=>new Date(h.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+      const tKeysSet = new Set();
+      tandingHist.forEach(h => { if(h.teknik) Object.keys(h.teknik).forEach(k => tKeysSet.add(k)); });
+      const tColors = ['#fc5c7d', '#63b3ed', '#f6c90e', '#48bb78', '#a47bff', '#ed8936', '#e53e3e', '#38b2ac', '#d6bcfa'];
+      const TT_COMPS = typeof TT_COMPONENTS !== 'undefined' ? TT_COMPONENTS : [];
+      const tDatasets = Array.from(tKeysSet).map((k,i) => {
+        const comp = TT_COMPS.find(c=>c.id===k);
+        return {
+          label: comp ? comp.short.split(' ')[0] : k,
+          data: tandingHist.map(h=>(h.teknik&&h.teknik[k])?h.teknik[k].score100:null),
+          borderColor:tColors[i%tColors.length], backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:1.5, pointBackgroundColor:tColors[i%tColors.length], spanGaps:true
+        };
+      });
+      chartInst['ch-tanding'] = new Chart(document.getElementById('ch-tanding'), opts(tLabels, tDatasets));
+    }
+
+    if(psikoHist.length) {
+      const pLabels = psikoHist.map(h=>new Date(h.tanggal).toLocaleDateString('id-ID',{day:'2-digit',month:'short'}));
+      const DOMAINS_META = [
+        {id:'kepercayaan_diri', name:'Kepercayaan Diri', short:'PD'},
+        {id:'fokus_konsentrasi', name:'Fokus & Konsentrasi', short:'FK'},
+        {id:'resiliensi', name:'Resiliensi', short:'RS'},
+        {id:'motivasi', name:'Motivasi', short:'MV'},
+        {id:'kecemasan', name:'Kecemasan', short:'KA'}
+      ];
+      const pColors = ['#a47bff', '#63b3ed', '#48bb78', '#f6c90e', '#fc5c7d'];
+      const pDatasets = DOMAINS_META.map((c,i) => ({
+        label: c.short,
+        data: psikoHist.map(h=>(h.domain&&h.domain[c.id])?h.domain[c.id].pct:null),
+        borderColor: pColors[i], backgroundColor:'transparent', fill:false, tension:.3, pointRadius:3, borderWidth:1.5, pointBackgroundColor:pColors[i], spanGaps:true
+      })).filter(ds => ds.data.some(v => v !== null));
+      chartInst['ch-psiko'] = new Chart(document.getElementById('ch-psiko'), opts(pLabels, pDatasets));
+    }
+  } catch(e) {
+    wrap.innerHTML=`<div class="no-data-txt">Gagal memuat riwayat tes grafik</div>`;
+    console.error(e);
+  }
 }
 
 /* ══════════════════════════════════════════════
@@ -1770,10 +1956,582 @@ window.calNav=function(dir){let{year,month}=calState;month+=dir;if(month>11){mon
    STATS PAGE: Streak, Attendance, Periodization, PR
 ══════════════════════════════════════════════ */
 function renderStats(d){
+  const isSeni = sessionStorage.getItem('yd_atlet_node') === 'atlet_seni';
+  const lblTanding = document.getElementById('lblTabTanding');
+  if(lblTanding) lblTanding.textContent = isSeni ? 'Seni' : 'Tanding';
+
+  renderTesSemuaKategori(currentAtletId);
+  renderTesFisik(currentAtletId);
+  renderTesTanding(currentAtletId);
+  renderTesPsikologis(currentAtletId);
   renderStreak(d.training);
   renderAttendance(d.training);
   renderPeriodization(d);
   renderPR(d.pr);
+}
+
+window.switchTestSlide = function(index) {
+  const wrap = document.getElementById('tesSliderWrap');
+  if(wrap) {
+    wrap.style.transform = `translateX(-${index * 25}%)`;
+  }
+  document.querySelectorAll('#testTabs .nav-tab').forEach((el, i) => {
+    el.classList.toggle('active', i === index);
+  });
+};
+
+async function renderTesSemuaKategori(atletId) {
+  const el = document.getElementById('tesSemuaSection');
+  if(!el) return;
+  if(!atletId) {
+    el.innerHTML = '<div class="tf-card"><div class="tf-empty">— Data tidak tersedia</div></div>';
+    return;
+  }
+  el.innerHTML = `<div class="tf-card"><div class="tf-empty" style="padding:20px"><iconify-icon icon="lucide:loader-2" class="spin" style="font-size:18px;color:var(--blue)"></iconify-icon></div></div>`;
+  try {
+    const node = sessionStorage.getItem('yd_atlet_node') === 'atlet_seni' ? 'atlet_seni' : 'atlet';
+    const isSeni = node === 'atlet_seni';
+    const tName = isSeni ? 'Seni' : 'Tanding';
+    const [fisikSnap, tandingSnap, psikologisSnap] = await Promise.all([
+      db.ref(`tesFisikLatest/${atletId}`).once('value'),
+      db.ref(`tes_${isSeni ? 'seni' : 'tanding'}/${atletId}`).limitToLast(1).once('value'),
+      db.ref(`tes_psikologis/${atletId}`).limitToLast(1).once('value')
+    ]);
+    
+    let fisikScore = 0;
+    if(fisikSnap.exists()) {
+      const d = fisikSnap.val();
+      fisikScore = d.skorAkhir || Math.round((d.komponen||[]).reduce((s,k)=>s+k.score,0)/((d.komponen||[]).length||1));
+    }
+    
+    let tandingScore = 0;
+    if(tandingSnap.exists()) {
+      tandingSnap.forEach(s => { tandingScore = s.val().skor_total || 0; });
+    }
+    
+    let psikoScore = 0;
+    if(psikologisSnap.exists()) {
+      psikologisSnap.forEach(s => { psikoScore = s.val().skor_total || 0; });
+    }
+
+    const avgAll = Math.round((fisikScore + tandingScore + psikoScore) / 3) || 0;
+    const grade = tfGrade(avgAll);
+
+    const semuaRadarSVG = (f, t, p, tlbl) => {
+      const n = 3;
+      const klist = ['Fisik', tlbl, 'Psikologi'];
+      const scList = [f, t, p];
+      const cx=80,cy=80,r=50;
+      
+      const pts=klist.map((_,i)=>{
+        const angle=(Math.PI*2/n)*i - Math.PI/2;
+        return {x:cx+r*Math.cos(angle),y:cy+r*Math.sin(angle)};
+      });
+      const bgPoly=pts.map(p=>`${p.x},${p.y}`).join(' ');
+      
+      const grids=[0.25,0.5,0.75,1].map(f=>{
+        const gpts=klist.map((_,i)=>{const a=(Math.PI*2/n)*i-Math.PI/2;return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;});
+        return`<polygon points="${gpts.join(' ')}" fill="none" stroke="rgba(128,128,128,.12)" stroke-width="1"/>`;
+      }).join('');
+      
+      const axes=pts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(128,128,128,.1)" stroke-width="1"/>`).join('');
+      
+      const dataPts=klist.map((_,i)=>{
+        const sc=Math.min(100,Math.max(0,scList[i]||0));
+        const factor=sc/100;
+        const a=(Math.PI*2/n)*i-Math.PI/2;
+        return`${cx+r*factor*Math.cos(a)},${cy+r*factor*Math.sin(a)}`;
+      });
+      
+      return`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:160px;display:block;margin:0 auto">
+        ${grids}${axes}
+        <polygon points="${bgPoly}" fill="rgba(212,175,55,.04)" stroke="rgba(128,128,128,.18)" stroke-width="1"/>
+        <polygon points="${dataPts.join(' ')}" fill="rgba(212,175,55,.25)" stroke="#facc15" stroke-width="1.5"/>
+        ${klist.map((k,i)=>{
+          const a=(Math.PI*2/n)*i-Math.PI/2;
+          const lx=cx+(r+20)*Math.cos(a);
+          const ly=cy+(r+20)*Math.sin(a);
+          const color = i === 0 ? 'var(--blue)' : i === 1 ? 'var(--red)' : 'var(--purple)';
+          return`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="9" font-weight="700" fill="${color}" font-family="JetBrains Mono,monospace">${k}</text>`;
+        }).join('')}
+      </svg>`;
+    };
+
+    el.innerHTML = `
+      <div class="tf-card">
+        <div class="tf-header">
+          <div class="tf-title" style="color:var(--gold)">Semua Kategori</div>
+        </div>
+        <div class="tf-score-banner" style="background:linear-gradient(135deg,rgba(212,175,55,.06) 0%,transparent 70%);">
+          <div class="tf-score-ring" style="--s:${avgAll}; background:conic-gradient(var(--gold) calc(var(--s)*1%),rgba(128,128,128,.1) 0%);">
+            <span class="tf-score-num ${grade.cls}">${avgAll}</span>
+          </div>
+          <div class="tf-score-info">
+            <div class="tf-score-grade ${grade.cls}">${grade.label}</div>
+            <div class="tf-score-sub">3 KATEGORI DITES</div>
+            <div class="tf-score-unit">Skor / 100</div>
+          </div>
+          <div style="flex-shrink:0">${semuaRadarSVG(fisikScore, tandingScore, psikoScore, tName)}</div>
+        </div>
+        <div class="tf-components" style="padding-top:14px">
+          <div class="tf-comp-row">
+            <div class="tf-comp-icon"><iconify-icon icon="lucide:activity" style="color:var(--blue)"></iconify-icon></div>
+            <div class="tf-comp-name">Fisik</div>
+            <div class="tf-comp-track"><div class="tf-comp-fill" style="width:${fisikScore}%; background:var(--blue)"></div></div>
+            <div class="tf-comp-score" style="color:var(--blue)">${fisikScore}</div>
+          </div>
+          <div class="tf-comp-row">
+            <div class="tf-comp-icon"><iconify-icon icon="lucide:swords" style="color:var(--red)"></iconify-icon></div>
+            <div class="tf-comp-name">${tName}</div>
+            <div class="tf-comp-track"><div class="tf-comp-fill" style="width:${tandingScore}%; background:var(--red)"></div></div>
+            <div class="tf-comp-score" style="color:var(--red)">${tandingScore}</div>
+          </div>
+          <div class="tf-comp-row">
+            <div class="tf-comp-icon"><iconify-icon icon="lucide:brain" style="color:var(--purple)"></iconify-icon></div>
+            <div class="tf-comp-name">Psikologi</div>
+            <div class="tf-comp-track"><div class="tf-comp-fill" style="width:${psikoScore}%; background:var(--purple)"></div></div>
+            <div class="tf-comp-score" style="color:var(--purple)">${psikoScore}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  } catch(e) {
+    el.innerHTML = '<div class="tf-card"><div class="tf-empty">Gagal memuat ringkasan.</div></div>';
+  }
+}
+
+
+/* ── TES FISIK ── */
+const TF_COMPONENTS = [
+  {id:'lari1200', short:'Lari 1200m',    icon:'lucide:timer',         label:'Daya Tahan'},
+  {id:'pushup',   short:'Push-up 30dtk', icon:'lucide:dumbbell',      label:'Kekuatan Lengan'},
+  {id:'wallsit',  short:'Wall Sit',      icon:'lucide:activity',      label:'Daya Tahan Tungkai'},
+  {id:'broadjump',short:'Broad Jump',    icon:'lucide:zap',           label:'Power Tungkai'},
+  {id:'sprint30', short:'Sprint 30m',    icon:'lucide:flame',         label:'Kecepatan'},
+  {id:'sidestep', short:'Side Step',     icon:'lucide:shuffle',       label:'Kelincahan'},
+  {id:'sitreach', short:'Sit & Reach',   icon:'lucide:move-horizontal',label:'Kelentukan'},
+  {id:'singleleg',short:'Single Leg',    icon:'lucide:circle-dot',    label:'Keseimbangan'},
+  {id:'tendangan',short:'Ketepatan',     icon:'lucide:target',        label:'Koordinasi'}
+];
+const TF_GRADE_MAP=[
+  {min:85,label:'Sangat Baik',cls:'grade-sangat-baik'},
+  {min:70,label:'Baik',       cls:'grade-baik'},
+  {min:50,label:'Cukup',      cls:'grade-cukup'},
+  {min:30,label:'Kurang',     cls:'grade-kurang'},
+  {min:0, label:'Sangat Kurang',cls:'grade-sangat-kurang'}
+];
+function tfGrade(score){return TF_GRADE_MAP.find(g=>score>=g.min)||TF_GRADE_MAP[4];}
+function tfRawDisplay(comp,rawValues){
+  const rv=rawValues||{};
+  const val=rv[comp.id];
+  if(val===undefined||val===null||val==='') return '—';
+  if(comp.id==='lari1200'&&typeof val==='object') return `${val.menit||0}:${String(val.detik||0).padStart(2,'0')}`;
+  const unitMap={lari1200:'mnt',pushup:'rep',wallsit:'dtk',broadjump:'cm',sprint30:'dtk',sidestep:'lin',sitreach:'cm',singleleg:'dtk',tendangan:'/15'};
+  return `${val}${unitMap[comp.id]||''}`;
+}
+function tfRadarSVG(scores){
+  const comps=TF_COMPONENTS;const n=comps.length;
+  const cx=80,cy=80,r=62;
+  const pts=comps.map((_,i)=>{
+    const angle=(Math.PI*2/n)*i - Math.PI/2;
+    return {x:cx+r*Math.cos(angle),y:cy+r*Math.sin(angle)};
+  });
+  const bgPoly=pts.map(p=>`${p.x},${p.y}`).join(' ');
+  const grids=[0.25,0.5,0.75,1].map(f=>{
+    const gpts=comps.map((_,i)=>{const a=(Math.PI*2/n)*i-Math.PI/2;return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;});
+    return`<polygon points="${gpts.join(' ')}" fill="none" stroke="rgba(128,128,128,.12)" stroke-width="1"/>`;
+  }).join('');
+  const axes=pts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(128,128,128,.1)" stroke-width="1"/>`).join('');
+  const dataPts=comps.map((c,i)=>{
+    const sc=Math.min(100,Math.max(0,scores[c.id]||0));
+    const f=sc/100;
+    const a=(Math.PI*2/n)*i-Math.PI/2;
+    return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;
+  });
+  const accentRgb='#63b3ed';
+  return`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:160px;display:block;margin:0 auto">
+    ${grids}${axes}
+    <polygon points="${bgPoly}" fill="rgba(99,179,237,.04)" stroke="rgba(128,128,128,.18)" stroke-width="1"/>
+    <polygon points="${dataPts.join(' ')}" fill="rgba(99,179,237,.18)" stroke="${accentRgb}" stroke-width="1.5"/>
+    ${comps.map((c,i)=>{const a=(Math.PI*2/n)*i-Math.PI/2;const lx=cx+(r+14)*Math.cos(a);const ly=cy+(r+14)*Math.sin(a);return`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" fill="var(--muted)" font-family="JetBrains Mono,monospace">${c.short.split(' ')[0]}</text>`;}).join('')}
+  </svg>`;
+}
+
+let tfHistoryOpen=false;
+window.toggleTfHistory=function(){
+  tfHistoryOpen=!tfHistoryOpen;
+  const list=document.getElementById('tfHistoryList');
+  const icon=document.getElementById('tfHistoryIcon');
+  if(list){list.classList.toggle('open',tfHistoryOpen);}
+  if(icon){icon.style.transform=tfHistoryOpen?'rotate(180deg)':'rotate(0deg)';}
+};
+
+async function renderTesFisik(atletId){
+  const el=document.getElementById('tesFisikSection');
+  if(!el) return;
+  if(!atletId){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">— Data tes fisik belum tersedia</div></div>`;
+    return;
+  }
+  el.innerHTML=`<div class="tf-card"><div class="tf-empty" style="padding:20px"><iconify-icon icon="lucide:loader-2" class="spin" style="font-size:18px;color:var(--blue)"></iconify-icon></div></div>`;
+  try{
+    const latestSnap = await db.ref(`tesFisikLatest/${atletId}`).once('value');
+    const latest = latestSnap.val();
+    if(!latest){
+      el.innerHTML=`<div class="tf-card"><div class="tf-header"><div class="tf-title">Tes Fisik</div></div><div class="tf-empty">— Belum ada data tes fisik</div></div>`;
+      return;
+    }
+    const komponen=latest.komponen||[];
+    const rawValues=latest.rawValues||{};
+    const scores={};
+    komponen.forEach(k=>{scores[k.id||k.short]=k.score||0;});
+    const avgScore=latest.skorAkhir||Math.round(komponen.reduce((s,k)=>s+k.score,0)/(komponen.length||1));
+    const grade=tfGrade(avgScore);
+    const formatDate=(d)=>{if(!d)return'—';const[y,m,day]=d.split('-');const b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return`${parseInt(day)} ${b[parseInt(m)-1]} ${y}`;};
+    const compRows=TF_COMPONENTS.map(c=>{
+      const sc=scores[c.id]||0;
+      const g=tfGrade(sc);
+      const rawDisp=tfRawDisplay(c,rawValues);
+      return`<div class="tf-comp-row">
+        <div class="tf-comp-icon"><iconify-icon icon="${c.icon}"></iconify-icon></div>
+        <div class="tf-comp-name">${c.label}<small>${c.short}</small></div>
+        <div class="tf-comp-track"><div class="tf-comp-fill ${g.cls}" style="width:${sc}%"></div></div>
+        <div class="tf-comp-score ${g.cls}">${sc}</div>
+        <div class="tf-comp-raw">${rawDisp}</div>
+      </div>`;
+    }).join('');
+
+    // Fetch history (up to 5 latest)
+    let histHtml='';
+    try{
+      const histSnap=await db.ref(`tesFisik/${latest.unitId||''}/${atletId}`).limitToLast(5).once('value');
+      const histItems=[];
+      histSnap.forEach(s=>{histItems.unshift({ts:s.key,...s.val()});});
+      if(histItems.length>1){
+        histHtml=`<button class="tf-history-toggle" onclick="toggleTfHistory()">
+          <iconify-icon icon="lucide:history" style="font-size:12px"></iconify-icon>
+          <span>Riwayat Tes (${histItems.length})</span>
+          <iconify-icon id="tfHistoryIcon" icon="lucide:chevron-down" style="font-size:12px;margin-left:auto;transition:transform .25s"></iconify-icon>
+        </button>
+        <div class="tf-history-list" id="tfHistoryList">
+          ${histItems.map(h=>{const g=tfGrade(h.skorAkhir||0);return`<div class="tf-history-item"><div class="tf-history-date">${formatDate(h.tanggal)}</div><div class="tf-history-score ${g.cls}">${h.skorAkhir||0}</div><div class="tf-history-grade">${g.label}</div></div>`;}).join('')}
+        </div>`;
+      }
+    }catch(e){}
+
+    el.innerHTML=`<div class="tf-card">
+      <div class="tf-header">
+        <div class="tf-title">Tes Fisik</div>
+        <div class="tf-meta">
+          <div class="tf-meta-date">${formatDate(latest.tanggal)}</div>
+          <div style="margin-top:1px">${latest.pelatihNama||''}</div>
+        </div>
+      </div>
+      <div class="tf-score-banner">
+        <div class="tf-score-ring" style="--s:${avgScore}">
+          <span class="tf-score-num ${grade.cls}">${avgScore}</span>
+        </div>
+        <div class="tf-score-info">
+          <div class="tf-score-grade ${grade.cls}">${grade.label}</div>
+          <div class="tf-score-sub">${latest.gender==='putri'?'♀ PUTRI':'♂ PUTRA'} · ${komponen.length} KOMPONEN</div>
+          <div class="tf-score-unit">Skor / 100</div>
+        </div>
+        <div style="flex-shrink:0">${tfRadarSVG(scores)}</div>
+      </div>
+      <div class="tf-radar-wrap">
+        <div class="tf-radar-title">Detail Komponen</div>
+      </div>
+      <div class="tf-components">${compRows}</div>
+      ${histHtml}
+    </div>`;
+  }catch(e){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">Gagal memuat data tes fisik</div></div>`;
+  }
+}
+
+/* ── TES TANDING ── */
+const TT_COMPONENTS = [
+  {id:'kuda_kuda', short:'Kuda-Kuda', icon:'lucide:footprints', label:'Kuda-Kuda'},
+  {id:'pukulan_lurus', short:'Pukulan Lurus', icon:'lucide:hand-metal', label:'Pukulan'},
+  {id:'uppercut', short:'Uppercut', icon:'lucide:chevrons-up', label:'Pukulan'},
+  {id:'tendangan_depan', short:'T. Depan', icon:'lucide:arrow-up', label:'Tendangan'},
+  {id:'tendangan_sabit', short:'T. Sabit', icon:'lucide:moon', label:'Tendangan'},
+  {id:'tendangan_t', short:'T. T', icon:'lucide:type', label:'Tendangan'},
+  {id:'tangkisan', short:'Tangkisan', icon:'lucide:shield', label:'Bertahan'},
+  {id:'elakan', short:'Elakan', icon:'lucide:fast-forward', label:'Bertahan'},
+  {id:'kaitan_kaki', short:'Kaitan Kaki', icon:'lucide:link', label:'Jatuhan'},
+  {id:'tangkapan', short:'Tangkapan', icon:'lucide:hand', label:'Tangkapan'},
+  {id:'bantingan', short:'Bantingan', icon:'lucide:arrow-down-to-line', label:'Jatuhan'},
+  {id:'lepas_tangkapan', short:'Lepas Tangkap', icon:'lucide:unlock', label:'Bertahan'},
+  {id:'sapuan', short:'Sapuan', icon:'lucide:wind', label:'Jatuhan'},
+  {id:'guntingan', short:'Guntingan', icon:'lucide:scissors', label:'Jatuhan'}
+];
+
+let ttHistoryOpen=false;
+window.toggleTtHistory=function(){
+  ttHistoryOpen=!ttHistoryOpen;
+  const list=document.getElementById('ttHistoryList');
+  const icon=document.getElementById('ttHistoryIcon');
+  if(list){list.classList.toggle('open',ttHistoryOpen);}
+  if(icon){icon.style.transform=ttHistoryOpen?'rotate(180deg)':'rotate(0deg)';}
+};
+
+async function renderTesTanding(atletId){
+  const el=document.getElementById('tesTandingSection');
+  if(!el) return;
+  if(!atletId){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">— Data tes tanding belum tersedia</div></div>`;
+    return;
+  }
+  el.innerHTML=`<div class="tf-card"><div class="tf-empty" style="padding:20px"><iconify-icon icon="lucide:loader-2" class="spin" style="font-size:18px;color:var(--blue)"></iconify-icon></div></div>`;
+  try{
+    const histSnap = await db.ref(`tes_tanding/${atletId}`).limitToLast(5).once('value');
+    if(!histSnap.exists()){
+      el.innerHTML=`<div class="tf-card"><div class="tf-header"><div class="tf-title">Tes Tanding</div></div><div class="tf-empty">— Belum ada data tes tanding</div></div>`;
+      return;
+    }
+    const histItems=[];
+    histSnap.forEach(s=>{histItems.unshift({ts:s.key,...s.val()});});
+    const latest = histItems[0];
+    
+    const breakdown = latest.teknik || {};
+    const keys = Object.keys(breakdown);
+    const avgScore = latest.skor_total || 0;
+    const grade = tfGrade(avgScore);
+    const formatDate=(d)=>{if(!d)return'—';const dt=new Date(d);const b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return`${dt.getDate()} ${b[dt.getMonth()]} ${dt.getFullYear()}`;};
+    
+    // Build compRows only for tested techniques
+    const compRows = TT_COMPONENTS.filter(c => breakdown[c.id]).map(c => {
+      const sc = breakdown[c.id].score100 || 0;
+      const g = tfGrade(sc);
+      const raw = breakdown[c.id].raw || 0;
+      const max = breakdown[c.id].max || 0;
+      return `<div class="tf-comp-row">
+        <div class="tf-comp-icon"><iconify-icon icon="${c.icon}"></iconify-icon></div>
+        <div class="tf-comp-name">${c.label}<small>${c.short}</small></div>
+        <div class="tf-comp-track"><div class="tf-comp-fill ${g.cls}" style="width:${sc}%"></div></div>
+        <div class="tf-comp-score ${g.cls}">${sc}</div>
+        <div class="tf-comp-raw" style="font-size:11px">${raw}/${max}</div>
+      </div>`;
+    }).join('');
+
+    // Radar chart specific for Tanding
+    const scores = {};
+    keys.forEach(k => { scores[k] = breakdown[k].score100 || 0; });
+    const ttRadarSVG = (scObj, klist) => {
+      const n = klist.length;
+      if(n===0) return '';
+      const cx=80,cy=80,r=62;
+      const pts=klist.map((_,i)=>{
+        const angle=(Math.PI*2/n)*i - Math.PI/2;
+        return {x:cx+r*Math.cos(angle),y:cy+r*Math.sin(angle)};
+      });
+      const bgPoly=pts.map(p=>`${p.x},${p.y}`).join(' ');
+      const grids=[0.25,0.5,0.75,1].map(f=>{
+        const gpts=klist.map((_,i)=>{const a=(Math.PI*2/n)*i-Math.PI/2;return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;});
+        return`<polygon points="${gpts.join(' ')}" fill="none" stroke="rgba(128,128,128,.12)" stroke-width="1"/>`;
+      }).join('');
+      const axes=pts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(128,128,128,.1)" stroke-width="1"/>`).join('');
+      const dataPts=klist.map((k,i)=>{
+        const sc=Math.min(100,Math.max(0,scObj[k]||0));
+        const f=sc/100;
+        const a=(Math.PI*2/n)*i-Math.PI/2;
+        return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;
+      });
+      const accentRgb='#fc5c7d'; // Reddish color for tanding
+      return`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:160px;display:block;margin:0 auto">
+        ${grids}${axes}
+        <polygon points="${bgPoly}" fill="rgba(252,92,125,.04)" stroke="rgba(128,128,128,.18)" stroke-width="1"/>
+        <polygon points="${dataPts.join(' ')}" fill="rgba(252,92,125,.18)" stroke="${accentRgb}" stroke-width="1.5"/>
+        ${klist.map((k,i)=>{
+          const comp=TT_COMPONENTS.find(c=>c.id===k);
+          const shortName = comp?comp.short.split(' ')[0]:k;
+          const a=(Math.PI*2/n)*i-Math.PI/2;const lx=cx+(r+14)*Math.cos(a);const ly=cy+(r+14)*Math.sin(a);
+          return`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" fill="var(--muted)" font-family="JetBrains Mono,monospace">${shortName}</text>`;
+        }).join('')}
+      </svg>`;
+    };
+
+    let histHtml='';
+    if(histItems.length>1){
+      histHtml=`<button class="tf-history-toggle" onclick="toggleTtHistory()">
+        <iconify-icon icon="lucide:history" style="font-size:12px"></iconify-icon>
+        <span>Riwayat Tes (${histItems.length})</span>
+        <iconify-icon id="ttHistoryIcon" icon="lucide:chevron-down" style="font-size:12px;margin-left:auto;transition:transform .25s"></iconify-icon>
+      </button>
+      <div class="tf-history-list" id="ttHistoryList">
+        ${histItems.map(h=>{const g=tfGrade(h.skor_total||0);return`<div class="tf-history-item"><div class="tf-history-date">${formatDate(h.tanggal)}</div><div class="tf-history-score ${g.cls}">${h.skor_total||0}</div><div class="tf-history-grade">${g.label}</div></div>`;}).join('')}
+      </div>`;
+    }
+
+    el.innerHTML=`<div class="tf-card">
+      <div class="tf-header">
+        <div class="tf-title" style="color:var(--red)">Tes Tanding</div>
+        <div class="tf-meta">
+          <div class="tf-meta-date">${formatDate(latest.tanggal)}</div>
+          <div style="margin-top:1px">${latest.coachNama||''}</div>
+        </div>
+      </div>
+      <div class="tf-score-banner" style="background:linear-gradient(135deg,rgba(252,92,125,.06) 0%,transparent 70%);">
+        <div class="tf-score-ring" style="--s:${avgScore};background:conic-gradient(var(--red) calc(var(--s)*1%),rgba(128,128,128,.1) 0%);">
+          <span class="tf-score-num ${grade.cls}">${avgScore}</span>
+        </div>
+        <div class="tf-score-info">
+          <div class="tf-score-grade ${grade.cls}">${grade.label}</div>
+          <div class="tf-score-sub">${keys.length} TEKNIK DITES</div>
+          <div class="tf-score-unit">Skor / 100</div>
+        </div>
+        <div style="flex-shrink:0">${ttRadarSVG(scores, keys)}</div>
+      </div>
+      <div class="tf-radar-wrap">
+        <div class="tf-radar-title">Detail Teknik</div>
+      </div>
+      <div class="tf-components">${compRows}</div>
+      ${histHtml}
+    </div>`;
+  }catch(e){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">Gagal memuat data tes tanding</div></div>`;
+  }
+}
+
+/* ── TES PSIKOLOGIS ── */
+let tpHistoryOpen=false;
+window.toggleTpHistory=function(){
+  tpHistoryOpen=!tpHistoryOpen;
+  const list=document.getElementById('tpHistoryList');
+  const icon=document.getElementById('tpHistoryIcon');
+  if(list){list.classList.toggle('open',tpHistoryOpen);}
+  if(icon){icon.style.transform=tpHistoryOpen?'rotate(180deg)':'rotate(0deg)';}
+};
+
+async function renderTesPsikologis(atletId){
+  const el=document.getElementById('tesPsikologisSection');
+  if(!el) return;
+  if(!atletId){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">— Data tes psikologis belum tersedia</div></div>`;
+    return;
+  }
+  el.innerHTML=`<div class="tf-card"><div class="tf-empty" style="padding:20px"><iconify-icon icon="lucide:loader-2" class="spin" style="font-size:18px;color:var(--blue)"></iconify-icon></div></div>`;
+  try{
+    const histSnap = await db.ref(`tes_psikologis/${atletId}`).limitToLast(5).once('value');
+    if(!histSnap.exists()){
+      el.innerHTML=`<div class="tf-card"><div class="tf-header"><div class="tf-title" style="color:var(--purple)">Tes Psikologis</div></div><div class="tf-empty">— Belum ada data tes psikologis</div></div>`;
+      return;
+    }
+    const histItems=[];
+    histSnap.forEach(s=>{histItems.unshift({ts:s.key,...s.val()});});
+    const latest = histItems[0];
+    
+    const breakdown = latest.domain || {};
+    const avgScore = latest.skor_total || 0;
+    const grade = tfGrade(avgScore);
+    const formatDate=(d)=>{if(!d)return'—';const dt=new Date(d);const b=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];return`${dt.getDate()} ${b[dt.getMonth()]} ${dt.getFullYear()}`;};
+    
+    const DOMAINS_META = [
+      {id:'kepercayaan_diri', name:'Kepercayaan Diri', short:'PD', icon:'lucide:shield-check'},
+      {id:'fokus_konsentrasi', name:'Fokus & Konsentrasi', short:'FK', icon:'lucide:target'},
+      {id:'resiliensi', name:'Resiliensi', short:'RS', icon:'lucide:flame'},
+      {id:'motivasi', name:'Motivasi', short:'MV', icon:'lucide:zap'},
+      {id:'kecemasan', name:'Kecemasan', short:'KA', icon:'lucide:brain'}
+    ];
+
+    const compRows = DOMAINS_META.map(c => {
+      const b = breakdown[c.id];
+      if(!b) return '';
+      const sc = b.pct || 0;
+      const g = tfGrade(sc);
+      return `<div class="tf-comp-row">
+        <div class="tf-comp-icon"><iconify-icon icon="${c.icon}"></iconify-icon></div>
+        <div class="tf-comp-name">${c.name}<small>${c.short}</small></div>
+        <div class="tf-comp-track"><div class="tf-comp-fill ${g.cls}" style="width:${sc}%"></div></div>
+        <div class="tf-comp-score ${g.cls}">${sc}</div>
+        <div class="tf-comp-raw" style="font-size:11px">${b.label||''}</div>
+      </div>`;
+    }).join('');
+
+    const scores = {};
+    const keys = [];
+    DOMAINS_META.forEach(c => {
+        if (breakdown[c.id]) {
+            scores[c.id] = breakdown[c.id].pct || 0;
+            keys.push(c.id);
+        }
+    });
+
+    const tpRadarSVG = (scObj, klist) => {
+      const n = klist.length;
+      if(n===0) return '';
+      const cx=80,cy=80,r=62;
+      const pts=klist.map((_,i)=>{
+        const angle=(Math.PI*2/n)*i - Math.PI/2;
+        return {x:cx+r*Math.cos(angle),y:cy+r*Math.sin(angle)};
+      });
+      const bgPoly=pts.map(p=>`${p.x},${p.y}`).join(' ');
+      const grids=[0.25,0.5,0.75,1].map(f=>{
+        const gpts=klist.map((_,i)=>{const a=(Math.PI*2/n)*i-Math.PI/2;return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;});
+        return`<polygon points="${gpts.join(' ')}" fill="none" stroke="rgba(128,128,128,.12)" stroke-width="1"/>`;
+      }).join('');
+      const axes=pts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="rgba(128,128,128,.1)" stroke-width="1"/>`).join('');
+      const dataPts=klist.map((k,i)=>{
+        const sc=Math.min(100,Math.max(0,scObj[k]||0));
+        const f=sc/100;
+        const a=(Math.PI*2/n)*i-Math.PI/2;
+        return`${cx+r*f*Math.cos(a)},${cy+r*f*Math.sin(a)}`;
+      });
+      const accentRgb='#a47bff';
+      return`<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:160px;display:block;margin:0 auto">
+        ${grids}${axes}
+        <polygon points="${bgPoly}" fill="rgba(164,123,255,.04)" stroke="rgba(128,128,128,.18)" stroke-width="1"/>
+        <polygon points="${dataPts.join(' ')}" fill="rgba(164,123,255,.18)" stroke="${accentRgb}" stroke-width="1.5"/>
+        ${klist.map((k,i)=>{
+          const comp=DOMAINS_META.find(c=>c.id===k);
+          const shortName = comp?comp.short:k;
+          const a=(Math.PI*2/n)*i-Math.PI/2;const lx=cx+(r+14)*Math.cos(a);const ly=cy+(r+14)*Math.sin(a);
+          return`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="7.5" fill="var(--muted)" font-family="JetBrains Mono,monospace">${shortName}</text>`;
+        }).join('')}
+      </svg>`;
+    };
+
+    let histHtml='';
+    if(histItems.length>1){
+      histHtml=`<button class="tf-history-toggle" onclick="toggleTpHistory()">
+        <iconify-icon icon="lucide:history" style="font-size:12px"></iconify-icon>
+        <span>Riwayat Tes (${histItems.length})</span>
+        <iconify-icon id="tpHistoryIcon" icon="lucide:chevron-down" style="font-size:12px;margin-left:auto;transition:transform .25s"></iconify-icon>
+      </button>
+      <div class="tf-history-list" id="tpHistoryList">
+        ${histItems.map(h=>{const g=tfGrade(h.skor_total||0);return`<div class="tf-history-item"><div class="tf-history-date">${formatDate(h.tanggal)}</div><div class="tf-history-score ${g.cls}">${h.skor_total||0}</div><div class="tf-history-grade">${g.label}</div></div>`;}).join('')}
+      </div>`;
+    }
+
+    el.innerHTML=`<div class="tf-card">
+      <div class="tf-header">
+        <div class="tf-title" style="color:var(--purple)">Tes Psikologis</div>
+        <div class="tf-meta">
+          <div class="tf-meta-date">${formatDate(latest.tanggal)}</div>
+          <div style="margin-top:1px">${latest.filledBy==='atlet'?'Self-Report':'Coach-Report'}</div>
+        </div>
+      </div>
+      <div class="tf-score-banner" style="background:linear-gradient(135deg,rgba(164,123,255,.06) 0%,transparent 70%);">
+        <div class="tf-score-ring" style="--s:${avgScore};background:conic-gradient(var(--purple) calc(var(--s)*1%),rgba(128,128,128,.1) 0%);">
+          <span class="tf-score-num ${grade.cls}">${avgScore}</span>
+        </div>
+        <div class="tf-score-info">
+          <div class="tf-score-grade ${grade.cls}">${grade.label}</div>
+          <div class="tf-score-sub">${keys.length} DOMAIN DITES</div>
+          <div class="tf-score-unit">Skor / 100</div>
+        </div>
+        <div style="flex-shrink:0">${tpRadarSVG(scores, keys)}</div>
+      </div>
+      <div class="tf-radar-wrap">
+        <div class="tf-radar-title">Detail Psikologis</div>
+      </div>
+      <div class="tf-components">${compRows}</div>
+      ${histHtml}
+    </div>`;
+  }catch(e){
+    el.innerHTML=`<div class="tf-card"><div class="tf-empty">Gagal memuat data tes psikologis</div></div>`;
+  }
 }
 
 /* ── STREAK ── */
@@ -2169,14 +2927,6 @@ window.showPage=function(pageId,btn){
       try{iframe.contentWindow.postMessage(payload,'*');}catch(e){}
     }
   }
-};
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.onkeydown = function(e) {
-    if (e.keyCode == 123 || 
-        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || 
-        (e.ctrlKey && e.keyCode == 85)) {
-        return false;
-    }
 };
 </script>
 </body>

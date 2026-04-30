@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YD ATHLETE — Portal Analis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════
+   THEME SYSTEM — 4 MODES
+══════════════════════════════════════════════════════ */
+:root,[data-theme="dark"] {
+  --bg-base:#0e0e0e;--bg-surface:#181818;--bg-card:#1f1f1f;--bg-raised:#272727;
+  --bg-input:#141414;--bg-hover:rgba(255,255,255,.04);
+  --border-subtle:rgba(255,255,255,.07);--border-mid:rgba(255,255,255,.12);--border-strong:rgba(255,255,255,.2);
+  --accent:#e8a84c;--accent2:#d48f2e;--accent3:#b06e18;
+  --accent-glow:rgba(232,168,76,.15);--accent-soft:rgba(232,168,76,.08);
+  --teal:#3ecfb2;--teal-soft:rgba(62,207,178,.08);
+  --green:#4fca6a;--green-soft:rgba(79,202,106,.08);
+  --red:#e05a65;--red-soft:rgba(224,90,101,.08);
+  --purple:#a57ef5;--purple-soft:rgba(165,126,245,.08);
+  --blue:#4fa3e0;--blue-soft:rgba(79,163,224,.08);
+  --t1:#f0f0f0;--t2:#aaaaaa;--t3:#666666;--t4:#3a3a3a;
+  --topbar:rgba(14,14,14,.95);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Sora',sans-serif;
+  --r:12px;--r2:9px;--r3:7px;--r4:100px;
+  --sh:0 4px 24px rgba(0,0,0,.5);--sb:0 1px 3px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+[data-theme="light"] {
+  --bg-base:#f2ede6;--bg-surface:#fdfaf6;--bg-card:#ffffff;--bg-raised:#f7f2eb;
+  --bg-input:#faf7f3;--bg-hover:rgba(0,0,0,.03);
+  --border-subtle:rgba(0,0,0,.07);--border-mid:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.22);
+  --accent:#c07b1a;--accent2:#a5641a;--accent3:#844f15;
+  --accent-glow:rgba(192,123,26,.12);--accent-soft:rgba(192,123,26,.07);
+  --teal:#1a8f7d;--teal-soft:rgba(26,143,125,.08);
+  --green:#2a914a;--green-soft:rgba(42,145,74,.07);
+  --red:#c0394a;--red-soft:rgba(192,57,74,.07);
+  --purple:#7251c4;--purple-soft:rgba(114,81,196,.07);
+  --blue:#2d7fc0;--blue-soft:rgba(45,127,192,.07);
+  --t1:#1a1410;--t2:#5a4f44;--t3:#9a8f82;--t4:#c8bfb5;
+  --topbar:rgba(242,237,230,.96);
+  color-scheme:light;
+}
+[data-theme="rpg"] {
+  --bg-base:#0a0c14;--bg-surface:#10131e;--bg-card:#161a28;--bg-raised:#1c2135;
+  --bg-input:#0d1020;--bg-hover:rgba(120,180,255,.04);
+  --border-subtle:rgba(80,120,220,.12);--border-mid:rgba(100,150,255,.2);--border-strong:rgba(140,180,255,.35);
+  --accent:#7eb8ff;--accent2:#5a9ff0;--accent3:#3c80d0;
+  --accent-glow:rgba(126,184,255,.18);--accent-soft:rgba(126,184,255,.07);
+  --teal:#50e8c8;--teal-soft:rgba(80,232,200,.07);
+  --green:#50d87a;--green-soft:rgba(80,216,122,.07);
+  --red:#ff6a6a;--red-soft:rgba(255,106,106,.07);
+  --purple:#c490ff;--purple-soft:rgba(196,144,255,.07);
+  --blue:#80c0ff;--blue-soft:rgba(128,192,255,.07);
+  --t1:#e8f0ff;--t2:#8aa8d8;--t3:#445580;--t4:#252e4a;
+  --topbar:rgba(10,12,20,.96);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Cinzel',serif;
+  color-scheme:dark;
+}
+[data-theme="luxury"] {
+  --bg-base:#08060a;--bg-surface:#100e14;--bg-card:#17131e;--bg-raised:#1f1928;
+  --bg-input:#0e0c14;--bg-hover:rgba(220,180,100,.04);
+  --border-subtle:rgba(180,140,60,.1);--border-mid:rgba(200,160,80,.2);--border-strong:rgba(220,180,100,.35);
+  --accent:#d4af6a;--accent2:#b8923c;--accent3:#9a7428;
+  --accent-glow:rgba(212,175,106,.18);--accent-soft:rgba(212,175,106,.07);
+  --teal:#8dd8b8;--teal-soft:rgba(141,216,184,.07);
+  --green:#6cd490;--green-soft:rgba(108,212,144,.07);
+  --red:#e07080;--red-soft:rgba(224,112,128,.07);
+  --purple:#c8a0f0;--purple-soft:rgba(200,160,240,.07);
+  --blue:#90b8e8;--blue-soft:rgba(144,184,232,.07);
+  --t1:#f8f0e0;--t2:#b0a080;--t3:#5a5040;--t4:#302820;
+  --topbar:rgba(8,6,10,.97);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Playfair Display',serif;
+  color-scheme:dark;
+}
+
+/* BASE */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--ff);background:var(--bg-base);color:var(--t1);overflow-x:hidden;transition:background .3s,color .3s}
+::selection{background:var(--accent-glow)}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong)}
+[data-theme="rpg"] body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999}
+[data-theme="luxury"] body::after{content:'';position:fixed;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9998}
+
+/* LOADING */
+#ls{position:fixed;inset:0;background:var(--bg-base);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:18px;transition:opacity .5s}
+#ls.out{opacity:0;pointer-events:none}
+.ls-logo{font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:6px;color:var(--accent)}
+.ls-logo em{color:var(--purple);font-style:normal}
+.ls-sub{font-family:var(--fm);font-size:9px;letter-spacing:3px;color:var(--t3);text-transform:uppercase}
+.ls-bar{width:120px;height:2px;background:var(--border-subtle);border-radius:2px;overflow:hidden}
+.ls-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--purple));border-radius:2px;animation:lf 1.5s ease forwards}
+@keyframes lf{from{width:0}to{width:100%}}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+@keyframes barGrow{from{width:0}to{width:var(--bar-w,0%)}}
+@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-6px)}70%{transform:translateX(6px)}}
+
+/* APP SHELL */
+#app{display:none;min-height:100vh}
+#app.vis{display:block}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:300;background:var(--topbar);border-bottom:1px solid var(--border-subtle);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+[data-theme="luxury"] .topbar{border-bottom-color:var(--accent3)}
+.tb-brand .tb-logo{font-family:var(--fd);font-size:15px;font-weight:700;letter-spacing:4px;color:var(--accent);line-height:1}
+.tb-brand .tb-logo em{color:var(--purple);font-style:normal}
+.tb-brand .tb-role{font-family:var(--fm);font-size:8px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-top:2px}
+.tb-nav{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.tb-nav-btn{background:transparent;border:1px solid transparent;color:var(--t3);font-family:var(--fm);font-size:9px;letter-spacing:.8px;padding:6px 12px;border-radius:var(--r4);cursor:pointer;white-space:nowrap;transition:all .2s}
+.tb-nav-btn:hover{border-color:var(--border-mid);color:var(--t1)}
+.tb-nav-btn.active{border-color:var(--border-mid);color:var(--accent);background:var(--accent-soft)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-dot{width:6px;height:6px;border-radius:50%;background:var(--purple);box-shadow:0 0 8px var(--purple);animation:pulse 2.5s infinite}
+.tb-settings{position:relative}
+.tb-gear{width:32px;height:32px;border-radius:var(--r4);background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.tb-gear:hover{border-color:var(--accent);color:var(--accent);transform:rotate(60deg)}
+.tb-menu{position:absolute;right:0;top:40px;min-width:210px;background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);box-shadow:var(--sh);padding:10px 14px;display:none;z-index:450}
+.tb-menu.show{display:block;animation:fadeup .15s ease}
+.tb-menu-sep{height:1px;background:var(--border-subtle);margin:8px 0}
+.tb-menu-lbl{font-family:var(--fm);font-size:9px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:5px}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.theme-btn{background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:7px 8px;border-radius:var(--r2);cursor:pointer;transition:all .15s;text-align:center}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.tb-logout{width:100%;background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-family:var(--fm);font-size:9px;letter-spacing:1px;padding:8px;border-radius:var(--r2);cursor:pointer;transition:all .2s;text-transform:uppercase}
+.tb-logout:hover{border-color:var(--red);color:var(--red)}
+.lang-row{display:flex;gap:4px;flex-wrap:wrap}
+.lang-btn{background:transparent;border:1px solid var(--border-mid);color:var(--t3);font-family:var(--fm);font-size:9px;padding:5px 9px;border-radius:var(--r2);cursor:pointer;transition:all .15s}
+.lang-btn:hover,.lang-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* MOBILE BOTTOM NAV */
+.mb-nav-wrap{display:none}
+.mb-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(94vw,600px);background:var(--bg-card);border:1px solid var(--border-mid);border-radius:28px;box-shadow:0 16px 40px rgba(0,0,0,.5);display:grid;grid-template-columns:repeat(6,1fr);padding:10px 8px 8px;z-index:500;gap:2px}
+.mb-btn{background:transparent;border:none;color:var(--t3);display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 2px;cursor:pointer;transition:color .2s;border-radius:8px}
+.mb-btn .mb-ic{font-size:20px;line-height:1;display:block}
+.mb-btn .mb-ic iconify-icon{font-size:20px}
+.mb-btn .mb-txt{font-family:var(--ff);font-size:10px;font-weight:500;line-height:1}
+.mb-btn.active{color:var(--accent)}
+.mb-settings-panel{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);width:min(92vw,340px);background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);box-shadow:var(--sh);padding:14px;display:none;z-index:510}
+.mb-settings-panel.show{display:block;animation:fadeup .18s ease}
+
+/* CONTENT */
+.content{padding:24px 20px;max-width:900px;margin:0 auto}
+
+/* SECTION PANELS */
+.section-panel{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--r);overflow:hidden;animation:cardIn .35s ease both;margin-bottom:14px}
+.section-panel:hover{border-color:var(--border-mid)}
+[data-theme="rpg"] .section-panel{border-color:rgba(100,150,255,.15);box-shadow:0 0 0 1px rgba(80,120,220,.05) inset}
+[data-theme="luxury"] .section-panel{border-color:rgba(180,140,60,.18);background:linear-gradient(135deg,var(--bg-card),var(--bg-raised))}
+.sec-hidden{display:none!important}
+
+/* Strip */
+.cp-strip{height:2px;background:linear-gradient(90deg,var(--purple),var(--accent),transparent)}
+[data-theme="rpg"] .cp-strip{background:linear-gradient(90deg,var(--purple),var(--teal),transparent)}
+[data-theme="luxury"] .cp-strip{background:linear-gradient(90deg,var(--accent3),var(--accent),var(--accent3))}
+
+/* Section header */
+.sec-header{padding:16px 18px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border-subtle)}
+.sec-title{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t1);display:flex;align-items:center;gap:8px}
+.sec-title iconify-icon{color:var(--accent);font-size:16px}
+.sec-subtitle{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-top:2px}
+.sec-body{padding:16px 18px}
+
+/* Badges */
+.badge{font-family:var(--fm);font-size:8px;letter-spacing:.5px;padding:3px 9px;border-radius:var(--r4);text-transform:uppercase;font-weight:600;white-space:nowrap;border:1px solid}
+.badge-accent{background:var(--accent-soft);border-color:var(--accent3);color:var(--accent)}
+.badge-teal{background:var(--teal-soft);border-color:rgba(62,207,178,.25);color:var(--teal)}
+.badge-green{background:var(--green-soft);border-color:rgba(79,202,106,.25);color:var(--green)}
+.badge-red{background:var(--red-soft);border-color:rgba(224,90,101,.25);color:var(--red)}
+.badge-gray{background:var(--bg-hover);border-color:var(--border-mid);color:var(--t3)}
+.badge-purple{background:var(--purple-soft);border-color:rgba(165,126,245,.25);color:var(--purple)}
+.badge-blue{background:var(--blue-soft);border-color:rgba(79,163,224,.25);color:var(--blue)}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.kpi-card{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:14px 16px;transition:border-color .2s,transform .2s;cursor:default}
+.kpi-card:hover{border-color:var(--border-mid);transform:translateY(-2px)}
+.kpi-label{font-family:var(--fm);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
+.kpi-val{font-family:var(--fm);font-size:24px;font-weight:700;color:var(--t1);line-height:1;margin-bottom:4px}
+.kpi-val.accent{color:var(--accent)}
+.kpi-val.teal{color:var(--teal)}
+.kpi-val.green{color:var(--green)}
+.kpi-val.purple{color:var(--purple)}
+.kpi-val.red{color:var(--red)}
+.kpi-trend{font-family:var(--fm);font-size:9px;color:var(--t3)}
+.kpi-trend.up{color:var(--green)}
+.kpi-trend.dn{color:var(--red)}
+
+/* ATHLETE SEARCH & FILTER */
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.filter-input{flex:1;min-width:160px;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 13px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s}
+.filter-input:focus{border-color:var(--accent)}
+.filter-input::placeholder{color:var(--t3)}
+.filter-select{background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 12px;border-radius:var(--r2);font-family:var(--fm);font-size:10px;outline:none;cursor:pointer;transition:border-color .2s}
+.filter-select:focus{border-color:var(--accent)}
+
+/* ATHLETE TABLE */
+.ath-table-wrap{overflow-x:auto}
+.ath-table{width:100%;border-collapse:collapse;font-size:12px}
+.ath-table th{font-family:var(--fm);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);padding:8px 12px;border-bottom:1px solid var(--border-subtle);text-align:left;white-space:nowrap;background:var(--bg-surface)}
+.ath-table td{padding:10px 12px;border-bottom:1px solid var(--border-subtle);color:var(--t2);vertical-align:middle}
+.ath-table tr:last-child td{border-bottom:none}
+.ath-table tbody tr{transition:background .15s;cursor:pointer}
+.ath-table tbody tr:hover{background:var(--bg-hover)}
+.ath-name{font-weight:600;color:var(--t1);font-size:13px}
+.ath-score-cell{font-family:var(--fm);font-weight:700;font-size:13px}
+.ath-bar-wrap{height:3px;background:var(--border-subtle);border-radius:2px;overflow:hidden;margin-top:4px;width:100%;min-width:60px}
+.ath-bar{height:100%;border-radius:2px;transition:width .6s ease}
+.ath-bar.hi{background:var(--green)}
+.ath-bar.mid{background:var(--accent)}
+.ath-bar.lo{background:var(--red)}
+.ath-avatar{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:10px;font-weight:700;color:#fff;flex-shrink:0;border:1px solid var(--border-mid)}
+.ath-cell-flex{display:flex;align-items:center;gap:9px}
+.rank-badge{width:22px;height:22px;border-radius:6px;background:var(--bg-raised);border:1px solid var(--border-mid);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:10px;font-weight:700;color:var(--t3);flex-shrink:0}
+.rank-badge.r1{background:var(--accent-soft);border-color:var(--accent3);color:var(--accent)}
+.rank-badge.r2{background:var(--teal-soft);border-color:rgba(62,207,178,.25);color:var(--teal)}
+.rank-badge.r3{background:var(--purple-soft);border-color:rgba(165,126,245,.25);color:var(--purple)}
+
+/* CHART BARS */
+.chart-section{margin-bottom:8px}
+.chart-title{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.chart-title::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
+.bar-chart{display:flex;flex-direction:column;gap:7px}
+.bc-row{display:flex;align-items:center;gap:10px}
+.bc-label{font-family:var(--fm);font-size:10px;color:var(--t2);min-width:80px;text-align:right;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bc-track{flex:1;height:22px;background:var(--bg-raised);border-radius:var(--r2);overflow:hidden;position:relative;border:1px solid var(--border-subtle)}
+.bc-fill{height:100%;border-radius:var(--r2);display:flex;align-items:center;padding-right:10px;justify-content:flex-end;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.bc-fill-val{font-family:var(--fm);font-size:9px;font-weight:700;color:#fff;position:relative;z-index:1;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.bc-fill.c-accent{background:linear-gradient(90deg,var(--accent3),var(--accent))}
+.bc-fill.c-teal{background:linear-gradient(90deg,rgba(62,207,178,.6),var(--teal))}
+.bc-fill.c-green{background:linear-gradient(90deg,rgba(79,202,106,.6),var(--green))}
+.bc-fill.c-purple{background:linear-gradient(90deg,rgba(165,126,245,.6),var(--purple))}
+.bc-fill.c-red{background:linear-gradient(90deg,rgba(224,90,101,.6),var(--red))}
+.bc-fill.c-blue{background:linear-gradient(90deg,rgba(79,163,224,.6),var(--blue))}
+
+/* RADAR/SPIDER CHART */
+.radar-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.radar-legend{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.radar-legend-item{display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--t2)}
+.radar-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* NOTES / REPORT AREA */
+.note-area{background:var(--bg-input);border:1px solid var(--border-mid);border-radius:var(--r2);padding:13px 15px;font-family:var(--ff);font-size:13px;color:var(--t1);outline:none;width:100%;resize:vertical;min-height:90px;line-height:1.6;transition:border-color .2s}
+.note-area:focus{border-color:var(--accent)}
+.note-area::placeholder{color:var(--t3)}
+
+/* COMPARISON GRID */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.compare-card{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:14px;transition:border-color .2s}
+.compare-card:hover{border-color:var(--border-mid)}
+.compare-name{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.compare-rows{display:flex;flex-direction:column;gap:6px}
+.compare-row{display:flex;justify-content:space-between;align-items:center;font-size:11px}
+.compare-row-lbl{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px}
+.compare-row-val{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--t1)}
+.compare-row-val.win{color:var(--green)}
+.compare-row-val.lose{color:var(--red)}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl-item{display:flex;gap:14px;padding-bottom:18px;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-item:last-child .tl-line{display:none}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:26px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-base);flex-shrink:0;margin-top:3px}
+.tl-dot.teal{background:var(--teal)}
+.tl-dot.purple{background:var(--purple)}
+.tl-dot.green{background:var(--green)}
+.tl-dot.red{background:var(--red)}
+.tl-line{flex:1;width:2px;background:var(--border-subtle);margin-top:4px}
+.tl-content{flex:1;padding-bottom:4px}
+.tl-date{font-family:var(--fm);font-size:9px;color:var(--t3);margin-bottom:3px}
+.tl-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--t2);line-height:1.5}
+
+/* SKILL RADAR SVG */
+.radar-svg{width:200px;height:200px;overflow:visible}
+
+/* DETAIL MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:600;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-card{background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);width:min(640px,100%);max-height:80vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--sh);animation:fadeup .25s ease}
+[data-theme="luxury"] .modal-card{border-color:var(--accent3)}
+[data-theme="rpg"] .modal-card{border-color:rgba(100,150,255,.3);box-shadow:0 0 40px var(--accent-glow)}
+.modal-hd{padding:16px 18px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-title{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t1)}
+.modal-close{background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:5px 10px;border-radius:var(--r2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-bd{padding:16px 18px;overflow-y:auto;flex:1}
+
+/* BTN */
+.btn-sm{font-family:var(--fm);font-size:9px;letter-spacing:.8px;text-transform:uppercase;padding:7px 14px;border-radius:var(--r2);cursor:pointer;transition:all .2s;border:1px solid;font-weight:600;display:inline-flex;align-items:center;gap:5px}
+.btn-sm-accent{background:var(--accent2);border-color:var(--accent2);color:#fff}
+.btn-sm-accent:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-1px)}
+.btn-sm-ghost{background:transparent;border-color:var(--border-mid);color:var(--t2)}
+.btn-sm-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm-purple{background:var(--purple-soft);border-color:rgba(165,126,245,.25);color:var(--purple)}
+.btn-sm-purple:hover{background:var(--purple);border-color:var(--purple);color:#fff}
+
+/* HELPERS */
+.panel-empty{font-family:var(--fm);font-size:10px;color:var(--t4);text-align:center;padding:20px 0;letter-spacing:.5px}
+.sec-lbl{font-family:var(--fm);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
+.hidden{display:none!important}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg-raised);border:1px solid var(--accent3);color:var(--t1);font-family:var(--fm);font-size:10px;letter-spacing:.8px;padding:10px 18px;border-radius:var(--r4);z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:var(--sh)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.page-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px;gap:10px;color:var(--t4);text-align:center}
+.pe-icon{font-size:30px;opacity:.25}
+.pe-txt{font-family:var(--fm);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+iconify-icon{vertical-align:middle}
+
+/* TABS */
+.sec-tabs{display:flex;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);padding:0 18px;overflow-x:auto;scrollbar-width:none}
+.sec-tabs::-webkit-scrollbar{display:none}
+.sec-tab{padding:9px 12px;background:transparent;border:none;color:var(--t3);font-family:var(--fm);font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;position:relative;transition:color .2s;flex-shrink:0}
+.sec-tab:hover{color:var(--t1)}
+.sec-tab.active{color:var(--accent)}
+.sec-tab.active::after{content:'';position:absolute;bottom:0;left:12px;right:12px;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
+
+/* PROFILE PANEL ANALIS */
+.analis-profile{display:flex;gap:16px;align-items:flex-start}
+.analis-avatar{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:18px;font-weight:700;color:#fff;flex-shrink:0;border:1px solid var(--border-mid)}
+[data-theme="rpg"] .analis-avatar{background:linear-gradient(135deg,#6030c0,#3c80ff);border-color:rgba(100,160,255,.3);box-shadow:0 0 20px rgba(165,126,245,.2)}
+[data-theme="luxury"] .analis-avatar{background:linear-gradient(135deg,var(--accent3),var(--accent));border-color:var(--accent2)}
+.analis-info{flex:1;min-width:0}
+.analis-name{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.analis-spec{font-size:12px;color:var(--t3);margin-bottom:8px}
+.analis-badges{display:flex;gap:5px;flex-wrap:wrap}
+
+/* INFO ROWS */
+.info-rows{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-subtle)}
+.info-row{display:flex;align-items:flex-start;gap:10px;font-size:12px}
+.info-row-icon{width:20px;flex-shrink:0;color:var(--accent);margin-top:1px}
+.info-row-label{font-family:var(--fm);font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--t3);min-width:80px;flex-shrink:0;margin-top:1px}
+.info-row-val{color:var(--t2);line-height:1.5;flex:1}
+
+/* SCROLLABLE REPORT HISTORY */
+.report-list{display:flex;flex-direction:column;gap:7px}
+.report-row{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);cursor:pointer;transition:all .2s}
+.report-row:hover{border-color:var(--accent);transform:translateX(2px)}
+.report-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--purple-soft);border:1px solid rgba(165,126,245,.2);color:var(--purple)}
+.report-info{flex:1;min-width:0}
+.report-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.report-meta{font-family:var(--fm);font-size:9px;color:var(--t3)}
+.report-arrow{color:var(--accent);font-size:14px;flex-shrink:0;transition:transform .2s}
+.report-row:hover .report-arrow{transform:translateX(3px)}
+
+/* PERFORMANCE SCORES */
+.perf-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.perf-item{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:12px;text-align:center;transition:border-color .2s}
+.perf-item:hover{border-color:var(--border-mid)}
+.perf-label{font-family:var(--fm);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+.perf-val{font-family:var(--fm);font-size:20px;font-weight:700;line-height:1;margin-bottom:3px}
+.perf-sub{font-size:9px;color:var(--t3)}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .topbar{display:none}
+  .content{padding:14px 12px 110px}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .compare-grid{grid-template-columns:1fr}
+  .perf-scores{grid-template-columns:1fr 1fr}
+  .mb-nav-wrap{display:none}
+  #app.vis ~ .mb-nav-wrap{display:block}
+  .analis-profile{flex-direction:column;align-items:center;text-align:center}
+  .analis-info{width:100%}
+}
+@media(max-width:400px){
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .perf-scores{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="ls">
+  <div class="ls-logo">YD<em>.</em>ATHLETE</div>
+  <div class="ls-sub">Portal Analis</div>
+  <div class="ls-bar"><div class="ls-fill"></div></div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo">YD<em>.</em>ATHLETE</div>
+      <div class="tb-role">Portal Analis</div>
+    </div>
+    <div class="tb-nav">
+      <button class="tb-nav-btn active" id="navOverview" onclick="navigateTo('overview')">
+        <iconify-icon icon="lucide:layout-dashboard"></iconify-icon> Overview
+      </button>
+      <button class="tb-nav-btn" id="navAtlet" onclick="navigateTo('atlet')">
+        <iconify-icon icon="lucide:users"></iconify-icon> Atlet
+      </button>
+      <button class="tb-nav-btn" id="navPerforma" onclick="navigateTo('performa')">
+        <iconify-icon icon="lucide:bar-chart-2"></iconify-icon> Performa
+      </button>
+      <button class="tb-nav-btn" id="navRiwayat" onclick="navigateTo('riwayat')">
+        <iconify-icon icon="lucide:clock"></iconify-icon> Riwayat
+      </button>
+      <button class="tb-nav-btn" id="navLaporan" onclick="navigateTo('laporan')">
+        <iconify-icon icon="lucide:file-text"></iconify-icon> Laporan
+      </button>
+    </div>
+    <div class="tb-right">
+      <div class="tb-dot"></div>
+      <div class="tb-settings">
+        <button class="tb-gear" onclick="toggleSettingsMenu(event)"><iconify-icon icon="lucide:settings"></iconify-icon></button>
+        <div class="tb-menu" id="settingsMenu">
+          <div class="tb-menu-lbl">Tema</div>
+          <div class="theme-grid">
+            <button class="theme-btn" data-t="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> Terang</button>
+            <button class="theme-btn active" data-t="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> Graphite</button>
+            <button class="theme-btn" data-t="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> RPG</button>
+            <button class="theme-btn" data-t="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> Luxury</button>
+          </div>
+          <div class="tb-menu-sep"></div>
+          <div class="tb-menu-lbl">Bahasa</div>
+          <div class="lang-row" id="langRow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div id="secOverview">
+
+      <!-- Profil Analis -->
+      <div class="section-panel" style="animation-delay:.05s">
+        <div class="cp-strip"></div>
+        <div class="sec-body">
+          <div class="analis-profile">
+            <div class="analis-avatar" id="analAvatar">AN</div>
+            <div class="analis-info">
+              <div class="analis-name" id="analName">Ahmad Nugraha</div>
+              <div class="analis-spec" id="analSpec">Analis Performa & Data Atlet</div>
+              <div class="analis-badges">
+                <span class="badge badge-purple"><iconify-icon icon="lucide:chart-pie"></iconify-icon> Analis</span>
+                <span class="badge badge-teal"><iconify-icon icon="lucide:check-circle"></iconify-icon> Aktif</span>
+                <span class="badge badge-gray">2 Unit</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row">
+              <iconify-icon icon="lucide:phone" class="info-row-icon"></iconify-icon>
+              <span class="info-row-label">Kontak</span>
+              <span class="info-row-val">+62 812-3456-7890</span>
+            </div>
+            <div class="info-row">
+              <iconify-icon icon="lucide:mail" class="info-row-icon"></iconify-icon>
+              <span class="info-row-label">Email</span>
+              <span class="info-row-val">ahmad.nugraha@ydathlete.id</span>
+            </div>
+            <div class="info-row">
+              <iconify-icon icon="lucide:map-pin" class="info-row-icon"></iconify-icon>
+              <span class="info-row-label">Unit</span>
+              <span class="info-row-val">Unit A — Putra Senior · Unit B — Putri Senior</span>
+            </div>
+            <div class="info-row">
+              <iconify-icon icon="lucide:award" class="info-row-icon"></iconify-icon>
+              <span class="info-row-label">Lisensi</span>
+              <span class="info-row-val">Sport Analyst Level II — KONI 2023</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="section-panel" style="animation-delay:.1s">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:layout-grid"></iconify-icon> Ringkasan Data</div>
+            <div class="sec-subtitle">Periode: Jan – Apr 2025</div>
+          </div>
+          <span class="badge badge-accent">Live</span>
+        </div>
+        <div class="sec-body">
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Total Atlet</div>
+              <div class="kpi-val teal" id="kpiTotal">32</div>
+              <div class="kpi-trend up">↑ 3 bulan ini</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Rata-rata Skor</div>
+              <div class="kpi-val accent" id="kpiAvgScore">78.4</div>
+              <div class="kpi-trend up">↑ +2.1 vs bulan lalu</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Tingkat Hadir</div>
+              <div class="kpi-val green" id="kpiHadir">91%</div>
+              <div class="kpi-trend up">↑ +3% vs bulan lalu</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Laporan Bulan Ini</div>
+              <div class="kpi-val purple" id="kpiLaporan">7</div>
+              <div class="kpi-trend">dari 10 target</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Distribusi Kategori -->
+      <div class="section-panel" style="animation-delay:.15s">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:pie-chart"></iconify-icon> Distribusi Kategori Atlet</div>
+            <div class="sec-subtitle">Berdasarkan sabuk & kelompok umur</div>
+          </div>
+        </div>
+        <div class="sec-body">
+          <div class="chart-section">
+            <div class="chart-title">Sabuk</div>
+            <div class="bar-chart" id="sabukChart"></div>
+          </div>
+          <div class="chart-section" style="margin-top:20px">
+            <div class="chart-title">Kelompok Umur</div>
+            <div class="bar-chart" id="umurChart"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ ATLET ══ -->
+    <div id="secAtlet" class="hidden">
+
+      <div class="section-panel">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:users"></iconify-icon> Data Atlet</div>
+            <div class="sec-subtitle">Semua unit yang dianalisis</div>
+          </div>
+          <span class="badge badge-teal" id="athCountBadge">32 Atlet</span>
+        </div>
+        <div class="sec-body">
+          <div class="filter-bar">
+            <input class="filter-input" id="searchAtlet" type="text" placeholder="Cari nama atlet..." oninput="filterAtlet()">
+            <select class="filter-select" id="filterUnit" onchange="filterAtlet()">
+              <option value="">Semua Unit</option>
+              <option value="A">Unit A — Putra Senior</option>
+              <option value="B">Unit B — Putri Senior</option>
+            </select>
+            <select class="filter-select" id="filterKat" onchange="filterAtlet()">
+              <option value="">Semua Sabuk</option>
+              <option value="Hitam">Hitam</option>
+              <option value="Merah">Merah</option>
+              <option value="Biru">Biru</option>
+              <option value="Hijau">Hijau</option>
+              <option value="Kuning">Kuning</option>
+            </select>
+          </div>
+          <div class="ath-table-wrap">
+            <table class="ath-table" id="atletTable">
+              <thead>
+                <tr>
+                  <th style="width:36px">#</th>
+                  <th>Nama Atlet</th>
+                  <th>Sabuk</th>
+                  <th>Unit</th>
+                  <th>Usia</th>
+                  <th>Skor Tes Fisik</th>
+                  <th>Skor Tanding</th>
+                  <th>Hadir</th>
+                </tr>
+              </thead>
+              <tbody id="atletTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ PERFORMA ══ -->
+    <div id="secPerforma" class="hidden">
+
+      <!-- Pilih atlet untuk detail -->
+      <div class="section-panel">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:bar-chart-2"></iconify-icon> Analisis Performa</div>
+            <div class="sec-subtitle">Grafik & penilaian individual</div>
+          </div>
+        </div>
+        <div class="sec-tabs">
+          <button class="sec-tab active" onclick="switchPerfTab('individual',this)">Individual</button>
+          <button class="sec-tab" onclick="switchPerfTab('komparasi',this)">Komparasi</button>
+          <button class="sec-tab" onclick="switchPerfTab('tren',this)">Tren Bulanan</button>
+        </div>
+
+        <!-- Individual -->
+        <div id="perfIndividual" class="sec-body">
+          <div class="filter-bar" style="margin-bottom:16px">
+            <select class="filter-select" id="selectAtletPerf" onchange="renderIndividual()" style="flex:1">
+              <option value="">— Pilih Atlet —</option>
+            </select>
+          </div>
+          <div id="perfIndividualContent">
+            <div class="panel-empty">Pilih atlet untuk melihat analisis</div>
+          </div>
+        </div>
+
+        <!-- Komparasi -->
+        <div id="perfKomparasi" class="sec-body hidden">
+          <div class="filter-bar" style="margin-bottom:16px">
+            <select class="filter-select" id="selectAtletA" onchange="renderKomparasi()" style="flex:1">
+              <option value="">— Atlet A —</option>
+            </select>
+            <span style="color:var(--t3);font-family:var(--fm);font-size:12px">vs</span>
+            <select class="filter-select" id="selectAtletB" onchange="renderKomparasi()" style="flex:1">
+              <option value="">— Atlet B —</option>
+            </select>
+          </div>
+          <div id="komparasiContent">
+            <div class="panel-empty">Pilih dua atlet untuk membandingkan</div>
+          </div>
+        </div>
+
+        <!-- Tren -->
+        <div id="perfTren" class="sec-body hidden">
+          <div class="chart-title" style="margin-bottom:16px">Rata-rata Skor Bulanan (Semua Atlet)</div>
+          <div class="bar-chart" id="trenChart"></div>
+        </div>
+
+      </div>
+
+      <!-- Top 5 Peringkat -->
+      <div class="section-panel" style="animation-delay:.1s">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div class="sec-title"><iconify-icon icon="lucide:trophy"></iconify-icon> Peringkat Teratas</div>
+        </div>
+        <div class="sec-body">
+          <div class="chart-title">Tes Fisik — Top 5</div>
+          <div class="bar-chart" id="top5Fisik" style="margin-bottom:20px"></div>
+          <div class="chart-title">Tes Tanding — Top 5</div>
+          <div class="bar-chart" id="top5Tanding"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ RIWAYAT ══ -->
+    <div id="secRiwayat" class="hidden">
+      <div class="section-panel">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:clock"></iconify-icon> Riwayat Aktivitas</div>
+            <div class="sec-subtitle">Log analisis & perubahan data</div>
+          </div>
+        </div>
+        <div class="sec-body">
+          <div class="timeline" id="timelineList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ LAPORAN ══ -->
+    <div id="secLaporan" class="hidden">
+      <div class="section-panel">
+        <div class="cp-strip"></div>
+        <div class="sec-header">
+          <div>
+            <div class="sec-title"><iconify-icon icon="lucide:file-text"></iconify-icon> Laporan Analis</div>
+            <div class="sec-subtitle">Buat & kelola laporan evaluasi</div>
+          </div>
+          <button class="btn-sm btn-sm-accent" onclick="openNewReport()">
+            <iconify-icon icon="lucide:plus"></iconify-icon> Buat Laporan
+          </button>
+        </div>
+        <div class="sec-body">
+          <div class="report-list" id="reportList"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<!-- Mobile Nav -->
+<div class="mb-nav-wrap">
+  <nav class="mb-nav">
+    <button class="mb-btn active" id="mbOverview" onclick="navigateTo('overview')">
+      <span class="mb-ic"><iconify-icon icon="lucide:layout-dashboard"></iconify-icon></span><span class="mb-txt">Overview</span>
+    </button>
+    <button class="mb-btn" id="mbAtlet" onclick="navigateTo('atlet')">
+      <span class="mb-ic"><iconify-icon icon="lucide:users"></iconify-icon></span><span class="mb-txt">Atlet</span>
+    </button>
+    <button class="mb-btn" id="mbPerforma" onclick="navigateTo('performa')">
+      <span class="mb-ic"><iconify-icon icon="lucide:bar-chart-2"></iconify-icon></span><span class="mb-txt">Performa</span>
+    </button>
+    <button class="mb-btn" id="mbRiwayat" onclick="navigateTo('riwayat')">
+      <span class="mb-ic"><iconify-icon icon="lucide:clock"></iconify-icon></span><span class="mb-txt">Riwayat</span>
+    </button>
+    <button class="mb-btn" id="mbLaporan" onclick="navigateTo('laporan')">
+      <span class="mb-ic"><iconify-icon icon="lucide:file-text"></iconify-icon></span><span class="mb-txt">Laporan</span>
+    </button>
+    <button class="mb-btn" id="mbSetting" onclick="toggleMbSettings(event)">
+      <span class="mb-ic"><iconify-icon icon="lucide:settings"></iconify-icon></span><span class="mb-txt">Setting</span>
+    </button>
+  </nav>
+  <div class="mb-settings-panel" id="mbSettingsPanel">
+    <div class="tb-menu-lbl">Tema</div>
+    <div class="theme-grid" style="margin-bottom:10px">
+      <button class="theme-btn" data-t="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> Terang</button>
+      <button class="theme-btn active" data-t="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> Graphite</button>
+      <button class="theme-btn" data-t="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> RPG</button>
+      <button class="theme-btn" data-t="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> Luxury</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Modal Detail Atlet -->
+<div class="modal-overlay" id="atletModal" onclick="if(event.target===this)closeAtletModal()">
+  <div class="modal-card">
+    <div class="modal-hd">
+      <div class="modal-title" id="atletModalTitle">Detail Atlet</div>
+      <button class="modal-close" onclick="closeAtletModal()"><iconify-icon icon="lucide:x"></iconify-icon> Tutup</button>
+    </div>
+    <div class="modal-bd" id="atletModalBody"></div>
+  </div>
+</div>
+
+<!-- Modal Laporan -->
+<div class="modal-overlay" id="laporanModal" onclick="if(event.target===this)closeLaporanModal()">
+  <div class="modal-card">
+    <div class="modal-hd">
+      <div class="modal-title" id="laporanModalTitle">Buat Laporan Baru</div>
+      <button class="modal-close" onclick="closeLaporanModal()"><iconify-icon icon="lucide:x"></iconify-icon> Tutup</button>
+    </div>
+    <div class="modal-bd">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div>
+          <div class="tb-menu-lbl" style="margin-bottom:6px">Judul Laporan</div>
+          <input class="filter-input" id="laporanJudul" type="text" placeholder="e.g. Evaluasi Performa Bulanan April 2025" style="width:100%">
+        </div>
+        <div>
+          <div class="tb-menu-lbl" style="margin-bottom:6px">Kategori</div>
+          <select class="filter-select" id="laporanKategori" style="width:100%">
+            <option>Evaluasi Fisik</option>
+            <option>Evaluasi Tanding</option>
+            <option>Analisis Kehadiran</option>
+            <option>Laporan Bulanan</option>
+            <option>Laporan Akhir Musim</option>
+          </select>
+        </div>
+        <div>
+          <div class="tb-menu-lbl" style="margin-bottom:6px">Catatan Analisis</div>
+          <textarea class="note-area" id="laporanCatatan" placeholder="Tulis ringkasan temuan, rekomendasi, atau catatan penting di sini..."></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px">
+          <button class="btn-sm btn-sm-ghost" onclick="closeLaporanModal()">Batal</button>
+          <button class="btn-sm btn-sm-accent" onclick="saveLaporan()"><iconify-icon icon="lucide:save"></iconify-icon> Simpan Laporan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA SAMPLE — Analis Dashboard
+══════════════════════════════════════════════════════ */
+const ATHLETES = [
+  {id:1,nama:'Rizky Pratama',sabuk:'Hitam',unit:'A',usia:22,fisik:88,tanding:85,hadir:95,gender:'L',postur:'173cm / 68kg'},
+  {id:2,nama:'Bagas Wicaksono',sabuk:'Hitam',unit:'A',usia:21,fisik:82,tanding:90,hadir:90,gender:'L',postur:'170cm / 65kg'},
+  {id:3,nama:'Denny Kusuma',sabuk:'Merah',unit:'A',usia:20,fisik:79,tanding:76,hadir:88,gender:'L',postur:'168cm / 63kg'},
+  {id:4,nama:'Fauzan Alfarizi',sabuk:'Merah',unit:'A',usia:19,fisik:75,tanding:71,hadir:85,gender:'L',postur:'172cm / 67kg'},
+  {id:5,nama:'Gilang Saputra',sabuk:'Biru',unit:'A',usia:18,fisik:70,tanding:68,hadir:92,gender:'L',postur:'169cm / 64kg'},
+  {id:6,nama:'Hendra Wijaya',sabuk:'Biru',unit:'A',usia:17,fisik:68,tanding:65,hadir:80,gender:'L',postur:'167cm / 60kg'},
+  {id:7,nama:'Ivan Setiawan',sabuk:'Hijau',unit:'A',usia:17,fisik:65,tanding:60,hadir:78,gender:'L',postur:'166cm / 58kg'},
+  {id:8,nama:'Joni Prasetyo',sabuk:'Hijau',unit:'A',usia:16,fisik:62,tanding:58,hadir:82,gender:'L',postur:'164cm / 57kg'},
+  {id:9,nama:'Kevin Ramadhan',sabuk:'Kuning',unit:'A',usia:16,fisik:58,tanding:54,hadir:75,gender:'L',postur:'163cm / 56kg'},
+  {id:10,nama:'Leo Santoso',sabuk:'Kuning',unit:'A',usia:15,fisik:55,tanding:50,hadir:70,gender:'L',postur:'160cm / 54kg'},
+  {id:11,nama:'Sari Dewi',sabuk:'Hitam',unit:'B',usia:22,fisik:84,tanding:82,hadir:97,gender:'P',postur:'162cm / 55kg'},
+  {id:12,nama:'Tika Rahayu',sabuk:'Hitam',unit:'B',usia:21,fisik:80,tanding:88,hadir:93,gender:'P',postur:'160cm / 53kg'},
+  {id:13,nama:'Umi Lestari',sabuk:'Merah',unit:'B',usia:20,fisik:77,tanding:74,hadir:87,gender:'P',postur:'158cm / 51kg'},
+  {id:14,nama:'Vina Kusumawati',sabuk:'Merah',unit:'B',usia:19,fisik:73,tanding:70,hadir:84,gender:'P',postur:'157cm / 50kg'},
+  {id:15,nama:'Wulan Sari',sabuk:'Biru',unit:'B',usia:18,fisik:69,tanding:66,hadir:90,gender:'P',postur:'159cm / 52kg'},
+  {id:16,nama:'Xena Puspita',sabuk:'Biru',unit:'B',usia:17,fisik:66,tanding:63,hadir:83,gender:'P',postur:'156cm / 49kg'},
+  {id:17,nama:'Yeni Marlina',sabuk:'Hijau',unit:'B',usia:17,fisik:63,tanding:59,hadir:79,gender:'P',postur:'155cm / 48kg'},
+  {id:18,nama:'Zahra Aulia',sabuk:'Hijau',unit:'B',usia:16,fisik:60,tanding:56,hadir:81,gender:'P',postur:'154cm / 47kg'},
+];
+
+const TREN_DATA = [
+  {bulan:'Okt',fisik:72,tanding:69},
+  {bulan:'Nov',fisik:74,tanding:71},
+  {bulan:'Des',fisik:73,tanding:70},
+  {bulan:'Jan',fisik:76,tanding:73},
+  {bulan:'Feb',fisik:77,tanding:75},
+  {bulan:'Mar',fisik:78,tanding:76},
+  {bulan:'Apr',fisik:80,tanding:78},
+];
+
+const RIWAYAT = [
+  {tanggal:'17 Apr 2025',judul:'Analisis Skor Tanding Unit B',keterangan:'Ditemukan peningkatan rata-rata 4 poin dari bulan sebelumnya.',warna:'green'},
+  {tanggal:'14 Apr 2025',judul:'Pembaruan Data Fisik — Unit A',keterangan:'Input ulang hasil tes fisik 10 atlet, semua valid.',warna:'teal'},
+  {tanggal:'10 Apr 2025',judul:'Laporan Bulanan Maret diselesaikan',keterangan:'Laporan dikirim ke koordinator, awaiting review.',warna:'accent'},
+  {tanggal:'05 Apr 2025',judul:'Deteksi anomali kehadiran',keterangan:'3 atlet Unit A memiliki kehadiran di bawah 75%, flagged untuk tindak lanjut.',warna:'red'},
+  {tanggal:'01 Apr 2025',judul:'Sesi komparasi atlet Unit B',keterangan:'Perbandingan antara Sari Dewi dan Tika Rahayu pada aspek tanding.',warna:'purple'},
+  {tanggal:'25 Mar 2025',judul:'Evaluasi Tes Fisik Q1 selesai',keterangan:'Semua 18 atlet selesai didata. Rata-rata fisik: 72.4.',warna:'teal'},
+];
+
+const LAPORAN_DEFAULT = [
+  {id:1,judul:'Laporan Evaluasi Fisik — Maret 2025',kategori:'Evaluasi Fisik',tanggal:'10 Apr 2025',catatan:'Rata-rata tes fisik meningkat 2.4 poin dari Februari. Atlet unit A menunjukkan perkembangan konsisten.'},
+  {id:2,judul:'Laporan Akhir Musim 2024',kategori:'Laporan Akhir Musim',tanggal:'28 Jan 2025',catatan:'Secara keseluruhan musim berjalan baik. Rekomendasi: tingkatkan intensitas latihan tanding untuk atlet sabuk biru ke atas.'},
+  {id:3,judul:'Analisis Kehadiran Q1 2025',kategori:'Analisis Kehadiran',tanggal:'05 Apr 2025',catatan:'Terdapat 3 atlet dengan kehadiran di bawah 75%. Disarankan pendekatan personal.'},
+];
+
+let laporanData = [...LAPORAN_DEFAULT];
+let filteredAtlet = [...ATHLETES];
+let activeSection = 'overview';
+let appTheme = localStorage.getItem('yd_analis_theme') || 'dark';
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  setTheme(appTheme, false);
+  setTimeout(() => {
+    document.getElementById('ls').classList.add('out');
+    const app = document.getElementById('app');
+    app.style.display = 'block';
+    app.classList.add('vis');
+    renderAll();
+  }, 1600);
+});
+
+function renderAll() {
+  renderSabukChart();
+  renderUmurChart();
+  renderAtletTable();
+  renderPerfDropdowns();
+  renderTrenChart();
+  renderTop5();
+  renderTimeline();
+  renderReports();
+}
+
+/* ══════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════ */
+const SECTIONS = ['overview','atlet','performa','riwayat','laporan'];
+function navigateTo(sec) {
+  activeSection = sec;
+  SECTIONS.forEach(s => {
+    const el = document.getElementById('sec' + cap(s));
+    if (el) el.classList.toggle('hidden', s !== sec);
+    const btn = document.getElementById('nav' + cap(s));
+    if (btn) btn.classList.toggle('active', s === sec);
+    const mb = document.getElementById('mb' + cap(s));
+    if (mb) mb.classList.toggle('active', s === sec);
+  });
+  // close mb settings
+  document.getElementById('mbSettingsPanel').classList.remove('show');
+}
+function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+/* ══════════════════════════════════════════════════════
+   THEME
+══════════════════════════════════════════════════════ */
+function setTheme(t, save=true) {
+  appTheme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  if (save) localStorage.setItem('yd_analis_theme', t);
+  document.querySelectorAll('.theme-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.t === t);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   SETTINGS MENUS
+══════════════════════════════════════════════════════ */
+function toggleSettingsMenu(e) {
+  e.stopPropagation();
+  document.getElementById('settingsMenu').classList.toggle('show');
+}
+document.addEventListener('click', () => {
+  document.getElementById('settingsMenu').classList.remove('show');
+});
+function toggleMbSettings(e) {
+  e.stopPropagation();
+  document.getElementById('mbSettingsPanel').classList.toggle('show');
+}
+
+/* ══════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+/* ══════════════════════════════════════════════════════
+   CHARTS — BAR
+══════════════════════════════════════════════════════ */
+function renderBarChart(containerId, data, colorClass='c-accent') {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const maxVal = Math.max(...data.map(d => d.val), 1);
+  el.innerHTML = data.map(d => {
+    const pct = Math.round((d.val / maxVal) * 100);
+    return `
+      <div class="bc-row">
+        <div class="bc-label">${esc(d.label)}</div>
+        <div class="bc-track">
+          <div class="bc-fill ${colorClass}" style="width:${pct}%;transition:width .8s cubic-bezier(.4,0,.2,1)">
+            <span class="bc-fill-val">${d.val}${d.suffix||''}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderSabukChart() {
+  const counts = {};
+  ATHLETES.forEach(a => { counts[a.sabuk] = (counts[a.sabuk]||0)+1; });
+  const order = ['Hitam','Merah','Biru','Hijau','Kuning'];
+  const colors = ['c-accent','c-teal','c-blue','c-green','c-purple'];
+  const el = document.getElementById('sabukChart');
+  const maxVal = Math.max(...Object.values(counts),1);
+  el.innerHTML = order.map((s,i) => {
+    const val = counts[s]||0;
+    const pct = Math.round((val/maxVal)*100);
+    return `<div class="bc-row">
+      <div class="bc-label">${s}</div>
+      <div class="bc-track">
+        <div class="bc-fill ${colors[i]}" style="width:${pct}%">
+          <span class="bc-fill-val">${val} atlet</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderUmurChart() {
+  const groups = {'15-16':0,'17-18':0,'19-20':0,'21-22':0};
+  ATHLETES.forEach(a => {
+    if(a.usia<=16) groups['15-16']++;
+    else if(a.usia<=18) groups['17-18']++;
+    else if(a.usia<=20) groups['19-20']++;
+    else groups['21-22']++;
+  });
+  const colors = ['c-green','c-teal','c-accent','c-purple'];
+  const el = document.getElementById('umurChart');
+  const maxVal = Math.max(...Object.values(groups),1);
+  el.innerHTML = Object.entries(groups).map(([k,v],i) => {
+    const pct = Math.round((v/maxVal)*100);
+    return `<div class="bc-row">
+      <div class="bc-label">${k} thn</div>
+      <div class="bc-track">
+        <div class="bc-fill ${colors[i]}" style="width:${pct}%">
+          <span class="bc-fill-val">${v} atlet</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTrenChart() {
+  const el = document.getElementById('trenChart');
+  if (!el) return;
+  const maxVal = Math.max(...TREN_DATA.map(d => Math.max(d.fisik,d.tanding)),1);
+  el.innerHTML = TREN_DATA.map(d => `
+    <div class="bc-row">
+      <div class="bc-label">${d.bulan}</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+        <div class="bc-track" style="height:14px">
+          <div class="bc-fill c-accent" style="width:${Math.round(d.fisik/maxVal*100)}%;height:100%">
+            <span class="bc-fill-val" style="font-size:8px">${d.fisik}</span>
+          </div>
+        </div>
+        <div class="bc-track" style="height:14px">
+          <div class="bc-fill c-purple" style="width:${Math.round(d.tanding/maxVal*100)}%;height:100%">
+            <span class="bc-fill-val" style="font-size:8px">${d.tanding}</span>
+          </div>
+        </div>
+      </div>
+    </div>`).join('') + 
+    `<div style="display:flex;gap:12px;margin-top:8px;padding-left:90px">
+      <span style="font-family:var(--fm);font-size:9px;color:var(--accent);display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:var(--accent);display:inline-block;border-radius:2px"></span>Fisik</span>
+      <span style="font-family:var(--fm);font-size:9px;color:var(--purple);display:flex;align-items:center;gap:4px"><span style="width:10px;height:3px;background:var(--purple);display:inline-block;border-radius:2px"></span>Tanding</span>
+    </div>`;
+}
+
+function renderTop5() {
+  const sortedFisik = [...ATHLETES].sort((a,b) => b.fisik - a.fisik).slice(0,5);
+  const sortedTanding = [...ATHLETES].sort((a,b) => b.tanding - a.tanding).slice(0,5);
+  const el5f = document.getElementById('top5Fisik');
+  const el5t = document.getElementById('top5Tanding');
+  if(el5f) el5f.innerHTML = sortedFisik.map((a,i) => {
+    const rankClass = i===0?'r1':i===1?'r2':i===2?'r3':'';
+    return `<div class="bc-row">
+      <div class="bc-label" style="display:flex;align-items:center;gap:6px">
+        <span class="rank-badge ${rankClass}">${i+1}</span>
+        <span style="max-width:65px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.nama.split(' ')[0])}</span>
+      </div>
+      <div class="bc-track">
+        <div class="bc-fill c-accent" style="width:${a.fisik}%">
+          <span class="bc-fill-val">${a.fisik}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  if(el5t) el5t.innerHTML = sortedTanding.map((a,i) => {
+    const rankClass = i===0?'r1':i===1?'r2':i===2?'r3':'';
+    return `<div class="bc-row">
+      <div class="bc-label" style="display:flex;align-items:center;gap:6px">
+        <span class="rank-badge ${rankClass}">${i+1}</span>
+        <span style="max-width:65px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.nama.split(' ')[0])}</span>
+      </div>
+      <div class="bc-track">
+        <div class="bc-fill c-purple" style="width:${a.tanding}%">
+          <span class="bc-fill-val">${a.tanding}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   ATLET TABLE
+══════════════════════════════════════════════════════ */
+function renderAtletTable() {
+  const q = (document.getElementById('searchAtlet')?.value||'').toLowerCase();
+  const unit = document.getElementById('filterUnit')?.value||'';
+  const kat = document.getElementById('filterKat')?.value||'';
+  filteredAtlet = ATHLETES.filter(a =>
+    (!q || a.nama.toLowerCase().includes(q)) &&
+    (!unit || a.unit === unit) &&
+    (!kat || a.sabuk === kat)
+  );
+  const badge = document.getElementById('athCountBadge');
+  if(badge) badge.textContent = filteredAtlet.length + ' Atlet';
+  const tbody = document.getElementById('atletTableBody');
+  if (!tbody) return;
+  if (!filteredAtlet.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="panel-empty">Tidak ada atlet ditemukan</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filteredAtlet.map((a, i) => {
+    const avgScore = Math.round((a.fisik + a.tanding) / 2);
+    const scoreClass = avgScore >= 80 ? 'hi' : avgScore >= 65 ? 'mid' : 'lo';
+    const scoreColor = avgScore >= 80 ? 'var(--green)' : avgScore >= 65 ? 'var(--accent)' : 'var(--red)';
+    const hadirColor = a.hadir >= 90 ? 'var(--green)' : a.hadir >= 75 ? 'var(--accent)' : 'var(--red)';
+    return `<tr onclick="openAtletModal(${a.id})">
+      <td><span class="rank-badge ${i<3?['r1','r2','r3'][i]:''}">${i+1}</span></td>
+      <td>
+        <div class="ath-cell-flex">
+          <div class="ath-avatar">${initials(a.nama)}</div>
+          <div>
+            <div class="ath-name">${esc(a.nama)}</div>
+            <div style="font-size:10px;color:var(--t3);font-family:var(--fm)">Unit ${a.unit} · ${a.gender}</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="badge badge-gray">${esc(a.sabuk)}</span></td>
+      <td style="font-family:var(--fm);font-size:10px">Unit ${a.unit}</td>
+      <td style="font-family:var(--fm);font-size:11px">${a.usia} thn</td>
+      <td>
+        <div class="ath-score-cell" style="color:${a.fisik>=80?'var(--green)':a.fisik>=65?'var(--accent)':'var(--red)'}">${a.fisik}</div>
+        <div class="ath-bar-wrap"><div class="ath-bar ${a.fisik>=80?'hi':a.fisik>=65?'mid':'lo'}" style="width:${a.fisik}%"></div></div>
+      </td>
+      <td>
+        <div class="ath-score-cell" style="color:${a.tanding>=80?'var(--green)':a.tanding>=65?'var(--accent)':'var(--red)'}">${a.tanding}</div>
+        <div class="ath-bar-wrap"><div class="ath-bar ${a.tanding>=80?'hi':a.tanding>=65?'mid':'lo'}" style="width:${a.tanding}%"></div></div>
+      </td>
+      <td style="font-family:var(--fm);font-size:11px;color:${hadirColor}">${a.hadir}%</td>
+    </tr>`;
+  }).join('');
+}
+function filterAtlet() { renderAtletTable(); }
+
+/* ══════════════════════════════════════════════════════
+   INDIVIDUAL PERFORMA
+══════════════════════════════════════════════════════ */
+function renderPerfDropdowns() {
+  const opts = ATHLETES.map(a => `<option value="${a.id}">${esc(a.nama)} — Unit ${a.unit}</option>`).join('');
+  ['selectAtletPerf','selectAtletA','selectAtletB'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = `<option value="">— Pilih Atlet —</option>` + opts;
+  });
+}
+
+function renderIndividual() {
+  const id = parseInt(document.getElementById('selectAtletPerf').value);
+  const cont = document.getElementById('perfIndividualContent');
+  if (!id || isNaN(id)) { cont.innerHTML = '<div class="panel-empty">Pilih atlet untuk melihat analisis</div>'; return; }
+  const a = ATHLETES.find(x => x.id === id);
+  if (!a) return;
+  const avgScore = Math.round((a.fisik+a.tanding)/2);
+  const avgAll = Math.round(ATHLETES.reduce((s,x)=>s+(x.fisik+x.tanding)/2,0)/ATHLETES.length);
+  const skills = [
+    {label:'Kecepatan',val:Math.min(100,a.fisik+5)},
+    {label:'Kekuatan',val:Math.min(100,a.fisik-3)},
+    {label:'Teknik',val:Math.min(100,a.tanding+2)},
+    {label:'Stamina',val:Math.min(100,Math.round((a.fisik+a.hadir)/2))},
+    {label:'Mental',val:Math.min(100,a.tanding-4)},
+  ];
+  cont.innerHTML = `
+    <div class="analis-profile" style="margin-bottom:16px">
+      <div class="analis-avatar">${initials(a.nama)}</div>
+      <div class="analis-info">
+        <div class="analis-name">${esc(a.nama)}</div>
+        <div class="analis-spec">${esc(a.sabuk)} · Unit ${a.unit} · ${a.usia} tahun · ${a.gender}</div>
+        <div class="analis-badges">
+          <span class="badge badge-gray">${esc(a.postur)}</span>
+          <span class="badge ${a.hadir>=90?'badge-green':a.hadir>=75?'badge-accent':'badge-red'}">${a.hadir}% Hadir</span>
+        </div>
+      </div>
+    </div>
+    <div class="perf-scores">
+      <div class="perf-item">
+        <div class="perf-label">Skor Fisik</div>
+        <div class="perf-val" style="color:${a.fisik>=80?'var(--green)':a.fisik>=65?'var(--accent)':'var(--red)'}">${a.fisik}</div>
+        <div class="perf-sub">/ 100</div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-label">Skor Tanding</div>
+        <div class="perf-val" style="color:${a.tanding>=80?'var(--green)':a.tanding>=65?'var(--accent)':'var(--red)'}">${a.tanding}</div>
+        <div class="perf-sub">/ 100</div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-label">Rata-rata</div>
+        <div class="perf-val" style="color:var(--purple)">${avgScore}</div>
+        <div class="perf-sub" style="color:${avgScore>avgAll?'var(--green)':'var(--red)'}">
+          ${avgScore>avgAll?'↑':'↓'} ${Math.abs(avgScore-avgAll)} vs rata unit
+        </div>
+      </div>
+    </div>
+    <div class="chart-title" style="margin-top:8px">Profil Skill</div>
+    <div class="bar-chart">
+      ${skills.map(s => {
+        const c = s.val>=80?'c-green':s.val>=65?'c-accent':'c-red';
+        return `<div class="bc-row">
+          <div class="bc-label">${s.label}</div>
+          <div class="bc-track"><div class="bc-fill ${c}" style="width:${s.val}%"><span class="bc-fill-val">${s.val}</span></div></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="info-rows" style="margin-top:14px">
+      <div class="info-row">
+        <iconify-icon icon="lucide:lightbulb" class="info-row-icon"></iconify-icon>
+        <span class="info-row-label">Rekomendasi</span>
+        <span class="info-row-val">${a.fisik>a.tanding?'Fokus pada peningkatan teknik tanding dan strategi bertarung.':'Pertahankan kemampuan tanding, tingkatkan kapasitas fisik (stamina & kekuatan).'}</span>
+      </div>
+    </div>
+  `;
+}
+
+/* ══════════════════════════════════════════════════════
+   KOMPARASI
+══════════════════════════════════════════════════════ */
+function renderKomparasi() {
+  const idA = parseInt(document.getElementById('selectAtletA').value);
+  const idB = parseInt(document.getElementById('selectAtletB').value);
+  const cont = document.getElementById('komparasiContent');
+  if (!idA || !idB || isNaN(idA) || isNaN(idB)) {
+    cont.innerHTML = '<div class="panel-empty">Pilih dua atlet untuk membandingkan</div>';
+    return;
+  }
+  if (idA === idB) { cont.innerHTML = '<div class="panel-empty">Pilih atlet yang berbeda</div>'; return; }
+  const a = ATHLETES.find(x => x.id === idA);
+  const b = ATHLETES.find(x => x.id === idB);
+  const metrics = [
+    {label:'Skor Fisik', ka:'fisik'},
+    {label:'Skor Tanding', ka:'tanding'},
+    {label:'Kehadiran (%)', ka:'hadir'},
+    {label:'Usia', ka:'usia'},
+  ];
+  const cards = [a,b].map(ath => `
+    <div class="compare-card">
+      <div class="compare-name">
+        <div class="ath-avatar" style="width:28px;height:28px;font-size:9px">${initials(ath.nama)}</div>
+        <div>
+          <div style="font-size:12px;font-weight:600;color:var(--t1)">${esc(ath.nama)}</div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--t3)">Unit ${ath.unit} · ${ath.sabuk}</div>
+        </div>
+      </div>
+      <div class="compare-rows">
+        ${metrics.map(m => {
+          const otherAth = ath.id===a.id?b:a;
+          const win = ath[m.ka] > otherAth[m.ka];
+          const eq = ath[m.ka] === otherAth[m.ka];
+          return `<div class="compare-row">
+            <span class="compare-row-lbl">${m.label}</span>
+            <span class="compare-row-val ${eq?'':win?'win':'lose'}">${ath[m.ka]}${m.ka==='hadir'?'%':''}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`).join('');
+  cont.innerHTML = `<div class="compare-grid">${cards}</div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   PERF TAB SWITCH
+══════════════════════════════════════════════════════ */
+function switchPerfTab(tab, btn) {
+  ['individual','komparasi','tren'].forEach(t => {
+    document.getElementById('perf'+cap(t)).classList.toggle('hidden', t!==tab);
+  });
+  btn.closest('.sec-tabs').querySelectorAll('.sec-tab').forEach(b => b.classList.toggle('active', b===btn));
+}
+
+/* ══════════════════════════════════════════════════════
+   TIMELINE RIWAYAT
+══════════════════════════════════════════════════════ */
+function renderTimeline() {
+  const el = document.getElementById('timelineList');
+  if (!el) return;
+  el.innerHTML = RIWAYAT.map((r,i) => `
+    <div class="tl-item">
+      <div class="tl-dot-wrap">
+        <div class="tl-dot ${r.warna}"></div>
+        ${i<RIWAYAT.length-1?'<div class="tl-line"></div>':''}
+      </div>
+      <div class="tl-content">
+        <div class="tl-date">${esc(r.tanggal)}</div>
+        <div class="tl-title">${esc(r.judul)}</div>
+        <div class="tl-desc">${esc(r.keterangan)}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   LAPORAN
+══════════════════════════════════════════════════════ */
+function renderReports() {
+  const el = document.getElementById('reportList');
+  if (!el) return;
+  if (!laporanData.length) { el.innerHTML = '<div class="panel-empty">Belum ada laporan</div>'; return; }
+  el.innerHTML = laporanData.map(r => `
+    <div class="report-row" onclick="showToast('Laporan: ${esc(r.judul)}')">
+      <div class="report-icon"><iconify-icon icon="lucide:file-text"></iconify-icon></div>
+      <div class="report-info">
+        <div class="report-title">${esc(r.judul)}</div>
+        <div class="report-meta">${esc(r.kategori)} · ${esc(r.tanggal)}</div>
+      </div>
+      <iconify-icon icon="lucide:chevron-right" class="report-arrow"></iconify-icon>
+    </div>`).join('');
+}
+function openNewReport() {
+  document.getElementById('laporanJudul').value='';
+  document.getElementById('laporanCatatan').value='';
+  document.getElementById('laporanModal').classList.add('show');
+}
+function closeLaporanModal() { document.getElementById('laporanModal').classList.remove('show'); }
+function saveLaporan() {
+  const judul = document.getElementById('laporanJudul').value.trim();
+  const kategori = document.getElementById('laporanKategori').value;
+  const catatan = document.getElementById('laporanCatatan').value.trim();
+  if (!judul) { showToast('Judul laporan wajib diisi'); return; }
+  const now = new Date();
+  laporanData.unshift({
+    id: Date.now(),
+    judul,
+    kategori,
+    tanggal: now.toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'}),
+    catatan
+  });
+  closeLaporanModal();
+  renderReports();
+  showToast('Laporan berhasil disimpan');
+}
+
+/* ══════════════════════════════════════════════════════
+   ATLET MODAL
+══════════════════════════════════════════════════════ */
+function openAtletModal(id) {
+  const a = ATHLETES.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('atletModalTitle').textContent = a.nama;
+  const avgScore = Math.round((a.fisik+a.tanding)/2);
+  document.getElementById('atletModalBody').innerHTML = `
+    <div class="analis-profile" style="margin-bottom:16px">
+      <div class="analis-avatar">${initials(a.nama)}</div>
+      <div class="analis-info">
+        <div class="analis-name">${esc(a.nama)}</div>
+        <div class="analis-spec">${esc(a.sabuk)} · Unit ${a.unit} · ${a.usia} tahun</div>
+        <div class="analis-badges">
+          <span class="badge badge-gray">${a.gender==='L'?'Putra':'Putri'}</span>
+          <span class="badge badge-gray">${esc(a.postur)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="perf-scores">
+      <div class="perf-item">
+        <div class="perf-label">Tes Fisik</div>
+        <div class="perf-val" style="color:${a.fisik>=80?'var(--green)':a.fisik>=65?'var(--accent)':'var(--red)'}">${a.fisik}</div>
+        <div class="perf-sub">/ 100</div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-label">Tes Tanding</div>
+        <div class="perf-val" style="color:${a.tanding>=80?'var(--green)':a.tanding>=65?'var(--accent)':'var(--red)'}">${a.tanding}</div>
+        <div class="perf-sub">/ 100</div>
+      </div>
+      <div class="perf-item">
+        <div class="perf-label">Kehadiran</div>
+        <div class="perf-val" style="color:${a.hadir>=90?'var(--green)':a.hadir>=75?'var(--accent)':'var(--red)'}">${a.hadir}%</div>
+        <div class="perf-sub">Bulan ini</div>
+      </div>
+    </div>
+    <div class="chart-title" style="margin-top:14px">Profil Skill Estimasi</div>
+    <div class="bar-chart">
+      ${[
+        {l:'Kecepatan',v:Math.min(100,a.fisik+5)},
+        {l:'Kekuatan',v:Math.min(100,a.fisik-3)},
+        {l:'Teknik',v:Math.min(100,a.tanding+2)},
+        {l:'Stamina',v:Math.min(100,Math.round((a.fisik+a.hadir)/2))},
+        {l:'Mental',v:Math.min(100,a.tanding-4)},
+      ].map(s => {
+        const c = s.v>=80?'c-green':s.v>=65?'c-accent':'c-red';
+        return `<div class="bc-row"><div class="bc-label">${s.l}</div><div class="bc-track"><div class="bc-fill ${c}" style="width:${s.v}%"><span class="bc-fill-val">${s.v}</span></div></div></div>`;
+      }).join('')}
+    </div>
+    <div class="info-rows" style="margin-top:4px">
+      <div class="info-row">
+        <iconify-icon icon="lucide:lightbulb" class="info-row-icon"></iconify-icon>
+        <span class="info-row-label">Analisis</span>
+        <span class="info-row-val">${a.fisik>a.tanding?'Kekuatan fisik lebih dominan. Rekomendasi: intensifkan latihan teknik tanding.':'Teknik tanding lebih dominan. Rekomendasi: tingkatkan komponen fisik dasar.'}</span>
+      </div>
+    </div>
+  `;
+  document.getElementById('atletModal').classList.add('show');
+}
+function closeAtletModal() { document.getElementById('atletModal').classList.remove('show'); }
+
+/* UTILS */
+function initials(n){ return (n||'').split(' ').slice(0,2).map(w=>w[0]?.toUpperCase()||'').join('');}
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+</script>
+</body>
+</html>

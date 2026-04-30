@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YD ATHLETE — Portal Asisten Pelatih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════
+   THEME SYSTEM — 4 MODES
+══════════════════════════════════════════════════════ */
+
+/* ── GRAPHITE (dark default) ── */
+:root,[data-theme="dark"] {
+  --bg-base:#0e0e0e;--bg-surface:#181818;--bg-card:#1f1f1f;--bg-raised:#272727;
+  --bg-input:#141414;--bg-hover:rgba(255,255,255,.04);
+  --border-subtle:rgba(255,255,255,.07);--border-mid:rgba(255,255,255,.12);--border-strong:rgba(255,255,255,.2);
+  --accent:#e8a84c;--accent2:#d48f2e;--accent3:#b06e18;
+  --accent-glow:rgba(232,168,76,.15);--accent-soft:rgba(232,168,76,.08);
+  --teal:#3ecfb2;--teal-soft:rgba(62,207,178,.08);
+  --green:#4fca6a;--green-soft:rgba(79,202,106,.08);
+  --red:#e05a65;--red-soft:rgba(224,90,101,.08);
+  --purple:#a57ef5;--purple-soft:rgba(165,126,245,.08);
+  --blue:#4fa3e0;
+  --t1:#f0f0f0;--t2:#aaaaaa;--t3:#666666;--t4:#3a3a3a;
+  --topbar:rgba(14,14,14,.95);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Sora',sans-serif;
+  --r:12px;--r2:9px;--r3:7px;--r4:100px;
+  --sh:0 4px 24px rgba(0,0,0,.5);
+  --sb:0 1px 3px rgba(0,0,0,.4);
+  --tag-font:var(--fm);
+  color-scheme:dark;
+}
+
+/* ── LIGHT ── */
+[data-theme="light"] {
+  --bg-base:#f2ede6;--bg-surface:#fdfaf6;--bg-card:#ffffff;--bg-raised:#f7f2eb;
+  --bg-input:#faf7f3;--bg-hover:rgba(0,0,0,.03);
+  --border-subtle:rgba(0,0,0,.07);--border-mid:rgba(0,0,0,.12);--border-strong:rgba(0,0,0,.22);
+  --accent:#c07b1a;--accent2:#a5641a;--accent3:#844f15;
+  --accent-glow:rgba(192,123,26,.12);--accent-soft:rgba(192,123,26,.07);
+  --teal:#1a8f7d;--teal-soft:rgba(26,143,125,.08);
+  --green:#2a914a;--green-soft:rgba(42,145,74,.07);
+  --red:#c0394a;--red-soft:rgba(192,57,74,.07);
+  --purple:#7251c4;--purple-soft:rgba(114,81,196,.07);
+  --blue:#2d7fc0;
+  --t1:#1a1410;--t2:#5a4f44;--t3:#9a8f82;--t4:#c8bfb5;
+  --topbar:rgba(242,237,230,.96);
+  color-scheme:light;
+}
+
+/* ── RPG ── */
+[data-theme="rpg"] {
+  --bg-base:#0a0c14;--bg-surface:#10131e;--bg-card:#161a28;--bg-raised:#1c2135;
+  --bg-input:#0d1020;--bg-hover:rgba(120,180,255,.04);
+  --border-subtle:rgba(80,120,220,.12);--border-mid:rgba(100,150,255,.2);--border-strong:rgba(140,180,255,.35);
+  --accent:#7eb8ff;--accent2:#5a9ff0;--accent3:#3c80d0;
+  --accent-glow:rgba(126,184,255,.18);--accent-soft:rgba(126,184,255,.07);
+  --teal:#50e8c8;--teal-soft:rgba(80,232,200,.07);
+  --green:#50d87a;--green-soft:rgba(80,216,122,.07);
+  --red:#ff6a6a;--red-soft:rgba(255,106,106,.07);
+  --purple:#c490ff;--purple-soft:rgba(196,144,255,.07);
+  --blue:#80c0ff;
+  --t1:#e8f0ff;--t2:#8aa8d8;--t3:#445580;--t4:#252e4a;
+  --topbar:rgba(10,12,20,.96);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Cinzel',serif;
+  color-scheme:dark;
+}
+
+/* ── LUXURY ── */
+[data-theme="luxury"] {
+  --bg-base:#08060a;--bg-surface:#100e14;--bg-card:#17131e;--bg-raised:#1f1928;
+  --bg-input:#0e0c14;--bg-hover:rgba(220,180,100,.04);
+  --border-subtle:rgba(180,140,60,.1);--border-mid:rgba(200,160,80,.2);--border-strong:rgba(220,180,100,.35);
+  --accent:#d4af6a;--accent2:#b8923c;--accent3:#9a7428;
+  --accent-glow:rgba(212,175,106,.18);--accent-soft:rgba(212,175,106,.07);
+  --teal:#8dd8b8;--teal-soft:rgba(141,216,184,.07);
+  --green:#6cd490;--green-soft:rgba(108,212,144,.07);
+  --red:#e07080;--red-soft:rgba(224,112,128,.07);
+  --purple:#c8a0f0;--purple-soft:rgba(200,160,240,.07);
+  --blue:#90b8e8;
+  --t1:#f8f0e0;--t2:#b0a080;--t3:#5a5040;--t4:#302820;
+  --topbar:rgba(8,6,10,.97);
+  --ff:'Sora',sans-serif;--fm:'JetBrains Mono',monospace;--fd:'Playfair Display',serif;
+  color-scheme:dark;
+}
+
+/* ══════════════════════════════════════════════════════
+   BASE RESET
+══════════════════════════════════════════════════════ */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--ff);background:var(--bg-base);color:var(--t1);overflow-x:hidden;transition:background .3s,color .3s}
+::selection{background:var(--accent-glow)}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-mid);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--border-strong)}
+
+/* RPG scan-line decoration */
+[data-theme="rpg"] body::before{
+  content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:9999
+}
+
+/* Luxury noise */
+[data-theme="luxury"] body::after{
+  content:'';position:fixed;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9998
+}
+
+/* ══════════════════════════════════════════════════════
+   LOADING SCREEN
+══════════════════════════════════════════════════════ */
+#ls{position:fixed;inset:0;background:var(--bg-base);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:18px;transition:opacity .5s}
+#ls.out{opacity:0;pointer-events:none}
+.ls-logo{font-family:var(--fd);font-size:28px;font-weight:700;letter-spacing:6px;color:var(--accent)}
+.ls-logo em{color:var(--teal);font-style:normal}
+.ls-sub{font-family:var(--fm);font-size:9px;letter-spacing:3px;color:var(--t3);text-transform:uppercase}
+.ls-bar{width:120px;height:2px;background:var(--border-subtle);border-radius:2px;overflow:hidden}
+.ls-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--teal));border-radius:2px;animation:lf 1.5s ease forwards}
+@keyframes lf{from{width:0}to{width:100%}}
+
+/* ══════════════════════════════════════════════════════
+   LOGIN
+══════════════════════════════════════════════════════ */
+#login{position:fixed;inset:0;background:var(--bg-base);display:none;align-items:center;justify-content:center;z-index:500;padding:20px}
+#login.vis{display:flex}
+.login-halo{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse,var(--accent-glow) 0%,transparent 65%);pointer-events:none}
+.login-box{width:100%;max-width:400px;position:relative;z-index:1;animation:fadeup .4s ease}
+@keyframes fadeup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.login-logo-wrap{text-align:center;margin-bottom:32px}
+.login-logo{font-family:var(--fd);font-size:26px;font-weight:700;letter-spacing:6px;color:var(--accent)}
+.login-logo em{color:var(--teal);font-style:normal}
+.login-role{font-family:var(--fm);font-size:9px;letter-spacing:3px;color:var(--teal);text-transform:uppercase;margin:6px 0}
+.login-desc{font-size:12px;color:var(--t3);line-height:1.6}
+.login-card{background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);padding:26px;box-shadow:var(--sh)}
+[data-theme="luxury"] .login-card{border-color:var(--accent3);background:linear-gradient(135deg,var(--bg-card),var(--bg-raised))}
+[data-theme="rpg"] .login-card{border-color:var(--accent3);box-shadow:0 0 40px var(--accent-glow)}
+.lf-label{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);display:block;margin-bottom:7px}
+.lf-input{width:100%;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:12px 14px;border-radius:var(--r2);font-family:var(--ff);font-size:14px;font-weight:500;outline:none;transition:border-color .2s;margin-bottom:16px}
+.lf-input:focus{border-color:var(--accent)}
+.lf-input::placeholder{color:var(--t4)}
+.lf-btn{width:100%;padding:13px;background:var(--accent2);border:none;color:#fff;font-family:var(--fd);font-size:13px;font-weight:600;letter-spacing:2px;cursor:pointer;border-radius:var(--r2);transition:all .2s;margin-top:4px;text-transform:uppercase}
+.lf-btn:hover{background:var(--accent);transform:translateY(-1px);box-shadow:0 4px 20px var(--accent-glow)}
+.lf-btn:active{transform:scale(.98);transform:translateY(0)}
+.lf-err{display:none;margin-top:12px;background:var(--red-soft);border:1px solid rgba(224,90,101,.3);color:var(--red);font-family:var(--fm);font-size:11px;padding:10px 14px;border-radius:var(--r2);letter-spacing:.5px}
+.lf-err.show{display:block;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-6px)}70%{transform:translateX(6px)}}
+
+/* ══════════════════════════════════════════════════════
+   APP SHELL
+══════════════════════════════════════════════════════ */
+#app{display:none;min-height:100vh}
+#app.vis{display:block}
+
+/* ══════════════════════════════════════════════════════
+   TOPBAR
+══════════════════════════════════════════════════════ */
+.topbar{position:sticky;top:0;z-index:300;background:var(--topbar);border-bottom:1px solid var(--border-subtle);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+[data-theme="luxury"] .topbar{border-bottom-color:var(--accent3)}
+.tb-brand .tb-logo{font-family:var(--fd);font-size:15px;font-weight:700;letter-spacing:4px;color:var(--accent);line-height:1}
+.tb-brand .tb-logo em{color:var(--teal);font-style:normal}
+.tb-brand .tb-role{font-family:var(--fm);font-size:8px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-top:2px}
+.tb-nav{display:flex;align-items:center;gap:4px;flex:1;justify-content:center}
+.tb-nav-btn{background:transparent;border:1px solid transparent;color:var(--t3);font-family:var(--fm);font-size:9px;letter-spacing:.8px;padding:6px 12px;border-radius:var(--r4);cursor:pointer;white-space:nowrap;transition:all .2s}
+.tb-nav-btn:hover{border-color:var(--border-mid);color:var(--t1)}
+.tb-nav-btn.active{border-color:var(--border-mid);color:var(--accent);background:var(--accent-soft)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.tb-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.tb-settings{position:relative}
+.tb-gear{width:32px;height:32px;border-radius:var(--r4);background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.tb-gear:hover{border-color:var(--accent);color:var(--accent);transform:rotate(60deg)}
+.tb-menu{position:absolute;right:0;top:40px;min-width:210px;background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);box-shadow:var(--sh);padding:10px 14px;display:none;z-index:450}
+.tb-menu.show{display:block;animation:fadeup .15s ease}
+.tb-menu-sep{height:1px;background:var(--border-subtle);margin:8px 0}
+.tb-menu-lbl{font-family:var(--fm);font-size:9px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-bottom:5px}
+.theme-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.theme-btn{background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:7px 8px;border-radius:var(--r2);cursor:pointer;transition:all .15s;text-align:center}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+.theme-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.tb-logout{width:100%;background:transparent;border:1px solid var(--border-mid);color:var(--t2);font-family:var(--fm);font-size:9px;letter-spacing:1px;padding:8px;border-radius:var(--r2);cursor:pointer;transition:all .2s;text-transform:uppercase}
+.tb-logout:hover{border-color:var(--red);color:var(--red)}
+.lang-row{display:flex;gap:4px;flex-wrap:wrap}
+.lang-btn{background:transparent;border:1px solid var(--border-mid);color:var(--t3);font-family:var(--fm);font-size:9px;padding:5px 9px;border-radius:var(--r2);cursor:pointer;transition:all .15s}
+.lang-btn:hover,.lang-btn.active{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* ══════════════════════════════════════════════════════
+   MOBILE BOTTOM NAV
+══════════════════════════════════════════════════════ */
+.mb-nav-wrap{display:none}
+.mb-nav{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);width:min(94vw,560px);background:var(--bg-card);border:1px solid var(--border-mid);border-radius:28px;box-shadow:0 16px 40px rgba(0,0,0,.5);display:grid;grid-template-columns:repeat(6,1fr);padding:10px 8px 8px;z-index:500;gap:2px}
+.mb-btn{background:transparent;border:none;color:var(--t3);display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 2px;cursor:pointer;transition:color .2s;border-radius:8px}
+.mb-btn .mb-ic{font-size:20px;line-height:1;display:block}
+.mb-btn .mb-ic iconify-icon{font-size:20px}
+.mb-btn .mb-txt{font-family:var(--ff);font-size:10px;font-weight:500;line-height:1}
+.mb-btn.active{color:var(--accent)}
+.mb-settings-panel{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);width:min(92vw,340px);background:var(--bg-card);border:1px solid var(--border-mid);border-radius:var(--r);box-shadow:var(--sh);padding:14px;display:none;z-index:510}
+.mb-settings-panel.show{display:block;animation:fadeup .18s ease}
+
+/* ══════════════════════════════════════════════════════
+   CONTENT WRAPPER
+══════════════════════════════════════════════════════ */
+.content{padding:24px 20px;max-width:820px;margin:0 auto}
+
+/* ══════════════════════════════════════════════════════
+   SECTION PANELS
+══════════════════════════════════════════════════════ */
+.coach-shell{display:flex;flex-direction:column;gap:14px;width:100%}
+.coach-panel{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--r);overflow:hidden;transition:border-color .25s;animation:cardIn .35s ease both}
+.section-panel{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--r);overflow:hidden;animation:cardIn .35s ease both}
+.sec-hidden{display:none!important}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.coach-panel:hover,.section-panel:hover{border-color:var(--border-mid)}
+
+[data-theme="rpg"] .coach-panel,[data-theme="rpg"] .section-panel{
+  border-color:rgba(100,150,255,.15);box-shadow:0 0 0 1px rgba(80,120,220,.05) inset
+}
+[data-theme="luxury"] .coach-panel,[data-theme="luxury"] .section-panel{
+  border-color:rgba(180,140,60,.18);background:linear-gradient(135deg,var(--bg-card),var(--bg-raised))
+}
+
+/* Panel accent strip */
+.cp-strip{height:2px;background:linear-gradient(90deg,var(--accent),var(--teal),transparent)}
+.cp-strip.inactive{background:linear-gradient(90deg,var(--t4),transparent)}
+[data-theme="rpg"] .cp-strip{background:linear-gradient(90deg,var(--accent),var(--purple),transparent)}
+[data-theme="luxury"] .cp-strip{background:linear-gradient(90deg,var(--accent3),var(--accent),var(--accent3))}
+
+/* Panel header */
+.cp-header{padding:16px 18px 14px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--border-subtle)}
+.cp-avatar{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent3),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--fd);font-size:16px;font-weight:700;color:#fff;letter-spacing:1px;position:relative;border:1px solid var(--border-mid);overflow:hidden;cursor:pointer;transition:filter .15s,transform .15s}
+.cp-avatar:hover{filter:brightness(1.08)}
+.cp-avatar:active{transform:scale(.98)}
+.cp-avatar.inactive{background:linear-gradient(135deg,var(--t4),var(--bg-raised));opacity:.6}
+[data-theme="rpg"] .cp-avatar{background:linear-gradient(135deg,#2050a0,#3c80ff);border-color:rgba(100,160,255,.3);box-shadow:0 0 20px rgba(60,128,255,.2)}
+[data-theme="luxury"] .cp-avatar{background:linear-gradient(135deg,var(--accent3),var(--accent));border-color:var(--accent2)}
+.cp-av-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:1}
+.cp-av-ini{position:relative;z-index:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.cp-av-dot{position:absolute;bottom:-3px;right:-3px;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg-card);z-index:2}
+.profile-edit-lbl{font-family:var(--fm);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);display:block;margin:10px 0 5px}
+.profile-edit-lbl:first-of-type{margin-top:0}
+.profile-edit-ta{resize:vertical;min-height:72px;line-height:1.5}
+.cp-av-dot.on{background:var(--teal)}
+.cp-av-dot.off{background:var(--t4)}
+.cp-info{flex:1;min-width:0}
+.cp-name{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--t1);margin-bottom:2px;letter-spacing:.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cp-spec{font-size:12px;color:var(--t3);margin-bottom:8px;font-weight:400}
+.cp-badges{display:flex;gap:5px;flex-wrap:wrap}
+.badge{font-family:var(--fm);font-size:8px;letter-spacing:.5px;padding:3px 9px;border-radius:var(--r4);text-transform:uppercase;font-weight:600;white-space:nowrap;border:1px solid}
+.badge-accent{background:var(--accent-soft);border-color:var(--accent3);color:var(--accent)}
+.badge-teal{background:var(--teal-soft);border-color:rgba(62,207,178,.25);color:var(--teal)}
+.badge-green{background:var(--green-soft);border-color:rgba(79,202,106,.25);color:var(--green)}
+.badge-red{background:var(--red-soft);border-color:rgba(224,90,101,.25);color:var(--red)}
+.badge-gray{background:var(--bg-hover);border-color:var(--border-mid);color:var(--t3)}
+.badge-purple{background:var(--purple-soft);border-color:rgba(165,126,245,.25);color:var(--purple)}
+
+/* ── Tabs ── */
+.cp-tabs{display:flex;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);padding:0 18px;overflow-x:auto;scrollbar-width:none}
+.cp-tabs::-webkit-scrollbar{display:none}
+.cp-tab{padding:9px 12px;background:transparent;border:none;color:var(--t3);font-family:var(--fm);font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;white-space:nowrap;position:relative;transition:color .2s;flex-shrink:0}
+.cp-tab.active{color:var(--accent)}
+.cp-tab.active::after{content:'';position:absolute;bottom:0;left:8px;right:8px;height:2px;background:var(--accent);border-radius:2px 2px 0 0}
+.cp-tab-body{padding:16px 18px 20px}
+.section-panel-hd{padding:12px 16px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--bg-surface)}
+.section-panel-title{font-family:var(--fd);font-size:12px;font-weight:600;letter-spacing:.3px;color:var(--t1)}
+.section-panel-count{font-family:var(--fm);font-size:9px;color:var(--t3)}
+
+/* ══════════════════════════════════════════════════════
+   INFO PANE
+══════════════════════════════════════════════════════ */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:560px){.info-grid{grid-template-columns:1fr}}
+.info-cell{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:11px 13px}
+.info-cell.span2{grid-column:1/-1}
+.ic-lbl{font-family:var(--fm);font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:4px}
+.ic-val{font-size:13px;font-weight:500;color:var(--t1);line-height:1.4}
+.ic-val.muted{color:var(--t2);font-weight:400}
+.info-bio{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:13px;font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px;border-left:2px solid var(--accent)}
+.unit-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.uc{font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:4px 11px;border-radius:var(--r4);background:var(--teal-soft);border:1px solid rgba(62,207,178,.2);color:var(--teal)}
+.cert-list{display:flex;flex-direction:column;gap:6px}
+.cert-item{display:flex;align-items:center;gap:10px;background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:9px 12px}
+.cert-nm{font-size:12px;font-weight:600;color:var(--t1);flex:1}
+.cert-yr{font-family:var(--fm);font-size:10px;color:var(--accent)}
+
+/* ══════════════════════════════════════════════════════
+   PROGRAM PANE
+══════════════════════════════════════════════════════ */
+.prog-list{display:flex;flex-direction:column;gap:8px}
+.prog-search-wrap{padding:12px 12px 0;position:relative}
+.prog-search-input{width:100%;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 12px 9px 34px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s}
+.prog-search-input:focus{border-color:var(--accent)}
+.prog-search-input::placeholder{color:var(--t4)}
+.prog-search-icon{position:absolute;left:24px;top:50%;transform:translateY(-25%);color:var(--t4);font-size:14px;pointer-events:none}
+.prog-block{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);overflow:hidden;transition:border-color .2s}
+.prog-block:hover{border-color:var(--border-mid)}
+.prog-block-hd{padding:12px 14px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none}
+.prog-ic{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.pib-active{background:var(--green-soft);border:1px solid rgba(79,202,106,.2)}
+.pib-upcoming{background:var(--accent-soft);border:1px solid rgba(232,168,76,.2)}
+.pib-done{background:var(--bg-hover);border:1px solid var(--border-subtle)}
+.prog-block-info{flex:1;min-width:0}
+.prog-name{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.prog-meta{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:.4px;display:flex;flex-wrap:wrap;gap:8px}
+.prog-block-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.sp{font-family:var(--fm);font-size:8px;letter-spacing:.8px;padding:3px 9px;border-radius:var(--r4);text-transform:uppercase;font-weight:600;border:1px solid}
+.sp-active{background:var(--green-soft);border-color:rgba(79,202,106,.3);color:var(--green)}
+.sp-upcoming{background:var(--accent-soft);border-color:rgba(232,168,76,.3);color:var(--accent)}
+.sp-done{background:var(--bg-hover);border-color:var(--border-mid);color:var(--t3)}
+.prog-chev{color:var(--t4);font-size:10px;transition:transform .25s;margin-top:3px}
+.prog-chev.open{transform:rotate(90deg)}
+.prog-block-bd{display:none;border-top:1px solid var(--border-subtle)}
+.prog-block-bd.open{display:block}
+.prog-desc{padding:10px 14px;font-size:12px;color:var(--t3);line-height:1.6;background:rgba(0,0,0,.1);border-bottom:1px solid var(--border-subtle)}
+.prog-target{padding:8px 14px;font-family:var(--fm);font-size:10px;color:var(--teal);border-bottom:1px solid var(--border-subtle)}
+.kat-blk{border-bottom:1px solid var(--border-subtle)}
+.kat-blk:last-child{border-bottom:none}
+.kat-blk-hd{padding:9px 14px;display:flex;align-items:center;gap:8px;cursor:pointer;background:rgba(0,0,0,.06)}
+.kat-blk-nm{font-size:12px;font-weight:600;color:var(--t2);flex:1}
+.kat-blk-ct{font-family:var(--fm);font-size:9px;color:var(--t3)}
+.kat-chev{color:var(--t4);font-size:10px;transition:transform .2s}
+.kat-chev.open{transform:rotate(90deg)}
+.kat-bd{display:none}
+.kat-bd.open{display:block}
+.poin-row{padding:10px 14px 10px 36px;border-bottom:1px solid rgba(255,255,255,.03);display:flex;align-items:flex-start;gap:10px;transition:background .15s}
+.poin-row:hover{background:var(--bg-hover)}
+.poin-row:last-child{border-bottom:none}
+.poin-num{font-family:var(--fm);font-size:10px;color:var(--t4);width:16px;flex-shrink:0;padding-top:2px}
+.poin-body{flex:1;min-width:0}
+.poin-title{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.poin-desc{font-size:11px;color:var(--t3);line-height:1.5;margin-bottom:3px}
+.poin-reps{font-family:var(--fm);font-size:10px;color:var(--purple)}
+.poin-links{display:flex;gap:6px;margin-top:5px;flex-wrap:wrap}
+.poin-link{font-family:var(--fm);font-size:8px;padding:3px 9px;border-radius:5px;text-decoration:none;font-weight:600;border:1px solid}
+.pl-img{background:var(--accent-soft);border-color:rgba(232,168,76,.25);color:var(--accent)}
+.pl-vid{background:var(--red-soft);border-color:rgba(224,90,101,.25);color:var(--red)}
+.poin-thumb{max-width:100%;max-height:90px;border-radius:6px;margin-top:6px;border:1px solid var(--border-mid);object-fit:cover}
+.poin-video{width:100%;max-height:180px;border-radius:8px;margin-top:6px;border:1px solid var(--border-mid);background:#000}
+.poin-video-thumb-link{position:relative;display:block;margin-top:6px;border:1px solid var(--border-mid);border-radius:8px;overflow:hidden}
+.poin-video-thumb{width:100%;height:150px;object-fit:cover;display:block;background:#000}
+.poin-video-play{position:absolute;inset:auto 8px 8px auto;background:rgba(0,0,0,.65);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 8px;font-family:var(--fm);font-size:9px;display:inline-flex;align-items:center;gap:4px}
+
+/* ══════════════════════════════════════════════════════
+   GUIDEBOOK PANE
+══════════════════════════════════════════════════════ */
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.guide-search-wrap{padding:10px 10px 0;position:relative}
+.guide-search-input{width:100%;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 12px 9px 34px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s}
+.guide-search-input:focus{border-color:var(--accent)}
+.guide-search-input::placeholder{color:var(--t4)}
+.guide-search-icon{position:absolute;left:22px;top:50%;transform:translateY(-32%);color:var(--t4);font-size:14px;pointer-events:none}
+.guide-card{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);overflow:hidden;transition:border-color .2s,transform .2s;display:flex;flex-direction:column}
+.guide-card:hover{border-color:var(--border-mid);transform:translateY(-2px)}
+.guide-thumb-wrap{height:88px;overflow:hidden;background:var(--bg-surface);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.guide-thumb{width:100%;height:100%;object-fit:cover}
+.guide-thumb-ph{font-size:26px;opacity:.3}
+.guide-cat-tag{position:absolute;top:6px;left:6px;font-family:var(--fm);font-size:8px;letter-spacing:.5px;padding:3px 8px;border-radius:var(--r4);font-weight:600;background:rgba(0,0,0,.65);border:1px solid var(--border-mid);color:var(--t2);backdrop-filter:blur(4px)}
+.guide-info{padding:10px 12px;flex:1;display:flex;flex-direction:column;gap:5px}
+.guide-title{font-size:12px;font-weight:600;color:var(--t1);line-height:1.4}
+.guide-desc{font-size:11px;color:var(--t3);line-height:1.5;flex:1}
+.guide-footer{padding:0 12px 10px;display:flex;gap:6px;flex-wrap:wrap}
+.guide-btn{font-family:var(--fm);font-size:8px;padding:4px 10px;border-radius:5px;text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;transition:filter .15s;border:1px solid}
+.guide-btn iconify-icon{font-size:11px}
+.guide-btn:hover{filter:brightness(1.2)}
+.gb-drive{background:var(--green-soft);border-color:rgba(79,202,106,.25);color:var(--green)}
+
+/* ══════════════════════════════════════════════════════
+   NOTES PANE
+══════════════════════════════════════════════════════ */
+.notes-list{display:flex;flex-direction:column;gap:8px}
+.note-card{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:12px 14px;border-left:2px solid var(--accent)}
+.note-date{font-family:var(--fm);font-size:9px;color:var(--accent);letter-spacing:.5px;display:block;margin-bottom:6px}
+.note-body{font-size:13px;color:var(--t2);line-height:1.65}
+
+/* ══════════════════════════════════════════════════════
+   ATHLETES UNIT — REDESIGNED
+══════════════════════════════════════════════════════ */
+.ath-wrap{padding:14px}
+.unit-section{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:var(--r2);overflow:hidden;margin-bottom:10px}
+.unit-section:last-child{margin-bottom:0}
+.unit-hd{padding:11px 14px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.unit-hd-left{display:flex;align-items:center;gap:10px}
+.unit-icon{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);border:1px solid var(--accent3);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;cursor:pointer;transition:filter .15s,transform .15s}
+.unit-icon:hover{filter:brightness(1.08);transform:scale(1.03)}
+.unit-icon img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+.unit-name{font-size:13px;font-weight:600;color:var(--t1)}
+.unit-count{font-family:var(--fm);font-size:9px;color:var(--t3)}
+.unit-hd-right{display:flex;align-items:center;gap:6px}
+.btn-sm{font-family:var(--fm);font-size:9px;letter-spacing:.5px;padding:6px 10px;border-radius:var(--r2);cursor:pointer;transition:all .15s;border:1px solid;text-transform:uppercase;font-weight:600}
+.btn-sm.icon-only{padding:6px 8px;display:inline-flex;align-items:center;justify-content:center;gap:0;line-height:1}
+.btn-sm.icon-only iconify-icon{font-size:14px}
+.btn-sm-accent{background:var(--accent-soft);border-color:var(--accent3);color:var(--accent)}
+.btn-sm-accent:hover{background:var(--accent2);border-color:var(--accent);color:#fff}
+.btn-sm-teal{background:var(--teal-soft);border-color:rgba(62,207,178,.25);color:var(--teal)}
+.btn-sm-teal:hover{background:rgba(62,207,178,.15);border-color:var(--teal)}
+.btn-sm-ghost{background:transparent;border-color:var(--border-mid);color:var(--t2)}
+.btn-sm-ghost:hover{border-color:var(--border-strong);color:var(--t1)}
+.btn-sm-danger{background:var(--red-soft);border-color:rgba(224,90,101,.25);color:var(--red)}
+.btn-sm-danger:hover{background:rgba(224,90,101,.15);border-color:var(--red)}
+.unit-body{padding:10px 12px}
+
+/* Athlete cards grid */
+.ath-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.ath-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--r2);padding:12px;transition:border-color .2s;display:flex;flex-direction:column;gap:8px}
+.ath-card:hover{border-color:var(--border-mid)}
+.ath-card-top{display:flex;align-items:flex-start;gap:10px}
+.ath-av{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent3),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:13px;font-weight:600;color:#fff;flex-shrink:0}
+.ath-av img{width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block}
+[data-theme="rpg"] .ath-av{background:linear-gradient(135deg,#2050a0,#4080e0)}
+[data-theme="luxury"] .ath-av{background:linear-gradient(135deg,var(--accent3),var(--accent))}
+.ath-card-info{flex:1;min-width:0}
+.ath-nm{font-size:13px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ath-meta-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ath-tag{font-family:var(--fm);font-size:8px;padding:2px 7px;border-radius:var(--r4);border:1px solid;letter-spacing:.3px}
+.ath-tag-cat{background:var(--accent-soft);border-color:var(--accent3);color:var(--accent)}
+.ath-tag-belt{background:var(--purple-soft);border-color:rgba(165,126,245,.25);color:var(--purple)}
+.ath-tag-age{background:var(--bg-hover);border-color:var(--border-mid);color:var(--t3)}
+.ath-physical{display:flex;gap:8px;padding:6px 10px;background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:6px}
+.ath-phys-item{display:flex;flex-direction:column;align-items:center;flex:1;gap:1px}
+.ath-phys-lbl{font-family:var(--fm);font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase}
+.ath-phys-val{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--t1)}
+.ath-phys-unit{font-family:var(--fm);font-size:7px;color:var(--t3)}
+.ath-phys-sep{width:1px;background:var(--border-subtle);align-self:stretch}
+.ath-note{font-size:11px;color:var(--t3);line-height:1.5;padding:6px 8px;background:var(--bg-raised);border-radius:6px;border:1px solid var(--border-subtle)}
+.ath-card-actions{display:flex;gap:5px;justify-content:flex-end;padding-top:2px;border-top:1px solid var(--border-subtle)}
+
+/* Attendance section */
+.abs-section{padding:12px 14px;border-top:1px solid var(--border-subtle)}
+.abs-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+.abs-title{font-family:var(--fm);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--t2);font-weight:600}
+.abs-date-picker{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding:10px 12px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r2)}
+.abs-date-lbl{font-family:var(--fm);font-size:9px;color:var(--t3);white-space:nowrap}
+.abs-date-input{background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:7px 10px;border-radius:6px;font-family:var(--fm);font-size:11px;outline:none;cursor:pointer;flex:1;min-width:130px}
+.abs-date-input:focus{border-color:var(--accent)}
+.abs-note-input{background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:7px 10px;border-radius:6px;font-family:var(--ff);font-size:12px;outline:none;flex:2;min-width:120px}
+.abs-note-input:focus{border-color:var(--accent)}
+.abs-note-input::placeholder,.abs-date-input::placeholder{color:var(--t4)}
+.abs-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.abs-row{display:flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;padding:9px 12px}
+.abs-row-info{flex:1;min-width:0}
+.abs-row-nm{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.abs-row-meta{font-family:var(--fm);font-size:9px;color:var(--t3);margin-top:2px}
+.abs-status-sel{background:var(--bg-raised);border:1px solid var(--border-mid);color:var(--t1);padding:6px 8px;border-radius:6px;font-family:var(--fm);font-size:9px;outline:none;cursor:pointer;min-width:88px}
+.abs-status-sel:focus{border-color:var(--accent)}
+.abs-status-sel option{background:var(--bg-card);color:var(--t1)}
+.abs-log-title{font-family:var(--fm);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);margin-bottom:8px}
+.abs-log-list{display:flex;flex-direction:column;gap:5px}
+.abs-log-row{display:flex;align-items:center;gap:10px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:7px;padding:8px 10px}
+.abs-log-date{font-family:var(--fm);font-size:10px;color:var(--accent);font-weight:600;min-width:90px}
+.abs-log-stats{display:flex;gap:8px;flex:1;flex-wrap:wrap}
+.abs-stat-chip{font-family:var(--fm);font-size:9px;padding:2px 8px;border-radius:var(--r4);border:1px solid}
+.asc-green{background:var(--green-soft);border-color:rgba(79,202,106,.2);color:var(--green)}
+.asc-amber{background:var(--accent-soft);border-color:rgba(232,168,76,.2);color:var(--accent)}
+.asc-red{background:var(--red-soft);border-color:rgba(224,90,101,.2);color:var(--red)}
+.abs-det-btn{background:transparent;border:1px solid var(--border-mid);color:var(--t3);font-family:var(--fm);font-size:8px;padding:4px 8px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.abs-det-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Add athlete form */
+.ath-form-wrap{padding:12px 14px;border-top:1px solid var(--border-subtle);background:var(--bg-surface);animation:fadeup .2s ease}
+.ath-form-title{font-family:var(--fm);font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.ath-form-title::after{content:'';flex:1;height:1px;background:var(--accent-soft)}
+.ath-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.ath-form-grid{grid-template-columns:1fr}}
+.af-group{display:flex;flex-direction:column;gap:5px}
+.af-group.span2{grid-column:1/-1}
+.af-lbl{font-family:var(--fm);font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--t3)}
+.af-input,.af-select{background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 11px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s;width:100%}
+.af-input:focus,.af-select:focus{border-color:var(--accent)}
+.af-input::placeholder{color:var(--t4)}
+.af-select option{background:var(--bg-card);color:var(--t1)}
+.ath-form-actions{display:flex;gap:6px;margin-top:10px;justify-content:flex-end;grid-column:1/-1}
+
+/* Search */
+.ath-search-wrap{padding:10px 12px;border-bottom:1px solid var(--border-subtle)}
+.ath-search{width:100%;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:9px 12px 9px 34px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s}
+.ath-search:focus{border-color:var(--accent)}
+.ath-search::placeholder{color:var(--t4)}
+.ath-search-wrap{position:relative}
+.search-icon{position:absolute;left:24px;top:50%;transform:translateY(-50%);color:var(--t4);font-size:14px;pointer-events:none}
+
+/* ══════════════════════════════════════════════════════
+   MODAL — MEETING DETAIL
+══════════════════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000;backdrop-filter:blur(4px)}
+.modal-overlay.show{display:flex}
+.modal-card{width:min(860px,100%);max-height:88vh;overflow:auto;background:var(--bg-card);border:1px solid var(--border-mid);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+[data-theme="luxury"] .modal-card{border-color:var(--accent3)}
+[data-theme="rpg"] .modal-card{border-color:rgba(100,150,255,.3);box-shadow:0 20px 60px rgba(60,100,200,.2)}
+.modal-hd{position:sticky;top:0;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;backdrop-filter:blur(12px)}
+.modal-title{font-family:var(--fd);font-size:14px;font-weight:600;color:var(--t1)}
+.modal-close{background:transparent;border:1px solid var(--border-mid);color:var(--t3);font-family:var(--fm);font-size:9px;padding:6px 10px;border-radius:6px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-bd{padding:14px}
+.meet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:520px){.meet-grid{grid-template-columns:1fr}}
+.meet-col{background:var(--bg-raised);border:1px solid var(--border-subtle);border-radius:10px;overflow:hidden}
+.meet-col-hd{padding:9px 12px;font-family:var(--fm);font-size:9px;letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--border-subtle);font-weight:600;display:flex;align-items:center;gap:6px}
+.meet-col-hd::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.meet-col-list{padding:10px 12px;display:flex;flex-direction:column;gap:5px;max-height:220px;overflow:auto}
+.meet-item{font-size:12px;color:var(--t2);padding:4px 0;border-bottom:1px solid var(--border-subtle)}
+.meet-item:last-child{border-bottom:none}
+.icon-modal-form{display:flex;flex-direction:column;gap:10px}
+.icon-modal-note{font-size:12px;color:var(--t3);line-height:1.5}
+.icon-modal-err{font-family:var(--fm);font-size:10px;color:var(--red);min-height:14px}
+.icon-modal-input{width:100%;background:var(--bg-input);border:1px solid var(--border-mid);color:var(--t1);padding:10px 12px;border-radius:8px;font-family:var(--ff);font-size:13px;outline:none}
+.icon-modal-input:focus{border-color:var(--accent)}
+.icon-modal-input::placeholder{color:var(--t4)}
+.icon-modal-actions{display:flex;justify-content:flex-end;gap:8px}
+
+/* ══════════════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════════════ */
+.panel-empty{font-family:var(--fm);font-size:10px;color:var(--t4);text-align:center;padding:20px 0;letter-spacing:.5px}
+.sec-lbl{font-family:var(--fm);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
+.hidden{display:none!important}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg-raised);border:1px solid var(--accent3);color:var(--t1);font-family:var(--fm);font-size:10px;letter-spacing:.8px;padding:10px 18px;border-radius:var(--r4);z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:var(--sh)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.page-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:70px 20px;gap:10px;color:var(--t4);text-align:center}
+.pe-icon{font-size:30px;opacity:.25}
+.pe-txt{font-family:var(--fm);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+iconify-icon{vertical-align:middle}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media(max-width:600px){
+  .topbar{display:none}
+  .content{padding:14px 12px 110px}
+  .guide-grid{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:stretch;
+  }
+  .guide-card{
+    flex:1 1 160px;
+  }
+  .cp-header{padding:13px 13px 12px}
+  .cp-tab-body{padding:13px 13px 16px}
+  .meet-grid{grid-template-columns:1fr}
+  .mb-nav-wrap{display:none}
+  #app.vis ~ .mb-nav-wrap{display:block}
+  .ath-grid{grid-template-columns:1fr}
+  .ath-form-grid{grid-template-columns:1fr}
+}
+@media(min-width:601px) and (max-width:1024px){
+  .guide-grid{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:stretch;
+  }
+  .guide-card{
+    flex:1 1 210px;
+  }
+}
+@media(min-width:601px){
+  .coach-shell{align-items:stretch}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="ls">
+  <div class="ls-logo" id="lsLogo">YD<em>.</em>ATHLETE</div>
+  <div class="ls-sub" id="lsSub">Portal Asisten Pelatih</div>
+  <div class="ls-bar"><div class="ls-fill"></div></div>
+</div>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-halo"></div>
+  <div class="login-box">
+    <div class="login-logo-wrap">
+      <div class="login-logo" id="loginLogoTxt">YD<em>.</em>ATHLETE</div>
+      <div class="login-role" id="loginRole">Portal Asisten Pelatih</div>
+      <div class="login-desc" id="loginDesc">Masukkan nama Anda dan kode akses dari koordinator</div>
+    </div>
+    <div class="login-card">
+      <label class="lf-label" id="lblNama">Nama Lengkap Anda</label>
+      <input class="lf-input" id="inNama" type="text" placeholder="Ketik nama lengkap..." autocomplete="off" autocapitalize="words">
+      <label class="lf-label" id="lblKode">Kode Akses</label>
+      <input class="lf-input" id="inKode" type="password" placeholder="••••••••" autocomplete="off">
+      <button class="lf-btn" id="btnLogin" onclick="doLogin()">MASUK</button>
+      <div class="lf-err" id="loginErr">Nama tidak ditemukan atau kode akses salah.</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo" id="tbLogo">YD<em>.</em>ATHLETE</div>
+      <div class="tb-role" id="tbRole">Asisten Pelatih</div>
+    </div>
+    <div class="tb-nav">
+      <button class="tb-nav-btn active" id="navDashboard" onclick="navigateSection('dashboard')">Info</button>
+      <button class="tb-nav-btn" id="navProgram" onclick="navigateSection('program')">Program</button>
+      <button class="tb-nav-btn" id="navGuidebook" onclick="navigateSection('guidebook')">Guidebook</button>
+      <button class="tb-nav-btn" id="navAthletes" onclick="navigateSection('athletes')">Atlet Unit</button>
+      <button class="tb-nav-btn" id="navTesFisik" onclick="openTesFisik()"><iconify-icon icon="lucide:clipboard-check"></iconify-icon> Tes Fisik</button>
+    </div>
+    <div class="tb-right">
+      <div class="tb-dot"></div>
+      <div class="tb-settings">
+        <button class="tb-gear" id="settingsToggle" onclick="toggleSettingsMenu(event)"><iconify-icon icon="lucide:settings"></iconify-icon></button>
+        <div class="tb-menu" id="settingsMenu">
+          <div class="tb-menu-lbl" data-i18n="theme">Tema</div>
+          <div class="theme-grid">
+            <button class="theme-btn" data-theme-val="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> <span class="theme-btn-txt">Terang</span></button>
+            <button class="theme-btn active" data-theme-val="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> <span class="theme-btn-txt">Graphite</span></button>
+            <button class="theme-btn" data-theme-val="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> <span class="theme-btn-txt">RPG</span></button>
+            <button class="theme-btn" data-theme-val="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> <span class="theme-btn-txt">Luxury</span></button>
+          </div>
+          <div class="tb-menu-sep"></div>
+          <div class="tb-menu-lbl" data-i18n="language">Bahasa</div>
+          <div class="lang-row" id="langRow"></div>
+          <div class="tb-menu-sep"></div>
+          <button class="tb-logout" onclick="doLogout()"><iconify-icon icon="lucide:log-out"></iconify-icon> <span class="logout-txt">Keluar</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="coach-shell" id="rosterGrid">
+      <div class="page-empty">
+        <div class="pe-icon"><iconify-icon icon="lucide:diamond"></iconify-icon></div>
+        <div class="pe-txt" id="loadingDataTxt">Memuat data...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile bottom nav -->
+<div class="mb-nav-wrap">
+  <nav class="mb-nav">
+    <button class="mb-btn active" id="mbNavInfo" onclick="navigateSection('dashboard')">
+      <span class="mb-ic"><iconify-icon icon="lucide:house"></iconify-icon></span><span class="mb-txt">Info</span>
+    </button>
+    <button class="mb-btn" id="mbNavProgram" onclick="navigateSection('program')">
+      <span class="mb-ic"><iconify-icon icon="lucide:clipboard-list"></iconify-icon></span><span class="mb-txt">Program</span>
+    </button>
+    <button class="mb-btn" id="mbNavGuidebook" onclick="navigateSection('guidebook')">
+      <span class="mb-ic"><iconify-icon icon="lucide:book-open"></iconify-icon></span><span class="mb-txt">Guidebook</span>
+    </button>
+    <button class="mb-btn" id="mbNavAthletes" onclick="navigateSection('athletes')">
+      <span class="mb-ic"><iconify-icon icon="lucide:users"></iconify-icon></span><span class="mb-txt">Atlet</span>
+    </button>
+    <button class="mb-btn" id="mbNavTesFisik" onclick="openTesFisik()">
+      <span class="mb-ic"><iconify-icon icon="lucide:clipboard-check"></iconify-icon></span><span class="mb-txt">Tes Fisik</span>
+    </button>
+    <button class="mb-btn" id="mbNavSetting" onclick="toggleMbSettings(event)">
+      <span class="mb-ic"><iconify-icon icon="lucide:settings"></iconify-icon></span><span class="mb-txt">Setting</span>
+    </button>
+  </nav>
+  <div class="mb-settings-panel" id="mbSettingsPanel">
+    <div class="tb-menu-lbl" data-i18n="theme">Tema</div>
+    <div class="theme-grid" style="margin-bottom:10px">
+      <button class="theme-btn" data-theme-val="light" onclick="setTheme('light')"><iconify-icon icon="lucide:sun"></iconify-icon> <span class="theme-btn-txt">Terang</span></button>
+      <button class="theme-btn active" data-theme-val="dark" onclick="setTheme('dark')"><iconify-icon icon="lucide:moon-star"></iconify-icon> <span class="theme-btn-txt">Graphite</span></button>
+      <button class="theme-btn" data-theme-val="rpg" onclick="setTheme('rpg')"><iconify-icon icon="lucide:swords"></iconify-icon> <span class="theme-btn-txt">RPG</span></button>
+      <button class="theme-btn" data-theme-val="luxury" onclick="setTheme('luxury')"><iconify-icon icon="lucide:crown"></iconify-icon> <span class="theme-btn-txt">Luxury</span></button>
+    </div>
+    <div class="tb-menu-lbl" data-i18n="language">Bahasa</div>
+    <div class="lang-row" id="mbLangRow" style="margin-bottom:10px"></div>
+    <button class="tb-logout" onclick="doLogout()"><iconify-icon icon="lucide:log-out"></iconify-icon> <span class="logout-txt">Keluar</span></button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Meeting detail modal -->
+<div class="modal-overlay" id="meetModal" onclick="if(event.target===this)closeMeetDetail()">
+  <div class="modal-card">
+    <div class="modal-hd">
+      <div class="modal-title" id="meetModalTitle">Detail Pertemuan</div>
+      <button class="modal-close" onclick="closeMeetDetail()"><iconify-icon icon="lucide:x"></iconify-icon> Tutup</button>
+    </div>
+    <div class="modal-bd" id="meetModalBody"></div>
+  </div>
+</div>
+<div class="modal-overlay" id="iconUnitModal" onclick="if(event.target===this)closeUnitIconModal()">
+  <div class="modal-card" style="width:min(560px,100%)">
+    <div class="modal-hd">
+      <div class="modal-title" id="iconUnitModalTitle">Ubah Icon Unit</div>
+      <button class="modal-close" onclick="closeUnitIconModal()"><iconify-icon icon="lucide:x"></iconify-icon> <span id="iconUnitModalCloseTxt">Tutup</span></button>
+    </div>
+    <div class="modal-bd">
+      <div class="icon-modal-form">
+        <div class="icon-modal-note" id="iconUnitModalNote">Masukkan link gambar icon unit. Kosongkan lalu simpan untuk menghapus icon custom.</div>
+        <div class="icon-modal-err" id="unitIconUrlErr"></div>
+        <input class="icon-modal-input" id="unitIconUrlInput" type="url" placeholder="https://.../icon-unit.png" autocomplete="off">
+        <div class="icon-modal-actions">
+          <button class="btn-sm btn-sm-ghost" id="iconUnitModalCancel" onclick="closeUnitIconModal()">Batal</button>
+          <button class="btn-sm btn-sm-accent" id="iconUnitModalSave" onclick="saveUnitIconModal()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="profileEditModal" onclick="if(event.target===this)closeProfileEditModal()">
+  <div class="modal-card" style="width:min(520px,100%)">
+    <div class="modal-hd">
+      <div class="modal-title" id="profileEditModalTitle">Edit profil</div>
+      <button class="modal-close" onclick="closeProfileEditModal()"><iconify-icon icon="lucide:x"></iconify-icon> <span id="profileEditModalCloseTxt">Tutup</span></button>
+    </div>
+    <div class="modal-bd">
+      <div class="icon-modal-form">
+        <div class="icon-modal-note" id="profileEditModalNote"></div>
+        <div class="icon-modal-err" id="profileEditErr"></div>
+        <label class="profile-edit-lbl" id="profileLblKontak" for="profileEditKontak"></label>
+        <input class="icon-modal-input" id="profileEditKontak" type="text" autocomplete="tel">
+        <label class="profile-edit-lbl" id="profileLblEmail" for="profileEditEmail"></label>
+        <input class="icon-modal-input" id="profileEditEmail" type="email" autocomplete="email">
+        <label class="profile-edit-lbl" id="profileLblAlamat" for="profileEditAlamat"></label>
+        <textarea class="icon-modal-input profile-edit-ta" id="profileEditAlamat" rows="3"></textarea>
+        <label class="profile-edit-lbl" id="profileLblIcon" for="profileEditIconUrl"></label>
+        <input class="icon-modal-input" id="profileEditIconUrl" type="url" autocomplete="off">
+        <div class="icon-modal-actions">
+          <button class="btn-sm btn-sm-ghost" id="profileEditCancel" onclick="closeProfileEditModal()">Batal</button>
+          <button class="btn-sm btn-sm-accent" id="profileEditSave" onclick="saveProfileEditModal()">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<script>
+/* ── CONFIG ── */
+const KODE = 'STCGM';
+firebase.initializeApp({
+  apiKey:"AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+  authDomain:"ydtc-5d55a.firebaseapp.com",
+  databaseURL:"https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"ydtc-5d55a"
+});
+const db = firebase.database();
+
+let allCoaches = {}, unsubFn = null, currentCoachId = null;
+let meetDetailCtx = null;
+let unitIconModalCtx = null;
+let profileEditCtx = null;
+const guideSearchState = {};
+const programSearchState = {};
+let appTheme = localStorage.getItem('yd_aspel_theme') || 'dark';
+let appLang  = localStorage.getItem('yd_aspel_lang')  || 'id';
+let activeSection = 'dashboard';
+
+/* per-unit state */
+const unitState = {}; /* [coachId][uKey] = {showForm, showAbs, editId, searchQ} */
+
+/* ── I18N ── */
+const LANGS = ['id','en','ko','ja','zh','ar'];
+const I18N = {
+  id:{portal:'Portal Asisten Pelatih',assistant:'Asisten Pelatih',loadData:'Memuat data...',loginDesc:'Masukkan nama Anda dan kode akses dari koordinator',fullName:'Nama Lengkap Anda',namePh:'Ketik nama lengkap...',accessCode:'Kode Akses',login:'MASUK',loginErr:'Nama tidak ditemukan atau kode akses salah.',noCoach:'Belum ada data pelatih',info:'Info',notes:'Catatan',program:'Program',guidebook:'Guidebook',athletesUnit:'Atlet Unit',programUnit:'program',guideItem:'item',athleteUnit:'atlet',noProgram:'Belum ada program latihan',noGuide:'Belum ada guidebook',noNotes:'Belum ada catatan',active:'● AKTIF',inactive:'○ NON-AKTIF',cert:'Sertifikat',detail:'Detail',close:'Tutup',addAthlete:'+ Tambah Atlet',hideForm:'Tutup Form',weeklyAttendance:'Absensi',hideAttendance:'Tutup Absensi',save:'Simpan',delete:'Hapus',edit:'Edit',cancel:'Batal',dob:'Tgl Lahir',category:'Kategori',belt:'Sabuk',height:'Tinggi (cm)',weight:'Berat (kg)',notes_short:'Catatan',present:'Hadir',permit:'Izin',sick:'Sakit',alpha:'Alfa',searchPlaceholder:'Cari atlet...',meetDetail:'Detail Pertemuan',noData:'Tidak ada data',attNote:'Catatan pertemuan',optional:'opsional',logout:'Keluar',experience:'Pengalaman',contact:'Kontak',email:'Email',address:'Alamat',license:'Lisensi',specialization:'Spesialisasi',unitsHeld:'Unit Dipegang',certifications:'Sertifikasi',openFile:'Buka File',settings:'Pengaturan',theme:'Tema',language:'Bahasa',unitIconTitle:'Ubah Icon Unit',unitIconNote:'Masukkan link gambar icon unit. Kosongkan lalu simpan untuk menghapus icon custom.',unitIconPh:'https://.../icon.png',changeIcon:'Ubah Icon',unitIconClickTitle:'Klik untuk opsi icon unit',unitIconUrlErr:'URL icon unit tidak valid. Gunakan http/https.',unitIconSaveErr:'Gagal menyimpan icon unit. Coba lagi.',unitIconAlt:'Ikon unit',themeLight:'Terang',themeGraphite:'Graphite',themeRPG:'RPG',themeLuxury:'Luxury',profileEditTitle:'Edit profil & kontak',profileEditHint:'Perbarui kontak, email, alamat, dan URL foto profil. Kosongkan foto untuk kembali ke inisial.',profileClickTitle:'Klik untuk mengedit profil',coachProfileIcon:'Foto profil (URL)',profileUpdated:'Profil diperbarui',profileSaveErr:'Gagal menyimpan profil',unitHideDetail:'Sembunyikan'},
+  en:{portal:'Assistant Coach Portal',assistant:'Assistant Coach',loadData:'Loading data...',loginDesc:'Enter your name and access code from coordinator',fullName:'Your Full Name',namePh:'Type full name...',accessCode:'Access Code',login:'LOGIN',loginErr:'Name not found or wrong access code.',noCoach:'No coach data',info:'Info',notes:'Notes',program:'Program',guidebook:'Guidebook',athletesUnit:'Unit Athletes',programUnit:'programs',guideItem:'items',athleteUnit:'athletes',noProgram:'No training program',noGuide:'No guidebook',noNotes:'No notes',active:'● ACTIVE',inactive:'○ INACTIVE',cert:'Certificates',detail:'Detail',close:'Close',addAthlete:'+ Add Athlete',hideForm:'Close Form',weeklyAttendance:'Attendance',hideAttendance:'Close Attendance',save:'Save',delete:'Delete',edit:'Edit',cancel:'Cancel',dob:'Date of Birth',category:'Category',belt:'Belt',height:'Height (cm)',weight:'Weight (kg)',notes_short:'Notes',present:'Present',permit:'Permission',sick:'Sick',alpha:'Absent',searchPlaceholder:'Search athletes...',meetDetail:'Meeting Detail',noData:'No data',attNote:'Meeting notes',optional:'optional',logout:'Logout',experience:'Experience',contact:'Contact',email:'Email',address:'Address',license:'License',specialization:'Specialization',unitsHeld:'Handled Units',certifications:'Certifications',openFile:'Open File',settings:'Settings',theme:'Theme',language:'Language',unitIconTitle:'Change unit icon',unitIconNote:'Paste the image URL for this unit icon. Leave empty and save to remove the custom icon.',unitIconPh:'https://.../icon.png',changeIcon:'Change icon',unitIconClickTitle:'Tap for unit icon options',unitIconUrlErr:'Invalid URL. Use http or https.',unitIconSaveErr:'Could not save unit icon. Try again.',unitIconAlt:'Unit icon',themeLight:'Light',themeGraphite:'Graphite',themeRPG:'RPG',themeLuxury:'Luxury',profileEditTitle:'Edit profile & contact',profileEditHint:'Update contact, email, address, and profile photo URL. Clear photo URL to use initials.',profileClickTitle:'Click to edit profile',coachProfileIcon:'Profile photo (URL)',profileUpdated:'Profile updated',profileSaveErr:'Could not save profile',unitHideDetail:'Hide'},
+  ko:{portal:'코치 보조 포털',assistant:'코치 보조',loadData:'데이터 불러오는 중...',loginDesc:'코디네이터가 제공한 이름과 코드를 입력하세요',fullName:'전체 이름',namePh:'전체 이름 입력...',accessCode:'접근 코드',login:'로그인',loginErr:'이름 또는 코드가 잘못되었습니다.',noCoach:'데이터 없음',info:'정보',notes:'메모',program:'프로그램',guidebook:'가이드북',athletesUnit:'유닛 선수',programUnit:'개',guideItem:'개',athleteUnit:'명',noProgram:'프로그램 없음',noGuide:'가이드북 없음',noNotes:'메모 없음',active:'● 활동',inactive:'○ 비활동',cert:'자격증',detail:'상세',close:'닫기',addAthlete:'+ 선수 추가',hideForm:'폼 닫기',weeklyAttendance:'출석',hideAttendance:'출석 닫기',save:'저장',delete:'삭제',edit:'수정',cancel:'취소',dob:'생년월일',category:'카테고리',belt:'벨트',height:'키 (cm)',weight:'몸무게 (kg)',notes_short:'메모',present:'출석',permit:'허가',sick:'병결',alpha:'결석',searchPlaceholder:'선수 검색...',meetDetail:'수업 상세',noData:'데이터 없음',attNote:'수업 메모',optional:'선택',logout:'로그아웃',experience:'경력',contact:'연락처',email:'이메일',address:'주소',license:'라이선스',specialization:'전문',unitsHeld:'담당 유닛',certifications:'자격증',openFile:'파일 열기',settings:'설정',theme:'테마',language:'언어',unitIconTitle:'유닛 아이콘 변경',unitIconNote:'유닛 아이콘 이미지 URL을 입력하세요. 비우고 저장하면 사용자 지정 아이콘이 삭제됩니다.',unitIconPh:'https://.../icon.png',changeIcon:'아이콘 변경',unitIconClickTitle:'탭하여 유닛 아이콘 옵션',unitIconUrlErr:'URL이 올바르지 않습니다. http 또는 https를 사용하세요.',unitIconSaveErr:'아이콘을 저장하지 못했습니다. 다시 시도하세요.',unitIconAlt:'유닛 아이콘',themeLight:'라이트',themeGraphite:'그래파이트',themeRPG:'RPG',themeLuxury:'럭셔리',profileEditTitle:'프로필 및 연락처 수정',profileEditHint:'연락처, 이메일, 주소, 프로필 사진 URL을 입력하세요. 사진 URL을 비우면 이니셜이 표시됩니다.',profileClickTitle:'탭하여 프로필 편집',coachProfileIcon:'프로필 사진 (URL)',profileUpdated:'프로필이 업데이트되었습니다',profileSaveErr:'저장에 실패했습니다',unitHideDetail:'접기'},
+  ja:{portal:'アシスタントコーチポータル',assistant:'アシスタントコーチ',loadData:'データ読み込み中...',loginDesc:'コーディネーターから提供された名前とコードを入力してください',fullName:'氏名',namePh:'氏名を入力...',accessCode:'アクセスコード',login:'ログイン',loginErr:'名前またはコードが正しくありません。',noCoach:'データなし',info:'情報',notes:'ノート',program:'プログラム',guidebook:'ガイドブック',athletesUnit:'ユニット選手',programUnit:'件',guideItem:'件',athleteUnit:'人',noProgram:'プログラムなし',noGuide:'ガイドブックなし',noNotes:'ノートなし',active:'● アクティブ',inactive:'○ 非アクティブ',cert:'資格',detail:'詳細',close:'閉じる',addAthlete:'+ 選手追加',hideForm:'フォームを閉じる',weeklyAttendance:'出席',hideAttendance:'出席を閉じる',save:'保存',delete:'削除',edit:'編集',cancel:'キャンセル',dob:'生年月日',category:'カテゴリ',belt:'帯',height:'身長 (cm)',weight:'体重 (kg)',notes_short:'メモ',present:'出席',permit:'許可',sick:'病欠',alpha:'欠席',searchPlaceholder:'選手を検索...',meetDetail:'練習詳細',noData:'データなし',attNote:'練習メモ',optional:'任意',logout:'ログアウト',experience:'経験',contact:'連絡先',email:'メール',address:'住所',license:'ライセンス',specialization:'専門',unitsHeld:'担当ユニット',certifications:'認定',openFile:'ファイルを開く',settings:'設定',theme:'テーマ',language:'言語',unitIconTitle:'ユニットアイコンを変更',unitIconNote:'ユニットアイコンの画像URLを入力してください。空のまま保存するとカスタムアイコンを削除します。',unitIconPh:'https://.../icon.png',changeIcon:'アイコンを変更',unitIconClickTitle:'タップでユニットアイコン',unitIconUrlErr:'URLが無効です。httpまたはhttpsを使用してください。',unitIconSaveErr:'保存に失敗しました。再度お試しください。',unitIconAlt:'ユニットアイコン',themeLight:'ライト',themeGraphite:'グラファイト',themeRPG:'RPG',themeLuxury:'ラグジュアリー',profileEditTitle:'プロフィール・連絡先を編集',profileEditHint:'連絡先、メール、住所、プロフィール画像のURLを更新できます。画像URLを空にするとイニシャル表示に戻ります。',profileClickTitle:'タップしてプロフィールを編集',coachProfileIcon:'プロフィール画像 (URL)',profileUpdated:'プロフィールを更新しました',profileSaveErr:'保存に失敗しました',unitHideDetail:'閉じる'},
+  zh:{portal:'助理教练门户',assistant:'助理教练',loadData:'加载中...',loginDesc:'请输入协调员提供的姓名和访问码',fullName:'您的全名',namePh:'输入全名...',accessCode:'访问码',login:'登录',loginErr:'姓名或访问码错误。',noCoach:'暂无数据',info:'信息',notes:'笔记',program:'训练计划',guidebook:'指南',athletesUnit:'分组运动员',programUnit:'个',guideItem:'个',athleteUnit:'名',noProgram:'暂无训练计划',noGuide:'暂无指南',noNotes:'暂无笔记',active:'● 在职',inactive:'○ 非在职',cert:'证书',detail:'详情',close:'关闭',addAthlete:'+ 添加运动员',hideForm:'关闭表单',weeklyAttendance:'考勤',hideAttendance:'关闭考勤',save:'保存',delete:'删除',edit:'编辑',cancel:'取消',dob:'出生日期',category:'类别',belt:'腰带',height:'身高 (cm)',weight:'体重 (kg)',notes_short:'备注',present:'出席',permit:'请假',sick:'病假',alpha:'缺席',searchPlaceholder:'搜索运动员...',meetDetail:'课程详情',noData:'暂无数据',attNote:'课程备注',optional:'可选',logout:'退出',experience:'经验',contact:'联系',email:'邮箱',address:'地址',license:'执照',specialization:'专长',unitsHeld:'负责分组',certifications:'证书',openFile:'打开文件',settings:'设置',theme:'主题',language:'语言',unitIconTitle:'更改分组图标',unitIconNote:'输入分组图标的图片链接。留空并保存可移除自定义图标。',unitIconPh:'https://.../icon.png',changeIcon:'更改图标',unitIconClickTitle:'点击查看分组图标选项',unitIconUrlErr:'链接无效，请使用 http 或 https。',unitIconSaveErr:'保存失败，请重试。',unitIconAlt:'分组图标',themeLight:'浅色',themeGraphite:'石墨',themeRPG:'RPG',themeLuxury:'奢华',profileEditTitle:'编辑资料与联系方式',profileEditHint:'更新联系方式、邮箱、地址和头像图片链接。留空头像链接则显示姓名首字母。',profileClickTitle:'点击编辑资料',coachProfileIcon:'头像 (URL)',profileUpdated:'已更新资料',profileSaveErr:'保存失败',unitHideDetail:'收起'},
+  ar:{portal:'بوابة مساعد المدرب',assistant:'مساعد المدرب',loadData:'جارٍ التحميل...',loginDesc:'أدخل اسمك ورمز الوصول المقدم من المنسق',fullName:'الاسم الكامل',namePh:'اكتب الاسم الكامل...',accessCode:'رمز الوصول',login:'دخول',loginErr:'الاسم أو الرمز غير صحيح.',noCoach:'لا توجد بيانات',info:'معلومات',notes:'ملاحظات',program:'البرنامج',guidebook:'الدليل',athletesUnit:'رياضيو الوحدة',programUnit:'برنامج',guideItem:'عنصر',athleteUnit:'رياضي',noProgram:'لا يوجد برنامج',noGuide:'لا يوجد دليل',noNotes:'لا توجد ملاحظات',active:'● نشط',inactive:'○ غير نشط',cert:'شهادات',detail:'تفاصيل',close:'إغلاق',addAthlete:'+ إضافة رياضي',hideForm:'إغلاق النموذج',weeklyAttendance:'الحضور',hideAttendance:'إغلاق الحضور',save:'حفظ',delete:'حذف',edit:'تعديل',cancel:'إلغاء',dob:'تاريخ الميلاد',category:'الفئة',belt:'الحزام',height:'الطول (سم)',weight:'الوزن (كغ)',notes_short:'ملاحظة',present:'حاضر',permit:'إذن',sick:'مرض',alpha:'غائب',searchPlaceholder:'ابحث عن الرياضي...',meetDetail:'تفاصيل اللقاء',noData:'لا توجد بيانات',attNote:'ملاحظات اللقاء',optional:'اختياري',logout:'خروج',experience:'خبرة',contact:'التواصل',email:'البريد',address:'العنوان',license:'الرخصة',specialization:'التخصص',unitsHeld:'الوحدات',certifications:'الشهادات',openFile:'فتح الملف',settings:'الإعدادات',theme:'المظهر',language:'اللغة',unitIconTitle:'تغيير أيقونة الوحدة',unitIconNote:'أدخل رابط صورة أيقونة الوحدة. اترك الحقل فارغاً ثم احفظ لإزالة الأيقونة المخصصة.',unitIconPh:'https://.../icon.png',changeIcon:'تغيير الأيقونة',unitIconClickTitle:'اضغط لخيارات أيقونة الوحدة',unitIconUrlErr:'الرابط غير صالح. استخدم http أو https.',unitIconSaveErr:'تعذر حفظ الأيقونة. حاول مرة أخرى.',unitIconAlt:'أيقونة الوحدة',themeLight:'فاتح',themeGraphite:'غرافيت',themeRPG:'RPG',themeLuxury:'فاخر',profileEditTitle:'تعديل الملف والتواصل',profileEditHint:'حدّث جهة الاتصال والبريد والعنوان ورابط صورة الملف. اترك رابط الصورة فارغاً لعرض الأحرف الأولى.',profileClickTitle:'اضغط لتعديل الملف',coachProfileIcon:'صورة الملف (رابط)',profileUpdated:'تم تحديث الملف',profileSaveErr:'تعذر حفظ الملف',unitHideDetail:'إخفاء'}
+};
+function T(k){ return (I18N[appLang]&&I18N[appLang][k])||I18N.id[k]||k; }
+
+/* ── UTILS ── */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function renderKatIcon(icon){
+  const val=String(icon||'flame').trim();
+  if(/^[a-z0-9-]+$/i.test(val)) return `<iconify-icon icon="lucide:${esc(val)}"></iconify-icon>`;
+  return esc(val||'🔥');
+}
+function safeUrl(u){ try{const url=new URL(u);if(['http:','https:'].includes(url.protocol))return esc(u);}catch(e){}return ''; }
+function pickSafeUrl(obj, keys){ for(const k of keys){const s=safeUrl(obj?.[k]);if(s)return s;}return ''; }
+function isPreviewVideoUrl(u){
+  if(!u) return false;
+  try{
+    const path = new URL(u).pathname.toLowerCase();
+    return /\.(mp4|webm|ogg|mov|m4v)$/i.test(path);
+  }catch(e){
+    return false;
+  }
+}
+function extractYouTubeId(u){
+  if(!u) return '';
+  try{
+    const url = new URL(u);
+    const host = url.hostname.replace(/^www\./,'');
+    if(host==='youtu.be') return url.pathname.slice(1);
+    if(host.includes('youtube.com')){
+      if(url.searchParams.get('v')) return url.searchParams.get('v');
+      const parts = url.pathname.split('/').filter(Boolean);
+      const embedIdx = parts.indexOf('embed');
+      if(embedIdx>=0 && parts[embedIdx+1]) return parts[embedIdx+1];
+      const shortsIdx = parts.indexOf('shorts');
+      if(shortsIdx>=0 && parts[shortsIdx+1]) return parts[shortsIdx+1];
+    }
+  }catch(e){}
+  return '';
+}
+function getVideoThumbUrl(videoUrl, item){
+  const custom = pickSafeUrl(item, ['vidThumbUrl','vidThumbnailUrl','videoThumbUrl','videoThumbnailUrl','thumbUrl','thumbnailUrl']);
+  if(custom) return custom;
+  const ytId = extractYouTubeId(videoUrl);
+  if(ytId) return `https://i.ytimg.com/vi/${encodeURIComponent(ytId)}/hqdefault.jpg`;
+  return '';
+}
+function initials(n){ return(n||'').split(' ').slice(0,2).map(w=>w[0]?.toUpperCase()||'').join(''); }
+function diffYears(dob){ if(!dob)return null;const y=new Date().getFullYear()-new Date(dob).getFullYear();return isNaN(y)||y<0?null:y; }
+function fmtDate(s){ if(!s||s==='–')return'–';try{return new Date(s).toLocaleDateString('id-ID',{day:'2-digit',month:'short',year:'numeric'});}catch(e){return s;} }
+function progCount(d){ return Object.keys(d?.program||{}).length; }
+function guideCount(d){ return Object.keys(d?.guidebook||{}).length; }
+function athleteCount(d){ return Object.values(d?.atletPerUnit||{}).reduce((s,u)=>s+Object.keys(u||{}).length,0); }
+function unitKey(u){ return encodeURIComponent(String(u||'Tanpa Unit').trim()); }
+function unitLabel(k){ try{return decodeURIComponent(k);}catch(e){return k;} }
+function getState(cId,uKey){
+  if(!unitState[cId])unitState[cId]={};
+  if(!unitState[cId][uKey])unitState[cId][uKey]={showForm:false,showAbs:false,editId:null,searchQ:'',showUnitIconAction:false,showUnitDetail:false};
+  const st=unitState[cId][uKey];
+  if(st.showUnitDetail===undefined)st.showUnitDetail=false;
+  return st;
+}
+function presStatus(rec){ if(rec?.status)return rec.status;if(rec?.hadir===true)return 'hadir';return 'alfa'; }
+function showToast(m){ const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000); }
+
+/* ── THEME ── */
+document.documentElement.setAttribute('data-theme', appTheme);
+document.documentElement.setAttribute('dir', appLang==='ar'?'rtl':'ltr');
+
+window.setTheme = function(th){
+  appTheme = th;
+  document.documentElement.setAttribute('data-theme', th);
+  localStorage.setItem('yd_aspel_theme', th);
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active', b.dataset.themeVal===th));
+};
+function buildLangRow(){
+  const langLabels = {id:'ID',en:'EN',ko:'KO',ja:'JA',zh:'ZH',ar:'AR'};
+  const html = LANGS.map(l=>`<button class="lang-btn${appLang===l?' active':''}" onclick="setLang('${l}')">${langLabels[l]}</button>`).join('');
+  ['langRow','mbLangRow'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
+}
+window.setLang = function(lang){
+  appLang = lang;
+  localStorage.setItem('yd_aspel_lang', lang);
+  document.documentElement.setAttribute('dir', lang==='ar'?'rtl':'ltr');
+  buildLangRow();
+  applyI18N();
+  renderFiltered();
+};
+function applyI18N(){
+  document.title = `YD ATHLETE — ${T('portal')}`;
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  const mbTxt=(btnId,v)=>{const b=document.getElementById(btnId);const t=b?.querySelector('.mb-txt');if(t)t.textContent=v;};
+  s('lsSub',T('portal'));s('loginRole',T('portal'));s('loginDesc',T('loginDesc'));
+  s('lblNama',T('fullName'));s('lblKode',T('accessCode'));s('btnLogin',T('login'));
+  s('loginErr',T('loginErr'));s('tbRole',T('assistant'));
+  s('navDashboard',T('info'));s('navProgram',T('program'));s('navGuidebook',T('guidebook'));s('navAthletes',T('athletesUnit'));
+  mbTxt('mbNavInfo',T('info'));mbTxt('mbNavProgram',T('program'));mbTxt('mbNavGuidebook',T('guidebook'));mbTxt('mbNavAthletes',T('athletesUnit'));mbTxt('mbNavTesFisik','Tes Fisik');mbTxt('mbNavSetting',T('settings'));
+  s('loadingDataTxt',T('loadData'));
+  const inNama=document.getElementById('inNama');if(inNama)inNama.placeholder=T('namePh');
+  s('iconUnitModalTitle',T('unitIconTitle'));s('iconUnitModalNote',T('unitIconNote'));s('iconUnitModalCloseTxt',T('close'));s('iconUnitModalCancel',T('cancel'));s('iconUnitModalSave',T('save'));
+  const uuInp=document.getElementById('unitIconUrlInput');if(uuInp)uuInp.placeholder=T('unitIconPh');
+  document.querySelectorAll('.tb-menu-lbl[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(k)el.textContent=T(k);});
+  const themeLbl={light:'themeLight',dark:'themeGraphite',rpg:'themeRPG',luxury:'themeLuxury'};
+  document.querySelectorAll('.theme-btn').forEach(b=>{
+    const k=themeLbl[b.dataset.themeVal];
+    const span=b.querySelector('.theme-btn-txt');
+    if(k&&span)span.textContent=T(k);
+  });
+  document.querySelectorAll('.logout-txt').forEach(el=>{el.textContent=T('logout');});
+  s('profileEditModalTitle',T('profileEditTitle'));s('profileEditModalNote',T('profileEditHint'));s('profileEditModalCloseTxt',T('close'));
+  s('profileLblKontak',T('contact'));s('profileLblEmail',T('email'));s('profileLblAlamat',T('address'));s('profileLblIcon',T('coachProfileIcon'));
+  s('profileEditCancel',T('cancel'));s('profileEditSave',T('save'));
+  const pIconInp=document.getElementById('profileEditIconUrl');if(pIconInp)pIconInp.placeholder=T('unitIconPh');
+}
+
+/* ── SETTINGS MENU ── */
+window.toggleSettingsMenu = function(ev){ if(ev)ev.stopPropagation();document.getElementById('settingsMenu').classList.toggle('show'); };
+window.toggleMbSettings = function(ev){ if(ev)ev.stopPropagation();document.getElementById('mbSettingsPanel').classList.toggle('show'); };
+document.addEventListener('click',e=>{
+  const sm=document.getElementById('settingsMenu');if(sm&&!sm.closest('.tb-settings').contains(e.target))sm.classList.remove('show');
+  const mp=document.getElementById('mbSettingsPanel');if(mp&&!mp.closest('.mb-nav-wrap').contains(e.target))mp.classList.remove('show');
+  if(!e.target.closest('.unit-icon') && !e.target.closest('.unit-icon-action')){
+    let needRender=false;
+    Object.keys(unitState).forEach(cId=>{
+      Object.keys(unitState[cId]||{}).forEach(uKey=>{
+        const st = unitState[cId][uKey];
+        if(st?.showUnitIconAction){ st.showUnitIconAction=false; needRender=true; }
+      });
+    });
+    if(needRender && currentCoachId && allCoaches[currentCoachId]) renderAthletes(currentCoachId, allCoaches[currentCoachId]);
+  }
+});
+
+/* ── NAVIGATION ── */
+window.navigateSection = function(sec){
+  activeSection = sec;
+  document.querySelectorAll('[data-sec]').forEach(el=>el.classList.toggle('sec-hidden',el.dataset.sec!==sec));
+  document.querySelectorAll('.tb-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.mb-btn').forEach(b=>b.classList.remove('active'));
+  const tbMap={dashboard:'navDashboard',program:'navProgram',guidebook:'navGuidebook',athletes:'navAthletes'};
+  const mbMap={dashboard:'mbNavInfo',program:'mbNavProgram',guidebook:'mbNavGuidebook',athletes:'mbNavAthletes'};
+  [tbMap[sec],mbMap[sec]].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('active');});
+};
+
+/* ── LOADING & SESSION ── */
+window.addEventListener('load',()=>{
+  applyI18N();buildLangRow();
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.themeVal===appTheme));
+  setTimeout(()=>{
+    document.getElementById('ls').classList.add('out');
+    setTimeout(()=>{
+      document.getElementById('ls').style.display='none';
+      const ok=sessionStorage.getItem('yd_asisten_ok')==='1';
+      const id=sessionStorage.getItem('yd_asisten_id');
+      if(ok&&id){currentCoachId=id;showApp();}
+      else{sessionStorage.clear();document.getElementById('login').classList.add('vis');}
+    },500);
+  },1500);
+});
+
+['inKode'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();}));
+document.getElementById('inNama').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('inKode').focus();});
+
+window.doLogin = async function(){
+  const nama=document.getElementById('inNama').value.trim();
+  const kode=document.getElementById('inKode').value.trim().toUpperCase();
+  const err=document.getElementById('loginErr');
+  err.classList.remove('show');
+  if(!nama||!kode){err.classList.add('show');return;}
+  if(kode!==KODE){err.classList.add('show');return;}
+  try{
+    const snap=await db.ref('pelatih').once('value');
+    let foundId=null;
+    snap.forEach(c=>{if((c.val()?.nama||'').trim().toLowerCase()===nama.toLowerCase())foundId=c.key;});
+    if(!foundId){err.classList.add('show');return;}
+    currentCoachId=foundId;
+    sessionStorage.setItem('yd_asisten_ok','1');
+    sessionStorage.setItem('yd_asisten_id',foundId);
+    document.getElementById('login').style.opacity='0';
+    setTimeout(()=>{document.getElementById('login').classList.remove('vis');document.getElementById('login').style.opacity='';showApp();},400);
+  }catch(e){
+    err.textContent='Gagal terhubung ke server. Coba lagi.';
+    err.classList.add('show');
+  }
+};
+
+window.doLogout = function(){
+  sessionStorage.clear();
+  if(unsubFn){unsubFn();unsubFn=null;}
+  location.reload();
+};
+
+/* ── APP ── */
+function showApp(){
+  if(!currentCoachId){document.getElementById('login').classList.add('vis');return;}
+  document.getElementById('app').classList.add('vis');
+  const ref=db.ref(`pelatih/${currentCoachId}`);
+  const listener=ref.on('value',snap=>{
+    allCoaches={};
+    if(snap.exists())allCoaches[currentCoachId]=snap.val();
+    renderFiltered();
+  });
+  unsubFn=()=>ref.off('value',listener);
+}
+
+/* ══════════════════════════════════════════════════════
+   RENDER PIPELINE
+══════════════════════════════════════════════════════ */
+function renderFiltered(){
+  const grid=document.getElementById('rosterGrid');
+  const entries=Object.entries(allCoaches);
+  if(!entries.length){
+    grid.innerHTML=`<div class="page-empty"><div class="pe-icon"><iconify-icon icon="lucide:diamond"></iconify-icon></div><div class="pe-txt">${T('noCoach')}</div></div>`;
+    return;
+  }
+  grid.innerHTML=entries.map(([id,d],i)=>renderShell(id,d,i)).join('');
+  entries.forEach(([id,d])=>{
+    renderInfo(id,d);renderProgram(id,d);renderGuide(id,d);renderAthletes(id,d);
+  });
+  navigateSection(activeSection);
+}
+
+function renderShell(id,d,idx){
+  const isActive=d.statusAktif!=='nonaktif';
+  const ini=esc(initials(d.nama));
+  const nm=esc(d.nama||'—');
+  const sp=esc(d.spesialisasi||'Pelatih');
+  const units=d.unit||[];
+  const certs=d.sertifikasi||[];
+  const pC=progCount(d),gC=guideCount(d),aC=athleteCount(d),nC=Object.keys(d?.notes||{}).length;
+  const ageVal=diffYears(d.tglLahir);
+  const age=ageVal!==null?` · ${ageVal} thn`:'';
+  const coachIcon=safeUrl(d.iconUrl||'');
+  const avInner=coachIcon?`<img class="cp-av-img" src="${coachIcon}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span class="cp-av-ini" style="display:none">${ini}</span>`:`<span class="cp-av-ini">${ini}</span>`;
+  return `<div class="coach-panel" data-sec="dashboard" style="animation-delay:${idx*0.05}s">
+  <div class="cp-strip ${isActive?'':'inactive'}"></div>
+  <div class="cp-header">
+    <div class="cp-avatar ${isActive?'':'inactive'}" onclick="openProfileEditModal('${id}')" title="${esc(T('profileClickTitle'))}" role="button" tabindex="0">${avInner}<div class="cp-av-dot ${isActive?'on':'off'}"></div></div>
+    <div class="cp-info">
+      <div class="cp-name">${nm}</div>
+      <div class="cp-spec">${sp}${age}</div>
+      <div class="cp-badges">
+        <span class="badge ${isActive?'badge-green':'badge-gray'}">${isActive?T('active'):T('inactive')}</span>
+        ${certs.length?`<span class="badge badge-accent"><iconify-icon icon="lucide:award"></iconify-icon> ${certs.length} ${T('cert')}</span>`:''}
+        ${d.lisensi&&d.lisensi!=='–'?`<span class="badge badge-teal"><iconify-icon icon="lucide:clipboard-list"></iconify-icon> ${esc(d.lisensi)}</span>`:''}
+        ${units.slice(0,2).map(u=>`<span class="badge badge-accent">${esc(u)}</span>`).join('')}
+        ${units.length>2?`<span class="badge badge-gray">+${units.length-2}</span>`:''}
+      </div>
+    </div>
+  </div>
+  <div class="cp-tabs">
+    <button class="cp-tab active" onclick="switchTab('${id}','info',this)">Info</button>
+    <button class="cp-tab" onclick="switchTab('${id}','notes',this)">${T('notes')}${nC>0?` (${nC})`:''}</button>
+  </div>
+  <div id="tb-info-${id}" class="cp-tab-body"></div>
+  <div id="tb-notes-${id}" class="cp-tab-body hidden"></div>
+</div>
+<div class="section-panel" data-sec="program" style="animation-delay:${idx*0.05+.06}s">
+  <div class="section-panel-hd"><div class="section-panel-title">${T('program')}</div><div class="section-panel-count">${pC} ${T('programUnit')}</div></div>
+  <div class="cp-tab-body" id="program-body-${id}"></div>
+</div>
+<div class="section-panel" data-sec="guidebook" style="animation-delay:${idx*0.05+.08}s">
+  <div class="section-panel-hd"><div class="section-panel-title">${T('guidebook')}</div><div class="section-panel-count">${gC} ${T('guideItem')}</div></div>
+  <div class="cp-tab-body" id="guide-body-${id}"></div>
+</div>
+<div class="section-panel" data-sec="athletes" style="animation-delay:${idx*0.05+.1}s">
+  <div class="section-panel-hd"><div class="section-panel-title">${T('athletesUnit')}</div><div class="section-panel-count">${aC} ${T('athleteUnit')}</div></div>
+  <div id="athletes-body-${id}"></div>
+</div>`;
+}
+
+window.switchTab = function(id,tab,btn){
+  document.querySelectorAll(`#panel-${id} .cp-tab, [data-panel="${id}"].cp-tab`).forEach(b=>b.classList.remove('active'));
+  // find all cp-tabs in same panel
+  const tabs = btn.closest('.cp-tabs');
+  if(tabs) tabs.querySelectorAll('.cp-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(`tb-info-${id}`).classList.toggle('hidden',tab!=='info');
+  document.getElementById(`tb-notes-${id}`).classList.toggle('hidden',tab!=='notes');
+  const d=allCoaches[id];if(!d)return;
+  if(tab==='info')renderInfo(id,d);
+  if(tab==='notes')renderNotes(id,d);
+};
+
+/* ── INFO ── */
+function renderInfo(id,d){
+  if(!d)return;
+  const p=document.getElementById('tb-info-'+id);
+  const ageVal=diffYears(d.tglLahir);
+  const age=ageVal!==null?`${ageVal} tahun`:'—';
+  const expVal=d.tahunMulai?diffYears(`${d.tahunMulai}-01-01`):null;
+  const exp=expVal!==null?`${expVal} thn (sejak ${esc(d.tahunMulai)})`:'—';
+  const units=d.unit||[],certs=d.sertifikasi||[];
+  let html='';
+  if(d.bio)html+=`<div class="info-bio">${esc(d.bio)}</div>`;
+  html+=`<div class="info-grid">
+    <div class="info-cell"><div class="ic-lbl">${T('dob')}</div><div class="ic-val">${esc(d.tglLahir||'—')} <span style="color:var(--t3);font-size:11px">· ${age}</span></div></div>
+    <div class="info-cell"><div class="ic-lbl">${T('experience')}</div><div class="ic-val">${exp}</div></div>
+    <div class="info-cell"><div class="ic-lbl">${T('contact')}</div><div class="ic-val muted">${esc(d.kontak||'—')}</div></div>
+    <div class="info-cell"><div class="ic-lbl">${T('email')}</div><div class="ic-val muted">${esc(d.email||'—')}</div></div>
+    <div class="info-cell span2"><div class="ic-lbl">${T('address')}</div><div class="ic-val muted">${esc(d.alamat||'—')}</div></div>
+    <div class="info-cell"><div class="ic-lbl">${T('license')}</div><div class="ic-val">${esc(d.lisensi||'—')}</div></div>
+    <div class="info-cell"><div class="ic-lbl">${T('specialization')}</div><div class="ic-val">${esc(d.spesialisasi||'—')}</div></div>
+  </div>`;
+  if(units.length){
+    html+=`<div class="sec-lbl">${T('unitsHeld')}</div><div class="unit-chips">${units.map(u=>`<span class="uc">${esc(u)}</span>`).join('')}</div>`;
+  }
+  if(certs.length){
+    html+=`<div class="sec-lbl">${T('certifications')}</div><div class="cert-list">${certs.map(c=>`<div class="cert-item"><span style="font-size:13px"><iconify-icon icon="lucide:award"></iconify-icon></span><span class="cert-nm">${esc(c.nama||'—')}</span>${c.tahun?`<span class="cert-yr">${esc(c.tahun)}</span>`:''}</div>`).join('')}</div>`;
+  }
+  p.innerHTML=html;
+}
+
+/* ── NOTES ── */
+function renderNotes(id,d){
+  const p=document.getElementById('tb-notes-'+id);
+  const entries=Object.entries(d?.notes||{}).sort(([,a],[,b])=>(b.ts||0)-(a.ts||0));
+  if(!entries.length){p.innerHTML=`<div class="panel-empty">${T('noNotes')}</div>`;return;}
+  p.innerHTML=`<div class="notes-list">${entries.map(([,n])=>`<div class="note-card"><span class="note-date">${fmtDate(new Date(n.ts).toISOString().slice(0,10))}</span><div class="note-body">${esc(n.body||'')}</div></div>`).join('')}</div>`;
+}
+
+/* ── PROGRAM ── */
+function renderProgram(id,d){
+  const p=document.getElementById('program-body-'+id);
+  const entries=Object.entries(d?.program||{}).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+  const q=(programSearchState[id]||'').trim().toLowerCase();
+  const filtered = entries.filter(([,pr])=>{
+    if(!q) return true;
+    const nama = String(pr?.nama||'').toLowerCase();
+    const desc = String(pr?.desc||'').toLowerCase();
+    const target = String(pr?.target||'').toLowerCase();
+    const cats = Object.values(pr?.kategori||{}).map(k=>String(k?.nama||'').toLowerCase()).join(' ');
+    return nama.includes(q) || desc.includes(q) || target.includes(q) || cats.includes(q);
+  });
+  if(!entries.length){p.innerHTML=`<div class="panel-empty">${T('noProgram')}</div>`;return;}
+  const today=new Date().toISOString().slice(0,10);
+  p.innerHTML=`<div class="prog-search-wrap">
+      <span class="prog-search-icon"><iconify-icon icon="lucide:search"></iconify-icon></span>
+      <input class="prog-search-input" type="text" placeholder="Cari program..." value="${esc(programSearchState[id]||'')}" oninput="onProgramSearch('${id}', this.value)">
+    </div>
+    <div class="prog-list" style="padding:12px">${filtered.map(([pid,pr])=>{
+    const st=!pr.tglMulai?'upcoming':today<pr.tglMulai?'upcoming':pr.tglSelesai&&today>pr.tglSelesai?'done':'active';
+    const icClass={active:'pib-active',upcoming:'pib-upcoming',done:'pib-done'}[st];
+    const icEmoji={active:'<iconify-icon icon="lucide:circle-check-big"></iconify-icon>',upcoming:'<iconify-icon icon="lucide:clock-3"></iconify-icon>',done:'<iconify-icon icon="lucide:check-check"></iconify-icon>'}[st];
+    const spClass={active:'sp-active',upcoming:'sp-upcoming',done:'sp-done'}[st];
+    const spLabel={active:'Aktif',upcoming:'Akan Datang',done:'Selesai'}[st];
+    const cats=Object.entries(pr.kategori||{});
+    const totalPoin=cats.reduce((s,[,c])=>s+Object.keys(c.poin||{}).length,0);
+    return `<div class="prog-block">
+      <div class="prog-block-hd" onclick="toggleProg('${pid}')">
+        <div class="prog-ic ${icClass}">${icEmoji}</div>
+        <div class="prog-block-info">
+          <div class="prog-name">${esc(pr.nama||'—')}</div>
+          <div class="prog-meta">${pr.tglMulai?`<span><iconify-icon icon="lucide:calendar-days"></iconify-icon> ${esc(pr.tglMulai)}${pr.tglSelesai?' → '+esc(pr.tglSelesai):''}</span>`:''}
+          <span><iconify-icon icon="lucide:zap"></iconify-icon> ${totalPoin} poin</span></div>
+        </div>
+        <div class="prog-block-right"><span class="sp ${spClass}">${spLabel}</span><span class="prog-chev" id="pch-${pid}"><iconify-icon icon="lucide:chevron-right"></iconify-icon></span></div>
+      </div>
+      <div class="prog-block-bd" id="pbd-${pid}">
+        ${pr.desc?`<div class="prog-desc">${esc(pr.desc)}</div>`:''}
+        ${pr.target?`<div class="prog-target"><iconify-icon icon="lucide:target"></iconify-icon> ${esc(pr.target)}</div>`:''}
+        ${cats.map(([kId,kat])=>{
+          const poins=Object.entries(kat.poin||{}).sort(([,a],[,b])=>(a.createdAt||0)-(b.createdAt||0));
+          return `<div class="kat-blk">
+            <div class="kat-blk-hd" onclick="toggleKat('${kId}')">
+              <span>${renderKatIcon(kat.icon)}</span>
+              <span class="kat-blk-nm">${esc(kat.nama||'—')}</span>
+              <span class="kat-blk-ct">${poins.length} poin</span>
+              <span class="kat-chev" id="kch-${kId}"><iconify-icon icon="lucide:chevron-right"></iconify-icon></span>
+            </div>
+            <div class="kat-bd" id="kbd-${kId}">${poins.map(([tid,ti],i)=>{
+              const imgU=safeUrl(ti.imgUrl),vidU=safeUrl(ti.vidUrl);
+              const canPreviewVideo=isPreviewVideoUrl(vidU);
+              const videoThumb=getVideoThumbUrl(vidU, ti);
+              const hasVideoThumb=Boolean(videoThumb);
+              return `<div class="poin-row">
+                <div class="poin-num">${i+1}</div>
+                <div class="poin-body">
+                  <div class="poin-title">${esc(ti.judul||'—')}</div>
+                  ${ti.desc?`<div class="poin-desc">${esc(ti.desc)}</div>`:''}
+                  ${ti.reps?`<div class="poin-reps"><iconify-icon icon="lucide:hash"></iconify-icon> ${esc(ti.reps)}</div>`:''}
+                  ${imgU||vidU?`<div class="poin-links">${imgU?`<a class="poin-link pl-img" href="${imgU}" target="_blank" rel="noopener"><iconify-icon icon="lucide:image"></iconify-icon> Gambar</a>`:''}${vidU&&!hasVideoThumb?`<a class="poin-link pl-vid" href="${vidU}" target="_blank" rel="noopener"><iconify-icon icon="lucide:play"></iconify-icon> Video</a>`:''}</div>`:''}
+                  ${imgU?`<img class="poin-thumb" src="${imgU}" onerror="this.style.display='none'">` :''}
+                  ${canPreviewVideo&&!hasVideoThumb?`<video class="poin-video" src="${vidU}" controls preload="metadata"></video>`:''}
+                  ${vidU&&hasVideoThumb?`<a class="poin-video-thumb-link" href="${vidU}" target="_blank" rel="noopener"><img class="poin-video-thumb" src="${videoThumb}" alt="Video thumbnail" onerror="this.parentNode.style.display='none'"><span class="poin-video-play"><iconify-icon icon="lucide:play"></iconify-icon> Video</span></a>`:''}
+                </div>
+              </div>`;
+            }).join('')}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  }).join('')}</div>
+  ${filtered.length?'':`<div class="panel-empty" style="padding-top:0">Tidak ada hasil</div>`}`;
+}
+window.onProgramSearch=function(id,val){
+  programSearchState[id]=val||'';
+  const d=allCoaches[id];
+  if(d) renderProgram(id,d);
+};
+window.toggleProg=function(pid){const bd=document.getElementById('pbd-'+pid),ch=document.getElementById('pch-'+pid);const o=bd.classList.toggle('open');if(ch)ch.classList.toggle('open',o);};
+window.toggleKat=function(kId){const bd=document.getElementById('kbd-'+kId),ch=document.getElementById('kch-'+kId);const o=bd.classList.toggle('open');if(ch)ch.classList.toggle('open',o);};
+
+/* ── GUIDEBOOK ── */
+const CAT_LBL={teknik:'<iconify-icon icon="lucide:swords"></iconify-icon> Teknik',fisik:'<iconify-icon icon="lucide:dumbbell"></iconify-icon> Fisik',mental:'<iconify-icon icon="lucide:brain"></iconify-icon> Mental',taktik:'<iconify-icon icon="lucide:target"></iconify-icon> Taktik',nutrisi:'<iconify-icon icon="lucide:apple"></iconify-icon> Nutrisi',peraturan:'<iconify-icon icon="lucide:scroll-text"></iconify-icon> Peraturan',lainnya:'<iconify-icon icon="lucide:folder"></iconify-icon> Lainnya'};
+function renderGuide(id,d){
+  const p=document.getElementById('guide-body-'+id);
+  const entries=Object.entries(d?.guidebook||{}).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+  const q=(guideSearchState[id]||'').trim().toLowerCase();
+  const filtered = entries.filter(([,gb])=>{
+    if(!q) return true;
+    const title = String(gb?.judul||'').toLowerCase();
+    const desc = String(gb?.desc||'').toLowerCase();
+    const cat = String(gb?.kategori||'').toLowerCase();
+    return title.includes(q) || desc.includes(q) || cat.includes(q);
+  });
+  if(!entries.length){p.innerHTML=`<div class="panel-empty">${T('noGuide')}</div>`;return;}
+  p.innerHTML=`<div class="guide-search-wrap">
+      <span class="guide-search-icon"><iconify-icon icon="lucide:search"></iconify-icon></span>
+      <input class="guide-search-input" type="text" placeholder="Cari guidebook..." value="${esc(guideSearchState[id]||'')}" oninput="onGuideSearch('${id}', this.value)">
+    </div>
+    <div class="guide-grid" style="padding:10px">${filtered.map(([,gb])=>{
+    const imgU=pickSafeUrl(gb,['imgUrl','imgURL','imageUrl','imageURL','imgAddress','imageAddress','thumbnailUrl','thumbnailURL']);
+    const drvU=pickSafeUrl(gb,['driveUrl','driveURL','fileUrl','fileURL','url']);
+    const catL=CAT_LBL[gb.kategori]||'';
+    return `<div class="guide-card">
+      <div class="guide-thumb-wrap">
+        ${imgU?`<img class="guide-thumb" src="${imgU}" onerror="this.style.display='none'">`:`<div class="guide-thumb-ph">📚</div>`}
+        ${catL?`<div class="guide-cat-tag">${catL}</div>`:''}
+      </div>
+      <div class="guide-info">
+        <div class="guide-title">${esc(gb.judul||'—')}</div>
+        ${gb.desc?`<div class="guide-desc">${esc(gb.desc)}</div>`:''}
+        ${gb.versi?`<div style="font-family:var(--fm);font-size:9px;color:var(--accent);margin-top:2px">v${esc(gb.versi)}</div>`:''}
+      </div>
+      ${drvU?`<div class="guide-footer"><a class="guide-btn gb-drive" href="${drvU}" target="_blank" rel="noopener"><iconify-icon icon="lucide:folder-open"></iconify-icon> ${T('openFile')}</a></div>`:''}
+    </div>`;
+  }).join('')}</div>
+  ${filtered.length?'':`<div class="panel-empty" style="padding-top:0">Tidak ada hasil</div>`}`;
+}
+window.onGuideSearch=function(id,val){
+  guideSearchState[id]=val||'';
+  const d=allCoaches[id];
+  if(d) renderGuide(id,d);
+};
+
+/* ══════════════════════════════════════════════════════
+   ATHLETES — NEW DESIGN
+══════════════════════════════════════════════════════ */
+function renderAthletes(id,d){
+  const pane=document.getElementById('athletes-body-'+id);
+  const mapByUnit=d?.atletPerUnit||{};
+  const baseUnits=Array.isArray(d.unit)?d.unit:[];
+  const dataUnits=Object.keys(mapByUnit).map(unitLabel);
+  const units=[...new Set([...baseUnits,...dataUnits])].filter(Boolean);
+  if(!units.length){pane.innerHTML=`<div class="ath-wrap"><div class="panel-empty">${T('athletesUnit')} — 0</div></div>`;return;}
+  pane.innerHTML=`<div class="ath-wrap">${units.map((u,ui)=>{
+    const uKey=unitKey(u);
+    const athletes=Object.entries(mapByUnit[uKey]||{}).sort(([,a],[,b])=>(b.createdAt||0)-(a.createdAt||0));
+    const st=getState(id,uKey);
+    const q=st.searchQ||'';
+    const filtered=athletes.filter(([,a])=>!q||String(a?.nama||'').toLowerCase().includes(q.toLowerCase())||String(a?.kategori||'').toLowerCase().includes(q.toLowerCase()));
+    const icons=['<iconify-icon icon="lucide:shield"></iconify-icon>','<iconify-icon icon="lucide:swords"></iconify-icon>','<iconify-icon icon="lucide:target"></iconify-icon>','<iconify-icon icon="lucide:award"></iconify-icon>','<iconify-icon icon="lucide:trophy"></iconify-icon>','<iconify-icon icon="lucide:dumbbell"></iconify-icon>','<iconify-icon icon="lucide:star"></iconify-icon>'];
+    const icon=icons[ui%icons.length];
+    const unitIconUrl=safeUrl(d?.unitMeta?.[uKey]?.iconUrl||'');
+    const attendanceByUnit=(d?.absensiUnit||{})[uKey]||{};
+    const meetings=Object.entries(attendanceByUnit).sort(([,a],[,b])=>String(b.tanggal||'').localeCompare(String(a.tanggal||''))).slice(0,8);
+    const todayDate=new Date().toISOString().slice(0,10);
+    const selectedDate=st.absDate||todayDate;
+    const selectedMeeting=attendanceByUnit[selectedDate]||{};
+    const selectedRecords=selectedMeeting.records||{};
+    return `<div class="unit-section">
+      <div class="unit-hd">
+        <div class="unit-hd-left">
+          <div class="unit-icon" title="${esc(T('unitIconClickTitle'))}" onclick="toggleUnitIconAction('${id}','${uKey}')">${unitIconUrl?`<img src="${unitIconUrl}" alt="${esc(T('unitIconAlt'))}" onerror="this.style.display='none';this.parentNode.innerHTML='${icon}'">`:icon}</div>
+          <div>
+            <div class="unit-name">${esc(u)}</div>
+            <div class="unit-count">${athletes.length} ${T('athleteUnit')}</div>
+          </div>
+        </div>
+        <div class="unit-hd-right">
+          ${st.showUnitDetail?`${st.showUnitIconAction?`<button class="btn-sm btn-sm-ghost unit-icon-action" onclick="setUnitIconUrl('${id}','${uKey}')"><iconify-icon icon="lucide:image-up"></iconify-icon> ${esc(T('changeIcon'))}</button>`:''}
+          <button class="btn-sm ${st.showAbs?'btn-sm-ghost':'btn-sm-teal'}" onclick="toggleAbsUnit('${id}','${uKey}')">${st.showAbs?T('hideAttendance'):T('weeklyAttendance')}</button>
+          <button class="btn-sm icon-only ${st.showForm?'btn-sm-ghost':'btn-sm-accent'}" onclick="toggleFormUnit('${id}','${uKey}')" title="${esc(st.showForm&&!st.editId?T('hideForm'):T('addAthlete'))}" aria-label="${esc(st.showForm&&!st.editId?T('hideForm'):T('addAthlete'))}"><iconify-icon icon="${st.showForm&&!st.editId?'lucide:x':'lucide:plus'}"></iconify-icon></button>
+          <button type="button" class="btn-sm btn-sm-ghost icon-only" onclick="toggleUnitDetail('${id}','${uKey}')" title="${esc(T('unitHideDetail'))}" aria-label="${esc(T('unitHideDetail'))}"><iconify-icon icon="lucide:chevron-up"></iconify-icon></button>`:`<button type="button" class="btn-sm btn-sm-accent" onclick="toggleUnitDetail('${id}','${uKey}')">${T('detail')}</button>`}
+        </div>
+      </div>
+
+      ${st.showUnitDetail?`${st.showForm?`<div class="ath-form-wrap">
+        <div class="ath-form-title">${st.editId?T('edit'):T('addAthlete')}</div>
+        <div class="ath-form-grid">
+          <div class="af-group span2">
+            <label class="af-lbl">Nama Atlet *</label>
+            <input class="af-input" id="af-nm-${id}-${uKey}" type="text" placeholder="Nama lengkap atlet" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.nama||''):'')}" autocomplete="off">
+          </div>
+          <div class="af-group">
+            <label class="af-lbl">${T('category')} *</label>
+            <select class="af-select" id="af-cat-${id}-${uKey}">
+              <option value="">— Pilih —</option>
+              ${['tanding','jurus','ibing','ganda','regu','solo kreatif'].map(c=>`<option value="${c}" ${(st.editId?(mapByUnit[uKey]?.[st.editId]?.kategori||''):'')===c?'selected':''}>${c.charAt(0).toUpperCase()+c.slice(1)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="af-group">
+            <label class="af-lbl">${T('dob')} *</label>
+            <input class="af-input" id="af-dob-${id}-${uKey}" type="date" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.tglLahir||''):'')}" >
+          </div>
+          <div class="af-group">
+            <label class="af-lbl">${T('height')}</label>
+            <input class="af-input" id="af-h-${id}-${uKey}" type="number" min="50" max="250" placeholder="170" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.tinggiBadan||''):'')}" >
+          </div>
+          <div class="af-group">
+            <label class="af-lbl">${T('weight')}</label>
+            <input class="af-input" id="af-w-${id}-${uKey}" type="number" min="10" max="300" placeholder="65" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.beratBadan||''):'')}" >
+          </div>
+          <div class="af-group">
+            <label class="af-lbl">${T('belt')}</label>
+            <input class="af-input" id="af-belt-${id}-${uKey}" type="text" placeholder="Merah" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.sabuk||''):'')}" >
+          </div>
+          <div class="af-group span2">
+            <label class="af-lbl">${T('notes_short')}</label>
+            <input class="af-input" id="af-note-${id}-${uKey}" type="text" placeholder="Catatan singkat..." value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.catatan||''):'')}" >
+          </div>
+          <div class="af-group span2">
+            <label class="af-lbl">URL Icon Atlet</label>
+            <input class="af-input" id="af-icon-${id}-${uKey}" type="url" placeholder="https://.../foto-atlet.png" value="${esc(st.editId?(mapByUnit[uKey]?.[st.editId]?.iconUrl||''):'')}" >
+          </div>
+        </div>
+        <div class="ath-form-actions">
+          ${st.editId?`<button class="btn-sm btn-sm-ghost" onclick="cancelEditUnit('${id}','${uKey}')">${T('cancel')}</button>`:''}
+          <button class="btn-sm btn-sm-accent" onclick="saveAthleteUnit('${id}','${uKey}')">${T('save')}</button>
+        </div>
+      </div>`:''}
+
+      ${st.showAbs?`<div class="abs-section">
+        <div class="abs-header">
+          <div class="abs-title"><iconify-icon icon="lucide:calendar-check-2"></iconify-icon> ${T('weeklyAttendance')}</div>
+        </div>
+        <div class="abs-date-picker">
+          <span class="abs-date-lbl">Tanggal:</span>
+          <input class="abs-date-input" id="absDate-${id}-${uKey}" type="date" value="${esc(selectedDate)}" onchange="updateAbsDate('${id}','${uKey}',this.value)">
+          <input class="abs-note-input" id="absNote-${id}-${uKey}" type="text" placeholder="${T('attNote')} (${T('optional')})" value="${esc(st.absNote||(attendanceByUnit[selectedDate]?.catatan||''))}" >
+          <button class="btn-sm btn-sm-accent" onclick="saveAbsensi('${id}','${uKey}')">${T('save')}</button>
+        </div>
+        <div class="abs-list">
+          ${athletes.length?athletes.map(([aid,a])=>{
+            const st_val=presStatus(selectedRecords[aid]);
+            return `<div class="abs-row">
+              <div class="abs-row-info">
+                <div class="abs-row-nm">${esc(a.nama||'—')}</div>
+                <div class="abs-row-meta">${a.kategori?esc(a.kategori):T('category')+' n/a'}${a.sabuk?` · ${T('belt')} ${esc(a.sabuk)}`:''}</div>
+              </div>
+              <select class="abs-status-sel" id="absSt-${id}-${uKey}-${aid}">
+                <option value="hadir" ${st_val==='hadir'?'selected':''}>${T('present')}</option>
+                <option value="izin" ${st_val==='izin'?'selected':''}>${T('permit')}</option>
+                <option value="sakit" ${st_val==='sakit'?'selected':''}>${T('sick')}</option>
+                <option value="alfa" ${st_val==='alfa'?'selected':''}>${T('alpha')}</option>
+              </select>
+            </div>`;
+          }).join(''):`<div class="panel-empty">${T('addAthlete')}</div>`}
+        </div>
+        ${meetings.length?`<div class="abs-log-title">Riwayat Absensi</div>
+        <div class="abs-log-list">${meetings.map(([mKey,m])=>{
+          const recs=Object.values(m.records||{});
+          const hadir=recs.filter(r=>presStatus(r)==='hadir').length;
+          const izinSakit=recs.filter(r=>['izin','sakit'].includes(presStatus(r))).length;
+          const alfa=recs.filter(r=>presStatus(r)==='alfa').length;
+          return `<div class="abs-log-row">
+            <span class="abs-log-date">${esc(m.tanggal||mKey)}</span>
+            <div class="abs-log-stats">
+              <span class="abs-stat-chip asc-green">H ${hadir}</span>
+              <span class="abs-stat-chip asc-amber">I/S ${izinSakit}</span>
+              <span class="abs-stat-chip asc-red">A ${alfa}</span>
+            </div>
+            <button class="abs-det-btn" onclick="openMeetDetail('${id}','${uKey}','${mKey}')">Detail</button>
+          </div>`;
+        }).join('')}</div>`:''}
+      </div>`:''}
+
+      <div class="ath-search-wrap">
+        <span class="search-icon"><iconify-icon icon="lucide:search"></iconify-icon></span>
+        <input class="ath-search" id="athSearch-${id}-${uKey}" type="text" placeholder="${T('searchPlaceholder')}" value="${esc(q)}" oninput="onSearchUnit('${id}','${uKey}',this.value)">
+      </div>
+
+      <div class="unit-body">
+        ${filtered.length?`<div class="ath-grid">${filtered.map(([aid,a])=>{
+          const ageA=diffYears(a.tglLahir);
+          const athIconUrl=safeUrl(a.iconUrl);
+          return `<div class="ath-card">
+            <div class="ath-card-top">
+              <div class="ath-av">${athIconUrl?`<img src="${athIconUrl}" alt="Athlete icon" onerror="this.style.display='none';this.parentNode.textContent='${esc(initials(a.nama)||'?')}'">`:initials(a.nama)||'?'}</div>
+              <div class="ath-card-info">
+                <div class="ath-nm">${esc(a.nama||'—')}</div>
+                <div class="ath-meta-row">
+                  ${a.kategori?`<span class="ath-tag ath-tag-cat">${esc(a.kategori)}</span>`:''}
+                  ${a.sabuk?`<span class="ath-tag ath-tag-belt"><iconify-icon icon="lucide:shield"></iconify-icon> ${esc(a.sabuk)}</span>`:''}
+                  ${ageA!==null?`<span class="ath-tag ath-tag-age">${ageA} thn</span>`:''}
+                </div>
+              </div>
+            </div>
+            ${(a.tinggiBadan||a.beratBadan)?`<div class="ath-physical">
+              ${a.tinggiBadan?`<div class="ath-phys-item"><span class="ath-phys-lbl">Tinggi</span><span class="ath-phys-val">${esc(a.tinggiBadan)}</span><span class="ath-phys-unit">cm</span></div>`:''}
+              ${a.tinggiBadan&&a.beratBadan?`<div class="ath-phys-sep"></div>`:''}
+              ${a.beratBadan?`<div class="ath-phys-item"><span class="ath-phys-lbl">Berat</span><span class="ath-phys-val">${esc(a.beratBadan)}</span><span class="ath-phys-unit">kg</span></div>`:''}
+            </div>`:''}
+            ${a.catatan?`<div class="ath-note">${esc(a.catatan)}</div>`:''}
+            <div class="ath-card-actions">
+              <button class="btn-sm btn-sm-ghost" onclick="startEditUnit('${id}','${uKey}','${aid}')">${T('edit')}</button>
+              <button class="btn-sm btn-sm-danger" onclick="delAthleteUnit('${id}','${uKey}','${aid}')">${T('delete')}</button>
+            </div>
+          </div>`;
+        }).join('')}</div>`:
+        `<div class="panel-empty">${q?'Tidak ada hasil':'Belum ada atlet'}</div>`}
+      </div>
+    `:''}
+    </div>`;
+  }).join('')}</div>`;
+}
+
+/* unit state helpers */
+window.toggleUnitDetail=function(cId,uKey){
+  const st=getState(cId,uKey);
+  st.showUnitDetail=!st.showUnitDetail;
+  renderAthletes(cId,allCoaches[cId]);
+};
+window.toggleFormUnit=function(cId,uKey){
+  const st=getState(cId,uKey);
+  if(st.showForm&&st.editId){st.editId=null;renderAthletes(cId,allCoaches[cId]);}
+  else{
+    st.showForm=!st.showForm;
+    if(!st.showForm)st.editId=null;
+    if(st.showForm)st.showUnitDetail=true;
+    renderAthletes(cId,allCoaches[cId]);
+  }
+};
+window.toggleUnitIconAction=function(cId,uKey){
+  const st=getState(cId,uKey);
+  st.showUnitIconAction=!st.showUnitIconAction;
+  if(st.showUnitIconAction)st.showUnitDetail=true;
+  renderAthletes(cId,allCoaches[cId]);
+};
+window.toggleAbsUnit=function(cId,uKey){
+  const st=getState(cId,uKey);
+  st.showAbs=!st.showAbs;
+  if(st.showAbs)st.showUnitDetail=true;
+  renderAthletes(cId,allCoaches[cId]);
+};
+window.onSearchUnit=function(cId,uKey,val){const st=getState(cId,uKey);st.searchQ=val;renderAthletes(cId,allCoaches[cId]);};
+window.updateAbsDate=function(cId,uKey,val){const st=getState(cId,uKey);st.absDate=val;renderAthletes(cId,allCoaches[cId]);};
+window.startEditUnit=function(cId,uKey,aid){
+  const st=getState(cId,uKey);st.showForm=true;st.editId=aid;st.showUnitDetail=true;
+  renderAthletes(cId,allCoaches[cId]);
+  setTimeout(()=>{const el=document.getElementById(`af-nm-${cId}-${uKey}`);if(el){el.focus();el.scrollIntoView({behavior:'smooth',block:'center'});}},100);
+};
+window.cancelEditUnit=function(cId,uKey){const st=getState(cId,uKey);st.editId=null;st.showForm=false;renderAthletes(cId,allCoaches[cId]);};
+
+window.saveAthleteUnit=async function(cId,uKey){
+  const st=getState(cId,uKey);
+  const g=id=>document.getElementById(id);
+  const nama=(g(`af-nm-${cId}-${uKey}`)?.value||'').trim();
+  const kat=(g(`af-cat-${cId}-${uKey}`)?.value||'').trim();
+  const dob=(g(`af-dob-${cId}-${uKey}`)?.value||'').trim();
+  if(!nama){showToast('Nama harus diisi');return;}
+  if(!kat){showToast('Kategori harus dipilih');return;}
+  if(!dob){showToast('Tanggal lahir harus diisi');return;}
+  const iconUrl=(g(`af-icon-${cId}-${uKey}`)?.value||'').trim();
+  const payload={nama,kategori:kat,tglLahir:dob,tinggiBadan:(g(`af-h-${cId}-${uKey}`)?.value||'').trim(),beratBadan:(g(`af-w-${cId}-${uKey}`)?.value||'').trim(),sabuk:(g(`af-belt-${cId}-${uKey}`)?.value||'').trim(),catatan:(g(`af-note-${cId}-${uKey}`)?.value||'').trim(),iconUrl:iconUrl?safeUrl(iconUrl):'',createdAt:Date.now()};
+  try{
+    const isEdit=Boolean(st.editId);
+    if(st.editId){
+      const cur=allCoaches?.[cId]?.atletPerUnit?.[uKey]?.[st.editId]||{};
+      payload.createdAt=cur.createdAt||Date.now();payload.updatedAt=Date.now();
+      await db.ref(`pelatih/${cId}/atletPerUnit/${uKey}/${st.editId}`).set(payload);
+    }else{
+      await db.ref(`pelatih/${cId}/atletPerUnit/${uKey}`).push(payload);
+    }
+    st.editId=null;st.showForm=false;
+    showToast(isEdit?'Data diperbarui':'Atlet ditambahkan');
+  }catch(e){showToast('Gagal menyimpan');}
+};
+
+window.setUnitIconUrl=async function(cId,uKey){
+  const st=getState(cId,uKey);
+  st.showUnitIconAction=false;
+  unitIconModalCtx={cId,uKey};
+  const coach=allCoaches[cId]||{};
+  const current=(coach?.unitMeta?.[uKey]?.iconUrl)||'';
+  const input=document.getElementById('unitIconUrlInput');
+  const err=document.getElementById('unitIconUrlErr');
+  if(input) input.value=current;
+  if(err) err.textContent='';
+  document.getElementById('iconUnitModal').classList.add('show');
+};
+window.closeUnitIconModal=function(){
+  unitIconModalCtx=null;
+  const err=document.getElementById('unitIconUrlErr');
+  if(err) err.textContent='';
+  document.getElementById('iconUnitModal').classList.remove('show');
+};
+window.saveUnitIconModal=async function(){
+  if(!unitIconModalCtx) return;
+  const {cId,uKey}=unitIconModalCtx;
+  const input=document.getElementById('unitIconUrlInput');
+  const err=document.getElementById('unitIconUrlErr');
+  const clean=(input?.value||'').trim();
+  if(clean && !safeUrl(clean)){
+    if(err) err.textContent=T('unitIconUrlErr');
+    if(input) input.focus();
+    return;
+  }
+  if(err) err.textContent='';
+  try{
+    await db.ref(`pelatih/${cId}/unitMeta/${uKey}/iconUrl`).set(clean?safeUrl(clean):'');
+    closeUnitIconModal();
+    renderAthletes(cId,allCoaches[cId]);
+  }catch(e){
+    if(err) err.textContent=T('unitIconSaveErr');
+  }
+};
+
+window.openProfileEditModal=function(cId){
+  profileEditCtx=cId;
+  const coach=allCoaches[cId]||{};
+  const err=document.getElementById('profileEditErr');
+  if(err)err.textContent='';
+  const g=id=>document.getElementById(id);
+  if(g('profileEditKontak'))g('profileEditKontak').value=coach.kontak||'';
+  if(g('profileEditEmail'))g('profileEditEmail').value=coach.email||'';
+  if(g('profileEditAlamat'))g('profileEditAlamat').value=coach.alamat||'';
+  if(g('profileEditIconUrl'))g('profileEditIconUrl').value=String(coach.iconUrl||'').trim();
+  document.getElementById('profileEditModal').classList.add('show');
+  applyI18N();
+};
+window.closeProfileEditModal=function(){
+  profileEditCtx=null;
+  const err=document.getElementById('profileEditErr');
+  if(err)err.textContent='';
+  document.getElementById('profileEditModal').classList.remove('show');
+};
+window.saveProfileEditModal=async function(){
+  if(!profileEditCtx)return;
+  const cId=profileEditCtx;
+  const g=id=>document.getElementById(id);
+  const kontak=(g('profileEditKontak')?.value||'').trim();
+  const email=(g('profileEditEmail')?.value||'').trim();
+  const alamat=(g('profileEditAlamat')?.value||'').trim();
+  const iconRaw=(g('profileEditIconUrl')?.value||'').trim();
+  const err=document.getElementById('profileEditErr');
+  let iconForDb='';
+  if(iconRaw){
+    try{
+      const url=new URL(iconRaw);
+      if(!['http:','https:'].includes(url.protocol))throw new Error();
+      iconForDb=iconRaw.trim();
+    }catch(e){
+      if(err)err.textContent=T('unitIconUrlErr');
+      g('profileEditIconUrl')?.focus();
+      return;
+    }
+  }
+  if(err)err.textContent='';
+  try{
+    await Promise.all([
+      db.ref(`pelatih/${cId}/kontak`).set(kontak),
+      db.ref(`pelatih/${cId}/email`).set(email),
+      db.ref(`pelatih/${cId}/alamat`).set(alamat),
+      db.ref(`pelatih/${cId}/iconUrl`).set(iconForDb)
+    ]);
+    closeProfileEditModal();
+    showToast(T('profileUpdated'));
+  }catch(e){
+    if(err)err.textContent=T('profileSaveErr');
+  }
+};
+
+window.delAthleteUnit=async function(cId,uKey,aid){
+  if(!confirm(`${T('delete')} atlet ini?`))return;
+  try{await db.ref(`pelatih/${cId}/atletPerUnit/${uKey}/${aid}`).remove();showToast('Atlet dihapus');}
+  catch(e){showToast('Gagal menghapus');}
+};
+
+window.saveAbsensi=async function(cId,uKey){
+  const coach=allCoaches[cId]||{};
+  const athletes=Object.entries((coach.atletPerUnit||{})[uKey]||{});
+  if(!athletes.length){showToast('Belum ada atlet');return;}
+  const st=getState(cId,uKey);
+  const tanggal=(document.getElementById(`absDate-${cId}-${uKey}`)?.value||'').trim();
+  const catatan=(document.getElementById(`absNote-${cId}-${uKey}`)?.value||'').trim();
+  if(!tanggal){showToast('Pilih tanggal');return;}
+  const records={};
+  athletes.forEach(([aid,a])=>{
+    const sel=document.getElementById(`absSt-${cId}-${uKey}-${aid}`);
+    const status=(sel?.value||'alfa').toLowerCase();
+    records[aid]={nama:a.nama||'',kategori:a.kategori||'',sabuk:a.sabuk||'',status:['hadir','izin','sakit','alfa'].includes(status)?status:'alfa'};
+  });
+  try{
+    await db.ref(`pelatih/${cId}/absensiUnit/${uKey}/${tanggal}`).set({tanggal,lokasi:'Sekolah',catatan:catatan||'',records,updatedAt:Date.now()});
+    st.absDate=tanggal;
+    showToast('Absensi disimpan');
+  }catch(e){showToast('Gagal menyimpan');}
+};
+
+window.openMeetDetail=function(cId,uKey,tanggal){
+  meetDetailCtx={cId,uKey,tanggal};
+  document.getElementById('meetModal').classList.add('show');
+  renderMeetDetail();
+};
+window.closeMeetDetail=function(){meetDetailCtx=null;document.getElementById('meetModal').classList.remove('show');};
+
+function renderMeetDetail(){
+  if(!meetDetailCtx)return;
+  const{cId,uKey,tanggal}=meetDetailCtx;
+  const coach=allCoaches[cId]||{};
+  const unitName=unitLabel(uKey);
+  const meeting=(((coach.absensiUnit||{})[uKey]||{})[tanggal])||{};
+  const recs=Object.values(meeting.records||{});
+  const hadir=recs.filter(r=>presStatus(r)==='hadir');
+  const izinSakit=recs.filter(r=>['izin','sakit'].includes(presStatus(r)));
+  const alfa=recs.filter(r=>presStatus(r)==='alfa');
+  document.getElementById('meetModalTitle').textContent=`${T('meetDetail')} — ${tanggal} · ${unitName}`;
+  document.getElementById('meetModalBody').innerHTML=`
+    ${meeting.catatan?`<div style="font-size:13px;color:var(--t2);margin-bottom:12px;padding:9px 12px;background:var(--bg-raised);border-radius:8px;border-left:2px solid var(--accent)"><iconify-icon icon="lucide:notebook-pen"></iconify-icon> ${esc(meeting.catatan)}</div>`:''}
+    <div class="meet-grid">
+      <div class="meet-col">
+        <div class="meet-col-hd" style="color:var(--green)">Hadir (${hadir.length})</div>
+        <div class="meet-col-list">${hadir.length?hadir.map(r=>`<div class="meet-item">${esc(r.nama||'—')}</div>`).join(''):`<div class="panel-empty">${T('noData')}</div>`}</div>
+      </div>
+      <div class="meet-col">
+        <div class="meet-col-hd" style="color:var(--accent)">Izin / Sakit (${izinSakit.length})</div>
+        <div class="meet-col-list">${izinSakit.length?izinSakit.map(r=>`<div class="meet-item">${esc(r.nama||'—')} <span style="color:var(--t3);font-size:10px">(${presStatus(r)==='izin'?T('permit'):T('sick')})</span></div>`).join(''):`<div class="panel-empty">${T('noData')}</div>`}</div>
+      </div>
+      <div class="meet-col">
+        <div class="meet-col-hd" style="color:var(--red)">Alfa (${alfa.length})</div>
+        <div class="meet-col-list">${alfa.length?alfa.map(r=>`<div class="meet-item">${esc(r.nama||'—')}</div>`).join(''):`<div class="panel-empty">${T('noData')}</div>`}</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ══════════════════════════════════════════════════════
+   TES FISIK — openTesFisik()
+   Membuka modul Tes Fisik & mengirim konteks pelatih/unit
+══════════════════════════════════════════════════════ */
+window.openTesFisik = function() {
+  /* Ambil data coach & unit dari state yang sudah ada */
+  const coachId   = currentCoachId || '';
+  const coachData = allCoaches[coachId] || {};
+  const coachName = coachData.nama || '';
+  const units     = coachData.unit || [];
+  const unitId    = units[0] ? encodeURIComponent(String(units[0]).trim()) : '';
+  const unitName  = units[0] || '';
+
+  /* Simpan konteks ke sessionStorage agar tesatlet.html bisa membacanya */
+  sessionStorage.setItem('tesatlet_ctx', JSON.stringify({
+    coachId, coachName, unitId, unitName
+  }));
+
+  /* Kirim Firebase config agar tesatlet.html bisa reconnect */
+  try {
+    const fbCfg = {
+      apiKey:      'AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8',
+      authDomain:  'ydtc-5d55a.firebaseapp.com',
+      databaseURL: 'https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app',
+      projectId:   'ydtc-5d55a'
+    };
+    sessionStorage.setItem('fb_cfg', JSON.stringify(fbCfg));
+  } catch(e) {}
+
+  /* Simpan tema aktif agar tesatlet.html bisa matching theme */
+  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  sessionStorage.setItem('athlete_theme', theme);
+
+  /* Buka halaman tes fisik di tab baru */
+  window.open('tesfisik/tesatlet.html', '_blank');
+};
+</script>
+</body>
+</html>

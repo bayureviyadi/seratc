@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YD COACH — Dashboard Pelatih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --ff:'Outfit',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --c0:#070b12;--c1:#0d1420;--c2:#111c2e;--c3:#162035;
+  --border:rgba(99,179,237,.1);--border2:rgba(99,179,237,.18);
+  --blue:#63b3ed;--blue2:#4299e1;--blue3:#2b6cb0;
+  --gold:#f6c90e;--gold2:#d4a017;
+  --green:#48bb78;--green2:#276749;
+  --red:#fc5c7d;--purple:#b794f4;--orange:#f6ad55;
+  --muted:#4a6080;--muted2:#334e68;--text:#e2ecf7;--text2:#8aa6c0;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --r:12px;--r2:8px;--r3:20px;
+  --sidebar:240px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:var(--ff);background:var(--c0);color:var(--text);overflow-x:hidden}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--muted2);border-radius:2px}
+
+/* ══════════════════════════════════════════════
+   LOADING
+══════════════════════════════════════════════ */
+#loadScreen{position:fixed;inset:0;background:var(--c0);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:16px;transition:opacity .5s}
+#loadScreen.out{opacity:0;pointer-events:none}
+.load-logo{font-size:28px;font-weight:900;letter-spacing:4px;color:var(--blue)}
+.load-logo span{color:var(--gold)}
+.load-bar{width:160px;height:2px;background:rgba(128,128,128,.15);border-radius:2px;overflow:hidden}
+.load-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--gold));border-radius:2px;animation:loadAnim 1.4s ease forwards}
+@keyframes loadAnim{from{width:0}to{width:100%}}
+.load-txt{font-family:var(--fm);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+
+/* ══════════════════════════════════════════════
+   LOGIN
+══════════════════════════════════════════════ */
+#loginScreen{position:fixed;inset:0;background:var(--c0);display:flex;align-items:center;justify-content:center;z-index:200;padding:20px;transition:opacity .4s}
+#loginScreen.out{opacity:0;pointer-events:none}
+.login-box{width:100%;max-width:400px}
+.login-header{text-align:center;margin-bottom:40px}
+.login-logo{font-size:26px;font-weight:900;letter-spacing:4px;color:var(--blue);display:block;margin-bottom:6px}
+.login-logo span{color:var(--gold)}
+.login-subtitle{font-family:var(--fm);font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase}
+.login-badge{display:inline-block;background:rgba(246,201,14,.1);border:1px solid rgba(246,201,14,.25);color:var(--gold);font-family:var(--fm);font-size:9px;letter-spacing:2px;padding:4px 12px;border-radius:20px;margin-top:10px;text-transform:uppercase}
+.login-form{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:28px;box-shadow:var(--shadow)}
+.lf-field{margin-bottom:18px}
+.lf-field label{font-family:var(--fm);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.lf-field input{width:100%;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:13px 16px;border-radius:var(--r2);font-family:var(--ff);font-size:15px;font-weight:500;outline:none;transition:border-color .2s}
+.lf-field input:focus{border-color:var(--blue2)}
+.lf-field input::placeholder{color:var(--muted2)}
+.login-btn{width:100%;padding:14px;background:var(--gold2);border:none;color:#000;font-family:var(--ff);font-size:14px;font-weight:800;letter-spacing:1.5px;cursor:pointer;border-radius:var(--r2);transition:all .2s;margin-top:8px;text-transform:uppercase}
+.login-btn:hover{background:var(--gold);transform:translateY(-1px)}
+.login-btn:active{transform:scale(.98)}
+.login-err{background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.25);color:var(--red);font-family:var(--fm);font-size:11px;padding:10px 14px;border-radius:var(--r2);margin-top:12px;display:none;letter-spacing:.5px}
+.login-err.show{display:block}
+
+/* ══════════════════════════════════════════════
+   APP LAYOUT
+══════════════════════════════════════════════ */
+#app{display:none;min-height:100vh}
+#app.show{display:flex}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:var(--c1);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;transition:transform .3s}
+.sidebar-logo{padding:20px 18px;border-bottom:1px solid var(--border)}
+.sl-brand{font-size:18px;font-weight:900;letter-spacing:3px;color:var(--blue)}
+.sl-brand span{color:var(--gold)}
+.sl-role{font-family:var(--fm);font-size:8px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-top:3px}
+.sidebar-nav{flex:1;padding:14px 10px;overflow-y:auto;display:flex;flex-direction:column;gap:2px}
+.sn-section{font-family:var(--fm);font-size:8px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:10px 8px 5px;margin-top:6px}
+.sn-item{display:flex;align-items:center;gap:10px;padding:10px 10px;border-radius:var(--r2);cursor:pointer;transition:all .2s;color:var(--muted);font-size:13px;font-weight:500;border:1px solid transparent;position:relative}
+.sn-item:hover{background:rgba(99,179,237,.05);color:var(--text2)}
+.sn-item.active{background:rgba(99,179,237,.1);border-color:rgba(99,179,237,.15);color:var(--blue)}
+.sn-item svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.sn-badge{background:var(--red);color:#fff;font-family:var(--fm);font-size:8px;padding:2px 6px;border-radius:10px;margin-left:auto}
+.sidebar-footer{padding:14px 10px;border-top:1px solid var(--border)}
+.sf-atlet{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r2);background:var(--c2);border:1px solid var(--border)}
+.sf-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--blue3),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.sf-name{font-size:12px;font-weight:700;color:var(--text)}
+.sf-sub{font-family:var(--fm);font-size:9px;color:var(--muted)}
+.sf-logout{background:transparent;border:1px solid var(--border);color:var(--muted);font-family:var(--fm);font-size:9px;padding:5px 8px;border-radius:6px;cursor:pointer;transition:all .2s;margin-left:auto;white-space:nowrap}
+.sf-logout:hover{border-color:var(--red);color:var(--red)}
+
+/* ── MAIN CONTENT ── */
+.main-content{margin-left:var(--sidebar);flex:1;min-height:100vh;overflow-x:hidden}
+.topbar{background:rgba(7,11,18,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99}
+.topbar-title{font-size:16px;font-weight:700;color:var(--text)}
+.topbar-sub{font-family:var(--fm);font-size:10px;color:var(--muted);margin-top:2px}
+.topbar-right{display:flex;gap:8px;align-items:center}
+.tb-btn{background:var(--c2);border:1px solid var(--border2);color:var(--text2);font-family:var(--fm);font-size:10px;letter-spacing:.5px;padding:8px 14px;border-radius:var(--r2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px}
+.tb-btn:hover{border-color:var(--blue2);color:var(--blue)}
+.tb-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.tb-btn.primary{background:var(--blue3);border-color:var(--blue2);color:#fff}
+.tb-btn.primary:hover{background:var(--blue2)}
+.page-content{padding:24px;min-height:calc(100vh - 61px)}
+
+/* ── PAGES ── */
+.page{display:none;animation:fadeUp .25s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════════
+   COMPONENTS
+══════════════════════════════════════════════ */
+/* Cards */
+.card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:20px}
+.card-sm{background:var(--c1);border:1px solid var(--border);border-radius:var(--r2);padding:14px}
+.card-title{font-family:var(--fm);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Grid */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* Stat cards */
+.stat-card{background:var(--c1);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;position:relative;overflow:hidden;transition:border-color .2s}
+.stat-card:hover{border-color:var(--border2)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent,var(--blue))}
+.sc-val{font-size:32px;font-weight:900;letter-spacing:-2px;color:var(--text);line-height:1}
+.sc-label{font-family:var(--fm);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:6px}
+.sc-change{font-family:var(--fm);font-size:10px;margin-top:8px}
+.sc-change.up{color:var(--green)}
+.sc-change.dn{color:var(--red)}
+.sc-icon{position:absolute;top:16px;right:16px;width:32px;height:32px;opacity:.15}
+.sc-icon svg{width:100%;height:100%;stroke:var(--accent,var(--blue));fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Section title */
+.sec-title{font-family:var(--fm);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Table */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap}
+.data-table td{padding:10px 12px;border-bottom:1px solid rgba(128,128,128,.04);font-size:13px;vertical-align:middle}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(99,179,237,.02)}
+
+/* Badges */
+.badge{font-family:var(--fm);font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:20px;text-transform:uppercase;font-weight:600;border:1px solid;display:inline-block}
+.badge-blue{background:rgba(99,179,237,.08);border-color:rgba(99,179,237,.2);color:var(--blue)}
+.badge-gold{background:rgba(246,201,14,.08);border-color:rgba(246,201,14,.2);color:var(--gold)}
+.badge-green{background:rgba(72,187,120,.08);border-color:rgba(72,187,120,.3);color:var(--green)}
+.badge-red{background:rgba(252,92,125,.08);border-color:rgba(252,92,125,.2);color:var(--red)}
+.badge-muted{background:rgba(128,128,128,.06);border-color:var(--border);color:var(--muted)}
+.badge-purple{background:rgba(183,148,244,.08);border-color:rgba(183,148,244,.2);color:var(--purple)}
+
+/* Mini score ring */
+.mini-ring{width:36px;height:36px;border-radius:50%;background:conic-gradient(var(--blue) calc(var(--p)*1%),rgba(128,128,128,.1) 0%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.mini-ring::before{content:'';position:absolute;inset:5px;border-radius:50%;background:var(--c1)}
+.mini-ring span{position:relative;font-size:9px;font-weight:800;color:var(--blue);font-family:var(--fm)}
+
+/* Buttons */
+.btn{padding:9px 16px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:1px solid;display:inline-flex;align-items:center;gap:6px}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--blue2);border-color:var(--blue2);color:#fff}
+.btn-primary:hover{background:var(--blue)}
+.btn-secondary{background:var(--c2);border-color:var(--border2);color:var(--text2)}
+.btn-secondary:hover{border-color:var(--blue2);color:var(--blue)}
+.btn-danger{background:rgba(252,92,125,.08);border-color:rgba(252,92,125,.2);color:var(--red)}
+.btn-danger:hover{background:rgba(252,92,125,.15)}
+.btn-gold{background:var(--gold2);border-color:var(--gold2);color:#000;font-weight:700}
+.btn-gold:hover{background:var(--gold)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-xs{padding:4px 9px;font-size:11px;font-family:var(--fm)}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-group label{font-family:var(--fm);font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+.form-input{width:100%;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--r2);font-family:var(--ff);font-size:14px;font-weight:500;outline:none;transition:border-color .2s}
+.form-input:focus{border-color:var(--blue2)}
+.form-input::placeholder{color:var(--muted2)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%234a6080' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.form-textarea{min-height:90px;resize:vertical;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.form-hint{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:4px;letter-spacing:.3px}
+
+/* Range input */
+.range-group{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.range-label{font-size:12px;font-weight:600;color:var(--text2);width:130px;flex-shrink:0}
+.range-wrap{flex:1;position:relative}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:rgba(128,128,128,.12);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--blue);cursor:pointer;border:2px solid var(--c0);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.3)}
+.range-val{font-family:var(--fm);font-size:12px;color:var(--blue);width:28px;text-align:right;font-weight:700;flex-shrink:0}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--c1);border:1px solid var(--border2);border-radius:var(--r);width:100%;max-width:580px;max-height:90vh;display:flex;flex-direction:column;animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-title{font-size:15px;font-weight:700;color:var(--text)}
+.modal-close{background:transparent;border:1px solid var(--border);color:var(--muted);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:20px;overflow-y:auto;flex:1}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;flex-shrink:0}
+
+/* Tabs inside modal */
+.mini-tabs{display:flex;gap:4px;background:var(--c2);border-radius:var(--r2);padding:3px;margin-bottom:18px}
+.mini-tab{flex:1;padding:7px;background:transparent;border:none;color:var(--muted);font-family:var(--fm);font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:6px;transition:all .2s;text-transform:uppercase}
+.mini-tab.active{background:var(--c3);color:var(--blue)}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--c2);border:1px solid var(--border2);color:var(--text);font-family:var(--fm);font-size:10px;letter-spacing:1px;padding:12px 18px;border-radius:var(--r2);z-index:500;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap;box-shadow:var(--shadow);transform:translateY(8px)}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{border-color:rgba(72,187,120,.4);color:var(--green)}
+.toast.info{border-color:rgba(99,179,237,.4);color:var(--blue)}
+.toast.error{border-color:rgba(252,92,125,.4);color:var(--red)}
+
+/* Progress bar */
+.prog-bar{height:4px;background:rgba(128,128,128,.1);border-radius:2px;overflow:hidden}
+.prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:2px;transition:width .5s}
+
+/* Search */
+.search-wrap{position:relative}
+.search-input{width:100%;background:var(--c2);border:1px solid var(--border);color:var(--text);padding:9px 14px 9px 36px;border-radius:var(--r2);font-family:var(--ff);font-size:13px;outline:none;transition:border-color .2s}
+.search-input:focus{border-color:var(--blue2)}
+.search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+/* Activity feed */
+.activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid rgba(128,128,128,.05)}
+.activity-item:last-child{border-bottom:none}
+.act-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;margin-top:5px}
+.act-dot.blue{background:var(--blue)}
+.act-dot.gold{background:var(--gold)}
+.act-dot.red{background:var(--red)}
+.act-info{flex:1}
+.act-text{font-size:13px;color:var(--text2);line-height:1.4}
+.act-text strong{color:var(--text);font-weight:600}
+.act-time{font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:.5px}
+
+/* Compare */
+.compare-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.compare-left{width:38px;text-align:right;font-family:var(--fm);font-size:10px;color:var(--blue);font-weight:700}
+.compare-right{width:38px;text-align:left;font-family:var(--fm);font-size:10px;color:var(--purple);font-weight:700}
+.compare-track{flex:1;height:8px;background:rgba(128,128,128,.08);border-radius:4px;position:relative;overflow:hidden;display:flex}
+.compare-fill-l{height:100%;background:linear-gradient(90deg,transparent,var(--blue));border-radius:4px 0 0 4px;transition:width .6s}
+.compare-fill-r{height:100%;background:linear-gradient(90deg,var(--purple),transparent);border-radius:0 4px 4px 0;transition:width .6s}
+.compare-name{font-family:var(--fm);font-size:9px;color:var(--muted);text-align:center;margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px}
+
+/* Notification dot */
+.notif-dot{width:6px;height:6px;border-radius:50%;background:var(--red);position:absolute;top:8px;right:8px}
+
+/* Collapsible section */
+.collapsible-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:12px 14px;background:var(--c2);border-radius:var(--r2);margin-bottom:4px;border:1px solid var(--border)}
+.collapsible-header:hover{border-color:var(--border2)}
+.coll-title{font-size:13px;font-weight:600;color:var(--text)}
+.coll-meta{font-family:var(--fm);font-size:9px;color:var(--muted)}
+.coll-chev{color:var(--muted);transition:transform .2s}
+.collapsible-body{display:none;padding:14px;background:rgba(0,0,0,.15);border-radius:var(--r2);margin-bottom:8px;border:1px solid rgba(128,128,128,.04)}
+.collapsible-body.open{display:block}
+
+/* ══════════════════════════════════════════════
+   MOBILE SIDEBAR TOGGLE
+══════════════════════════════════════════════ */
+.sidebar-toggle{display:none;background:transparent;border:1px solid var(--border2);color:var(--text2);width:36px;height:36px;border-radius:var(--r2);cursor:pointer;align-items:center;justify-content:center}
+.sidebar-toggle svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99}
+.sidebar-overlay.show{display:block}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main-content{margin-left:0}
+  .sidebar-toggle{display:flex}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .form-row-3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .form-row-3{grid-template-columns:1fr}
+  .page-content{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOAD SCREEN -->
+<div id="loadScreen">
+  <div class="load-logo">YD<span>.</span>COACH</div>
+  <div class="load-bar"><div class="load-bar-fill"></div></div>
+  <div class="load-txt">Memuat sistem...</div>
+</div>
+
+<!-- LOGIN -->
+<div id="loginScreen" style="display:none">
+  <div class="login-box">
+    <div class="login-header">
+      <span class="login-logo">YD<span>.</span>COACH</span>
+      <div class="login-subtitle">Dashboard Pelatih</div>
+      <div class="login-badge">⚡ COACH ACCESS</div>
+    </div>
+    <div class="login-form">
+      <div class="lf-field">
+        <label>Password Pelatih</label>
+        <input type="password" id="coachPass" placeholder="••••••••" autocomplete="off">
+      </div>
+      <button class="login-btn" onclick="doCoachLogin()">MASUK →</button>
+      <div class="login-err" id="loginErr">Password tidak valid.</div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sl-brand">YD<span>.</span>COACH</div>
+      <div class="sl-role">⚡ Coach Dashboard</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sn-section">Overview</div>
+      <div class="sn-item active" onclick="showPage('dashboard',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Dashboard
+      </div>
+      <div class="sn-item" onclick="showPage('activity',this)" id="sn-activity">
+        <svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+        Aktivitas
+        <span class="sn-badge" id="actBadge" style="display:none">0</span>
+      </div>
+
+      <div class="sn-section">Manajemen Atlet</div>
+      <div class="sn-item" onclick="showPage('atlet-list',this)">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Daftar Atlet
+      </div>
+      <div class="sn-item" onclick="openTambahAtletModal()">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        Tambah Atlet
+      </div>
+
+      <div class="sn-section">Program</div>
+      <div class="sn-item" onclick="showPage('program',this)">
+        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Builder Program
+      </div>
+
+      <div class="sn-section">Analitik</div>
+      <div class="sn-item" onclick="showPage('compare',this)">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Perbandingan
+      </div>
+      <div class="sn-item" onclick="showPage('kalender',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Kalender Tim
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sf-atlet">
+        <div class="sf-avatar">P</div>
+        <div>
+          <div class="sf-name">Pelatih YD</div>
+          <div class="sf-sub">Admin Coach</div>
+        </div>
+        <button class="sf-logout" onclick="doLogout()">Keluar</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div>
+          <div class="topbar-title" id="pageTitle">Dashboard</div>
+          <div class="topbar-sub" id="pageSubtitle">YD ATHLETE — Coach Panel</div>
+        </div>
+      </div>
+      <div class="topbar-right" id="topbarActions"></div>
+    </div>
+    <div class="page-content">
+
+      <!-- ══ PAGE: DASHBOARD ══ -->
+      <div class="page active" id="page-dashboard">
+        <div class="grid-4" style="margin-bottom:24px" id="statCards"></div>
+        <div class="grid-2" style="margin-bottom:24px">
+          <div class="card">
+            <div class="card-title">Atlet Terbaik</div>
+            <div id="topAtlets"></div>
+          </div>
+          <div class="card">
+            <div class="card-title">Aktivitas Terbaru</div>
+            <div id="recentActivity"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Perkembangan Tim</div>
+          <div style="position:relative;height:200px"><canvas id="teamChart"></canvas></div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE: ACTIVITY ══ -->
+      <div class="page" id="page-activity">
+        <div class="card">
+          <div class="card-title">Timeline Aktivitas</div>
+          <div id="fullActivity"></div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE: ATLET LIST ══ -->
+      <div class="page" id="page-atlet-list">
+        <div style="display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+          <div class="search-wrap" style="flex:1;min-width:200px">
+            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-input" placeholder="Cari atlet..." id="atletSearch" oninput="renderAtletList()">
+          </div>
+          <select class="form-input form-select" style="width:130px" id="filterNode" onchange="renderAtletList()">
+            <option value="all">Semua</option>
+            <option value="atlet">Tanding</option>
+            <option value="atlet_seni">Seni</option>
+          </select>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <table class="data-table" id="atletTable">
+            <thead>
+              <tr>
+                <th>Atlet</th>
+                <th>Kategori</th>
+                <th>Overall</th>
+                <th>Program</th>
+                <th>Latihan</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="atletTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ PAGE: PROGRAM BUILDER ══ -->
+      <div class="page" id="page-program">
+        <div class="grid-2" style="gap:20px">
+          <div>
+            <div class="card" style="margin-bottom:16px">
+              <div class="card-title">Buat Program Baru</div>
+              <div class="form-group">
+                <label>Pilih Atlet</label>
+                <select class="form-input form-select" id="progAtlet">
+                  <option value="">-- Pilih Atlet --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Nama Program</label>
+                <input class="form-input" id="progNama" placeholder="cth: Persiapan Kejurnas 2025">
+              </div>
+              <div class="form-group">
+                <label>Deskripsi (opsional)</label>
+                <textarea class="form-input form-textarea" id="progDesc" placeholder="Tujuan program, instruksi khusus..."></textarea>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Tanggal Mulai</label>
+                  <input type="date" class="form-input" id="progMulai">
+                </div>
+                <div class="form-group">
+                  <label>Tanggal Selesai</label>
+                  <input type="date" class="form-input" id="progSelesai">
+                </div>
+              </div>
+              <div id="kategoriBuilder"></div>
+              <button class="btn btn-secondary btn-sm" onclick="addKategori()" style="margin-bottom:14px">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Tambah Kategori
+              </button>
+              <br>
+              <button class="btn btn-primary" onclick="saveProgram()" style="width:100%">
+                <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+                Simpan Program
+              </button>
+            </div>
+          </div>
+          <div>
+            <div class="card" style="margin-bottom:16px">
+              <div class="card-title">Program Aktif</div>
+              <div id="activeProgramsList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE: COMPARE ══ -->
+      <div class="page" id="page-compare">
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-title">Pilih Atlet untuk Dibandingkan</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Atlet A</label>
+              <select class="form-input form-select" id="cmpA" onchange="renderCompare()">
+                <option value="">-- Pilih --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Atlet B</label>
+              <select class="form-input form-select" id="cmpB" onchange="renderCompare()">
+                <option value="">-- Pilih --</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="compareResult"></div>
+      </div>
+
+      <!-- ══ PAGE: KALENDER ══ -->
+      <div class="page" id="page-kalender">
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <button class="btn btn-secondary btn-sm" onclick="calNav2(-1)">‹ Prev</button>
+            <div style="font-size:16px;font-weight:700" id="calTitle2"></div>
+            <button class="btn btn-secondary btn-sm" onclick="calNav2(1)">Next ›</button>
+          </div>
+          <div id="teamCal"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: TAMBAH/EDIT ATLET ══ -->
+<div class="modal-overlay" id="modalAtlet">
+  <div class="modal" style="max-width:660px">
+    <div class="modal-header">
+      <div class="modal-title" id="modalAtletTitle">Tambah Atlet Baru</div>
+      <button class="modal-close" onclick="closeModal('modalAtlet')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mini-tabs" id="editTabs">
+        <button class="mini-tab active" onclick="switchTab('tab-identitas',this)">Identitas</button>
+        <button class="mini-tab" onclick="switchTab('tab-fisik',this)">Fisik</button>
+        <button class="mini-tab" onclick="switchTab('tab-pasif',this)">Pasif</button>
+        <button class="mini-tab" onclick="switchTab('tab-skill',this)">Skill</button>
+        <button class="mini-tab" onclick="switchTab('tab-snapshot',this)">Snapshot</button>
+      </div>
+
+      <!-- Tab Identitas -->
+      <div id="tab-identitas">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Lengkap *</label>
+            <input class="form-input" id="aNama" placeholder="Nama atlet">
+          </div>
+          <div class="form-group">
+            <label>Jenis Kelamin</label>
+            <select class="form-input form-select" id="aGender">
+              <option value="Laki-laki">Laki-laki</option>
+              <option value="Perempuan">Perempuan</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input type="date" class="form-input" id="aTglLahir">
+          </div>
+          <div class="form-group">
+            <label>Kategori</label>
+            <select class="form-input form-select" id="aNode">
+              <option value="atlet">Tanding</option>
+              <option value="atlet_seni">Seni</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Berat (kg)</label>
+            <input type="number" class="form-input" id="aBerat" placeholder="60">
+          </div>
+          <div class="form-group">
+            <label>Tinggi (cm)</label>
+            <input type="number" class="form-input" id="aTinggi" placeholder="165">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Catatan Pelatih</label>
+          <textarea class="form-input form-textarea" id="aCatatan" placeholder="Catatan khusus tentang atlet..."></textarea>
+        </div>
+      </div>
+
+      <!-- Tab Fisik -->
+      <div id="tab-fisik" style="display:none">
+        <div id="fisikRanges"></div>
+      </div>
+
+      <!-- Tab Pasif -->
+      <div id="tab-pasif" style="display:none">
+        <div id="pasifRanges"></div>
+      </div>
+
+      <!-- Tab Skill -->
+      <div id="tab-skill" style="display:none">
+        <div id="skillRanges"></div>
+      </div>
+
+      <!-- Tab Snapshot -->
+      <div id="tab-snapshot" style="display:none">
+        <div style="background:rgba(246,201,14,.06);border:1px solid rgba(246,201,14,.2);border-radius:var(--r2);padding:12px 14px;margin-bottom:14px;font-size:12px;color:var(--text2);line-height:1.6">
+          📸 <strong style="color:var(--gold)">Snapshot History</strong> — Simpan kondisi atlet saat ini ke dalam history untuk tracking perkembangan dari waktu ke waktu. Grafik di portal atlet akan muncul setelah minimal 2 snapshot.
+        </div>
+        <button class="btn btn-gold" onclick="saveSnapshot()">
+          <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          Simpan Snapshot Sekarang
+        </button>
+        <div style="margin-top:16px">
+          <div class="sec-title">Riwayat Snapshot</div>
+          <div id="snapshotList"></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalAtlet')">Batal</button>
+      <button class="btn btn-primary" onclick="saveAtlet()">
+        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+        Simpan Atlet
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: DETAIL ATLET ══ -->
+<div class="modal-overlay" id="modalDetail">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <div class="modal-title" id="detailName">—</div>
+      <button class="modal-close" onclick="closeModal('modalDetail')">✕</button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalDetail')">Tutup</button>
+      <button class="btn btn-primary" id="detailEditBtn">
+        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Edit Atlet
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script>
+/* ══════════════════════════════════════════════
+   CONFIG
+══════════════════════════════════════════════ */
+const COACH_PASS = 'YDCOACH2025'; // Ganti password pelatih di sini
+const FB_CFG = {
+  apiKey:"AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+  authDomain:"ydtc-5d55a.firebaseapp.com",
+  databaseURL:"https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"ydtc-5d55a"
+};
+firebase.initializeApp(FB_CFG);
+const db = firebase.database();
+
+/* ══════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════ */
+let allAtlets = {}; // { id: {data, node} }
+let activities = [];
+let calState2 = { year: new Date().getFullYear(), month: new Date().getMonth() };
+let editingAtletId = null;
+let editingNode = null;
+let teamChartInst = null;
+let currentPage = 'dashboard';
+let kategoriCount = 0;
+const unsubscribers = [];
+
+/* ══════════════════════════════════════════════
+   LOADING & LOGIN
+══════════════════════════════════════════════ */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const ls = document.getElementById('loadScreen');
+    ls.classList.add('out');
+    setTimeout(() => {
+      ls.style.display = 'none';
+      if (sessionStorage.getItem('yd_coach')) {
+        startCoachApp();
+      } else {
+        document.getElementById('loginScreen').style.display = 'flex';
+      }
+    }, 500);
+  }, 1500);
+});
+
+document.getElementById('coachPass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doCoachLogin();
+});
+
+window.doCoachLogin = function() {
+  const pass = document.getElementById('coachPass').value.trim();
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+  if (pass !== COACH_PASS) {
+    errEl.style.display = 'block';
+    errEl.classList.add('show');
+    document.getElementById('coachPass').value = '';
+    return;
+  }
+  sessionStorage.setItem('yd_coach', '1');
+  document.getElementById('loginScreen').classList.add('out');
+  setTimeout(() => {
+    document.getElementById('loginScreen').style.display = 'none';
+    startCoachApp();
+  }, 400);
+};
+
+window.doLogout = function() {
+  sessionStorage.clear();
+  unsubscribers.forEach(fn => fn());
+  location.reload();
+};
+
+/* ══════════════════════════════════════════════
+   START APP
+══════════════════════════════════════════════ */
+function startCoachApp() {
+  document.getElementById('app').classList.add('show');
+  loadAllAtlets();
+}
+
+function loadAllAtlets() {
+  const nodes = ['atlet', 'atlet_seni'];
+  let loadedCount = 0;
+  nodes.forEach(node => {
+    const ref = db.ref(node);
+    const fn = ref.on('value', snap => {
+      snap.forEach(c => {
+        allAtlets[c.key] = { data: c.val(), node };
+      });
+      loadedCount++;
+      if (loadedCount >= nodes.length) {
+        renderDashboard();
+        renderAtletList();
+        renderProgAtletSelect();
+        renderCompareSelects();
+        renderActiveProgramsList();
+        renderKalender2();
+      }
+    });
+    unsubscribers.push(() => ref.off('value', fn));
+  });
+}
+
+/* ══════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════ */
+function toast(msg, type = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function calcOverall(d) {
+  if (!d) return 0;
+  const f = d.fisik || {}, p = d.pasif || {}, s = d.skill || {};
+  const isSeni = !!(p.hafalan !== undefined);
+  const fKeys = ['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'];
+  const p1Keys = ['fightIq','reflek','mental','taktik'];
+  const p2Keys = ['hafalan','penghayatan','irama','koordinasi','manajemenWaktu'];
+  const pKeys = isSeni ? p2Keys : p1Keys;
+  const sVals = [];
+  if (s.serang) Object.values(s.serang).forEach(v => sVals.push(Number(v||0)));
+  if (s.tahan) Object.values(s.tahan).forEach(v => sVals.push(Number(v||0)));
+  if (s.teknik) Object.values(s.teknik).forEach(v => sVals.push(Number(v||0)));
+  if (s.jatuh) Object.values(s.jatuh).forEach(v => sVals.push(Number(v||0)));
+  const all = [...fKeys.map(k => Number(f[k]||0)), ...pKeys.map(k => Number(p[k]||0)), ...sVals];
+  if (!all.length) return 0;
+  return Math.round(all.reduce((a,b) => a+b, 0) / all.length);
+}
+
+function getWeightClass(kg) {
+  const w = Number(kg);
+  if (w <= 45) return '≤45kg'; if (w <= 50) return '≤50kg'; if (w <= 52) return '≤52kg';
+  if (w <= 55) return '≤55kg'; if (w <= 60) return '≤60kg'; if (w <= 67) return '≤67kg';
+  if (w <= 75) return '≤75kg'; if (w <= 84) return '≤84kg'; return '+84kg';
+}
+
+function tier(v) {
+  const n = Number(v)||0;
+  return n>=85?'S':n>=70?'A':n>=50?'B':'C';
+}
+
+function makeId() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+function formatDate(ts) {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+
+function buildActivities() {
+  activities = [];
+  Object.entries(allAtlets).forEach(([id, {data, node}]) => {
+    if (!data) return;
+    // training entries
+    if (data.training) {
+      Object.entries(data.training).forEach(([date, tr]) => {
+        activities.push({
+          type: 'training',
+          atletName: data.nama,
+          atletId: id,
+          date,
+          note: tr.note || 'Latihan',
+          ts: tr.ts || new Date(date).getTime()
+        });
+      });
+    }
+    // program poin selesai
+    if (data.program) {
+      Object.entries(data.program).forEach(([qid, q]) => {
+        if (!q.kategori) return;
+        Object.entries(q.kategori).forEach(([katId, kat]) => {
+          if (!kat.poin) return;
+          Object.entries(kat.poin).forEach(([pid, pt]) => {
+            if (pt.selesai) {
+              activities.push({
+                type: 'poin',
+                atletName: data.nama,
+                atletId: id,
+                progName: q.nama,
+                poinTitle: pt.judul,
+                ts: pt.createdAt || 0
+              });
+            }
+          });
+        });
+      });
+    }
+  });
+  activities.sort((a,b) => b.ts - a.ts);
+  // update badge
+  const recent = activities.filter(a => Date.now() - a.ts < 86400000 * 7).length;
+  const badge = document.getElementById('actBadge');
+  if (recent > 0) {
+    badge.textContent = recent > 99 ? '99+' : recent;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+/* ══════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════ */
+window.showPage = function(pageId, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sn-item').forEach(b => b.classList.remove('active'));
+  const pg = document.getElementById('page-' + pageId);
+  if (pg) pg.classList.add('active');
+  if (btn) btn.classList.add('active');
+  currentPage = pageId;
+  const titles = {
+    'dashboard': ['Dashboard', 'Ringkasan semua atlet'],
+    'activity': ['Aktivitas', 'Timeline aktivitas atlet'],
+    'atlet-list': ['Daftar Atlet', 'Kelola semua atlet'],
+    'program': ['Builder Program', 'Buat & kelola program latihan'],
+    'compare': ['Perbandingan', 'Bandingkan performa atlet'],
+    'kalender': ['Kalender Tim', 'Jadwal latihan tim']
+  };
+  const [title, sub] = titles[pageId] || ['Dashboard', ''];
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent = sub;
+
+  // Lazy render
+  if (pageId === 'activity') renderFullActivity();
+  if (pageId === 'kalender') renderKalender2();
+  if (pageId === 'program') { renderProgAtletSelect(); renderActiveProgramsList(); }
+  closeSidebar();
+};
+
+window.toggleSidebar = function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+};
+window.closeSidebar = function() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+};
+
+/* ══════════════════════════════════════════════
+   DASHBOARD
+══════════════════════════════════════════════ */
+function renderDashboard() {
+  buildActivities();
+  const atletArr = Object.entries(allAtlets).filter(([,{data}]) => data);
+  const totalAtlet = atletArr.length;
+  const totalTanding = atletArr.filter(([,{node}]) => node === 'atlet').length;
+  const totalSeni = atletArr.filter(([,{node}]) => node === 'atlet_seni').length;
+  const totalTraining = atletArr.reduce((s,[,{data}]) => s + Object.keys(data?.training||{}).length, 0);
+  const avgOverall = totalAtlet > 0
+    ? Math.round(atletArr.reduce((s,[,{data}]) => s + calcOverall(data), 0) / totalAtlet)
+    : 0;
+
+  document.getElementById('statCards').innerHTML = `
+    <div class="stat-card" style="--accent:var(--blue)">
+      <div class="sc-val">${totalAtlet}</div>
+      <div class="sc-label">Total Atlet</div>
+      <div class="sc-change up">↑ Tanding ${totalTanding} · Seni ${totalSeni}</div>
+      <div class="sc-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    </div>
+    <div class="stat-card" style="--accent:var(--gold)">
+      <div class="sc-val">${avgOverall}</div>
+      <div class="sc-label">Avg. Overall</div>
+      <div class="sc-change ${avgOverall >= 60 ? 'up' : 'dn'}">${avgOverall >= 70 ? '↑ Baik' : avgOverall >= 50 ? '→ Cukup' : '↓ Perlu Perhatian'}</div>
+      <div class="sc-icon"><svg viewBox="0 0 24 24"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div>
+    </div>
+    <div class="stat-card" style="--accent:var(--green)">
+      <div class="sc-val">${totalTraining}</div>
+      <div class="sc-label">Total Sesi Latihan</div>
+      <div class="sc-change up">↑ Semua atlet</div>
+      <div class="sc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+    </div>
+    <div class="stat-card" style="--accent:var(--purple)">
+      <div class="sc-val">${activities.filter(a => Date.now() - a.ts < 86400000).length}</div>
+      <div class="sc-label">Aktivitas Hari Ini</div>
+      <div class="sc-change up">↑ 24 jam terakhir</div>
+      <div class="sc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
+    </div>`;
+
+  // Top atlets
+  const sorted = atletArr.map(([id, {data, node}]) => ({id, data, node, ov: calcOverall(data)}))
+    .sort((a,b) => b.ov - a.ov).slice(0, 5);
+  document.getElementById('topAtlets').innerHTML = sorted.map((a, i) => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid rgba(128,128,128,.05)${i===sorted.length-1?';border:none':''}">
+      <div style="font-family:var(--fm);font-size:11px;color:var(--muted);width:16px">#${i+1}</div>
+      <div class="mini-ring" style="--p:${a.ov}"><span>${a.ov}</span></div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${a.data.nama}</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">${a.node==='atlet'?'TANDING':'SENI'} · ${getWeightClass(a.data.berat)}</div>
+      </div>
+      <span class="badge ${a.ov>=70?'badge-green':a.ov>=50?'badge-gold':'badge-red'}">${tier(a.ov)}-TIER</span>
+    </div>`).join('') || '<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:20px 0;text-align:center">Belum ada atlet</div>';
+
+  // Recent activity
+  const recentActs = activities.slice(0, 6);
+  document.getElementById('recentActivity').innerHTML = recentActs.map(a => `
+    <div class="activity-item">
+      <div class="act-dot ${a.type==='training'?'blue':''}"></div>
+      <div class="act-info">
+        <div class="act-text">
+          <strong>${a.atletName}</strong> ${a.type==='training' ? '— sesi latihan: '+a.note : '— selesai: '+a.poinTitle}
+          ${a.type==='poin' ? `<span style="font-size:11px;color:var(--muted)"> (${a.progName})</span>` : ''}
+        </div>
+        <div class="act-time">${a.type==='training' ? a.date : formatDate(a.ts)}</div>
+      </div>
+    </div>`).join('') || '<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:20px 0;text-align:center">Belum ada aktivitas</div>';
+
+  // Team chart
+  renderTeamChart(atletArr);
+}
+
+function renderTeamChart(atletArr) {
+  if (teamChartInst) { teamChartInst.destroy(); teamChartInst = null; }
+  const ctx = document.getElementById('teamChart');
+  if (!ctx || atletArr.length === 0) return;
+  const top8 = atletArr.map(([id,{data}]) => ({name: data.nama?.split(' ')[0]||'?', ov: calcOverall(data)}))
+    .sort((a,b) => b.ov - a.ov).slice(0, 8);
+  teamChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: top8.map(a => a.name),
+      datasets: [{
+        label: 'Overall',
+        data: top8.map(a => a.ov),
+        backgroundColor: top8.map(a => a.ov>=70?'rgba(72,187,120,.6)':a.ov>=50?'rgba(246,201,14,.6)':'rgba(252,92,125,.5)'),
+        borderColor: top8.map(a => a.ov>=70?'#48bb78':a.ov>=50?'#f6c90e':'#fc5c7d'),
+        borderWidth: 1, borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: 'rgba(128,128,128,.08)' }, ticks: { color: '#8aa6c0', font: { family: 'JetBrains Mono', size: 10 } } },
+        y: { min: 0, max: 100, grid: { color: 'rgba(128,128,128,.08)' }, ticks: { color: '#8aa6c0', font: { family: 'JetBrains Mono', size: 10 }, stepSize: 25 } }
+      }
+    }
+  });
+}
+
+/* ══════════════════════════════════════════════
+   ACTIVITY PAGE
+══════════════════════════════════════════════ */
+function renderFullActivity() {
+  buildActivities();
+  const el = document.getElementById('fullActivity');
+  el.innerHTML = activities.slice(0, 50).map(a => `
+    <div class="activity-item">
+      <div class="act-dot ${a.type==='training'?'blue':a.type==='poin'?'':'gold'}"></div>
+      <div class="act-info">
+        <div class="act-text">
+          <strong>${a.atletName}</strong>
+          ${a.type==='training' ? `— sesi latihan dicatat: <em>${a.note}</em>` : `— menyelesaikan poin: <em>${a.poinTitle}</em>`}
+          ${a.type==='poin' ? `<span style="opacity:.6"> dalam program ${a.progName}</span>` : ''}
+        </div>
+        <div class="act-time">${a.type==='training' ? a.date : formatDate(a.ts)}</div>
+      </div>
+    </div>`).join('') || '<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:30px 0;text-align:center">Belum ada aktivitas tercatat</div>';
+}
+
+/* ══════════════════════════════════════════════
+   ATLET LIST
+══════════════════════════════════════════════ */
+function renderAtletList() {
+  const q = (document.getElementById('atletSearch')?.value||'').toLowerCase();
+  const filterNode = document.getElementById('filterNode')?.value || 'all';
+  const tbody = document.getElementById('atletTableBody');
+  if (!tbody) return;
+  const filtered = Object.entries(allAtlets)
+    .filter(([, {data, node}]) => {
+      if (!data) return false;
+      if (filterNode !== 'all' && node !== filterNode) return false;
+      if (q && !data.nama?.toLowerCase().includes(q)) return false;
+      return true;
+    })
+    .sort(([,a],[,b]) => calcOverall(b.data) - calcOverall(a.data));
+  tbody.innerHTML = filtered.map(([id, {data, node}]) => {
+    const ov = calcOverall(data);
+    const progCount = Object.keys(data.program||{}).length;
+    const trainCount = Object.keys(data.training||{}).length;
+    return `<tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="mini-ring" style="--p:${ov};width:30px;height:30px">
+            <span style="font-size:8px">${ov}</span>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:13px">${data.nama}</div>
+            <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">${data.berat||'?'}kg · ${data.tinggi||'?'}cm</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="badge ${node==='atlet'?'badge-blue':'badge-purple'}">${node==='atlet'?'TANDING':'SENI'}</span></td>
+      <td><span style="font-size:16px;font-weight:800;color:${ov>=70?'var(--green)':ov>=50?'var(--gold)':'var(--red)'}">${ov}</span></td>
+      <td><span style="font-family:var(--fm);font-size:11px;color:var(--muted)">${progCount} prog</span></td>
+      <td><span style="font-family:var(--fm);font-size:11px;color:var(--muted)">${trainCount}x</span></td>
+      <td>
+        <div style="display:flex;gap:6px">
+          <button class="btn btn-secondary btn-xs" onclick="openDetailModal('${id}','${node}')">Detail</button>
+          <button class="btn btn-xs" style="background:rgba(99,179,237,.08);border-color:rgba(99,179,237,.2);color:var(--blue)" onclick="openEditAtlet('${id}','${node}')">Edit</button>
+          <button class="btn btn-danger btn-xs" onclick="deleteAtlet('${id}','${node}')">Hapus</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="6" style="text-align:center;padding:30px;font-family:var(--fm);font-size:10px;color:var(--muted)">Belum ada atlet</td></tr>`;
+}
+
+/* ══════════════════════════════════════════════
+   DETAIL MODAL
+══════════════════════════════════════════════ */
+window.openDetailModal = function(id, node) {
+  const { data } = allAtlets[id] || {};
+  if (!data) return;
+  const ov = calcOverall(data);
+  const f = data.fisik || {};
+  document.getElementById('detailName').textContent = data.nama;
+  const fisikKeys = ['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan','fleksibilitas'];
+  const fisikNames = ['Daya Tahan','Stamina','Kecepatan','Kelincahan','Keseimbangan','Power Tungkai','Kekuatan Lengan','Fleksibilitas'];
+  document.getElementById('detailBody').innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px;padding:14px;background:var(--c2);border-radius:var(--r2)">
+      <div style="width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--blue) ${ov}%,rgba(128,128,128,.1) 0%);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0">
+        <div style="position:absolute;inset:6px;border-radius:50%;background:var(--c2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--blue)">${ov}</div>
+      </div>
+      <div>
+        <div style="font-size:18px;font-weight:800">${data.nama}</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px">
+          ${node==='atlet'?'TANDING':'SENI'} · ${data.gender==='Laki-laki'?'♂ PRIA':'♀ WANITA'} · ${data.berat||'?'}kg · ${data.tinggi||'?'}cm
+        </div>
+        ${data.catatan ? `<div style="font-size:12px;color:var(--text2);margin-top:6px;font-style:italic">"${data.catatan}"</div>` : ''}
+      </div>
+    </div>
+    <div class="sec-title">Statistik Fisik</div>
+    ${fisikKeys.map((k,i) => {
+      const v = Number(f[k]||0);
+      return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="font-size:11px;color:var(--text2);width:110px;flex-shrink:0">${fisikNames[i]}</div>
+        <div style="flex:1;height:5px;background:rgba(128,128,128,.1);border-radius:3px;overflow:hidden">
+          <div style="height:100%;width:${v}%;background:linear-gradient(90deg,var(--blue3),var(--blue));border-radius:3px"></div>
+        </div>
+        <div style="font-family:var(--fm);font-size:10px;color:var(--blue);width:24px;text-align:right">${v}</div>
+      </div>`;
+    }).join('')}
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+      <span class="badge badge-blue">${Object.keys(data.program||{}).length} Program</span>
+      <span class="badge badge-green">${Object.keys(data.training||{}).length}x Latihan</span>
+      <span class="badge badge-gold">${getWeightClass(data.berat)}</span>
+    </div>`;
+  document.getElementById('detailEditBtn').onclick = () => {
+    closeModal('modalDetail');
+    openEditAtlet(id, node);
+  };
+  document.getElementById('modalDetail').classList.add('open');
+};
+
+/* ══════════════════════════════════════════════
+   TAMBAH / EDIT ATLET
+══════════════════════════════════════════════ */
+window.openTambahAtletModal = function() {
+  editingAtletId = null;
+  editingNode = null;
+  document.getElementById('modalAtletTitle').textContent = 'Tambah Atlet Baru';
+  resetAtletForm();
+  renderAtletFormRanges(null, 'atlet');
+  switchTab('tab-identitas', document.querySelector('#editTabs .mini-tab'));
+  document.getElementById('modalAtlet').classList.add('open');
+};
+
+window.openEditAtlet = function(id, node) {
+  editingAtletId = id;
+  editingNode = node;
+  const data = allAtlets[id]?.data || {};
+  document.getElementById('modalAtletTitle').textContent = 'Edit Atlet: ' + (data.nama||'');
+  // Fill identitas
+  document.getElementById('aNama').value = data.nama || '';
+  document.getElementById('aGender').value = data.gender || 'Laki-laki';
+  document.getElementById('aTglLahir').value = data.tglLahir || '';
+  document.getElementById('aNode').value = node;
+  document.getElementById('aBerat').value = data.berat || '';
+  document.getElementById('aTinggi').value = data.tinggi || '';
+  document.getElementById('aCatatan').value = data.catatan || '';
+  renderAtletFormRanges(data, node);
+  renderSnapshotList(id, node);
+  switchTab('tab-identitas', document.querySelector('#editTabs .mini-tab'));
+  document.getElementById('modalAtlet').classList.add('open');
+};
+
+function resetAtletForm() {
+  ['aNama','aTglLahir','aBerat','aTinggi','aCatatan'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('aGender').value = 'Laki-laki';
+  document.getElementById('aNode').value = 'atlet';
+  renderAtletFormRanges(null, 'atlet');
+}
+
+function renderAtletFormRanges(data, node) {
+  const f = data?.fisik || {};
+  const p = data?.pasif || {};
+  const s = data?.skill || {};
+  const isSeni = node === 'atlet_seni';
+
+  const fisikKeys = ['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'];
+  const fisikNames = ['Daya Tahan','Stamina','Kecepatan','Kelincahan','Keseimbangan','Power Tungkai','Kekuatan Lengan'];
+  if (isSeni) { fisikKeys.push('fleksibilitas'); fisikNames.push('Fleksibilitas'); }
+
+  document.getElementById('fisikRanges').innerHTML = fisikKeys.map((k,i) =>
+    rangeRow('f_'+k, fisikNames[i], Number(f[k]||0))
+  ).join('');
+
+  const pasifKeys = isSeni
+    ? ['hafalan','penghayatan','irama','koordinasi','manajemenWaktu']
+    : ['fightIq','reflek','mental','taktik'];
+  const pasifNames = isSeni
+    ? ['Hafalan','Penghayatan','Irama & Tempo','Koordinasi','Manaj. Waktu']
+    : ['Fight IQ','Reflek','Mental','Taktik & Strategi'];
+
+  document.getElementById('pasifRanges').innerHTML = pasifKeys.map((k,i) =>
+    rangeRow('p_'+k, pasifNames[i], Number(p[k]||0))
+  ).join('');
+
+  let skillHtml = '';
+  if (isSeni) {
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:4px">Menyerang</div>`;
+    skillHtml += rangeRow('s_serang_pukulan','Pukulan',Number(s.serang?.pukulan||0));
+    skillHtml += rangeRow('s_serang_tendangan','Tendangan',Number(s.serang?.tendangan||0));
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:14px">Bertahan</div>`;
+    skillHtml += rangeRow('s_tahan_tangkisan','Tangkisan',Number(s.tahan?.tangkisan||0));
+    skillHtml += rangeRow('s_tahan_elakan','Elakan',Number(s.tahan?.elakan||0));
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:14px">Teknik Seni</div>`;
+    skillHtml += rangeRow('s_teknik_polaLangkah','Pola Langkah',Number(s.teknik?.polaLangkah||0));
+    skillHtml += rangeRow('s_teknik_kudaKuda','Kuda-kuda',Number(s.teknik?.kudaKuda||0));
+  } else {
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:4px">Menyerang</div>`;
+    [['serang_lurus','Lurus'],['serang_upper','Uppercut'],['serang_depan','T.Depan'],['serang_sabit','T.Sabit'],['serang_t','Tend.T']].forEach(([k,n]) => {
+      const [grp, key] = k.split('_');
+      skillHtml += rangeRow('s_'+k, n, Number(s.serang?.[key]||0));
+    });
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:14px">Bertahan</div>`;
+    [['tahan_tangkis','Tangkisan'],['tahan_elak','Elakan'],['tahan_tangkap','Tangkapan']].forEach(([k,n]) => {
+      const [grp, key] = k.split('_');
+      skillHtml += rangeRow('s_'+k, n, Number(s.tahan?.[key]||0));
+    });
+    skillHtml += `<div style="font-family:var(--fm);font-size:9px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;margin-top:14px">Jatuhan</div>`;
+    [['jatuh_banting','Bantingan'],['jatuh_ungkit','Ungkitan'],['jatuh_sapu','Sapuan'],['jatuh_gunting','Guntingan']].forEach(([k,n]) => {
+      const [grp, key] = k.split('_');
+      skillHtml += rangeRow('s_'+k, n, Number(s.jatuh?.[key]||0));
+    });
+  }
+  document.getElementById('skillRanges').innerHTML = skillHtml;
+}
+
+function rangeRow(id, label, val) {
+  return `<div class="range-group">
+    <div class="range-label">${label}</div>
+    <div class="range-wrap">
+      <input type="range" id="${id}" min="0" max="100" value="${val}" oninput="document.getElementById('rv_${id}').textContent=this.value">
+    </div>
+    <div class="range-val" id="rv_${id}">${val}</div>
+  </div>`;
+}
+
+function getRangeVal(id) {
+  const el = document.getElementById(id);
+  return el ? Number(el.value) : 0;
+}
+
+window.saveAtlet = async function() {
+  const nama = document.getElementById('aNama').value.trim();
+  if (!nama) { toast('Nama atlet wajib diisi', 'error'); return; }
+  const node = document.getElementById('aNode').value;
+  const isSeni = node === 'atlet_seni';
+
+  const fisikKeys = ['dayaTahan','stamina','kecepatan','kelincahan','keseimbangan','powerTungkai','kekuatanLengan'];
+  if (isSeni) fisikKeys.push('fleksibilitas');
+  const fisik = {};
+  fisikKeys.forEach(k => fisik[k] = getRangeVal('f_'+k));
+
+  const pasifKeys = isSeni
+    ? ['hafalan','penghayatan','irama','koordinasi','manajemenWaktu']
+    : ['fightIq','reflek','mental','taktik'];
+  const pasif = {};
+  pasifKeys.forEach(k => pasif[k] = getRangeVal('p_'+k));
+
+  let skill = {};
+  if (isSeni) {
+    skill = {
+      serang: { pukulan: getRangeVal('s_serang_pukulan'), tendangan: getRangeVal('s_serang_tendangan') },
+      tahan: { tangkisan: getRangeVal('s_tahan_tangkisan'), elakan: getRangeVal('s_tahan_elakan') },
+      teknik: { polaLangkah: getRangeVal('s_teknik_polaLangkah'), kudaKuda: getRangeVal('s_teknik_kudaKuda') }
+    };
+  } else {
+    skill = {
+      serang: { lurus: getRangeVal('s_serang_lurus'), upper: getRangeVal('s_serang_upper'), depan: getRangeVal('s_serang_depan'), sabit: getRangeVal('s_serang_sabit'), t: getRangeVal('s_serang_t') },
+      tahan: { tangkis: getRangeVal('s_tahan_tangkis'), elak: getRangeVal('s_tahan_elak'), tangkap: getRangeVal('s_tahan_tangkap') },
+      jatuh: { banting: getRangeVal('s_jatuh_banting'), ungkit: getRangeVal('s_jatuh_ungkit'), sapu: getRangeVal('s_jatuh_sapu'), gunting: getRangeVal('s_jatuh_gunting') }
+    };
+  }
+
+  const existing = editingAtletId ? (allAtlets[editingAtletId]?.data || {}) : {};
+  const payload = {
+    ...existing,
+    nama,
+    gender: document.getElementById('aGender').value,
+    tglLahir: document.getElementById('aTglLahir').value,
+    berat: document.getElementById('aBerat').value,
+    tinggi: document.getElementById('aTinggi').value,
+    catatan: document.getElementById('aCatatan').value,
+    fisik, pasif, skill
+  };
+
+  // Handle node change for existing atlet
+  const oldNode = editingNode;
+  try {
+    if (editingAtletId) {
+      if (oldNode && oldNode !== node) {
+        // Move to new node
+        await db.ref(`${oldNode}/${editingAtletId}`).remove();
+        await db.ref(`${node}/${editingAtletId}`).set(payload);
+      } else {
+        await db.ref(`${oldNode || node}/${editingAtletId}`).update(payload);
+      }
+      toast('✓ Atlet berhasil diperbarui', 'success');
+    } else {
+      const newId = makeId();
+      await db.ref(`${node}/${newId}`).set(payload);
+      toast('✓ Atlet baru berhasil ditambahkan', 'success');
+    }
+    closeModal('modalAtlet');
+    renderAtletList();
+    renderDashboard();
+  } catch (e) {
+    toast('Gagal menyimpan: ' + e.message, 'error');
+  }
+};
+
+window.deleteAtlet = async function(id, node) {
+  const name = allAtlets[id]?.data?.nama || 'atlet ini';
+  if (!confirm(`Hapus ${name}? Data tidak dapat dikembalikan.`)) return;
+  try {
+    await db.ref(`${node}/${id}`).remove();
+    delete allAtlets[id];
+    toast(`✓ ${name} dihapus`, 'info');
+    renderAtletList();
+    renderDashboard();
+  } catch(e) {
+    toast('Gagal menghapus', 'error');
+  }
+};
+
+/* ══════════════════════════════════════════════
+   SNAPSHOT
+══════════════════════════════════════════════ */
+window.saveSnapshot = async function() {
+  if (!editingAtletId || !editingNode) return;
+  const data = allAtlets[editingAtletId]?.data;
+  if (!data) return;
+  const snapId = makeId();
+  const snap = {
+    ts: Date.now(),
+    fisik: { ...data.fisik },
+    pasif: { ...data.pasif },
+    skill: JSON.parse(JSON.stringify(data.skill || {}))
+  };
+  try {
+    await db.ref(`${editingNode}/${editingAtletId}/history/${snapId}`).set(snap);
+    toast('📸 Snapshot disimpan!', 'success');
+    renderSnapshotList(editingAtletId, editingNode);
+  } catch(e) {
+    toast('Gagal menyimpan snapshot', 'error');
+  }
+};
+
+function renderSnapshotList(id, node) {
+  const history = allAtlets[id]?.data?.history || {};
+  const list = Object.entries(history).sort(([,a],[,b]) => b.ts - a.ts);
+  document.getElementById('snapshotList').innerHTML = list.map(([sid, s]) => {
+    const ov = calcOverall({ fisik: s.fisik, pasif: s.pasif, skill: s.skill });
+    return `<div class="card-sm" style="margin-bottom:8px;display:flex;align-items:center;justify-content:space-between">
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--text)">${formatDate(s.ts)}</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:3px">Overall: <strong style="color:var(--blue)">${ov}</strong></div>
+      </div>
+      <button class="btn btn-danger btn-xs" onclick="deleteSnapshot('${id}','${node}','${sid}')">Hapus</button>
+    </div>`;
+  }).join('') || `<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:12px 0;text-align:center">Belum ada snapshot history</div>`;
+}
+
+window.deleteSnapshot = async function(id, node, sid) {
+  if (!confirm('Hapus snapshot ini?')) return;
+  await db.ref(`${node}/${id}/history/${sid}`).remove();
+  toast('Snapshot dihapus', 'info');
+  renderSnapshotList(id, node);
+};
+
+/* ══════════════════════════════════════════════
+   PROGRAM BUILDER
+══════════════════════════════════════════════ */
+function renderProgAtletSelect() {
+  const sel = document.getElementById('progAtlet');
+  if (!sel) return;
+  const prev = sel.value;
+  sel.innerHTML = '<option value="">-- Pilih Atlet --</option>' +
+    Object.entries(allAtlets)
+      .filter(([,{data}]) => data?.nama)
+      .sort(([,a],[,b]) => (a.data.nama||'').localeCompare(b.data.nama||''))
+      .map(([id, {data, node}]) => `<option value="${id}|${node}">${data.nama} (${node==='atlet'?'Tanding':'Seni'})</option>`)
+      .join('');
+  if (prev) sel.value = prev;
+}
+
+function addKategori() {
+  const id = 'kat_' + (++kategoriCount);
+  const div = document.createElement('div');
+  div.className = 'collapsible-header';
+  div.style.marginBottom = '8px';
+  div.innerHTML = `
+    <div style="flex:1">
+      <div class="form-group" style="margin-bottom:8px" onclick="event.stopPropagation()">
+        <input class="form-input" id="${id}_nama" placeholder="Nama kategori, cth: Kondisi Fisik" style="font-size:13px;padding:8px 12px">
+      </div>
+      <div id="${id}_poin_wrap"></div>
+      <button class="btn btn-secondary btn-xs" onclick="event.stopPropagation();addPoin('${id}')" style="margin-top:4px">
+        <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Tambah Poin Latihan
+      </button>
+    </div>
+    <button class="btn btn-danger btn-xs" onclick="this.closest('.collapsible-header').remove()" style="align-self:flex-start;margin-left:8px">✕</button>`;
+  document.getElementById('kategoriBuilder').appendChild(div);
+}
+
+let poinCounts = {};
+function addPoin(katId) {
+  if (!poinCounts[katId]) poinCounts[katId] = 0;
+  const pid = katId + '_p' + (++poinCounts[katId]);
+  const div = document.createElement('div');
+  div.id = pid + '_wrap';
+  div.style.cssText = 'background:var(--c3);border-radius:var(--r2);padding:12px;margin-bottom:8px;border:1px solid var(--border)';
+  div.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span style="font-family:var(--fm);font-size:9px;color:var(--muted);letter-spacing:1px">POIN LATIHAN</span>
+      <button class="btn btn-danger btn-xs" onclick="document.getElementById('${pid}_wrap').remove()">✕</button>
+    </div>
+    <div class="form-group" style="margin-bottom:8px">
+      <input class="form-input" id="${pid}_judul" placeholder="Judul poin latihan" style="font-size:12px;padding:8px 12px">
+    </div>
+    <div class="form-row" style="margin-bottom:8px">
+      <div class="form-group" style="margin-bottom:0">
+        <input class="form-input" id="${pid}_desc" placeholder="Deskripsi (opsional)" style="font-size:12px;padding:8px 12px">
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <input class="form-input" id="${pid}_reps" placeholder="Reps / Set / Durasi" style="font-size:12px;padding:8px 12px">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="margin-bottom:0">
+        <select class="form-input form-select" id="${pid}_tipe" style="font-size:12px;padding:8px 12px">
+          <option value="repetisi">Repetisi</option>
+          <option value="set">Set</option>
+          <option value="durasi">Durasi</option>
+          <option value="jarak">Jarak</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <input class="form-input" id="${pid}_vidUrl" placeholder="URL Video (YouTube, dll)" style="font-size:12px;padding:8px 12px">
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:0;margin-top:8px">
+      <input class="form-input" id="${pid}_imgUrl" placeholder="URL Gambar (opsional)" style="font-size:12px;padding:8px 12px">
+    </div>`;
+  document.getElementById(katId + '_poin_wrap').appendChild(div);
+}
+
+window.addKategori = addKategori;
+window.addPoin = addPoin;
+
+window.saveProgram = async function() {
+  const atletVal = document.getElementById('progAtlet').value;
+  if (!atletVal) { toast('Pilih atlet terlebih dahulu', 'error'); return; }
+  const [atletId, node] = atletVal.split('|');
+  const nama = document.getElementById('progNama').value.trim();
+  if (!nama) { toast('Nama program wajib diisi', 'error'); return; }
+
+  const kategoriEls = document.querySelectorAll('#kategoriBuilder .collapsible-header');
+  if (!kategoriEls.length) { toast('Tambahkan minimal 1 kategori', 'error'); return; }
+
+  const kategori = {};
+  let hasKat = false;
+  kategoriEls.forEach((el, ki) => {
+    const katId = 'k' + makeId();
+    const namaInput = el.querySelector('input[id$="_nama"]');
+    const katNama = namaInput?.value.trim() || `Kategori ${ki+1}`;
+    const poinEls = el.querySelectorAll('[id$="_wrap"]');
+    const poin = {};
+    poinEls.forEach(pe => {
+      if (!pe.id.includes('_p')) return;
+      const base = pe.id.replace('_wrap','');
+      const judul = document.getElementById(base+'_judul')?.value.trim();
+      if (!judul) return;
+      poin['p'+makeId()] = {
+        judul,
+        desc: document.getElementById(base+'_desc')?.value.trim() || '',
+        reps: document.getElementById(base+'_reps')?.value.trim() || '',
+        tipe: document.getElementById(base+'_tipe')?.value || 'repetisi',
+        vidUrl: document.getElementById(base+'_vidUrl')?.value.trim() || '',
+        imgUrl: document.getElementById(base+'_imgUrl')?.value.trim() || '',
+        selesai: false,
+        createdAt: Date.now()
+      };
+    });
+    kategori[katId] = { nama: katNama, poin, createdAt: Date.now() };
+    hasKat = true;
+  });
+
+  if (!hasKat) { toast('Kategori tidak valid', 'error'); return; }
+
+  const progId = 'q' + makeId();
+  const prog = {
+    nama,
+    desc: document.getElementById('progDesc').value.trim(),
+    tglMulai: document.getElementById('progMulai').value,
+    tglSelesai: document.getElementById('progSelesai').value,
+    kategori,
+    createdAt: Date.now()
+  };
+
+  try {
+    await db.ref(`${node}/${atletId}/program/${progId}`).set(prog);
+    toast('✓ Program berhasil disimpan!', 'success');
+    // Reset form
+    document.getElementById('progNama').value = '';
+    document.getElementById('progDesc').value = '';
+    document.getElementById('progMulai').value = '';
+    document.getElementById('progSelesai').value = '';
+    document.getElementById('progAtlet').value = '';
+    document.getElementById('kategoriBuilder').innerHTML = '';
+    kategoriCount = 0;
+    poinCounts = {};
+    renderActiveProgramsList();
+  } catch(e) {
+    toast('Gagal menyimpan program: ' + e.message, 'error');
+  }
+};
+
+function renderActiveProgramsList() {
+  const el = document.getElementById('activeProgramsList');
+  if (!el) return;
+  const today = new Date().toISOString().slice(0,10);
+  const progs = [];
+  Object.entries(allAtlets).forEach(([atletId, {data, node}]) => {
+    if (!data?.program) return;
+    Object.entries(data.program).forEach(([progId, q]) => {
+      const status = !q.tglMulai ? 'upcoming'
+        : today < q.tglMulai ? 'upcoming'
+        : q.tglSelesai && today > q.tglSelesai ? 'done' : 'active';
+      const cats = Object.entries(q.kategori||{});
+      const total = cats.reduce((s,[,c])=>s+Object.keys(c.poin||{}).length,0);
+      const done  = cats.reduce((s,[,c])=>s+Object.values(c.poin||{}).filter(p=>p.selesai).length,0);
+      const pct = total > 0 ? Math.round(done/total*100) : 0;
+      progs.push({ atletId, node, progId, atletName: data.nama, nama: q.nama, status, pct, total, done, tglMulai: q.tglMulai });
+    });
+  });
+  progs.sort((a,b) => (b.status==='active')-(a.status==='active') || b.pct-a.pct);
+  el.innerHTML = progs.slice(0,10).map(p => `
+    <div class="card-sm" style="margin-bottom:10px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px">
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--text)">${p.nama}</div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:2px">${p.atletName}</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span class="badge ${p.status==='active'?'badge-green':p.status==='upcoming'?'badge-gold':'badge-muted'}">${p.status==='active'?'AKTIF':p.status==='upcoming'?'UPCOMING':'SELESAI'}</span>
+          <button class="btn btn-danger btn-xs" onclick="deleteProgram('${p.atletId}','${p.node}','${p.progId}')">✕</button>
+        </div>
+      </div>
+      <div class="prog-bar" style="margin-bottom:4px"><div class="prog-bar-fill" style="width:${p.pct}%"></div></div>
+      <div style="font-family:var(--fm);font-size:9px;color:var(--muted)">${p.done}/${p.total} selesai · ${p.pct}%</div>
+    </div>`).join('') || `<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:20px 0;text-align:center">Belum ada program</div>`;
+}
+
+window.deleteProgram = async function(atletId, node, progId) {
+  if (!confirm('Hapus program ini?')) return;
+  await db.ref(`${node}/${atletId}/program/${progId}`).remove();
+  toast('Program dihapus', 'info');
+  renderActiveProgramsList();
+};
+
+/* ══════════════════════════════════════════════
+   COMPARE
+══════════════════════════════════════════════ */
+function renderCompareSelects() {
+  ['cmpA','cmpB'].forEach(selId => {
+    const sel = document.getElementById(selId);
+    if (!sel) return;
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">-- Pilih --</option>' +
+      Object.entries(allAtlets)
+        .filter(([,{data}]) => data?.nama)
+        .sort(([,a],[,b]) => (a.data.nama||'').localeCompare(b.data.nama||''))
+        .map(([id, {data, node}]) => `<option value="${id}|${node}">${data.nama} (${node==='atlet'?'Tanding':'Seni'})</option>`)
+        .join('');
+    if (prev) sel.value = prev;
+  });
+}
+
+window.renderCompare = function() {
+  const valA = document.getElementById('cmpA').value;
+  const valB = document.getElementById('cmpB').value;
+  const el = document.getElementById('compareResult');
+  if (!valA || !valB) { el.innerHTML = ''; return; }
+  const [idA, nodeA] = valA.split('|');
+  const [idB, nodeB] = valB.split('|');
+  const dA = allAtlets[idA]?.data;
+  const dB = allAtlets[idB]?.data;
+  if (!dA || !dB) return;
+
+  const fA = dA.fisik||{}, fB = dB.fisik||{};
+  const pA = dA.pasif||{}, pB = dB.pasif||{};
+  const ovA = calcOverall(dA), ovB = calcOverall(dB);
+
+  const rows = [
+    ['Overall', ovA, ovB],
+    ['Daya Tahan', Number(fA.dayaTahan||0), Number(fB.dayaTahan||0)],
+    ['Stamina', Number(fA.stamina||0), Number(fB.stamina||0)],
+    ['Kecepatan', Number(fA.kecepatan||0), Number(fB.kecepatan||0)],
+    ['Kelincahan', Number(fA.kelincahan||0), Number(fB.kelincahan||0)],
+    ['Keseimbangan', Number(fA.keseimbangan||0), Number(fB.keseimbangan||0)],
+    ['Power Tungkai', Number(fA.powerTungkai||0), Number(fB.powerTungkai||0)],
+    ['Kekuatan Lengan', Number(fA.kekuatanLengan||0), Number(fB.kekuatanLengan||0)],
+    ['Fight IQ / Hafalan', Number(fA.fightIq||pA.fightIq||pA.hafalan||0), Number(fB.fightIq||pB.fightIq||pB.hafalan||0)],
+    ['Mental / Penghayatan', Number(pA.mental||pA.penghayatan||0), Number(pB.mental||pB.penghayatan||0)],
+  ];
+
+  el.innerHTML = `
+    <div class="card">
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;margin-bottom:24px;text-align:center">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--blue)">${dA.nama}</div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:4px">${nodeA==='atlet'?'TANDING':'SENI'}</div>
+          <div style="font-size:36px;font-weight:900;color:var(--blue);margin-top:8px">${ovA}</div>
+        </div>
+        <div style="display:flex;align-items:center;font-family:var(--fm);font-size:11px;color:var(--muted)">VS</div>
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--purple)">${dB.nama}</div>
+          <div style="font-family:var(--fm);font-size:9px;color:var(--muted);margin-top:4px">${nodeB==='atlet'?'TANDING':'SENI'}</div>
+          <div style="font-size:36px;font-weight:900;color:var(--purple);margin-top:8px">${ovB}</div>
+        </div>
+      </div>
+      <div class="sec-title">Perbandingan Detail</div>
+      ${rows.map(([name, vA, vB]) => {
+        const maxV = Math.max(vA, vB, 1);
+        const pA = Math.round(vA / 100 * 50);
+        const pB = Math.round(vB / 100 * 50);
+        const winner = vA > vB ? 'left' : vA < vB ? 'right' : 'tie';
+        return `<div style="margin-bottom:10px">
+          <div class="compare-name">${name}</div>
+          <div class="compare-bar">
+            <div class="compare-left" style="${winner==='left'?'color:var(--green)':''}">${vA}</div>
+            <div class="compare-track">
+              <div class="compare-fill-l" style="width:${pA}%"></div>
+              <div style="flex:1"></div>
+              <div style="flex:1"></div>
+              <div class="compare-fill-r" style="width:${pB}%"></div>
+            </div>
+            <div class="compare-right" style="${winner==='right'?'color:var(--green)':''}">${vB}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+};
+
+/* ══════════════════════════════════════════════
+   KALENDER TIM
+══════════════════════════════════════════════ */
+function renderKalender2() {
+  const {year, month} = calState2;
+  const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  const dayNames = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  document.getElementById('calTitle2').textContent = monthNames[month] + ' ' + year;
+
+  const monthKey = `${year}-${String(month+1).padStart(2,'0')}`;
+  const fd = new Date(year, month, 1).getDay();
+  const dim = new Date(year, month+1, 0).getDate();
+  const dip = new Date(year, month, 0).getDate();
+  const today = new Date();
+
+  // Collect all training dates
+  const trainingByDate = {};
+  Object.entries(allAtlets).forEach(([id, {data}]) => {
+    if (!data?.training) return;
+    Object.entries(data.training).forEach(([date, tr]) => {
+      if (!date.startsWith(monthKey)) return;
+      if (!trainingByDate[date]) trainingByDate[date] = [];
+      trainingByDate[date].push({ name: data.nama, note: tr.note || 'Latihan' });
+    });
+  });
+
+  let cells = '';
+  for (let i=fd-1;i>=0;i--) cells+=`<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;color:var(--muted2);opacity:.3">${dip-i}</div>`;
+
+  for (let d=1;d<=dim;d++) {
+    const key = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isT = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
+    const sessions = trainingByDate[key] || [];
+    const dotColor = sessions.length >= 3 ? 'var(--red)' : sessions.length >= 2 ? 'var(--gold)' : sessions.length === 1 ? 'var(--green)' : null;
+    cells += `<div title="${sessions.map(s=>s.name).join(', ')}" style="aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-family:var(--fm);font-size:11px;${isT?'background:rgba(99,179,237,.15);color:var(--blue);font-weight:700;':'color:var(--muted2)'}${sessions.length?';cursor:pointer':''}">
+      ${d}
+      ${dotColor ? `<div style="width:5px;height:5px;border-radius:50%;background:${dotColor};margin-top:2px"></div>` : ''}
+    </div>`;
+  }
+  const rem = 42 - fd - dim;
+  for(let i=1;i<=rem;i++) cells+=`<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;color:var(--muted2);opacity:.3">${i}</div>`;
+
+  // Training list this month
+  const listHtml = Object.entries(trainingByDate).sort().map(([date, sessions]) =>
+    `<div style="padding:10px 0;border-bottom:1px solid rgba(128,128,128,.05)">
+      <div style="font-family:var(--fm);font-size:10px;color:var(--gold);margin-bottom:4px">${date}</div>
+      ${sessions.map(s => `<div style="font-size:12px;color:var(--text2);margin-bottom:2px">
+        <strong style="color:var(--text)">${s.name}</strong> — ${s.note}
+      </div>`).join('')}
+    </div>`
+  ).join('') || `<div style="font-family:var(--fm);font-size:10px;color:var(--muted);padding:20px 0;text-align:center">Tidak ada catatan latihan bulan ini</div>`;
+
+  document.getElementById('teamCal').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:16px">
+      ${dayNames.map(n=>`<div style="font-family:var(--fm);font-size:9px;text-align:center;color:var(--muted);padding:5px 0;letter-spacing:.5px">${n}</div>`).join('')}
+      ${cells}
+    </div>
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--muted)">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--green)"></div> 1 atlet
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--muted)">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--gold)"></div> 2 atlet
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;font-family:var(--fm);font-size:9px;color:var(--muted)">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--red)"></div> 3+ atlet
+      </div>
+    </div>
+    <div class="sec-title">Catatan Latihan — ${monthNames[month]}</div>
+    ${listHtml}`;
+}
+
+window.calNav2 = function(dir) {
+  let {year, month} = calState2;
+  month += dir;
+  if (month > 11) { month = 0; year++; }
+  if (month < 0) { month = 11; year--; }
+  calState2 = {year, month};
+  renderKalender2();
+};
+
+/* ══════════════════════════════════════════════
+   MODAL HELPERS
+══════════════════════════════════════════════ */
+window.closeModal = function(id) {
+  document.getElementById(id).classList.remove('open');
+};
+
+window.switchTab = function(tabId, btn) {
+  ['tab-identitas','tab-fisik','tab-pasif','tab-skill','tab-snapshot'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  document.querySelectorAll('#editTabs .mini-tab').forEach(b => b.classList.remove('active'));
+  const t = document.getElementById(tabId);
+  if (t) t.style.display = 'block';
+  if (btn) btn.classList.add('active');
+};
+
+// Close modal on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.classList.remove('open');
+  });
+});
+
+// Keyboard shortcut: Escape to close modals
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  }
+});
+</script>
+</body>
+</html>

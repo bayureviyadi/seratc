@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tes Psikologis Atlet — ATHLETE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   TOKENS & THEMES
+═══════════════════════════════════════ */
+:root{
+  --bg:#080c14;--bg2:#0d1220;--bg3:#121828;
+  --glass:rgba(13,18,32,.85);
+  --border:rgba(99,132,255,.12);--border2:rgba(99,132,255,.22);
+  --text:#dce8ff;--text2:#7a93c4;--text3:#3d5280;
+  --blue:#4f8aff;--blue2:#7eb0ff;--blue-glow:rgba(79,138,255,.2);
+  --teal:#2dd4b8;--teal-glow:rgba(45,212,184,.18);
+  --amber:#f5a623;--amber-glow:rgba(245,166,35,.18);
+  --rose:#f06080;--rose-glow:rgba(240,96,128,.18);
+  --violet:#a47bff;--violet-glow:rgba(164,123,255,.18);
+  --green:#34d474;--green-glow:rgba(52,212,116,.18);
+  --card:rgba(13,18,32,.9);--card2:rgba(18,24,40,.95);
+  --r:14px;--rsm:8px;
+  --shadow:0 8px 40px rgba(0,0,0,.6);
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  --display:'Playfair Display',serif;
+}
+[data-theme="light"]{
+  --bg:#f0f4ff;--bg2:#e8eeff;--bg3:#dde5ff;
+  --glass:rgba(255,255,255,.85);
+  --border:rgba(79,138,255,.15);--border2:rgba(79,138,255,.3);
+  --text:#0a1628;--text2:#3a5080;--text3:#8aa0c8;
+  --card:rgba(255,255,255,.9);--card2:rgba(240,244,255,.95);
+  --shadow:0 8px 40px rgba(79,138,255,.12);
+}
+[data-theme="rpg"]{
+  --bg:#080a04;--bg2:#0f1008;--bg3:#14160c;
+  --glass:rgba(15,16,8,.85);
+  --border:rgba(180,150,40,.15);--border2:rgba(180,150,40,.28);
+  --text:#f0e8c0;--text2:#9a8a50;--text3:#504828;
+  --blue:#c8a020;--blue2:#e8c840;--blue-glow:rgba(200,160,32,.2);
+  --card:rgba(15,16,8,.9);--card2:rgba(20,22,12,.95);
+}
+[data-theme="luxury"]{
+  --bg:#060404;--bg2:#0c0808;--bg3:#120e0a;
+  --glass:rgba(12,8,8,.85);
+  --border:rgba(200,150,60,.12);--border2:rgba(200,150,60,.25);
+  --text:#f5ede0;--text2:#a08060;--text3:#504030;
+  --blue:#c8922a;--blue2:#e8b050;--blue-glow:rgba(200,146,42,.2);
+  --card:rgba(12,8,8,.9);--card2:rgba(18,14,10,.95);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font);
+  min-height:100vh;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 0%,rgba(79,138,255,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 100%,rgba(45,212,184,.05) 0%,transparent 60%);
+}
+
+/* ── TOPBAR ─────────────────────────────────────────── */
+.topbar{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:58px;
+  background:var(--glass);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+.tb-left{display:flex;align-items:center;gap:12px}
+.tb-logo{
+  font-family:var(--display);font-size:1.1rem;font-weight:700;
+  color:var(--text);letter-spacing:.04em;
+}
+.tb-logo em{color:var(--blue);font-style:italic}
+.tb-badge{
+  font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;
+  background:var(--blue-glow);color:var(--blue2);border:1px solid var(--border2);
+}
+.tb-back{
+  display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;
+  color:var(--text2);background:none;border:1px solid var(--border);
+  border-radius:var(--rsm);padding:7px 14px;cursor:pointer;transition:all .2s;
+  text-decoration:none;
+}
+.tb-back:hover{color:var(--text);border-color:var(--border2)}
+
+/* ── SHELL ──────────────────────────────────────────── */
+.shell{max-width:980px;margin:0 auto;padding:28px 16px 100px}
+
+/* ── STEP BAR ────────────────────────────────────────── */
+.stepbar{
+  display:flex;align-items:center;margin-bottom:32px;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 20px;gap:0;
+}
+.sb-step{
+  display:flex;align-items:center;gap:8px;flex:1;
+  font-size:.72rem;font-weight:600;letter-spacing:.04em;color:var(--text3);
+}
+.sb-step.active{color:var(--blue2)}
+.sb-step.done{color:var(--green)}
+.sb-num{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:700;flex-shrink:0;
+  border:1.5px solid currentColor;background:var(--bg2);transition:all .3s;
+}
+.sb-step.active .sb-num{background:var(--blue);border-color:var(--blue);color:#fff}
+.sb-step.done .sb-num{background:var(--green);border-color:var(--green);color:#fff}
+.sb-line{height:1px;flex:1;background:var(--border);margin:0 6px}
+.sb-line.done{background:var(--green)}
+
+/* ── SECTION HEADER ──────────────────────────────────── */
+.sec-hd{margin-bottom:24px}
+.sec-title{
+  font-family:var(--display);font-size:1.5rem;font-weight:700;
+  line-height:1.2;margin-bottom:6px;
+}
+.sec-title em{color:var(--blue);font-style:italic}
+.sec-sub{font-size:.83rem;color:var(--text2);line-height:1.6}
+
+/* ── MODE SELECTOR ───────────────────────────────────── */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.mode-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:20px;cursor:pointer;transition:all .25s;text-align:center;
+  position:relative;overflow:hidden;
+}
+.mode-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,var(--blue-glow),transparent 70%);
+  opacity:0;transition:opacity .3s;
+}
+.mode-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.mode-card:hover::before{opacity:1}
+.mode-card.active{border-color:var(--blue);background:var(--card2)}
+.mode-card.active::before{opacity:1}
+.mode-icon{font-size:2rem;margin-bottom:10px}
+.mode-title{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.mode-desc{font-size:.72rem;color:var(--text2);line-height:1.5}
+.mode-check{
+  position:absolute;top:10px;right:10px;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--blue);display:none;
+  align-items:center;justify-content:center;font-size:.6rem;color:#fff;
+}
+.mode-card.active .mode-check{display:flex}
+
+/* ── ATLET SEARCH ────────────────────────────────────── */
+.search-wrap{position:relative;margin-bottom:16px}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:.9rem}
+.search-input{
+  width:100%;padding:13px 16px 13px 44px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  font-family:var(--font);font-size:.85rem;color:var(--text);outline:none;
+  transition:border .2s;
+}
+.search-input:focus{border-color:var(--blue)}
+.search-input::placeholder{color:var(--text3)}
+
+.atlet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.atlet-card{
+  background:var(--card);border:1.5px solid var(--border);border-radius:var(--r);
+  padding:14px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;
+}
+.atlet-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--blue-glow),transparent);
+  opacity:0;transition:.25s;pointer-events:none;
+}
+.atlet-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.atlet-card:hover::after{opacity:1}
+.atlet-card.sel{border-color:var(--blue);background:var(--card2)}
+.atlet-card.sel::after{opacity:1}
+.ac-top{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.ac-av{
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:700;color:#fff;overflow:hidden;
+}
+.ac-av img{width:100%;height:100%;object-fit:cover}
+.ac-name{font-size:.85rem;font-weight:600;line-height:1.3}
+.ac-kelas{font-size:.7rem;color:var(--text2)}
+.ac-ck{
+  position:absolute;top:8px;right:8px;width:18px;height:18px;
+  border-radius:50%;background:var(--green);
+  display:none;align-items:center;justify-content:center;font-size:.55rem;color:#fff;
+}
+.atlet-card.sel .ac-ck{display:flex}
+
+.empty-st{
+  grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text3);
+}
+.empty-st-icon{font-size:2.4rem;margin-bottom:12px}
+
+/* ── TES FORM ────────────────────────────────────────── */
+.tes-atlet-bar{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px 18px;margin-bottom:20px;
+}
+.tab-av{
+  width:46px;height:46px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:700;color:#fff;overflow:hidden;
+}
+.tab-av img{width:100%;height:100%;object-fit:cover}
+.tab-name{font-size:.95rem;font-weight:700}
+.tab-meta{font-size:.72rem;color:var(--text2);margin-top:2px}
+.tab-mode-tag{
+  margin-left:auto;font-size:.65rem;font-weight:700;letter-spacing:.07em;
+  padding:4px 10px;border-radius:20px;
+}
+.tag-coach{background:var(--blue-glow);color:var(--blue2);border:1px solid var(--border2)}
+.tag-self{background:var(--teal-glow);color:var(--teal);border:1px solid var(--teal)}
+
+/* progress */
+.prog-wrap{margin-bottom:24px}
+.prog-labels{display:flex;justify-content:space-between;font-size:.72rem;color:var(--text2);margin-bottom:6px}
+.prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.prog-fill{
+  height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--blue),var(--teal));
+  transition:width .4s cubic-bezier(.4,0,.2,1);
+}
+
+/* domain tabs */
+.domain-tabs{
+  display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;
+}
+.dtab{
+  padding:7px 14px;border-radius:20px;font-size:.75rem;font-weight:600;
+  border:1px solid var(--border);background:var(--card);color:var(--text2);
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+}
+.dtab:hover{border-color:var(--border2);color:var(--text)}
+.dtab.active{color:#fff;border-color:transparent}
+.dtab.done-tab{border-color:var(--green);color:var(--green)}
+.dtab.done-tab.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+/* domain card */
+.domain-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  overflow:hidden;margin-bottom:20px;
+  animation:fadeUp .3s ease;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.domain-head{
+  padding:16px 20px;background:var(--card2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:14px;
+}
+.dh-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;
+  flex-shrink:0;
+}
+.dh-info{flex:1}
+.dh-name{font-size:.95rem;font-weight:700}
+.dh-desc{font-size:.72rem;color:var(--text2);margin-top:2px}
+.dh-score{
+  font-family:var(--mono);font-size:.85rem;font-weight:700;
+  color:var(--text3);transition:color .3s;
+}
+.dh-score.scored{color:var(--blue2)}
+
+.domain-body{padding:6px 0}
+
+/* question row */
+.q-row{
+  padding:14px 20px;border-bottom:1px solid var(--border);
+  transition:background .15s;
+}
+.q-row:last-child{border-bottom:none}
+.q-row:hover{background:rgba(79,138,255,.03)}
+.q-text{font-size:.83rem;line-height:1.6;color:var(--text);margin-bottom:10px}
+.q-num{
+  display:inline-block;font-family:var(--mono);font-size:.65rem;
+  color:var(--blue);font-weight:600;margin-right:6px;
+}
+.q-scale{
+  display:flex;align-items:center;gap:0;
+  background:var(--bg3);border-radius:var(--rsm);overflow:hidden;
+  border:1px solid var(--border);width:fit-content;
+}
+.qs-btn{
+  padding:8px 0;width:46px;text-align:center;
+  font-family:var(--mono);font-size:.78rem;font-weight:600;
+  color:var(--text2);cursor:pointer;border:none;background:none;
+  transition:all .18s;border-right:1px solid var(--border);
+}
+.qs-btn:last-child{border-right:none}
+.qs-btn:hover{background:var(--blue-glow);color:var(--blue2)}
+.qs-btn.act{color:#fff;font-weight:700}
+
+/* scale label row */
+.q-scale-labels{
+  display:flex;justify-content:space-between;
+  font-size:.6rem;color:var(--text3);margin-top:4px;
+  padding:0 2px;width:fit-content;min-width:230px;
+}
+
+/* domain total bar */
+.domain-total{
+  margin:0 20px 16px;padding:10px 14px;
+  background:var(--bg3);border-radius:var(--rsm);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.78rem;
+}
+.dt-label{color:var(--text2)}
+.dt-val{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--blue2)}
+
+/* notes */
+.notes-sec{margin-bottom:24px}
+.notes-label{font-size:.78rem;font-weight:600;color:var(--text2);margin-bottom:8px}
+.notes-ta{
+  width:100%;padding:13px 16px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  font-family:var(--font);font-size:.82rem;color:var(--text);
+  resize:vertical;min-height:90px;outline:none;transition:border .2s;
+}
+.notes-ta:focus{border-color:var(--blue)}
+.notes-ta::placeholder{color:var(--text3)}
+
+/* CTA nav */
+.tes-nav{
+  display:flex;gap:12px;
+  position:sticky;bottom:0;z-index:100;
+  background:var(--bg);padding:14px 0;
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+.btn{
+  flex:1;padding:14px 20px;border-radius:var(--r);
+  font-family:var(--font);font-size:.85rem;font-weight:700;
+  cursor:pointer;border:none;transition:all .22s;letter-spacing:.03em;
+}
+.btn-ghost{
+  background:var(--card);color:var(--text);border:1px solid var(--border);flex:0 0 auto;padding:14px 20px;
+}
+.btn-ghost:hover{border-color:var(--border2)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  color:#fff;box-shadow:0 4px 20px var(--blue-glow);
+}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-primary:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:none}
+
+/* ── HASIL ───────────────────────────────────────────── */
+.hasil-hero{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:28px 24px;margin-bottom:20px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hasil-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,var(--blue-glow),transparent 70%);
+}
+.h-avatar{
+  width:70px;height:70px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.6rem;font-weight:700;color:#fff;
+  margin:0 auto 14px;
+  box-shadow:0 0 0 6px var(--blue-glow),0 8px 30px rgba(0,0,0,.4);
+  position:relative;z-index:1;overflow:hidden;
+}
+.h-avatar img{width:100%;height:100%;object-fit:cover}
+.h-name{font-family:var(--display);font-size:1.2rem;font-weight:700;position:relative;z-index:1}
+.h-meta{font-size:.75rem;color:var(--text2);margin-top:4px;position:relative;z-index:1}
+
+.score-ring-wrap{
+  position:relative;z-index:1;
+  display:inline-flex;flex-direction:column;align-items:center;margin-top:18px;
+}
+.score-big{
+  font-family:var(--mono);font-size:3.6rem;font-weight:700;line-height:1;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.score-denom{font-size:.75rem;color:var(--text2);margin-top:4px}
+
+.grade-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 16px;border-radius:20px;
+  font-size:.75rem;font-weight:700;margin-top:10px;
+  position:relative;z-index:1;
+}
+.gA{background:var(--green-glow);color:var(--green);border:1px solid var(--green)}
+.gB{background:var(--blue-glow);color:var(--blue2);border:1px solid var(--blue)}
+.gC{background:var(--amber-glow);color:var(--amber);border:1px solid var(--amber)}
+.gD{background:var(--rose-glow);color:var(--rose);border:1px solid var(--rose)}
+
+/* domain result cards */
+.domain-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:20px}
+.dr-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px;
+}
+.dr-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.dr-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.dr-name{font-size:.85rem;font-weight:700;flex:1}
+.dr-score{font-family:var(--mono);font-size:.9rem;font-weight:700}
+.dr-bar-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.dr-bar-fill{height:100%;border-radius:3px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.dr-interp{font-size:.72rem;color:var(--text2);line-height:1.5}
+
+/* radar */
+.radar-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px;margin-bottom:16px;
+}
+.radar-title{font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:14px;text-align:center;letter-spacing:.04em}
+
+/* rekomendasi */
+.reko-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px;margin-bottom:16px;
+}
+.reko-title{
+  font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text2);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.reko-item{
+  display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:.82rem;line-height:1.6;
+}
+.reko-item:last-child{border-bottom:none}
+.reko-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px;
+}
+
+/* share link box */
+.share-box{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px 18px;margin-bottom:16px;
+}
+.share-label{font-size:.78rem;font-weight:600;color:var(--text2);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.share-link-row{display:flex;gap:8px;align-items:center}
+.share-link-input{
+  flex:1;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--rsm);font-family:var(--mono);font-size:.72rem;color:var(--text2);
+  outline:none;
+}
+.copy-btn{
+  padding:10px 16px;background:var(--blue);color:#fff;border:none;
+  border-radius:var(--rsm);font-size:.75rem;font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:all .2s;
+}
+.copy-btn:hover{filter:brightness(1.15)}
+
+/* loading */
+.loading-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:60px 20px}
+.spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* toast */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:var(--card2);border:1px solid var(--border);border-radius:var(--r);
+  padding:12px 22px;font-size:.82rem;font-weight:600;
+  opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;
+  box-shadow:var(--shadow);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--rose);color:var(--rose)}
+
+/* util */
+.mt8{margin-top:8px}.mt16{margin-top:16px}.mt24{margin-top:24px}
+
+/* responsive */
+@media(max-width:600px){
+  .mode-grid{grid-template-columns:1fr}
+  .atlet-grid{grid-template-columns:repeat(2,1fr)}
+  .qs-btn{width:38px;font-size:.72rem}
+  .domain-results{grid-template-columns:1fr}
+  .tb-left .tb-badge{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <div class="tb-logo"><em>✦</em> ATHLETE</div>
+    <div class="tb-badge">TES PSIKOLOGIS</div>
+  </div>
+  <a class="tb-back" href="dashboardpelatih.html">
+    <iconify-icon icon="lucide:arrow-left"></iconify-icon> Dashboard
+  </a>
+</div>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- STEP BAR -->
+  <div class="stepbar" id="stepbar">
+    <div class="sb-step active" id="sb1">
+      <div class="sb-num" id="sn1">1</div><span id="sl1">Mode & Atlet</span>
+    </div>
+    <div class="sb-line" id="sline12"></div>
+    <div class="sb-step" id="sb2">
+      <div class="sb-num" id="sn2">2</div><span id="sl2">Pengisian Tes</span>
+    </div>
+    <div class="sb-line" id="sline23"></div>
+    <div class="sb-step" id="sb3">
+      <div class="sb-num" id="sn3">3</div><span id="sl3">Hasil & Analisis</span>
+    </div>
+  </div>
+
+  <!-- ════ STEP 1: MODE & ATLET ════ -->
+  <div id="step1">
+    <div class="sec-hd">
+      <div class="sec-title">Tes <em>Psikologis</em> Atlet</div>
+      <div class="sec-sub">Pilih mode pengisian dan atlet yang akan dievaluasi kondisi mentalnya</div>
+    </div>
+
+    <!-- Mode -->
+    <div class="mode-grid">
+      <div class="mode-card active" id="mc_coach" onclick="setMode('coach')">
+        <div class="mode-check"><iconify-icon icon="lucide:check"></iconify-icon></div>
+        <div class="mode-icon">🧑‍🏫</div>
+        <div class="mode-title">Pelatih Mengisi</div>
+        <div class="mode-desc">Pelatih mengobservasi dan mengisi penilaian langsung di sini sekarang</div>
+      </div>
+      <div class="mode-card" id="mc_self" onclick="setMode('self')">
+        <div class="mode-check"><iconify-icon icon="lucide:check"></iconify-icon></div>
+        <div class="mode-icon">🏃</div>
+        <div class="mode-title">Atlet Mengisi Sendiri</div>
+        <div class="mode-desc">Hasilkan link unik untuk dikirim ke atlet agar mengisi mandiri</div>
+      </div>
+    </div>
+
+    <!-- Pilih Atlet -->
+    <div class="sec-hd">
+      <div class="sec-title" style="font-size:1.1rem">Pilih Atlet</div>
+    </div>
+    <div class="search-wrap">
+      <iconify-icon class="search-icon" icon="lucide:search"></iconify-icon>
+      <input class="search-input" id="searchInput" placeholder="Cari nama atlet..." oninput="filterAtlet()" autocomplete="off">
+    </div>
+    <div id="atletGrid" class="atlet-grid">
+      <div class="loading-wrap" style="grid-column:1/-1">
+        <div class="spinner"></div>
+        <div style="font-size:.8rem;color:var(--text2)">Memuat data atlet...</div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;margin-top:20px">
+      <button class="btn btn-primary" id="btnLanjut" onclick="lanjutTes()" disabled style="flex:0 0 auto;padding:13px 28px">
+        Lanjut <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 2: TES ════ -->
+  <div id="step2" style="display:none">
+    <!-- Atlet bar -->
+    <div class="tes-atlet-bar">
+      <div class="tab-av" id="tabAv"></div>
+      <div>
+        <div class="tab-name" id="tabName">-</div>
+        <div class="tab-meta" id="tabMeta">-</div>
+      </div>
+      <div class="tab-mode-tag" id="tabModeTag"></div>
+    </div>
+
+    <!-- Progress -->
+    <div class="prog-wrap">
+      <div class="prog-labels">
+        <span id="progTxt">0 dari 50 pertanyaan</span>
+        <span id="progPct">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Domain tabs -->
+    <div class="domain-tabs" id="domainTabs"></div>
+
+    <!-- Domain content -->
+    <div id="domainContent"></div>
+
+    <!-- Notes -->
+    <div class="notes-sec">
+      <div class="notes-label"><iconify-icon icon="lucide:notebook-pen"></iconify-icon> Catatan Observasi Pelatih (opsional)</div>
+      <textarea class="notes-ta" id="tesNotes" placeholder="Tuliskan observasi perilaku, kondisi fisik saat tes, atau hal lain yang perlu dicatat..."></textarea>
+    </div>
+
+    <div class="tes-nav">
+      <button class="btn btn-ghost" onclick="backTo1()"><iconify-icon icon="lucide:arrow-left"></iconify-icon> Kembali</button>
+      <button class="btn btn-primary" id="btnSelesai" onclick="selesaiTes()">
+        Selesai & Simpan <iconify-icon icon="lucide:save"></iconify-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- ════ STEP 3: HASIL ════ -->
+  <div id="step3" style="display:none">
+
+    <!-- Hero score -->
+    <div class="hasil-hero">
+      <div class="h-avatar" id="hAvatar"></div>
+      <div class="h-name" id="hName"></div>
+      <div class="h-meta" id="hMeta"></div>
+      <div class="score-ring-wrap">
+        <div class="score-big" id="hScore">0</div>
+        <div class="score-denom">Skor Psikologis Keseluruhan / 100</div>
+        <div class="grade-pill" id="hGrade"></div>
+      </div>
+    </div>
+
+    <!-- Share link (coach-generated self-test) -->
+    <div class="share-box" id="shareBox" style="display:none">
+      <div class="share-label"><iconify-icon icon="lucide:link"></iconify-icon> Link Tes Mandiri untuk Atlet</div>
+      <div class="share-link-row">
+        <input class="share-link-input" id="shareLinkInput" readonly>
+        <button class="copy-btn" onclick="copyLink()">Salin</button>
+      </div>
+    </div>
+
+    <!-- Radar -->
+    <div class="radar-card">
+      <div class="radar-title">PROFIL PSIKOLOGIS</div>
+      <canvas id="radarCanvas" width="320" height="300"></canvas>
+    </div>
+
+    <!-- Domain cards -->
+    <div class="domain-results" id="domainResults"></div>
+
+    <!-- Rekomendasi -->
+    <div class="reko-card" id="rekoCard">
+      <div class="reko-title"><iconify-icon icon="lucide:lightbulb"></iconify-icon> Rekomendasi Latihan Mental</div>
+      <div id="rekoList"></div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:4px">
+      <button class="btn btn-ghost" onclick="tesBaru()" style="flex:0 0 auto">
+        <iconify-icon icon="lucide:refresh-cw"></iconify-icon> Tes Baru
+      </button>
+      <button class="btn btn-primary" onclick="window.location.href='dashboardpelatih.html'">
+        <iconify-icon icon="lucide:home"></iconify-icon> Dashboard
+      </button>
+    </div>
+
+  </div>
+</div><!-- /shell -->
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<script>
+let db;
+try {
+  const fbCfgRaw = sessionStorage.getItem('fb_cfg');
+  if(fbCfgRaw) {
+    firebase.initializeApp(JSON.parse(fbCfgRaw));
+  } else {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+      authDomain: "ydtc-5d55a.firebaseapp.com",
+      databaseURL: "https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ydtc-5d55a"
+    });
+  }
+  db = firebase.database();
+} catch(e) {
+  db = firebase.database();
+}
+
+/* ══════════════════════════════════════════════════════
+   INSTRUMENT — 5 DOMAIN, 10 ITEM EACH (TOTAL 50)
+   Scale: 1=Sangat Tidak Setuju … 5=Sangat Setuju
+   Items marked [R] are reverse-scored
+═══════════════════════════════════════════════════════ */
+const DOMAINS = [
+  {
+    id:'kepercayaan_diri', name:'Kepercayaan Diri', short:'PD', icon:'💪',
+    color:'var(--blue)', gradient:'linear-gradient(135deg,#4f8aff,#7eb0ff)', bg:'var(--blue-glow)', desc:'Self-confidence & belief in own abilities',
+    items:[
+      {q:'Saya yakin dapat tampil maksimal dalam setiap pertandingan.',reverse:false},
+      {q:'Saya percaya teknik yang saya miliki sudah cukup untuk mengalahkan lawan.',reverse:false},
+      {q:'Ketika situasi sulit, saya ragu apakah saya bisa menang.',reverse:true},
+      {q:'Saya merasa siap secara mental sebelum bertanding.',reverse:false},
+      {q:'Saya sering membandingkan kemampuan saya dengan atlet lain dan merasa kurang.',reverse:true},
+      {q:'Saya tahu kekuatan saya dan mampu menggunakannya di saat kritis.',reverse:false},
+      {q:'Kegagalan di pertandingan sebelumnya membuat saya tidak yakin di pertandingan berikutnya.',reverse:true},
+      {q:'Saya mampu tampil baik meskipun lawan lebih berpengalaman.',reverse:false},
+      {q:'Saya merasa percaya diri dengan tubuh dan kondisi fisik saya saat ini.',reverse:false},
+      {q:'Saya mudah kehilangan kepercayaan diri saat melakukan kesalahan.',reverse:true},
+    ]
+  },
+  {
+    id:'fokus_konsentrasi', name:'Fokus & Konsentrasi', short:'FK', icon:'🎯',
+    color:'var(--teal)', gradient:'linear-gradient(135deg,#2dd4b8,#5ef0d8)', bg:'var(--teal-glow)', desc:'Attentional focus & concentration skills',
+    items:[
+      {q:'Saat bertanding, saya bisa fokus pada tugas tanpa terganggu hal lain.',reverse:false},
+      {q:'Pikiran saya sering melayang ke hal di luar pertandingan saat sedang berlomba.',reverse:true},
+      {q:'Saya dapat mempertahankan konsentrasi dari awal hingga akhir pertandingan.',reverse:false},
+      {q:'Kebisingan penonton atau tekanan tidak mengganggu fokus saya.',reverse:false},
+      {q:'Setelah melakukan kesalahan, saya sulit mengembalikan fokus dengan cepat.',reverse:true},
+      {q:'Saya mampu membaca gerakan lawan dengan cermat di tengah tekanan.',reverse:false},
+      {q:'Saya mudah terganggu oleh keputusan wasit yang menurut saya tidak adil.',reverse:true},
+      {q:'Saya memiliki rutinitas pra-bertanding yang membantu saya fokus.',reverse:false},
+      {q:'Saya bisa "masuk ke zona" konsentrasi tinggi saat diperlukan.',reverse:false},
+      {q:'Di babak akhir pertandingan, konsentrasi saya mulai menurun.',reverse:true},
+    ]
+  },
+  {
+    id:'resiliensi', name:'Resiliensi & Ketahanan', short:'RS', icon:'🔥',
+    color:'var(--amber)', gradient:'linear-gradient(135deg,#f5a623,#ffd166)', bg:'var(--amber-glow)', desc:'Mental resilience & bounce-back ability',
+    items:[
+      {q:'Saya bisa bangkit dengan cepat setelah mengalami kekalahan.',reverse:false},
+      {q:'Kegagalan membuat saya ingin berhenti dari olahraga ini.',reverse:true},
+      {q:'Saya melihat setiap kekalahan sebagai pelajaran berharga.',reverse:false},
+      {q:'Saya tetap bersemangat berlatih meski hasil pertandingan mengecewakan.',reverse:false},
+      {q:'Cedera atau hambatan fisik sangat merusak mental saya dalam jangka panjang.',reverse:true},
+      {q:'Saya mampu menghadapi tekanan tinggi tanpa kehilangan kendali emosi.',reverse:false},
+      {q:'Saya tahu cara memulihkan diri secara mental setelah pertandingan buruk.',reverse:false},
+      {q:'Kritik dari pelatih atau orang lain membuat saya down berkepanjangan.',reverse:true},
+      {q:'Saya percaya hambatan adalah bagian normal dari perjalanan atletik.',reverse:false},
+      {q:'Saya sulit melupakan penampilan buruk dan terus memikirkannya.',reverse:true},
+    ]
+  },
+  {
+    id:'motivasi', name:'Motivasi & Mental Toughness', short:'MV', icon:'⚡',
+    color:'var(--violet)', gradient:'linear-gradient(135deg,#a47bff,#c9a8ff)', bg:'var(--violet-glow)', desc:'Drive, goal-orientation & mental toughness',
+    items:[
+      {q:'Saya memiliki tujuan yang jelas dalam karier atletik saya.',reverse:false},
+      {q:'Saya berlatih keras meskipun tidak ada yang mengawasi.',reverse:false},
+      {q:'Motivasi saya berlatih sering turun tanpa alasan yang jelas.',reverse:true},
+      {q:'Saya bersedia berkorban (waktu, sosial, kenyamanan) demi prestasi.',reverse:false},
+      {q:'Saya mudah menyerah saat latihan terasa sangat berat.',reverse:true},
+      {q:'Saya terdorong dari dalam diri untuk terus berkembang, bukan hanya tekanan luar.',reverse:false},
+      {q:'Saya tetap komit pada jadwal latihan meskipun sedang tidak mood.',reverse:false},
+      {q:'Saya mudah terpengaruh oleh sikap negatif teman satu tim.',reverse:true},
+      {q:'Saya memiliki mentalitas tidak menyerah bahkan di situasi paling sulit.',reverse:false},
+      {q:'Saya sering mempertanyakan apakah usaha keras saya sepadan.',reverse:true},
+    ]
+  },
+  {
+    id:'kecemasan', name:'Kecemasan Bertanding', short:'KA', icon:'🧘',
+    color:'var(--rose)', gradient:'linear-gradient(135deg,#f06080,#ff8faa)', bg:'var(--rose-glow)', desc:'Sport anxiety & stress management',
+    items:[
+      {q:'Saya merasa sangat gugup sebelum pertandingan hingga mengganggu penampilan.',reverse:true},
+      {q:'Saya memiliki cara efektif untuk menenangkan diri sebelum bertanding.',reverse:false},
+      {q:'Jantung saya berdegup kencang dan perut saya tidak nyaman saat akan bertanding.',reverse:true},
+      {q:'Saya dapat mengubah kecemasan menjadi energi positif untuk bertanding.',reverse:false},
+      {q:'Pikiran tentang kemungkinan kalah terus mengganggu saya sebelum bertanding.',reverse:true},
+      {q:'Saya tidur dengan nyenyak malam sebelum pertandingan penting.',reverse:false},
+      {q:'Saya merasa otot saya tegang dan kaku karena tekanan pertandingan.',reverse:true},
+      {q:'Saya dapat mengontrol pernapasan dan detak jantung saya saat tegang.',reverse:false},
+      {q:'Tekanan dari ekspektasi orang lain membuat saya tidak bisa tampil maksimal.',reverse:true},
+      {q:'Saya merasa tenang dan siap bahkan menghadapi lawan yang lebih kuat.',reverse:false},
+    ]
+  }
+];
+
+// flatten all items with domain info
+const ALL_ITEMS = [];
+DOMAINS.forEach(d => d.items.forEach((it,i) => ALL_ITEMS.push({...it, domain:d.id, idx:i})));
+const TOTAL_Q = ALL_ITEMS.length; // 50
+
+function scoreColor(pct){
+  if(pct>=80) return 'var(--green)';
+  if(pct>=65) return 'var(--blue)';
+  if(pct>=50) return 'var(--amber)';
+  return 'var(--rose)';
+}
+function scoreLabel(pct){
+  if(pct>=80) return 'Sangat Baik';
+  if(pct>=65) return 'Baik';
+  if(pct>=50) return 'Cukup';
+  return 'Perlu Perhatian';
+}
+function gradeOf(pct){return pct>=80?'A':pct>=65?'B':pct>=50?'C':'D'}
+
+/* ══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let currentMode = 'coach'; // 'coach' | 'self'
+let selectedAtlet = null;
+let allAtlet = [];
+let answers = {}; // {domain_idx: value}
+let currentUser = null;
+
+/* ══════════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════════ */
+(function(){
+  const t = localStorage.getItem('athlete_theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+})();
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const raw = sessionStorage.getItem('athlete_coach_user');
+  if(!raw){
+    showToast('Sesi tidak valid. Silakan login ulang.','err');
+    setTimeout(()=>{ window.location.href='dashboardpelatih.html'; },1800);
+    return;
+  }
+  currentUser = JSON.parse(raw);
+  loadAtlet();
+});
+
+/* ══════════════════════════════════════════════════════
+   LOAD ATLET
+═══════════════════════════════════════════════════════ */
+function loadAtlet(){
+  const unitRef = currentUser.unitId||currentUser.unit_id||currentUser.unitKey;
+  
+  const unitPromise = unitRef ? db.ref(`units/${unitRef}/atlet`).once('value') : Promise.resolve({val: ()=>null});
+  const atletUnitPromise = unitRef ? db.ref(`atletUnit/${unitRef}`).once('value') : Promise.resolve({val: ()=>null});
+  const globalPromise = db.ref('atlet').once('value');
+  
+  Promise.all([unitPromise, atletUnitPromise, globalPromise]).then(snaps => {
+    const unitData = snaps[0].val() || {};
+    const atletUnitData = snaps[1].val() || {};
+    const globalData = snaps[2].val() || {};
+    const merged = {};
+    
+    Object.entries(unitData).forEach(([k,v]) => { merged[k] = v; });
+    Object.entries(atletUnitData).forEach(([k,v]) => { if(!merged[k]) merged[k] = v; });
+    Object.entries(globalData).forEach(([k,v]) => { if(!merged[k]) merged[k] = v; });
+    
+    allAtlet = Object.entries(merged).map(([k,v])=>({key:k,...v}));
+    renderAtletGrid(allAtlet);
+  }).catch(e => {
+    console.error(e);
+    showToast('Gagal memuat data atlet', 'err');
+  });
+}
+
+function avatarHTML(a, size=40){
+  const nm = (a.nama||a.name||'?');
+  const initials = nm.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const src = a.foto||a.iconUrl||a.photo;
+  return src
+    ? `<img src="${src}" onerror="this.style.display='none';this.parentElement.textContent='${initials}'">`
+    : initials;
+}
+
+function renderAtletGrid(list){
+  const g=document.getElementById('atletGrid');
+  if(!list.length){
+    g.innerHTML=`<div class="empty-st"><div class="empty-st-icon">👥</div>Tidak ada atlet ditemukan</div>`;
+    return;
+  }
+  g.innerHTML=list.map(a=>`
+    <div class="atlet-card" id="ac_${a.key}" onclick="selectAtlet('${a.key}')">
+      <div class="ac-top">
+        <div class="ac-av">${avatarHTML(a)}</div>
+        <div>
+          <div class="ac-name">${a.nama||a.name||'-'}</div>
+          <div class="ac-kelas">${a.kategori||a.kelas||a.class||''}</div>
+        </div>
+      </div>
+      <div class="ac-ck"><iconify-icon icon="lucide:check"></iconify-icon></div>
+    </div>
+  `).join('');
+  if(selectedAtlet){
+    const el=document.getElementById(`ac_${selectedAtlet.key}`);
+    if(el) el.classList.add('sel');
+  }
+}
+
+function filterAtlet(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  renderAtletGrid(allAtlet.filter(a=>(a.nama||a.name||'').toLowerCase().includes(q)));
+}
+
+function selectAtlet(key){
+  document.querySelectorAll('.atlet-card.sel').forEach(e=>e.classList.remove('sel'));
+  selectedAtlet = allAtlet.find(a=>a.key===key);
+  document.getElementById(`ac_${key}`)?.classList.add('sel');
+  document.getElementById('btnLanjut').disabled=false;
+}
+
+function setMode(m){
+  currentMode=m;
+  document.getElementById('mc_coach').classList.toggle('active',m==='coach');
+  document.getElementById('mc_self').classList.toggle('active',m==='self');
+}
+
+/* ══════════════════════════════════════════════════════
+   STEP NAVIGATION
+═══════════════════════════════════════════════════════ */
+function setStep(n){
+  for(let i=1;i<=3;i++){
+    const s=document.getElementById(`sb${i}`);
+    const sn=document.getElementById(`sn${i}`);
+    s.classList.remove('active','done');
+    if(i<n){s.classList.add('done');sn.innerHTML='<iconify-icon icon="lucide:check"></iconify-icon>';}
+    else if(i===n){s.classList.add('active');sn.textContent=i;}
+    else{sn.textContent=i;}
+  }
+  document.getElementById('sline12').className='sb-line'+(n>1?' done':'');
+  document.getElementById('sline23').className='sb-line'+(n>2?' done':'');
+}
+
+function showStep(n){
+  [1,2,3].forEach(i=>{ document.getElementById(`step${i}`).style.display=i===n?'block':'none'; });
+  setStep(n);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function lanjutTes(){
+  if(!selectedAtlet){ showToast('Pilih atlet terlebih dahulu','err'); return; }
+  if(currentMode==='self'){
+    // Generate token & show link
+    generateSelfLink();
+    return;
+  }
+  answers={};
+  buildTesForm();
+  showStep(2);
+}
+
+function backTo1(){ showStep(1); }
+
+function tesBaru(){
+  selectedAtlet=null;
+  answers={};
+  document.querySelectorAll('.atlet-card.sel').forEach(e=>e.classList.remove('sel'));
+  document.getElementById('btnLanjut').disabled=true;
+  document.getElementById('tesNotes').value='';
+  showStep(1);
+}
+
+/* ══════════════════════════════════════════════════════
+   SELF-TEST LINK GENERATION
+═══════════════════════════════════════════════════════ */
+function generateSelfLink(){
+  const token = btoa(JSON.stringify({
+    atletId: selectedAtlet.key,
+    atletNama: selectedAtlet.nama||selectedAtlet.name,
+    coachId: currentUser.uid||currentUser.id||currentUser.key,
+    coachNama: currentUser.nama||currentUser.name,
+    unitId: currentUser.unitId||currentUser.unit_id,
+    created: Date.now()
+  }));
+
+  // Save token to firebase so atlet page can validate
+  db.ref(`psi_tokens/${token}`).set({
+    atletId: selectedAtlet.key,
+    coachId: currentUser.uid||currentUser.id||currentUser.key,
+    used: false,
+    created: new Date().toISOString()
+  }).then(()=>{
+    const url = `${location.origin}${location.pathname.replace('tespsikologis.html','')}tespsikologis-atlet.html?t=${token}`;
+    showStep(3);
+    document.getElementById('hAvatar').innerHTML = avatarHTML(selectedAtlet,70);
+    document.getElementById('hName').textContent = selectedAtlet.nama||selectedAtlet.name;
+    document.getElementById('hMeta').textContent = 'Link tes mandiri telah dibuat';
+    document.getElementById('hScore').textContent = '—';
+    document.getElementById('hScore').style.fontSize='1.5rem';
+    document.getElementById('hGrade').textContent = 'Menunggu pengisian atlet';
+    document.getElementById('hGrade').className='grade-pill gB';
+    document.getElementById('shareBox').style.display='block';
+    document.getElementById('shareLinkInput').value = url;
+    document.getElementById('domainResults').innerHTML='<div style="color:var(--text2);font-size:.82rem;padding:8px 0">Hasil akan muncul setelah atlet mengisi tes secara mandiri.</div>';
+    document.getElementById('radarCard') && (document.getElementById('radarCard').style.display='none');
+    document.getElementById('rekoCard').style.display='none';
+    showToast('Link berhasil dibuat!','ok');
+  }).catch(e=>showToast('Gagal membuat link: '+e.message,'err'));
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(document.getElementById('shareLinkInput').value)
+    .then(()=>showToast('Link disalin!','ok'))
+    .catch(()=>showToast('Gagal menyalin','err'));
+}
+
+/* ══════════════════════════════════════════════════════
+   BUILD TES FORM
+═══════════════════════════════════════════════════════ */
+function buildTesForm(){
+  const a = selectedAtlet;
+  // Header
+  const av=document.getElementById('tabAv');
+  av.innerHTML=avatarHTML(a,46);
+  document.getElementById('tabName').textContent=a.nama||a.name||'-';
+  document.getElementById('tabMeta').textContent=[a.kategori||a.kelas,a.unit||a.unitId].filter(Boolean).join(' · ')||'Atlet Unit';
+  const tag=document.getElementById('tabModeTag');
+  tag.textContent='Pelatih Mengisi';
+  tag.className='tab-mode-tag tag-coach';
+
+  // Domain tabs
+  const tabs=document.getElementById('domainTabs');
+  tabs.innerHTML=DOMAINS.map((d,i)=>`
+    <button class="dtab${i===0?' active':''}" id="dtab_${d.id}" onclick="switchDomain('${d.id}')">${d.icon} ${d.name}</button>
+  `).join('');
+
+  // Render all domain cards (hidden except first)
+  renderDomainCards();
+  switchDomain(DOMAINS[0].id);
+  updateProgress();
+}
+
+function renderDomainCards(){
+  const c=document.getElementById('domainContent');
+  c.innerHTML=DOMAINS.map((d,di)=>`
+    <div class="domain-card" id="dc_${d.id}" style="display:none">
+      <div class="domain-head">
+        <div class="dh-icon" style="background:${d.bg}">${d.icon}</div>
+        <div class="dh-info">
+          <div class="dh-name">${d.name}</div>
+          <div class="dh-desc">${d.desc}</div>
+        </div>
+        <div class="dh-score" id="dhs_${d.id}">—</div>
+      </div>
+      <div class="domain-body">
+        ${d.items.map((it,ii)=>`
+          <div class="q-row" id="qrow_${d.id}_${ii}">
+            <div class="q-text">
+              <span class="q-num">${(di*10+ii+1).toString().padStart(2,'0')}.</span>
+              ${it.q}
+              ${(it.r===true||it.reverse===true)?'<span style="font-size:.62rem;color:var(--text3);margin-left:4px">(R)</span>':''}
+            </div>
+            <div>
+              <div class="q-scale">
+                ${[1,2,3,4,5].map(v=>`
+                  <button class="qs-btn" id="qb_${d.id}_${ii}_${v}" onclick="setAnswer('${d.id}',${ii},${v})">${v}</button>
+                `).join('')}
+              </div>
+              <div class="q-scale-labels" style="min-width:${5*46}px">
+                <span>Sangat Tidak Setuju</span><span>Sangat Setuju</span>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="domain-total">
+        <span class="dt-label">Skor Domain (maks ${d.items.length*5})</span>
+        <span class="dt-val" id="dtv_${d.id}">0 / ${d.items.length*5}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchDomain(id){
+  DOMAINS.forEach(d=>{
+    document.getElementById(`dc_${d.id}`)?.style.setProperty('display','none');
+    document.getElementById(`dtab_${d.id}`)?.classList.remove('active');
+  });
+  document.getElementById(`dc_${id}`)?.style.setProperty('display','block');
+  document.getElementById(`dtab_${id}`)?.classList.add('active');
+}
+
+function setAnswer(domainId, itemIdx, val){
+  const key=`${domainId}_${itemIdx}`;
+  answers[key]=val;
+
+  // UI buttons
+  for(let v=1;v<=5;v++){
+    const btn=document.getElementById(`qb_${domainId}_${itemIdx}_${v}`);
+    if(btn){
+      btn.classList.toggle('act',v===val);
+      if(v===val){
+        const d=DOMAINS.find(d=>d.id===domainId);
+        btn.style.background=d.gradient;
+      } else {
+        btn.style.background='';
+      }
+    }
+  }
+
+  // Update domain score
+  updateDomainScore(domainId);
+  updateProgress();
+  checkDomainComplete(domainId);
+}
+
+function updateDomainScore(domainId){
+  const d=DOMAINS.find(d=>d.id===domainId);
+  let raw=0, count=0;
+  d.items.forEach((it,i)=>{
+    const v=answers[`${domainId}_${i}`];
+    if(v!==undefined){
+      count++;
+      const scored=(it.r===true||it.reverse===true) ? 6-v : v;
+      raw+=scored;
+    }
+  });
+  const maxRaw=d.items.length*5;
+  const badge=document.getElementById(`dhs_${domainId}`);
+  const dtv=document.getElementById(`dtv_${domainId}`);
+  if(badge){badge.textContent=`${raw}/${maxRaw}`;badge.classList.add('scored');}
+  if(dtv) dtv.textContent=`${raw} / ${maxRaw}`;
+}
+
+function checkDomainComplete(domainId){
+  const d=DOMAINS.find(d=>d.id===domainId);
+  const done=d.items.every((_,i)=>answers[`${domainId}_${i}`]!==undefined);
+  const tab=document.getElementById(`dtab_${domainId}`);
+  if(tab) tab.classList.toggle('done-tab',done);
+}
+
+function updateProgress(){
+  const filled=Object.keys(answers).length;
+  const pct=Math.round((filled/TOTAL_Q)*100);
+  document.getElementById('progTxt').textContent=`${filled} dari ${TOTAL_Q} pertanyaan`;
+  document.getElementById('progPct').textContent=`${pct}%`;
+  document.getElementById('progFill').style.width=`${pct}%`;
+}
+
+/* ══════════════════════════════════════════════════════
+   SELESAI & SIMPAN
+═══════════════════════════════════════════════════════ */
+function selesaiTes(){
+  const incomplete=DOMAINS.filter(d=>!d.items.every((_,i)=>answers[`${d.id}_${i}`]!==undefined));
+  if(incomplete.length){
+    showToast(`${incomplete.length} domain belum lengkap: ${incomplete.map(d=>d.name).join(', ')}`, 'err');
+    switchDomain(incomplete[0].id);
+    return;
+  }
+
+  const breakdown=calcBreakdown();
+  const grandPct=Math.round(DOMAINS.reduce((s,d)=>s+breakdown[d.id].pct,0)/DOMAINS.length);
+
+  const tesData={
+    atletId:selectedAtlet.key,
+    atletNama:selectedAtlet.nama||selectedAtlet.name,
+    coachId:currentUser.uid||currentUser.id||currentUser.key,
+    coachNama:currentUser.nama||currentUser.name,
+    unitId:currentUser.unitId||currentUser.unit_id||selectedAtlet.unit,
+    filledBy:'coach',
+    tanggal:new Date().toISOString(),
+    skor_total:grandPct,
+    catatan:document.getElementById('tesNotes').value.trim(),
+    domain:breakdown
+  };
+
+  document.getElementById('btnSelesai').disabled=true;
+  document.getElementById('btnSelesai').textContent='Menyimpan...';
+
+  db.ref(`tes_psikologis/${selectedAtlet.key}`).push(tesData)
+    .then(()=>{ showToast('Berhasil disimpan!','ok'); showHasil(tesData,grandPct,breakdown); })
+    .catch(e=>{ showToast('Gagal: '+e.message,'err'); document.getElementById('btnSelesai').disabled=false; document.getElementById('btnSelesai').innerHTML='Selesai & Simpan <iconify-icon icon="lucide:save"></iconify-icon>'; });
+}
+
+function calcBreakdown(){
+  const out={};
+  DOMAINS.forEach(d=>{
+    let raw=0;
+    d.items.forEach((it,i)=>{
+      const v=answers[`${d.id}_${i}`]||3;
+      raw+=(it.r===true||it.reverse===true)?6-v:v;
+    });
+    const maxRaw=d.items.length*5;
+    out[d.id]={raw,maxRaw,pct:Math.round((raw/maxRaw)*100),label:scoreLabel(Math.round((raw/maxRaw)*100))};
+  });
+  return out;
+}
+
+/* ══════════════════════════════════════════════════════
+   SHOW HASIL
+═══════════════════════════════════════════════════════ */
+function showHasil(data, grandPct, breakdown){
+  showStep(3);
+  const a=selectedAtlet;
+
+  // Avatar
+  const av=document.getElementById('hAvatar');
+  av.innerHTML=avatarHTML(a,70);
+  document.getElementById('hName').textContent=a.nama||a.name;
+  document.getElementById('hMeta').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  // Score
+  animNum('hScore',grandPct,1000);
+  const grade=gradeOf(grandPct);
+  const gh=document.getElementById('hGrade');
+  gh.textContent={A:'A — Sangat Baik',B:'B — Baik',C:'C — Cukup',D:'D — Perlu Perhatian'}[grade];
+  gh.className=`grade-pill g${grade}`;
+
+  // Domain results
+  const dr=document.getElementById('domainResults');
+  dr.innerHTML=DOMAINS.map(d=>{
+    const b=breakdown[d.id];
+    const c=scoreColor(b.pct);
+    return `<div class="dr-card">
+      <div class="dr-top">
+        <div class="dr-icon" style="background:${d.bg}">${d.icon}</div>
+        <div class="dr-name">${d.name}</div>
+        <div class="dr-score" style="color:${c}">${b.pct}</div>
+      </div>
+      <div class="dr-bar-track">
+        <div class="dr-bar-fill" style="width:${b.pct}%;background:${d.gradient}"></div>
+      </div>
+      <div class="dr-interp" style="color:${c};font-weight:600">${b.label}</div>
+      <div class="dr-interp mt8">${getDomainInterp(d.id,b.pct)}</div>
+    </div>`;
+  }).join('');
+
+  // Radar
+  drawRadar(DOMAINS.map(d=>breakdown[d.id].pct), DOMAINS.map(d=>d.short), DOMAINS.map(d=>d.color));
+
+  // Rekomendasi
+  buildReko(breakdown);
+
+  document.getElementById('shareBox').style.display='none';
+  document.getElementById('rekoCard').style.display='block';
+}
+
+function getDomainInterp(domainId, pct){
+  const map={
+    kepercayaan_diri:{high:'Atlet memiliki keyakinan kuat atas kemampuannya.',mid:'Kepercayaan diri ada namun perlu diperkuat di situasi tertekan.',low:'Atlet rentan ragu diri. Fokus pada latihan afirmasi dan pencapaian kecil.'},
+    fokus_konsentrasi:{high:'Atlet mampu mempertahankan konsentrasi tinggi di bawah tekanan.',mid:'Fokus cukup baik namun mudah terganggu pada situasi kritis.',low:'Atlet butuh latihan attentional control dan rutinitas pra-bertanding.'},
+    resiliensi:{high:'Daya pulih mental sangat kuat. Kegagalan dijadikan bahan bakar.',mid:'Cukup resilien namun butuh waktu lebih lama untuk bangkit.',low:'Atlet rentan demoralisasi. Butuh dukungan psikologis dan journaling.'},
+    motivasi:{high:'Dorongan internal sangat kuat. Atlet mampu memotivasi diri sendiri.',mid:'Motivasi fluktuatif. Bantu dengan goal-setting periodik.',low:'Perlu intervensi motivasi: identifikasi tujuan jangka panjang & pendek.'},
+    kecemasan:{high:'Manajemen kecemasan sangat baik. Dapat mengubah stres jadi energi.',mid:'Kecemasan moderat. Latih teknik pernapasan dan self-talk positif.',low:'Kecemasan tinggi mengganggu performa. Perlu program relaksasi rutin.'},
+  };
+  const t=map[domainId];
+  return pct>=65?t.high:pct>=50?t.mid:t.low;
+}
+
+function buildReko(breakdown){
+  const items=[];
+  DOMAINS.forEach(d=>{
+    const p=breakdown[d.id].pct;
+    if(p<50){
+      const r={
+        kepercayaan_diri:['Latihan afirmasi positif setiap pagi (5 menit)', 'Catat 3 pencapaian terbaik setiap minggu', 'Visualisasi mental sebelum bertanding'],
+        fokus_konsentrasi:['Latihan mindfulness 10 menit/hari', 'Buat rutinitas pra-bertanding yang konsisten', 'Latihan "centering" — tarik napas 4-7-8'],
+        resiliensi:['Journaling refleksi pasca pertandingan (menang/kalah)', 'Latihan reframing kognitif: "Apa yang bisa saya pelajari?"', 'Sesi recovery mental 24 jam setelah kekalahan'],
+        motivasi:['Tetapkan goal jangka pendek (mingguan) dan panjang (3 bulan)', 'Buat kontrak komitmen latihan bersama pelatih', 'Cari role model atlet berprestasi di cabang yang sama'],
+        kecemasan:['Latihan pernapasan diafragma 2x sehari', 'Progressive Muscle Relaxation (PMR) malam hari', 'Teknik self-talk positif: ganti pikiran negatif secara sadar'],
+      }[d.id];
+      r.forEach(rec=>items.push({domain:d,text:rec,priority:'high'}));
+    } else if(p<65){
+      const r={
+        kepercayaan_diri:['Tingkatkan latihan simulasi pertandingan untuk membangun keyakinan'],
+        fokus_konsentrasi:['Latih kemampuan "re-focus" setelah gangguan'],
+        resiliensi:['Buat jurnal pencapaian untuk memperkuat ingatan positif'],
+        motivasi:['Review goal bulanan bersama pelatih'],
+        kecemasan:['Latih teknik self-talk untuk situasi bertekanan tinggi'],
+      }[d.id];
+      r.forEach(rec=>items.push({domain:d,text:rec,priority:'mid'}));
+    }
+  });
+
+  if(!items.length){
+    items.push({domain:null,text:'Profil psikologis atlet sangat baik. Pertahankan dengan latihan mental konsisten dan sesi evaluasi rutin setiap 3 bulan.',priority:'high',isGood:true});
+  }
+
+  const list=document.getElementById('rekoList');
+  list.innerHTML=items.map(item=>`
+    <div class="reko-item">
+      <div class="reko-dot" style="background:${item.isGood?'var(--green)':item.priority==='high'?'var(--rose)':'var(--amber)'}"></div>
+      <div>
+        ${item.domain?`<div style="font-size:.68rem;font-weight:700;color:var(--text2);letter-spacing:.06em;margin-bottom:3px">${item.domain.icon} ${item.domain.name.toUpperCase()}</div>`:''}
+        ${item.text}
+      </div>
+    </div>
+  `).join('');
+}
+
+/* ══════════════════════════════════════════════════════
+   RADAR CHART
+═══════════════════════════════════════════════════════ */
+function drawRadar(values, labels, colors){
+  const canvas=document.getElementById('radarCanvas');
+  const dpr=window.devicePixelRatio||1;
+  const cw=Math.min(360,canvas.parentElement.clientWidth-36);
+  canvas.width=cw*dpr; canvas.height=300*dpr;
+  canvas.style.width=cw+'px'; canvas.style.height='300px';
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  const cx=cw/2, cy=150, R=Math.min(cx,cy)-36;
+  const N=values.length;
+  const borderClr=getComputedStyle(document.documentElement).getPropertyValue('--border').trim();
+  const text2=getComputedStyle(document.documentElement).getPropertyValue('--text2').trim();
+  const blue=getComputedStyle(document.documentElement).getPropertyValue('--blue').trim();
+  const teal=getComputedStyle(document.documentElement).getPropertyValue('--teal').trim();
+
+  function ang(i){return(i/N)*Math.PI*2-Math.PI/2}
+  function pt(i,r){const a=ang(i);return[cx+r*Math.cos(a),cy+r*Math.sin(a)]}
+
+  // grid
+  ctx.strokeStyle=borderClr; ctx.lineWidth=1;
+  [20,40,60,80,100].forEach(p=>{
+    ctx.beginPath();
+    for(let i=0;i<N;i++){const[x,y]=pt(i,R*p/100);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}
+    ctx.closePath();ctx.stroke();
+    // label
+    ctx.fillStyle='rgba(120,140,180,.4)';ctx.font=`400 9px 'DM Mono',monospace`;
+    ctx.textAlign='center';
+    ctx.fillText(p,[cx,cy-R*p/100][0],[cx,cy-R*p/100][1]+1);
+  });
+
+  // spokes
+  for(let i=0;i<N;i++){const[x,y]=pt(i,R);ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(x,y);ctx.stroke();}
+
+  // data
+  ctx.beginPath();
+  values.forEach((v,i)=>{const[x,y]=pt(i,R*v/100);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.closePath();
+  const grad=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);
+  grad.addColorStop(0,'rgba(79,138,255,.25)');
+  grad.addColorStop(1,'rgba(45,212,184,.15)');
+  ctx.fillStyle=grad; ctx.fill();
+  ctx.strokeStyle=blue; ctx.lineWidth=2; ctx.stroke();
+
+  // dots
+  values.forEach((v,i)=>{
+    const[x,y]=pt(i,R*v/100);
+    ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);
+    ctx.fillStyle=teal; ctx.fill();
+    ctx.strokeStyle='var(--bg)';ctx.lineWidth=1.5;ctx.stroke();
+  });
+
+  // labels
+  ctx.font=`700 9px 'DM Sans',sans-serif`;
+  ctx.fillStyle=text2;
+  values.forEach((_,i)=>{
+    const[x,y]=pt(i,R+20);
+    ctx.textAlign=x<cx-2?'right':x>cx+2?'left':'center';
+    ctx.textBaseline=y<cy-2?'bottom':y>cy+2?'top':'middle';
+    ctx.fillText(labels[i],x,y);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════════ */
+function animNum(id,target,ms){
+  const el=document.getElementById(id);
+  let s=null;
+  function step(ts){
+    if(!s)s=ts;
+    const p=Math.min((ts-s)/ms,1);
+    el.textContent=Math.round(p*target);
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+let toastT;
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show'+(type?' '+type:'');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),3200);
+}
+</script>
+</body>
+</html>

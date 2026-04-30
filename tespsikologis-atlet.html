@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tes Psikologis — Atlet Self-Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050810;--bg2:#0a0f1c;--bg3:#0f1528;
+  --border:rgba(99,132,255,.12);--border2:rgba(99,132,255,.25);
+  --text:#dce8ff;--text2:#7a93c4;--text3:#3d5280;
+  --blue:#4f8aff;--blue2:#7eb0ff;--blue-glow:rgba(79,138,255,.2);
+  --teal:#2dd4b8;--teal-glow:rgba(45,212,184,.18);
+  --amber:#f5a623;--amber-glow:rgba(245,166,35,.18);
+  --rose:#f06080;--rose-glow:rgba(240,96,128,.18);
+  --violet:#a47bff;--violet-glow:rgba(164,123,255,.18);
+  --green:#34d474;--green-glow:rgba(52,212,116,.18);
+  --card:rgba(10,15,28,.95);--card2:rgba(15,21,40,.98);
+  --r:16px;--rsm:10px;
+  --font:'DM Sans',sans-serif;--mono:'DM Mono',monospace;--display:'Playfair Display',serif;
+}
+[data-theme="light"]{
+  --bg:#f0f4ff;--bg2:#e8eeff;--bg3:#dde5ff;
+  --border:rgba(79,138,255,.15);--border2:rgba(79,138,255,.3);
+  --text:#0a1628;--text2:#3a5080;--text3:#8aa0c8;
+  --card:rgba(255,255,255,.95);--card2:rgba(240,244,255,.98);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font);
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 10% 10%,rgba(79,138,255,.08),transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 90%,rgba(45,212,184,.06),transparent 55%),
+    radial-gradient(ellipse 40% 60% at 50% 50%,rgba(164,123,255,.04),transparent 60%);
+}
+
+/* ── HERO HEADER ─────────────────────────────────────── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 20px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(79,138,255,.08),transparent 70%);
+}
+.hero-glyph{
+  font-size:4rem;margin-bottom:20px;
+  filter:drop-shadow(0 0 20px var(--blue-glow));
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-pretitle{
+  font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-pretitle::before,.hero-pretitle::after{content:'';height:1px;width:30px;background:var(--border2)}
+.hero-title{
+  font-family:var(--display);font-size:2.2rem;font-weight:700;
+  line-height:1.2;margin-bottom:16px;max-width:480px;
+}
+.hero-title em{color:var(--blue);font-style:italic}
+.hero-sub{
+  font-size:.88rem;color:var(--text2);max-width:420px;margin:0 auto 30px;line-height:1.7;
+}
+.hero-meta{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px 22px;margin-bottom:28px;
+  display:flex;align-items:center;gap:12px;
+  max-width:360px;
+}
+.hm-avatar{
+  width:42px;height:42px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden;
+}
+.hm-avatar img{width:100%;height:100%;object-fit:cover}
+.hm-name{font-size:.88rem;font-weight:700;text-align:left}
+.hm-label{font-size:.7rem;color:var(--text2);text-align:left}
+.hero-info{
+  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:30px;
+}
+.hi-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:.75rem;color:var(--text2);
+  background:var(--card);border:1px solid var(--border);border-radius:20px;
+  padding:6px 14px;
+}
+.hero-btn{
+  padding:15px 40px;border-radius:var(--r);
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  color:#fff;font-family:var(--font);font-size:.9rem;font-weight:700;
+  border:none;cursor:pointer;transition:all .25s;letter-spacing:.03em;
+  box-shadow:0 6px 30px var(--blue-glow);position:relative;z-index:1;
+}
+.hero-btn:hover{transform:translateY(-3px);filter:brightness(1.1);box-shadow:0 10px 40px var(--blue-glow)}
+.hero-err{
+  color:var(--rose);font-size:.85rem;padding:12px 24px;
+  background:var(--rose-glow);border:1px solid var(--rose);border-radius:var(--r);
+  max-width:400px;margin:0 auto;position:relative;z-index:1;
+}
+
+/* ── SHELL ───────────────────────────────────────────── */
+#tesWrap{display:none}
+.topbar-atlet{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;height:56px;
+  background:rgba(5,8,16,.9);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);
+}
+.tba-logo{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text)}
+.tba-logo em{color:var(--blue);font-style:italic}
+.tba-prog{font-size:.72rem;color:var(--text2)}
+
+.tes-shell{max-width:740px;margin:0 auto;padding:24px 16px 100px}
+
+/* progress track */
+.full-prog{
+  position:sticky;top:56px;z-index:190;
+  background:var(--bg);padding:10px 0 0;
+}
+.fp-inner{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.fp-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;transition:width .4s ease}
+
+/* domain card */
+.domain-section{
+  margin-top:24px;
+  animation:fadeUp .35s ease;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.ds-header{
+  display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.ds-icon{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;flex-shrink:0;
+}
+.ds-title{font-family:var(--display);font-size:1.1rem;font-weight:700}
+.ds-sub{font-size:.72rem;color:var(--text2);margin-top:2px}
+.ds-num{
+  margin-left:auto;font-family:var(--mono);font-size:.7rem;
+  color:var(--text3);white-space:nowrap;
+}
+
+/* question item */
+.q-item{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:18px 20px;margin-bottom:10px;transition:border .2s;
+}
+.q-item.answered{border-color:rgba(79,138,255,.25)}
+.q-text-atlet{font-size:.88rem;line-height:1.7;margin-bottom:14px;color:var(--text)}
+.q-num-badge{
+  display:inline-block;
+  background:var(--blue-glow);color:var(--blue2);
+  font-family:var(--mono);font-size:.62rem;font-weight:700;
+  padding:2px 8px;border-radius:20px;margin-right:8px;
+}
+
+/* likert scale — full card buttons */
+.likert-wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.lk-opt{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:10px 4px;border-radius:var(--rsm);
+  border:1.5px solid var(--border);background:var(--bg2);
+  cursor:pointer;transition:all .18s;
+}
+.lk-opt:hover{border-color:var(--border2)}
+.lk-opt.sel{border-color:var(--blue);background:var(--blue-glow)}
+.lk-num{font-family:var(--mono);font-size:.85rem;font-weight:700;color:var(--text2)}
+.lk-opt.sel .lk-num{color:var(--blue2)}
+.lk-label{font-size:.55rem;color:var(--text3);text-align:center;line-height:1.3}
+.lk-opt.sel .lk-label{color:var(--text2)}
+
+/* emotion pills for variety */
+.likert-desc{
+  display:flex;justify-content:space-between;
+  font-size:.62rem;color:var(--text3);margin-top:6px;padding:0 2px;
+}
+
+/* nav bottom */
+.tes-bottom-nav{
+  position:sticky;bottom:0;z-index:100;
+  background:rgba(5,8,16,.95);padding:14px 0;
+  border-top:1px solid var(--border);backdrop-filter:blur(16px);
+  display:flex;gap:12px;
+}
+.btn{
+  flex:1;padding:14px;border-radius:var(--r);
+  font-family:var(--font);font-size:.85rem;font-weight:700;
+  border:none;cursor:pointer;transition:all .22s;letter-spacing:.03em;
+}
+.btn-g{background:var(--card);color:var(--text);border:1px solid var(--border);flex:0 0 auto;padding:14px 20px}
+.btn-g:hover{border-color:var(--border2)}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;box-shadow:0 4px 20px var(--blue-glow)}
+.btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-p:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:none}
+
+/* ── HASIL ───────────────────────────────────────────── */
+#hasilWrap{display:none}
+.hasil-page{
+  min-height:100vh;padding:40px 16px 60px;max-width:740px;margin:0 auto;
+}
+.hasil-hero{
+  text-align:center;margin-bottom:28px;padding:32px 24px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  position:relative;overflow:hidden;
+}
+.hasil-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,var(--blue-glow),transparent 70%);
+}
+.hh-icon{font-size:3rem;margin-bottom:14px;position:relative;z-index:1;animation:float 3s ease-in-out infinite}
+.hh-title{font-family:var(--display);font-size:1.4rem;font-weight:700;position:relative;z-index:1}
+.hh-sub{font-size:.78rem;color:var(--text2);margin-top:6px;position:relative;z-index:1}
+.score-display{
+  font-family:var(--mono);font-size:4rem;font-weight:700;line-height:1;
+  background:linear-gradient(135deg,var(--blue),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin:18px 0 6px;position:relative;z-index:1;
+}
+.score-label{font-size:.72rem;color:var(--text2);position:relative;z-index:1}
+.grade-badge{
+  display:inline-block;padding:5px 16px;border-radius:20px;
+  font-size:.75rem;font-weight:700;margin-top:10px;
+  position:relative;z-index:1;
+}
+.gA{background:var(--green-glow);color:var(--green);border:1px solid var(--green)}
+.gB{background:var(--blue-glow);color:var(--blue2);border:1px solid var(--blue)}
+.gC{background:var(--amber-glow);color:var(--amber);border:1px solid var(--amber)}
+.gD{background:var(--rose-glow);color:var(--rose);border:1px solid var(--rose)}
+
+.domain-pills{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.dp-pill{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px 16px;
+}
+.dp-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.dp-icon{font-size:1.2rem}
+.dp-name{font-size:.8rem;font-weight:600;flex:1}
+.dp-score{font-family:var(--mono);font-size:.88rem;font-weight:700}
+.dp-bar{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.dp-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.dp-label{font-size:.68rem;color:var(--text2);margin-top:6px}
+
+.pesan-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px;margin-bottom:16px;
+}
+.pesan-title{
+  font-size:.78rem;font-weight:700;letter-spacing:.07em;
+  color:var(--text2);text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.pesan-item{
+  padding:10px 0;border-bottom:1px solid var(--border);
+  display:flex;gap:10px;font-size:.82rem;line-height:1.6;
+}
+.pesan-item:last-child{border-bottom:none}
+.pesan-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:7px}
+
+.thanks-note{
+  text-align:center;padding:24px;font-size:.82rem;color:var(--text2);
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  line-height:1.7;
+}
+
+/* loading overlay */
+.overlay{
+  position:fixed;inset:0;background:var(--bg);z-index:9999;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+}
+.spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.overlay-txt{font-size:.85rem;color:var(--text2)}
+
+/* toast */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:var(--card2);border:1px solid var(--border);border-radius:var(--r);
+  padding:12px 22px;font-size:.82rem;font-weight:600;
+  opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-color:var(--green);color:var(--green)}
+.toast.err{border-color:var(--rose);color:var(--rose)}
+
+@media(max-width:480px){
+  .hero-title{font-size:1.7rem}
+  .domain-pills{grid-template-columns:1fr}
+  .lk-label{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="spinner"></div>
+  <div class="overlay-txt">Memverifikasi link tes...</div>
+</div>
+
+<!-- HERO (intro screen) -->
+<div class="hero" id="heroWrap" style="display:none">
+  <div class="hero-glyph">🧠</div>
+  <div class="hero-pretitle">ATHLETE PSYCH ASSESSMENT</div>
+  <div class="hero-title">Tes <em>Psikologis</em><br>Atlet</div>
+  <div class="hero-sub">
+    Jawab 50 pernyataan berikut dengan jujur sesuai kondisi yang Anda rasakan. Tidak ada jawaban benar atau salah.
+  </div>
+  <div class="hero-meta" id="heroMeta" style="display:none">
+    <div class="hm-avatar" id="heroAvatar"></div>
+    <div>
+      <div class="hm-name" id="heroName">-</div>
+      <div class="hm-label">Atlet yang akan dites</div>
+    </div>
+  </div>
+  <div class="hero-info">
+    <div class="hi-item"><iconify-icon icon="lucide:layers"></iconify-icon> 5 Domain Psikologi</div>
+    <div class="hi-item"><iconify-icon icon="lucide:list-checks"></iconify-icon> 50 Pernyataan</div>
+    <div class="hi-item"><iconify-icon icon="lucide:clock"></iconify-icon> ±10 Menit</div>
+  </div>
+  <button class="hero-btn" id="heroBtn" onclick="startTes()">
+    Mulai Tes <iconify-icon icon="lucide:arrow-right"></iconify-icon>
+  </button>
+  <div class="hero-err" id="heroErr" style="display:none"></div>
+</div>
+
+<!-- TES WRAP -->
+<div id="tesWrap">
+  <div class="topbar-atlet">
+    <div class="tba-logo"><em>✦</em> ATHLETE</div>
+    <div class="tba-prog" id="tbaProgTxt">0 / 50</div>
+  </div>
+  <div class="full-prog">
+    <div class="fp-inner"><div class="fp-fill" id="fpFill" style="width:0%"></div></div>
+  </div>
+  <div class="tes-shell">
+    <div id="domainSections"></div>
+    <div class="tes-bottom-nav">
+      <button class="btn btn-p" id="btnSimpan" onclick="simpanTes()" disabled>
+        Kirim Hasil <iconify-icon icon="lucide:send"></iconify-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- HASIL WRAP -->
+<div id="hasilWrap">
+  <div class="hasil-page" id="hasilPage"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   FIREBASE
+═══════════════════════════════════════════════════════ */
+let db;
+try {
+  const fbCfgRaw = sessionStorage.getItem('fb_cfg');
+  if(fbCfgRaw) {
+    firebase.initializeApp(JSON.parse(fbCfgRaw));
+  } else {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
+      authDomain: "ydtc-5d55a.firebaseapp.com",
+      databaseURL: "https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "ydtc-5d55a"
+    });
+  }
+  db = firebase.database();
+} catch(e) {
+  db = firebase.database();
+}
+
+/* ══════════════════════════════════════════════════════
+   INSTRUMENT (same as tespsikologis.html)
+═══════════════════════════════════════════════════════ */
+const DOMAINS = [
+  {
+    id:'kepercayaan_diri', name:'Kepercayaan Diri', short:'PD', icon:'💪',
+    color:'var(--blue)', gradient:'linear-gradient(135deg,#4f8aff,#7eb0ff)', bg:'var(--blue-glow)',
+    items:[
+      {q:'Saya yakin dapat tampil maksimal dalam setiap pertandingan.',reverse:false},
+      {q:'Saya percaya teknik yang saya miliki sudah cukup untuk mengalahkan lawan.',reverse:false},
+      {q:'Ketika situasi sulit, saya ragu apakah saya bisa menang.',reverse:true},
+      {q:'Saya merasa siap secara mental sebelum bertanding.',reverse:false},
+      {q:'Saya sering membandingkan kemampuan saya dengan atlet lain dan merasa kurang.',reverse:true},
+      {q:'Saya tahu kekuatan saya dan mampu menggunakannya di saat kritis.',reverse:false},
+      {q:'Kegagalan di pertandingan sebelumnya membuat saya tidak yakin di pertandingan berikutnya.',reverse:true},
+      {q:'Saya mampu tampil baik meskipun lawan lebih berpengalaman.',reverse:false},
+      {q:'Saya merasa percaya diri dengan tubuh dan kondisi fisik saya saat ini.',reverse:false},
+      {q:'Saya mudah kehilangan kepercayaan diri saat melakukan kesalahan.',reverse:true},
+    ]
+  },
+  {
+    id:'fokus_konsentrasi', name:'Fokus & Konsentrasi', short:'FK', icon:'🎯',
+    color:'var(--teal)', gradient:'linear-gradient(135deg,#2dd4b8,#5ef0d8)', bg:'var(--teal-glow)',
+    items:[
+      {q:'Saat bertanding, saya bisa fokus pada tugas tanpa terganggu hal lain.',reverse:false},
+      {q:'Pikiran saya sering melayang ke hal di luar pertandingan saat sedang berlomba.',reverse:true},
+      {q:'Saya dapat mempertahankan konsentrasi dari awal hingga akhir pertandingan.',reverse:false},
+      {q:'Kebisingan penonton atau tekanan tidak mengganggu fokus saya.',reverse:false},
+      {q:'Setelah melakukan kesalahan, saya sulit mengembalikan fokus dengan cepat.',reverse:true},
+      {q:'Saya mampu membaca gerakan lawan dengan cermat di tengah tekanan.',reverse:false},
+      {q:'Saya mudah terganggu oleh keputusan wasit yang menurut saya tidak adil.',reverse:true},
+      {q:'Saya memiliki rutinitas pra-bertanding yang membantu saya fokus.',reverse:false},
+      {q:'Saya bisa "masuk ke zona" konsentrasi tinggi saat diperlukan.',reverse:false},
+      {q:'Di babak akhir pertandingan, konsentrasi saya mulai menurun.',reverse:true},
+    ]
+  },
+  {
+    id:'resiliensi', name:'Resiliensi & Ketahanan', short:'RS', icon:'🔥',
+    color:'var(--amber)', gradient:'linear-gradient(135deg,#f5a623,#ffd166)', bg:'var(--amber-glow)',
+    items:[
+      {q:'Saya bisa bangkit dengan cepat setelah mengalami kekalahan.',reverse:false},
+      {q:'Kegagalan membuat saya ingin berhenti dari olahraga ini.',reverse:true},
+      {q:'Saya melihat setiap kekalahan sebagai pelajaran berharga.',reverse:false},
+      {q:'Saya tetap bersemangat berlatih meski hasil pertandingan mengecewakan.',reverse:false},
+      {q:'Cedera atau hambatan fisik sangat merusak mental saya dalam jangka panjang.',reverse:true},
+      {q:'Saya mampu menghadapi tekanan tinggi tanpa kehilangan kendali emosi.',reverse:false},
+      {q:'Saya tahu cara memulihkan diri secara mental setelah pertandingan buruk.',reverse:false},
+      {q:'Kritik dari pelatih atau orang lain membuat saya down berkepanjangan.',reverse:true},
+      {q:'Saya percaya hambatan adalah bagian normal dari perjalanan atletik.',reverse:false},
+      {q:'Saya sulit melupakan penampilan buruk dan terus memikirkannya.',reverse:true},
+    ]
+  },
+  {
+    id:'motivasi', name:'Motivasi & Mental Toughness', short:'MV', icon:'⚡',
+    color:'var(--violet)', gradient:'linear-gradient(135deg,#a47bff,#c9a8ff)', bg:'var(--violet-glow)',
+    items:[
+      {q:'Saya memiliki tujuan yang jelas dalam karier atletik saya.',reverse:false},
+      {q:'Saya berlatih keras meskipun tidak ada yang mengawasi.',reverse:false},
+      {q:'Motivasi saya berlatih sering turun tanpa alasan yang jelas.',reverse:true},
+      {q:'Saya bersedia berkorban (waktu, sosial, kenyamanan) demi prestasi.',reverse:false},
+      {q:'Saya mudah menyerah saat latihan terasa sangat berat.',reverse:true},
+      {q:'Saya terdorong dari dalam diri untuk terus berkembang, bukan hanya tekanan luar.',reverse:false},
+      {q:'Saya tetap komit pada jadwal latihan meskipun sedang tidak mood.',reverse:false},
+      {q:'Saya mudah terpengaruh oleh sikap negatif teman satu tim.',reverse:true},
+      {q:'Saya memiliki mentalitas tidak menyerah bahkan di situasi paling sulit.',reverse:false},
+      {q:'Saya sering mempertanyakan apakah usaha keras saya sepadan.',reverse:true},
+    ]
+  },
+  {
+    id:'kecemasan', name:'Kecemasan Bertanding', short:'KA', icon:'🧘',
+    color:'var(--rose)', gradient:'linear-gradient(135deg,#f06080,#ff8faa)', bg:'var(--rose-glow)',
+    items:[
+      {q:'Saya merasa sangat gugup sebelum pertandingan hingga mengganggu penampilan.',reverse:true},
+      {q:'Saya memiliki cara efektif untuk menenangkan diri sebelum bertanding.',reverse:false},
+      {q:'Jantung saya berdegup kencang dan perut saya tidak nyaman saat akan bertanding.',reverse:true},
+      {q:'Saya dapat mengubah kecemasan menjadi energi positif untuk bertanding.',reverse:false},
+      {q:'Pikiran tentang kemungkinan kalah terus mengganggu saya sebelum bertanding.',reverse:true},
+      {q:'Saya tidur dengan nyenyak malam sebelum pertandingan penting.',reverse:false},
+      {q:'Saya merasa otot saya tegang dan kaku karena tekanan pertandingan.',reverse:true},
+      {q:'Saya dapat mengontrol pernapasan dan detak jantung saya saat tegang.',reverse:false},
+      {q:'Tekanan dari ekspektasi orang lain membuat saya tidak bisa tampil maksimal.',reverse:true},
+      {q:'Saya merasa tenang dan siap bahkan menghadapi lawan yang lebih kuat.',reverse:false},
+    ]
+  }
+];
+
+const LIKERT_LABELS = ['Sangat Tidak Setuju','Tidak Setuju','Netral','Setuju','Sangat Setuju'];
+const TOTAL_Q = DOMAINS.reduce((s,d)=>s+d.items.length,0);
+
+/* ══════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════ */
+let tokenData = null;
+let tokenKey = null;
+let answers = {}; // {domainId_itemIdx: value}
+
+function scoreColor(p){return p>=80?'var(--green)':p>=65?'var(--blue)':p>=50?'var(--amber)':'var(--rose)'}
+function scoreLabel(p){return p>=80?'Sangat Baik':p>=65?'Baik':p>=50?'Cukup':'Perlu Perhatian'}
+function gradeOf(p){return p>=80?'A':p>=65?'B':p>=50?'C':'D'}
+
+/* ══════════════════════════════════════════════════════
+   BOOT — VALIDATE TOKEN
+═══════════════════════════════════════════════════════ */
+(function(){
+  const t=localStorage.getItem('athlete_theme')||'dark';
+  document.documentElement.setAttribute('data-theme',t);
+})();
+
+window.addEventListener('DOMContentLoaded',()=>{
+  const params=new URLSearchParams(location.search);
+  const token=params.get('t');
+  if(!token){
+    showErr('Link tidak valid. Minta pelatih untuk mengirim ulang link tes.');
+    return;
+  }
+  tokenKey=token;
+  db.ref(`psi_tokens/${token}`).once('value').then(snap=>{
+    const d=snap.val();
+    if(!d){ showErr('Link tidak ditemukan atau sudah kadaluarsa.'); return; }
+    if(d.used){ showErr('Link ini sudah digunakan sebelumnya. Hubungi pelatih Anda.'); return; }
+    tokenData=d;
+    // Load atlet info
+    db.ref(`atlet/${d.atletId}`).once('value').then(as=>{
+      const a=as.val()||{};
+      const nm=a.nama||a.name||d.atletId;
+      document.getElementById('heroName').textContent=nm;
+      const av=document.getElementById('heroAvatar');
+      const initials=nm.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+      if(a.foto||a.iconUrl||a.photo){
+        av.innerHTML=`<img src="${a.foto||a.iconUrl||a.photo}" onerror="this.style.display='none';this.parentElement.textContent='${initials}'">`;
+      } else { av.textContent=initials; }
+      document.getElementById('heroMeta').style.display='flex';
+    });
+    hideOverlay();
+  }).catch(()=>showErr('Gagal memverifikasi link. Periksa koneksi internet Anda.'));
+});
+
+function hideOverlay(){
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('heroWrap').style.display='flex';
+}
+function showErr(msg){
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('heroWrap').style.display='flex';
+  document.getElementById('heroErr').style.display='block';
+  document.getElementById('heroErr').textContent=msg;
+  document.getElementById('heroBtn').style.display='none';
+  document.getElementById('heroMeta').style.display='none';
+}
+
+/* ══════════════════════════════════════════════════════
+   START TES
+═══════════════════════════════════════════════════════ */
+function startTes(){
+  document.getElementById('heroWrap').style.display='none';
+  document.getElementById('tesWrap').style.display='block';
+  buildForm();
+}
+
+function buildForm(){
+  const sec=document.getElementById('domainSections');
+  let globalIdx=0;
+  sec.innerHTML=DOMAINS.map((d,di)=>`
+    <div class="domain-section" id="ds_${d.id}">
+      <div class="ds-header">
+        <div class="ds-icon" style="background:${d.bg}">${d.icon}</div>
+        <div>
+          <div class="ds-title">${d.name}</div>
+          <div class="ds-sub">Bagian ${di+1} dari ${DOMAINS.length} — ${d.items.length} pernyataan</div>
+        </div>
+        <div class="ds-num" id="dsnum_${d.id}">0/${d.items.length}</div>
+      </div>
+      ${d.items.map((it,ii)=>{
+        const gIdx=++globalIdx;
+        return `<div class="q-item" id="qi_${d.id}_${ii}">
+          <div class="q-text-atlet">
+            <span class="q-num-badge">${String(gIdx).padStart(2,'0')}</span>
+            ${it.q}
+          </div>
+          <div class="likert-wrap">
+            ${[1,2,3,4,5].map(v=>`
+              <div class="lk-opt" id="lo_${d.id}_${ii}_${v}" onclick="setAns('${d.id}',${ii},${v})">
+                <div class="lk-num">${v}</div>
+                <div class="lk-label">${LIKERT_LABELS[v-1]}</div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="likert-desc">
+            <span>Sangat Tidak Setuju</span><span>Sangat Setuju</span>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `).join('');
+}
+
+function setAns(domId, itemIdx, val){
+  const key=`${domId}_${itemIdx}`;
+  answers[key]=val;
+
+  // update UI
+  for(let v=1;v<=5;v++){
+    const el=document.getElementById(`lo_${domId}_${itemIdx}_${v}`);
+    if(!el)continue;
+    el.classList.toggle('sel',v===val);
+    if(v===val){
+      const d=DOMAINS.find(d=>d.id===domId);
+      el.style.borderColor=d.color.replace('var(--','').replace(')','');
+      el.style.background=d.bg.replace('var(--','').replace(')','');
+    } else {
+      el.style.borderColor='';el.style.background='';
+    }
+  }
+  document.getElementById(`qi_${domId}_${itemIdx}`)?.classList.add('answered');
+
+  // domain counter
+  const d=DOMAINS.find(d=>d.id===domId);
+  const filled=d.items.filter((_,i)=>answers[`${domId}_${i}`]!==undefined).length;
+  document.getElementById(`dsnum_${domId}`).textContent=`${filled}/${d.items.length}`;
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const filled=Object.keys(answers).length;
+  const pct=Math.round((filled/TOTAL_Q)*100);
+  document.getElementById('fpFill').style.width=`${pct}%`;
+  document.getElementById('tbaProgTxt').textContent=`${filled} / ${TOTAL_Q}`;
+  document.getElementById('btnSimpan').disabled=(filled<TOTAL_Q);
+}
+
+/* ══════════════════════════════════════════════════════
+   SIMPAN
+═══════════════════════════════════════════════════════ */
+function simpanTes(){
+  const incomplete=DOMAINS.filter(d=>!d.items.every((_,i)=>answers[`${d.id}_${i}`]!==undefined));
+  if(incomplete.length){
+    showToast(`Masih ada ${TOTAL_Q-Object.keys(answers).length} pernyataan belum dijawab`,'err');
+    document.getElementById(`ds_${incomplete[0].id}`)?.scrollIntoView({behavior:'smooth',block:'start'});
+    return;
+  }
+
+  const breakdown={};
+  DOMAINS.forEach(d=>{
+    let raw=0;
+    d.items.forEach((it,i)=>{
+      const v=answers[`${d.id}_${i}`]||3;
+      raw+=it.reverse?6-v:v;
+    });
+    const maxRaw=d.items.length*5;
+    breakdown[d.id]={raw,maxRaw,pct:Math.round((raw/maxRaw)*100),label:scoreLabel(Math.round((raw/maxRaw)*100))};
+  });
+  const grandPct=Math.round(DOMAINS.reduce((s,d)=>s+breakdown[d.id].pct,0)/DOMAINS.length);
+
+  const tesData={
+    atletId:tokenData.atletId,
+    atletNama:document.getElementById('heroName').textContent,
+    coachId:tokenData.coachId,
+    unitId:tokenData.unitId,
+    filledBy:'atlet',
+    tanggal:new Date().toISOString(),
+    skor_total:grandPct,
+    catatan:'',
+    domain:breakdown
+  };
+
+  document.getElementById('btnSimpan').disabled=true;
+  document.getElementById('btnSimpan').textContent='Mengirim...';
+
+  // save result + mark token used
+  const batch=[
+    db.ref(`tes_psikologis/${tokenData.atletId}`).push(tesData),
+    db.ref(`psi_tokens/${tokenKey}/used`).set(true),
+    db.ref(`psi_tokens/${tokenKey}/completedAt`).set(new Date().toISOString()),
+  ];
+  Promise.all(batch)
+    .then(()=>{ showHasil(grandPct,breakdown); })
+    .catch(e=>{ showToast('Gagal mengirim: '+e.message,'err'); document.getElementById('btnSimpan').disabled=false; document.getElementById('btnSimpan').innerHTML='Kirim Hasil <iconify-icon icon="lucide:send"></iconify-icon>'; });
+}
+
+/* ══════════════════════════════════════════════════════
+   SHOW HASIL
+═══════════════════════════════════════════════════════ */
+function showHasil(grandPct, breakdown){
+  document.getElementById('tesWrap').style.display='none';
+  document.getElementById('hasilWrap').style.display='block';
+
+  const grade=gradeOf(grandPct);
+  const gradeText={A:'Sangat Baik',B:'Baik',C:'Cukup',D:'Perlu Perhatian'}[grade];
+
+  // Pesan personal
+  const pesan=buildPesan(breakdown);
+
+  document.getElementById('hasilPage').innerHTML=`
+    <div class="hasil-hero">
+      <div class="hh-icon">🎉</div>
+      <div class="hh-title">Tes Selesai!</div>
+      <div class="hh-sub">Terima kasih telah mengisi dengan jujur. Hasil ini akan membantu pelatihmu merancang program yang tepat.</div>
+      <div class="score-display" id="hScore">0</div>
+      <div class="score-label">Skor Psikologis / 100</div>
+      <div class="grade-badge g${grade}">${grade} — ${gradeText}</div>
+    </div>
+
+    <div class="domain-pills">
+      ${DOMAINS.map(d=>{
+        const b=breakdown[d.id];
+        const c=scoreColor(b.pct);
+        return `<div class="dp-pill">
+          <div class="dp-top">
+            <div class="dp-icon">${d.icon}</div>
+            <div class="dp-name">${d.name}</div>
+            <div class="dp-score" style="color:${c}">${b.pct}</div>
+          </div>
+          <div class="dp-bar"><div class="dp-fill" style="width:${b.pct}%;background:${d.gradient}"></div></div>
+          <div class="dp-label">${b.label}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="pesan-card">
+      <div class="pesan-title"><iconify-icon icon="lucide:heart"></iconify-icon> Pesan untuk Kamu</div>
+      ${pesan.map(p=>`
+        <div class="pesan-item">
+          <div class="pesan-dot" style="background:${p.color}"></div>
+          <div>${p.text}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="thanks-note">
+      <iconify-icon icon="lucide:check-circle" style="font-size:1.6rem;color:var(--green);display:block;margin-bottom:10px"></iconify-icon>
+      <strong>Hasil telah dikirim ke pelatihmu.</strong><br>
+      Pelatih akan menggunakan data ini untuk membantu perkembangan mentalmu sebagai atlet. Terus semangat! 💪
+    </div>
+  `;
+
+  setTimeout(()=>animNum('hScore',grandPct,1200),200);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function buildPesan(breakdown){
+  const msgs=[];
+  const sorted=DOMAINS.map(d=>({d,pct:breakdown[d.id].pct})).sort((a,b)=>b.pct-a.pct);
+
+  // Kelebihan
+  const top=sorted[0];
+  msgs.push({color:'var(--green)',text:`Kekuatan psikologismu ada pada ${top.d.name} (${top.pct}/100). Ini adalah aset besar — jaga dan terus kembangkan!`});
+
+  // Area berkembang
+  const bottom=sorted[sorted.length-1];
+  if(bottom.pct<65){
+    msgs.push({color:'var(--amber)',text:`Area yang perlu dikembangkan: ${bottom.d.name} (${bottom.pct}/100). Ini bukan kelemahan permanen — dengan latihan mental yang tepat, kamu bisa meningkatkannya.`});
+  }
+
+  // General
+  const grand=Math.round(sorted.reduce((s,x)=>s+x.pct,0)/sorted.length);
+  if(grand>=80){
+    msgs.push({color:'var(--blue)',text:`Profil psikologismu secara keseluruhan sangat kuat. Terus jaga konsistensi latihan mental dan fisikmu.`});
+  } else if(grand>=65){
+    msgs.push({color:'var(--blue)',text:`Kamu memiliki fondasi mental yang baik. Dengan latihan yang terarah, kamu bisa mencapai level berikutnya.`});
+  } else {
+    msgs.push({color:'var(--rose)',text:`Jangan patah semangat. Kondisi mental bisa dilatih sama seperti kondisi fisik. Kamu sudah berani jujur menilai diri sendiri — itu langkah pertama yang kuat!`});
+  }
+  return msgs;
+}
+
+/* ══════════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════════ */
+function animNum(id,target,ms){
+  const el=document.getElementById(id);if(!el)return;
+  let s=null;
+  (function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/ms,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(step);})(0);
+  requestAnimationFrame(ts=>{let s2=null;(function step(ts){if(!s2)s2=ts;const p=Math.min((ts-s2)/ms,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(step);})(ts);});
+}
+
+let tT;
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show'+(type?' '+type:'');
+  clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('show'),3200);
+}
+</script>
+</body>
+</html>

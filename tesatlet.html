@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tes Fisik Atlet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ============================================================
+   tesatlet.css  –  Modul Tes Fisik Atlet
+   Tema mengikuti dashboardpelatih: dark / light / rpg / luxury
+   ============================================================ */
+
+    /* ─── CSS VARIABLES PER THEME ─────────────────────────────── */
+    :root,
+    [data-theme="dark"] {
+      --bg: #111214;
+      --bg2: #18191d;
+      --bg3: #1e2024;
+      --card: #1a1b1f;
+      --border: rgba(255, 255, 255, .07);
+      --text: #e8e9ec;
+      --text2: #8a8d96;
+      --text3: #5a5d66;
+      --accent: #4f8ef7;
+      --accent2: #3b72d9;
+      --accent-rgb: 79, 142, 247;
+      --success: #2dd4a0;
+      --warn: #f59e0b;
+      --danger: #f05a5a;
+      --score-a: #2dd4a0;
+      --score-b: #4f8ef7;
+      --score-c: #f59e0b;
+      --score-d: #f05a5a;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, .4);
+      --topbar-h: 56px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f3f4f7;
+      --bg2: #ffffff;
+      --bg3: #eaecf0;
+      --card: #ffffff;
+      --border: rgba(0, 0, 0, .08);
+      --text: #1a1b22;
+      --text2: #5a5d70;
+      --text3: #9a9dad;
+      --accent: #3b72d9;
+      --accent2: #2a5bbf;
+      --accent-rgb: 59, 114, 217;
+      --success: #10b981;
+      --warn: #d97706;
+      --danger: #ef4444;
+      --shadow: 0 2px 12px rgba(0, 0, 0, .08);
+    }
+
+    [data-theme="rpg"] {
+      --bg: #0e0c14;
+      --bg2: #15121e;
+      --bg3: #1a1726;
+      --card: #15121e;
+      --border: rgba(180, 130, 255, .12);
+      --text: #e0d8f8;
+      --text2: #9080c0;
+      --text3: #5a4880;
+      --accent: #9f6fff;
+      --accent2: #7a4fd4;
+      --accent-rgb: 159, 111, 255;
+      --success: #4ade80;
+      --warn: #fb923c;
+      --danger: #f87171;
+      --score-a: #4ade80;
+      --score-b: #9f6fff;
+      --score-c: #fb923c;
+      --score-d: #f87171;
+    }
+
+    [data-theme="luxury"] {
+      --bg: #0a0806;
+      --bg2: #111009;
+      --bg3: #16140c;
+      --card: #111009;
+      --border: rgba(218, 175, 100, .12);
+      --text: #f0e8d0;
+      --text2: #a09070;
+      --text3: #605840;
+      --accent: #d4a848;
+      --accent2: #b88e30;
+      --accent-rgb: 212, 168, 72;
+      --success: #68d391;
+      --warn: #f6ad55;
+      --danger: #fc8181;
+      --score-a: #68d391;
+      --score-b: #d4a848;
+      --score-c: #f6ad55;
+      --score-d: #fc8181;
+    }
+
+    /* ─── BASE ─────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* ─── LOADING SCREEN ───────────────────────────────────────── */
+    #ls {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      z-index: 9999;
+      transition: opacity .4s;
+    }
+
+    #ls.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ls-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      color: var(--text);
+    }
+
+    .ls-logo em {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      vertical-align: middle;
+      margin-right: 4px;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .ls-sub {
+      font-size: 12px;
+      color: var(--text3);
+      letter-spacing: .05em;
+    }
+
+    .ls-bar {
+      width: 120px;
+      height: 2px;
+      background: var(--border);
+      border-radius: 99px;
+      margin-top: 16px;
+      overflow: hidden;
+    }
+
+    .ls-fill {
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      animation: lsFill .8s ease forwards .2s;
+    }
+
+    @keyframes lsFill {
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .5;
+        transform: scale(.8)
+      }
+    }
+
+    /* ─── TOPBAR ───────────────────────────────────────────────── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--topbar-h);
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+    }
+
+    .tb-left {
+      flex: 0 0 auto;
+    }
+
+    .tb-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text2);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .tb-back:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .tb-brand {
+      flex: 1;
+      text-align: center;
+    }
+
+    .tb-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--text);
+      display: inline-block;
+    }
+
+    .tb-logo em {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      vertical-align: middle;
+      margin-right: 3px;
+    }
+
+    .tb-role {
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: .06em;
+      text-align: center;
+    }
+
+    .tb-right {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tb-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    .coach-label {
+      font-size: 12px;
+      color: var(--text2);
+      max-width: 100px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ─── CONTENT ──────────────────────────────────────────────── */
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+    }
+
+    /* ─── STEP PANELS ──────────────────────────────────────────── */
+    .step-panel {
+      display: none;
+      animation: fadeUp .3s ease;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: .4;
+      line-height: 1;
+    }
+
+    .step-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    /* ─── UNIT INFO BAR ────────────────────────────────────────── */
+    .unit-info-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(var(--accent-rgb), .08);
+      border: 1px solid rgba(var(--accent-rgb), .2);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ─── SEARCH ───────────────────────────────────────────────── */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .search-ic {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text3);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 12px 10px 38px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-input::placeholder {
+      color: var(--text3);
+    }
+
+    /* ─── ATHLETE GRID ─────────────────────────────────────────── */
+    .athlete-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+
+    .athlete-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .15s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .athlete-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(var(--accent-rgb), .06);
+      opacity: 0;
+      transition: opacity .15s;
+    }
+
+    .athlete-card:hover::before {
+      opacity: 1;
+    }
+
+    .athlete-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .ac-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 auto 8px;
+      overflow: hidden;
+    }
+
+    .ac-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ac-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 4px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .ac-meta {
+      font-size: 10px;
+      color: var(--text3);
+    }
+
+    .ac-badge {
+      display: inline-block;
+      background: rgba(var(--accent-rgb), .15);
+      color: var(--accent);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* ─── SELECTED ATHLETE CARD ────────────────────────────────── */
+    .selected-athlete-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      margin-bottom: 20px;
+    }
+
+    .sac-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .sac-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sac-info {
+      flex: 1;
+    }
+
+    .sac-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .sac-meta {
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 2px;
+    }
+
+    .sac-change {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text2);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all .15s;
+    }
+
+    .sac-change:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ─── FORM ─────────────────────────────────────────────────── */
+    .form-section {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .15s;
+    }
+
+    .form-input:focus {
+      border-color: var(--accent);
+    }
+
+    /* ─── TEST COMPONENTS CHECKBOXES ───────────────────────────── */
+    .test-components {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .comp-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all .15s;
+      user-select: none;
+    }
+
+    .comp-item.checked {
+      border-color: var(--accent);
+      background: rgba(var(--accent-rgb), .06);
+    }
+
+    .comp-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .15s;
+      flex-shrink: 0;
+      font-size: 11px;
+      color: transparent;
+    }
+
+    .comp-item.checked .comp-check {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .comp-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .comp-sub {
+      font-size: 10px;
+      color: var(--text3);
+      margin-top: 1px;
+    }
+
+    .comp-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    /* ─── TEST PROGRESS ────────────────────────────────────────── */
+    .test-progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .tp-bar {
+      flex: 1;
+      height: 4px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .tp-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      transition: width .4s ease;
+    }
+
+    .tp-label {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text2);
+      flex-shrink: 0;
+    }
+
+    /* ─── TEST CARD ────────────────────────────────────────────── */
+    .test-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      animation: fadeUp .25s ease;
+    }
+
+    .tc-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .tc-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: .08em;
+    }
+
+    .tc-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 4px 0 4px;
+    }
+
+    .tc-sub {
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    .tc-guide {
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+
+    .tc-guide-title {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+
+    .tc-guide-text {
+      font-size: 12px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .tc-input-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tc-input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+    }
+
+    .tc-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg3);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 600;
+      outline: none;
+      transition: border-color .15s;
+      text-align: center;
+    }
+
+    .tc-input:focus {
+      border-color: var(--accent);
+    }
+
+    .tc-input::placeholder {
+      color: var(--text3);
+      font-size: 14px;
+    }
+
+    .tc-unit {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    /* Score preview inside test card */
+    .tc-score-preview {
+      margin-top: 14px;
+      background: var(--bg3);
+      border-radius: 8px;
+      padding: 10px 14px;
+      text-align: center;
+      transition: all .3s;
+    }
+
+    .tsp-label {
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .tsp-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 4px 0 2px;
+      transition: color .3s;
+    }
+
+    .tsp-grade {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .score-sangat-baik {
+      color: var(--score-a, #2dd4a0);
+    }
+
+    .score-baik {
+      color: var(--score-b, #4f8ef7);
+    }
+
+    .score-cukup {
+      color: var(--score-c, #f59e0b);
+    }
+
+    .score-kurang {
+      color: var(--score-d, #f05a5a);
+    }
+
+    .score-sangat-kurang {
+      color: #888;
+    }
+
+    /* Gender toggle */
+    .gender-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .gender-btn {
+      flex: 1;
+      padding: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text2);
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .gender-btn.active {
+      background: rgba(var(--accent-rgb), .12);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Dual time inputs */
+    .time-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .time-inputs .tc-input {
+      font-size: 20px;
+    }
+
+    /* ─── TEST NAV ─────────────────────────────────────────────── */
+    .test-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 18px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text2);
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .btn-nav:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-nav-next {
+      margin-left: auto;
+    }
+
+    /* ─── BTN PRIMARY ──────────────────────────────────────────── */
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 20px;
+      background: var(--accent);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .15s;
+      margin-top: 8px;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ─── BTN SM ───────────────────────────────────────────────── */
+    .btn-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+      border: 1px solid;
+    }
+
+    .btn-sm-ghost {
+      background: none;
+      border-color: var(--border);
+      color: var(--text2);
+    }
+
+    .btn-sm-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-sm-accent {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn-sm-accent:hover {
+      background: var(--accent2);
+      border-color: var(--accent2);
+    }
+
+    /* ─── REVIEW ───────────────────────────────────────────────── */
+    .score-summary {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .ss-athlete {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 4px;
+    }
+
+    .ss-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .ss-score-ring {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      background: rgba(var(--accent-rgb), .06);
+    }
+
+    .ss-score-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .ss-score-max {
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    .ss-grade {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .ss-date {
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    .results-table {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .rt-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      transition: background .1s;
+    }
+
+    .rt-row:last-child {
+      border-bottom: none;
+    }
+
+    .rt-row:hover {
+      background: var(--bg3);
+    }
+
+    .rt-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rt-val {
+      font-size: 12px;
+      color: var(--text2);
+      font-family: 'JetBrains Mono', monospace;
+      text-align: right;
+    }
+
+    .rt-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .review-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    /* ─── SUCCESS ──────────────────────────────────────────────── */
+    .success-container {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-icon {
+      font-size: 64px;
+      color: var(--success);
+      margin-bottom: 16px;
+      animation: successPop .5s cubic-bezier(.34, 1.56, .64, 1) forwards;
+    }
+
+    @keyframes successPop {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .success-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .success-msg {
+      font-size: 14px;
+      color: var(--text2);
+      margin-bottom: 24px;
+    }
+
+    .success-score-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+      display: inline-block;
+      min-width: 200px;
+    }
+
+    .success-score-label {
+      font-size: 11px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .success-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin: 6px 0 4px;
+    }
+
+    .success-grade {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .success-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .success-actions .btn-primary {
+      max-width: 280px;
+    }
+
+    /* ─── MODAL ────────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      width: min(440px, 100%);
+      overflow: hidden;
+      animation: fadeUp .2s ease;
+    }
+
+    .modal-hd {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .modal-bd {
+      padding: 16px 18px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .modal-ft {
+      padding: 12px 18px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    /* ─── TOAST ────────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: all .25s;
+      white-space: nowrap;
+      z-index: 9999;
+      max-width: calc(100vw - 40px);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ─── PAGE EMPTY ───────────────────────────────────────────── */
+    .page-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .pe-icon {
+      font-size: 36px;
+      color: var(--text3);
+      margin-bottom: 10px;
+    }
+
+    .pe-txt {
+      font-size: 14px;
+      color: var(--text3);
+    }
+
+    /* ─── UTILITY ──────────────────────────────────────────────── */
+    .spin {
+      animation: spinAnim 1s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spinAnim {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .test-components {
+        grid-template-columns: 1fr;
+      }
+
+      .athlete-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .time-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .test-nav {
+        flex-direction: column;
+      }
+
+      .btn-nav-next {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOADING -->
+  <div id="ls">
+    <div class="ls-logo"><em></em>ATHLETE</div>
+    <div class="ls-sub">Modul Tes Fisik</div>
+    <div class="ls-bar">
+      <div class="ls-fill"></div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div id="app" style="display:none">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="tb-left">
+        <button class="tb-back" id="btnBack" onclick="goBack()">
+          <iconify-icon icon="lucide:arrow-left"></iconify-icon>
+          <span>Kembali</span>
+        </button>
+      </div>
+      <div class="tb-brand">
+        <div class="tb-logo"><em></em>ATHLETE</div>
+        <div class="tb-role">Tes Fisik</div>
+      </div>
+      <div class="tb-right">
+        <div class="tb-dot"></div>
+        <div class="coach-label" id="coachLabel">—</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="mainContent">
+      <!-- Step 1: Pilih Atlet -->
+      <div id="stepSelectAthlete" class="step-panel active">
+        <div class="step-header">
+          <div class="step-num">01</div>
+          <div class="step-info">
+            <div class="step-title">Pilih Atlet</div>
+            <div class="step-desc">Pilih atlet yang akan menjalani tes fisik</div>
+          </div>
+        </div>
+        <div class="unit-info-bar" id="unitInfoBar">
+          <iconify-icon icon="lucide:shield"></iconify-icon>
+          <span id="unitNameTxt">—</span>
+        </div>
+        <div class="search-wrap">
+          <iconify-icon icon="lucide:search" class="search-ic"></iconify-icon>
+          <input type="text" class="search-input" id="athleteSearch" placeholder="Cari atlet..."
+            oninput="filterAthletes()">
+        </div>
+        <div class="athlete-grid" id="athleteGrid">
+          <div class="page-empty">
+            <div class="pe-icon"><iconify-icon icon="lucide:loader-2" class="spin"></iconify-icon></div>
+            <div class="pe-txt">Memuat data atlet...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Pilih Tanggal & Jenis Tes -->
+      <div id="stepTestSetup" class="step-panel">
+        <div class="step-header">
+          <div class="step-num">02</div>
+          <div class="step-info">
+            <div class="step-title">Setup Tes</div>
+            <div class="step-desc">Konfigurasi tanggal dan komponen tes</div>
+          </div>
+        </div>
+
+        <!-- Selected athlete card -->
+        <div class="selected-athlete-card" id="selectedAthleteCard">
+          <div class="sac-avatar" id="sacAvatar"></div>
+          <div class="sac-info">
+            <div class="sac-name" id="sacName">—</div>
+            <div class="sac-meta" id="sacMeta">—</div>
+          </div>
+          <button class="sac-change" onclick="changeAthlete()">
+            <iconify-icon icon="lucide:pencil"></iconify-icon> Ganti
+          </button>
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Tanggal Tes</label>
+          <input type="date" class="form-input" id="testDate">
+        </div>
+
+        <div class="form-section">
+          <label class="form-label">Komponen Tes</label>
+          <div class="test-components" id="testComponentsList"></div>
+          <div class="comp-actions">
+            <button class="btn-sm btn-sm-ghost" onclick="selectAllComponents()">Pilih Semua</button>
+            <button class="btn-sm btn-sm-ghost" onclick="deselectAllComponents()">Hapus Semua</button>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btnStartTest" onclick="startTest()">
+          <iconify-icon icon="lucide:play"></iconify-icon> Mulai Tes
+        </button>
+      </div>
+
+      <!-- Step 3: Input Tes -->
+      <div id="stepTestInput" class="step-panel">
+        <div class="step-header">
+          <div class="step-num">03</div>
+          <div class="step-info">
+            <div class="step-title">Input Hasil</div>
+            <div class="step-desc" id="testInputDesc">—</div>
+          </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="test-progress" id="testProgress">
+          <div class="tp-bar">
+            <div class="tp-fill" id="tpFill"></div>
+          </div>
+          <div class="tp-label" id="tpLabel">1 / 9</div>
+        </div>
+
+        <!-- Test card -->
+        <div class="test-card" id="testCard">
+          <!-- Filled by JS -->
+        </div>
+
+        <!-- Nav -->
+        <div class="test-nav">
+          <button class="btn-nav" id="btnPrev" onclick="prevTest()">
+            <iconify-icon icon="lucide:chevron-left"></iconify-icon> Sebelumnya
+          </button>
+          <button class="btn-nav btn-nav-next" id="btnNext" onclick="nextTest()">
+            Berikutnya <iconify-icon icon="lucide:chevron-right"></iconify-icon>
+          </button>
+          <button class="btn-primary" id="btnFinish" onclick="showReview()" style="display:none">
+            <iconify-icon icon="lucide:check-circle"></iconify-icon> Selesai & Review
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Review & Simpan -->
+      <div id="stepReview" class="step-panel">
+        <div class="step-header">
+          <div class="step-num">04</div>
+          <div class="step-info">
+            <div class="step-title">Review & Simpan</div>
+            <div class="step-desc" id="reviewDesc">—</div>
+          </div>
+        </div>
+
+        <!-- Score summary -->
+        <div class="score-summary" id="scoreSummary"></div>
+
+        <!-- Results detail -->
+        <div class="results-table" id="resultsTable"></div>
+
+        <div class="review-actions">
+          <button class="btn-sm btn-sm-ghost" onclick="backToInput()">
+            <iconify-icon icon="lucide:pencil"></iconify-icon> Edit Hasil
+          </button>
+          <button class="btn-primary" id="btnSave" onclick="saveResults()">
+            <iconify-icon icon="lucide:save"></iconify-icon> Simpan ke Firebase
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 5: Sukses -->
+      <div id="stepSuccess" class="step-panel">
+        <div class="success-container">
+          <div class="success-icon">
+            <iconify-icon icon="lucide:check-circle-2"></iconify-icon>
+          </div>
+          <div class="success-title">Tersimpan!</div>
+          <div class="success-msg" id="successMsg">Hasil tes berhasil disimpan ke database.</div>
+          <div class="success-score-wrap">
+            <div class="success-score-label">Skor Akhir</div>
+            <div class="success-score" id="finalScoreDisplay">—</div>
+            <div class="success-grade" id="finalGradeDisplay">—</div>
+          </div>
+          <div class="success-actions">
+            <button class="btn-primary" onclick="testAnotherAthlete()">
+              <iconify-icon icon="lucide:user-plus"></iconify-icon> Tes Atlet Lain
+            </button>
+            <button class="btn-sm btn-sm-ghost" onclick="goToDashboard()">
+              <iconify-icon icon="lucide:layout-dashboard"></iconify-icon> Kembali ke Dashboard
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /app -->
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Confirm modal -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal-card">
+      <div class="modal-hd">
+        <div class="modal-title" id="confirmTitle">Konfirmasi</div>
+      </div>
+      <div class="modal-bd" id="confirmBody"></div>
+      <div class="modal-ft">
+        <button class="btn-sm btn-sm-ghost" id="confirmCancel" onclick="closeConfirm()">Batal</button>
+        <button class="btn-sm btn-sm-accent" id="confirmOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+  <script>
+    /* ============================================================
+     tesatlet.js  –  Modul Tes Fisik Atlet Pencak Silat
+     Berinteraksi dengan Firebase dari dashboardpelatih
+     ============================================================ */
+
+    'use strict';
+
+    // ─── KONFIGURASI TES ─────────────────────────────────────────
+    const TEST_COMPONENTS = [
+      {
+        id: 'lari1200',
+        name: 'Daya Tahan Aerobik',
+        short: 'Lari 1200m',
+        icon: 'lucide:timer',
+        guide: 'Atlet berlari 1200 meter. Catat waktu tempuh dalam format menit:detik. Makin cepat = daya tahan aerobik makin baik.',
+        inputType: 'time_minsec',
+        unit: 'menit : detik',
+        inputLabel: 'Waktu Tempuh',
+        scoreFunc: 'scoreLari1200'
+      },
+      {
+        id: 'pushup',
+        name: 'Kekuatan Lengan',
+        short: 'Push-up 30 dtk',
+        icon: 'lucide:dumbbell',
+        guide: 'Atlet melakukan push-up sebanyak mungkin dalam 30 detik, posisi standar. Hitung jumlah ulangan.',
+        inputType: 'number',
+        unit: 'ulangan',
+        inputLabel: 'Jumlah Push-up',
+        placeholder: '0',
+        scoreFunc: 'scorePushup'
+      },
+      {
+        id: 'wallsit',
+        name: 'Daya Tahan Tungkai',
+        short: 'Wall Sit',
+        icon: 'lucide:activity',
+        guide: 'Punggung lurus menempel dinding, lutut 90°, betis tegak lurus tanah. Hitung berapa lama atlet bisa bertahan (dalam detik).',
+        inputType: 'number',
+        unit: 'detik',
+        inputLabel: 'Durasi Bertahan',
+        placeholder: '0',
+        scoreFunc: 'scoreWallsit'
+      },
+      {
+        id: 'broadjump',
+        name: 'Power Tungkai',
+        short: 'Standing Broad Jump',
+        icon: 'lucide:zap',
+        guide: 'Dari sikap jongkok, lompat sejauh mungkin ke depan. Ukur jarak dari bibir kaki ke titik pendaratan (dalam cm).',
+        inputType: 'number',
+        unit: 'cm',
+        inputLabel: 'Jarak Lompatan',
+        placeholder: '0',
+        scoreFunc: 'scoreBroadJump'
+      },
+      {
+        id: 'sprint30',
+        name: 'Kecepatan',
+        short: 'Sprint 30m',
+        icon: 'lucide:flame',
+        guide: 'Dari posisi berdiri, atlet berlari 30 meter secepat mungkin. Catat waktu dengan stopwatch (dalam detik, misal: 4.7).',
+        inputType: 'decimal',
+        unit: 'detik',
+        inputLabel: 'Waktu Sprint',
+        placeholder: '0.0',
+        scoreFunc: 'scoreSprint30'
+      },
+      {
+        id: 'sidestep',
+        name: 'Kelincahan',
+        short: 'Side Step 15 dtk',
+        icon: 'lucide:shuffle',
+        guide: 'Atlet melakukan side step (lompat kiri-kanan melewati garis) sebanyak mungkin dalam 15 detik. Hitung jumlah lintasan.',
+        inputType: 'number',
+        unit: 'lintasan',
+        inputLabel: 'Jumlah Lintasan',
+        placeholder: '0',
+        scoreFunc: 'scoreSidestep'
+      },
+      {
+        id: 'sitreach',
+        name: 'Kelentukan',
+        short: 'Sit & Reach',
+        icon: 'lucide:move-horizontal',
+        guide: 'Atlet duduk di lantai, kaki lurus. Dorong tangan ke depan sejauh mungkin melewati jari kaki. Ukur jarak (cm dari telapak kaki, nilai bisa negatif jika tidak mencapai).',
+        inputType: 'decimal_signed',
+        unit: 'cm',
+        inputLabel: 'Jarak Jangkauan',
+        placeholder: '0',
+        scoreFunc: 'scoreSitReach'
+      },
+      {
+        id: 'singleleg',
+        name: 'Keseimbangan',
+        short: 'Single Leg Stand',
+        icon: 'lucide:circle-dot',
+        guide: 'Atlet berdiri satu kaki selama mungkin dengan mata terbuka. Catat waktu dalam detik.',
+        inputType: 'number',
+        unit: 'detik',
+        inputLabel: 'Durasi Bertahan',
+        placeholder: '0',
+        scoreFunc: 'scoreSingleLeg'
+      },
+      {
+        id: 'tendangan',
+        name: 'Koordinasi & Teknik',
+        short: 'Ketepatan Tendangan',
+        icon: 'lucide:target',
+        guide: 'Atlet melakukan 15 tendangan ke target. Hitung berapa kali tepat sasaran (0–15).',
+        inputType: 'number',
+        unit: 'tepat (dari 15)',
+        inputLabel: 'Jumlah Tepat Sasaran',
+        placeholder: '0',
+        maxVal: 15,
+        scoreFunc: 'scoreTendangan'
+      }
+    ];
+
+    // ─── SCORING FUNCTIONS ────────────────────────────────────────
+    // Semua return 0–100
+
+    function scoreLari1200(menit, detik, gender) {
+      // Konversi ke total detik
+      const total = (parseInt(menit) || 0) * 60 + (parseInt(detik) || 0);
+      if (total <= 0) return 0;
+      // Putra: sangat baik ≤ 299s (4:59), baik ≤ 329s, cukup ≤ 359s, kurang ≤ 390s
+      // Putri: sangat baik ≤ 329s (5:29), baik ≤ 359s, cukup ≤ 389s, kurang ≤ 420s
+      const best = gender === 'putri' ? 300 : 270; // 5:00 putri, 4:30 putra = 100
+      const worst = gender === 'putri' ? 420 : 390;
+      if (total <= best) return 100;
+      if (total >= worst) return Math.max(5, 100 - Math.round((total - worst) / 3));
+      return Math.round(100 - ((total - best) / (worst - best)) * 60);
+    }
+
+    function scorePushup(val, gender) {
+      const v = parseInt(val) || 0;
+      const max = gender === 'putri' ? 26 : 31;
+      if (v <= 0) return 0;
+      if (v >= max) return 100;
+      return Math.round((v / max) * 100);
+    }
+
+    function scoreWallsit(val) {
+      const v = parseInt(val) || 0;
+      if (v <= 0) return 0;
+      if (v >= 91) return 100;
+      if (v >= 61) return Math.round(80 + ((v - 61) / 30) * 20);
+      if (v >= 45) return Math.round(60 + ((v - 45) / 16) * 20);
+      if (v >= 30) return Math.round(40 + ((v - 30) / 15) * 20);
+      return Math.round((v / 30) * 40);
+    }
+
+    function scoreBroadJump(val, gender) {
+      const v = parseFloat(val) || 0;
+      if (v <= 0) return 0;
+      // input dalam cm, standar dalam meter
+      const cm = v;
+      const best = gender === 'putri' ? 211 : 261;
+      const worst = gender === 'putri' ? 160 : 200;
+      if (cm >= best) return 100;
+      if (cm <= worst) return Math.max(5, Math.round((cm / worst) * 20));
+      return Math.round(((cm - worst) / (best - worst)) * 80 + 20);
+    }
+
+    function scoreSprint30(val, gender) {
+      const v = parseFloat(val) || 0;
+      if (v <= 0) return 0;
+      const best = gender === 'putri' ? 4.4 : 4.0;
+      const worst = gender === 'putri' ? 6.0 : 5.5;
+      if (v <= best) return 100;
+      if (v >= worst) return Math.max(5, Math.round(20 - ((v - worst) * 5)));
+      return Math.round(100 - ((v - best) / (worst - best)) * 80);
+    }
+
+    function scoreSidestep(val) {
+      const v = parseInt(val) || 0;
+      if (v <= 0) return 0;
+      if (v >= 16) return 100;
+      if (v >= 13) return Math.round(80 + ((v - 13) / 3) * 20);
+      if (v >= 10) return Math.round(60 + ((v - 10) / 3) * 20);
+      if (v >= 7) return Math.round(40 + ((v - 7) / 3) * 20);
+      return Math.round((v / 7) * 40);
+    }
+
+    function scoreSitReach(val) {
+      const v = parseFloat(val) || 0;
+      if (v >= 21) return 100;
+      if (v >= 16) return Math.round(80 + ((v - 16) / 5) * 20);
+      if (v >= 11) return Math.round(60 + ((v - 11) / 5) * 20);
+      if (v >= 5) return Math.round(40 + ((v - 5) / 6) * 20);
+      if (v >= 0) return Math.round(20 + (v / 5) * 20);
+      return Math.max(5, Math.round(20 + (v / 10) * 15));
+    }
+
+    function scoreSingleLeg(val) {
+      const v = parseInt(val) || 0;
+      if (v <= 0) return 0;
+      if (v >= 46) return 100;
+      if (v >= 31) return Math.round(80 + ((v - 31) / 15) * 20);
+      if (v >= 21) return Math.round(60 + ((v - 21) / 10) * 20);
+      if (v >= 11) return Math.round(40 + ((v - 11) / 10) * 20);
+      return Math.round((v / 11) * 40);
+    }
+
+    function scoreTendangan(val) {
+      const v = parseInt(val) || 0;
+      if (v <= 0) return 0;
+      if (v >= 15) return 100;
+      return Math.round((v / 15) * 100);
+    }
+
+    function getGrade(score) {
+      if (score >= 90) return { label: 'Sangat Baik', cls: 'score-sangat-baik' };
+      if (score >= 80) return { label: 'Baik', cls: 'score-baik' };
+      if (score >= 70) return { label: 'Cukup', cls: 'score-cukup' };
+      if (score >= 60) return { label: 'Kurang', cls: 'score-kurang' };
+      return { label: 'Sangat Kurang', cls: 'score-sangat-kurang' };
+    }
+
+    function calcScore(comp, rawValues, gender) {
+      const v = rawValues[comp.id];
+      const fn = window[comp.scoreFunc];
+      if (!fn) return 0;
+      if (comp.id === 'lari1200') {
+        return fn(v?.menit || 0, v?.detik || 0, gender);
+      }
+      return fn(v, gender);
+    }
+
+    // ─── STATE ────────────────────────────────────────────────────
+    let STATE = {
+      coachId: null,
+      coachName: null,
+      unitId: null,
+      unitName: null,
+      athletes: [],       // raw from firebase
+      filteredAthletes: [],
+      selectedAthlete: null,
+      testDate: '',
+      selectedComponents: new Set(TEST_COMPONENTS.map(c => c.id)),
+      activeTests: [],    // TEST_COMPONENTS filtered
+      currentTestIdx: 0,
+      gender: 'putra',
+      rawValues: {},      // {compId: value}
+      currentStep: 'selectAthlete'
+    };
+
+    // ─── INIT ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      // Read params from sessionStorage (set by dashboardpelatih)
+      try {
+        const data = JSON.parse(sessionStorage.getItem('tesatlet_ctx') || 'null');
+        if (data) {
+          STATE.coachId = data.coachId;
+          STATE.coachName = data.coachName;
+          STATE.unitId = data.unitId;
+          STATE.unitName = data.unitName;
+        }
+      } catch (e) { }
+
+      // Also read from URL params as fallback
+      const params = new URLSearchParams(location.search);
+      if (params.get('coachId')) STATE.coachId = params.get('coachId');
+      if (params.get('coachName')) STATE.coachName = decodeURIComponent(params.get('coachName'));
+      if (params.get('unitId')) STATE.unitId = params.get('unitId');
+      if (params.get('unitName')) STATE.unitName = decodeURIComponent(params.get('unitName') || '');
+
+      // Apply theme from parent
+      const theme = sessionStorage.getItem('athlete_theme') || localStorage.getItem('athlete_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+
+      // Set today's date
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      STATE.testDate = `${yyyy}-${mm}-${dd}`;
+      const dateEl = document.getElementById('testDate');
+      if (dateEl) dateEl.value = STATE.testDate;
+
+      // UI updates
+      document.getElementById('coachLabel').textContent = STATE.coachName || '—';
+      document.getElementById('unitNameTxt').textContent = STATE.unitName || 'Unit tidak diketahui';
+
+      // Animate loading
+      setTimeout(() => {
+        document.getElementById('ls').classList.add('hidden');
+        document.getElementById('app').style.display = '';
+        setTimeout(() => document.getElementById('ls').remove(), 500);
+      }, 900);
+
+      // Load athletes
+      loadAthletes();
+      renderComponents();
+    });
+
+    // ─── FIREBASE HELPERS ─────────────────────────────────────────
+    function getDb() {
+      if (window.db) return window.db;
+      if (typeof firebase !== 'undefined' && firebase.apps.length) {
+        window.db = firebase.database();
+        return window.db;
+      }
+      return null;
+    }
+
+    // ─── LOAD ATHLETES ───────────────────────────────────────────
+    function loadAthletes() {
+      const db = getDb();
+      if (!db) {
+        renderAthleteGrid([]);
+        return;
+      }
+      if (!STATE.unitId) {
+        showToast('Unit ID tidak ditemukan. Buka dari Dashboard Pelatih.', 'warn');
+        renderAthleteGrid([]);
+        return;
+      }
+
+      // Try path: units/{unitId}/athletes OR atletUnit/{unitId}
+      const paths = [
+        `units/${STATE.unitId}/athletes`,
+        `atletUnit/${STATE.unitId}`,
+        `atlet`
+      ];
+
+      let found = false;
+      function tryPath(idx) {
+        if (idx >= paths.length) {
+          if (!found) renderAthleteGrid([]);
+          return;
+        }
+        db.ref(paths[idx]).once('value').then(snap => {
+          if (snap.exists()) {
+            found = true;
+            const raw = snap.val();
+            const list = [];
+            if (typeof raw === 'object' && raw !== null) {
+              Object.entries(raw).forEach(([k, v]) => {
+                if (typeof v === 'object' && v !== null) {
+                  // Filter by unitId if path is 'atlet'
+                  if (paths[idx] === 'atlet' && v.unitId && v.unitId !== STATE.unitId) return;
+                  list.push({ id: k, ...v });
+                }
+              });
+            }
+            STATE.athletes = list;
+            STATE.filteredAthletes = [...list];
+            renderAthleteGrid(list);
+          } else {
+            tryPath(idx + 1);
+          }
+        }).catch(() => tryPath(idx + 1));
+      }
+      tryPath(0);
+    }
+
+    // ─── RENDER ATHLETE GRID ──────────────────────────────────────
+    function renderAthleteGrid(list) {
+      const grid = document.getElementById('athleteGrid');
+      if (!list || list.length === 0) {
+        grid.innerHTML = `
+      <div class="page-empty">
+        <div class="pe-icon"><iconify-icon icon="lucide:users"></iconify-icon></div>
+        <div class="pe-txt">Tidak ada atlet ditemukan di unit ini</div>
+      </div>`;
+        return;
+      }
+      grid.innerHTML = list.map(a => {
+        const initials = (a.nama || a.name || '?').split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+        const avatarHtml = (a.fotoUrl || a.iconUrl || a.photo)
+          ? `<img src="${a.fotoUrl || a.iconUrl || a.photo}" alt="" onerror="this.style.display='none';this.parentElement.textContent='${initials}'">`
+          : initials;
+        const name = a.nama || a.name || '—';
+        const gender = a.jenisKelamin || a.gender || '';
+        const pos = a.posisi || a.position || '';
+        const badge = gender || pos;
+        return `
+      <div class="athlete-card" onclick="selectAthlete('${a.id}')">
+        <div class="ac-avatar">${avatarHtml}</div>
+        <div class="ac-name">${name}</div>
+        ${badge ? `<div class="ac-badge">${badge}</div>` : ''}
+      </div>`;
+      }).join('');
+    }
+
+    function filterAthletes() {
+      const q = (document.getElementById('athleteSearch').value || '').toLowerCase();
+      const filtered = q
+        ? STATE.athletes.filter(a => (a.nama || a.name || '').toLowerCase().includes(q))
+        : [...STATE.athletes];
+      STATE.filteredAthletes = filtered;
+      renderAthleteGrid(filtered);
+    }
+
+    // ─── SELECT ATHLETE ───────────────────────────────────────────
+    function selectAthlete(id) {
+      const athlete = STATE.athletes.find(a => a.id === id);
+      if (!athlete) return;
+      STATE.selectedAthlete = athlete;
+
+      // Detect gender from athlete data
+      const g = (athlete.jenisKelamin || athlete.gender || '').toLowerCase();
+      if (g.includes('putri') || g.includes('perempuan') || g.includes('female') || g === 'p') {
+        STATE.gender = 'putri';
+      } else {
+        STATE.gender = 'putra';
+      }
+
+      // Update selected card
+      const name = athlete.nama || athlete.name || '—';
+      const initials = name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase();
+      const avatarEl = document.getElementById('sacAvatar');
+      if (athlete.fotoUrl || athlete.iconUrl || athlete.photo) {
+        avatarEl.innerHTML = `<img src="${athlete.fotoUrl || athlete.iconUrl || athlete.photo}" 
+      onerror="this.style.display='none';this.parentElement.textContent='${initials}'" alt="">`;
+      } else {
+        avatarEl.textContent = initials;
+      }
+      document.getElementById('sacName').textContent = name;
+      const g2 = athlete.jenisKelamin || athlete.gender || '';
+      const pos = athlete.posisi || athlete.position || '';
+      document.getElementById('sacMeta').textContent = [g2, pos].filter(Boolean).join(' • ') || '—';
+
+      navigateStep('testSetup');
+    }
+
+    function changeAthlete() {
+      navigateStep('selectAthlete');
+    }
+
+    // ─── RENDER COMPONENTS ────────────────────────────────────────
+    function renderComponents() {
+      const el = document.getElementById('testComponentsList');
+      el.innerHTML = TEST_COMPONENTS.map(c => `
+    <div class="comp-item ${STATE.selectedComponents.has(c.id) ? 'checked' : ''}"
+         onclick="toggleComponent('${c.id}', this)">
+      <div class="comp-check">${STATE.selectedComponents.has(c.id) ? '✓' : ''}</div>
+      <div>
+        <div class="comp-label">${c.short}</div>
+        <div class="comp-sub">${c.name}</div>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function toggleComponent(id, el) {
+      if (STATE.selectedComponents.has(id)) {
+        STATE.selectedComponents.delete(id);
+        el.classList.remove('checked');
+        el.querySelector('.comp-check').textContent = '';
+      } else {
+        STATE.selectedComponents.add(id);
+        el.classList.add('checked');
+        el.querySelector('.comp-check').textContent = '✓';
+      }
+    }
+
+    function selectAllComponents() {
+      STATE.selectedComponents = new Set(TEST_COMPONENTS.map(c => c.id));
+      renderComponents();
+    }
+
+    function deselectAllComponents() {
+      STATE.selectedComponents.clear();
+      renderComponents();
+    }
+
+    // ─── START TEST ───────────────────────────────────────────────
+    function startTest() {
+      if (!STATE.selectedAthlete) {
+        showToast('Pilih atlet terlebih dahulu!', 'warn');
+        return;
+      }
+      if (STATE.selectedComponents.size === 0) {
+        showToast('Pilih minimal 1 komponen tes!', 'warn');
+        return;
+      }
+
+      // Read date
+      STATE.testDate = document.getElementById('testDate').value || STATE.testDate;
+
+      // Build active tests list
+      STATE.activeTests = TEST_COMPONENTS.filter(c => STATE.selectedComponents.has(c.id));
+      STATE.currentTestIdx = 0;
+      STATE.rawValues = {};
+
+      // Update desc
+      const name = STATE.selectedAthlete.nama || STATE.selectedAthlete.name;
+      document.getElementById('testInputDesc').textContent =
+        `${name} · ${STATE.activeTests.length} komponen`;
+
+      navigateStep('testInput');
+      renderCurrentTest();
+    }
+
+    // ─── RENDER CURRENT TEST ─────────────────────────────────────
+    function renderCurrentTest() {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      if (!comp) return;
+
+      const total = STATE.activeTests.length;
+      const idx = STATE.currentTestIdx;
+
+      // Progress
+      const pct = Math.round(((idx) / total) * 100);
+      document.getElementById('tpFill').style.width = pct + '%';
+      document.getElementById('tpLabel').textContent = `${idx + 1} / ${total}`;
+
+      // Nav buttons
+      document.getElementById('btnPrev').style.display = idx === 0 ? 'none' : '';
+      const isLast = idx === total - 1;
+      document.getElementById('btnNext').style.display = isLast ? 'none' : '';
+      document.getElementById('btnFinish').style.display = isLast ? '' : 'none';
+
+      // Build input HTML
+      let inputHtml = '';
+      if (comp.inputType === 'time_minsec') {
+        const val = STATE.rawValues[comp.id] || {};
+        inputHtml = `
+      <div class="tc-input-label">${comp.inputLabel}</div>
+      <div class="time-inputs">
+        <div>
+          <div class="tc-unit" style="margin-bottom:4px">Menit</div>
+          <input class="tc-input" id="inputMin" type="number" min="0" max="30"
+            placeholder="0" value="${val.menit || ''}"
+            oninput="saveTimeMinsec()">
+        </div>
+        <div>
+          <div class="tc-unit" style="margin-bottom:4px">Detik</div>
+          <input class="tc-input" id="inputSec" type="number" min="0" max="59"
+            placeholder="0" value="${val.detik || ''}"
+            oninput="saveTimeMinsec()">
+        </div>
+      </div>
+      <div class="tc-unit">${comp.unit}</div>`;
+      } else {
+        const val = STATE.rawValues[comp.id] || '';
+        const step = comp.inputType === 'decimal' || comp.inputType === 'decimal_signed' ? '0.1' : '1';
+        const min = comp.inputType === 'decimal_signed' ? '-100' : '0';
+        const max = comp.maxVal || '';
+        inputHtml = `
+      <div class="tc-input-label">${comp.inputLabel}</div>
+      <input class="tc-input" id="inputMain" type="number"
+        min="${min}" max="${max}" step="${step}"
+        placeholder="${comp.placeholder || '0'}" value="${val}"
+        oninput="saveValue(this.value)">
+      <div class="tc-unit">${comp.unit}</div>`;
+      }
+
+      // Gender toggle (for gender-dependent tests)
+      const genderTests = ['lari1200', 'pushup', 'broadjump', 'sprint30'];
+      const genderHtml = genderTests.includes(comp.id) ? `
+    <div class="gender-toggle">
+      <button class="gender-btn ${STATE.gender === 'putra' ? 'active' : ''}" onclick="setGender('putra')">♂ Putra</button>
+      <button class="gender-btn ${STATE.gender === 'putri' ? 'active' : ''}" onclick="setGender('putri')">♀ Putri</button>
+    </div>` : '';
+
+      document.getElementById('testCard').innerHTML = `
+    <div class="tc-header">
+      <div>
+        <div class="tc-num">TES ${String(idx + 1).padStart(2, '0')} / ${String(total).padStart(2, '0')}</div>
+        <div class="tc-title">${comp.name}</div>
+        <div class="tc-sub">${comp.short}</div>
+      </div>
+      <iconify-icon icon="${comp.icon}" style="font-size:28px;color:var(--accent);opacity:.6"></iconify-icon>
+    </div>
+    <div class="tc-guide">
+      <div class="tc-guide-title"><iconify-icon icon="lucide:info"></iconify-icon> Cara Tes</div>
+      <div class="tc-guide-text">${comp.guide}</div>
+    </div>
+    ${genderHtml}
+    <div class="tc-input-wrap">
+      ${inputHtml}
+    </div>
+    <div class="tc-score-preview" id="scorePreview">
+      <div class="tsp-label">Skor Sementara</div>
+      <div class="tsp-score" id="tspScore">—</div>
+      <div class="tsp-grade" id="tspGrade">Masukkan nilai</div>
+    </div>`;
+
+      updateScorePreview();
+    }
+
+    function setGender(g) {
+      STATE.gender = g;
+      renderCurrentTest();
+    }
+
+    function saveValue(v) {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      STATE.rawValues[comp.id] = v;
+      updateScorePreview();
+    }
+
+    function saveTimeMinsec() {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      const menit = parseInt(document.getElementById('inputMin')?.value) || 0;
+      const detik = parseInt(document.getElementById('inputSec')?.value) || 0;
+      STATE.rawValues[comp.id] = { menit, detik };
+      updateScorePreview();
+    }
+
+    function updateScorePreview() {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      const score = calcScore(comp, STATE.rawValues, STATE.gender);
+      const previewEl = document.getElementById('scorePreview');
+      if (!previewEl) return;
+
+      const hasValue = STATE.rawValues[comp.id] !== undefined && STATE.rawValues[comp.id] !== '';
+      if (!hasValue) {
+        document.getElementById('tspScore').textContent = '—';
+        document.getElementById('tspGrade').textContent = 'Masukkan nilai';
+        document.getElementById('tspScore').className = 'tsp-score';
+        return;
+      }
+
+      const grade = getGrade(score);
+      const scoreEl = document.getElementById('tspScore');
+      scoreEl.textContent = score;
+      scoreEl.className = 'tsp-score ' + grade.cls;
+      const gradeEl = document.getElementById('tspGrade');
+      gradeEl.textContent = grade.label;
+      gradeEl.className = 'tsp-grade ' + grade.cls;
+    }
+
+    // ─── NAV TEST ─────────────────────────────────────────────────
+    function prevTest() {
+      if (STATE.currentTestIdx > 0) {
+        STATE.currentTestIdx--;
+        renderCurrentTest();
+      }
+    }
+
+    function nextTest() {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      const val = STATE.rawValues[comp.id];
+      if (val === undefined || val === '' || (typeof val === 'object' && !val.menit && !val.detik)) {
+        showToast('Masukkan nilai terlebih dahulu!', 'warn');
+        return;
+      }
+      if (STATE.currentTestIdx < STATE.activeTests.length - 1) {
+        STATE.currentTestIdx++;
+        renderCurrentTest();
+      }
+    }
+
+    // ─── SHOW REVIEW ─────────────────────────────────────────────
+    function showReview() {
+      const comp = STATE.activeTests[STATE.currentTestIdx];
+      const val = STATE.rawValues[comp.id];
+      if (val === undefined || val === '') {
+        showToast('Masukkan nilai terlebih dahulu!', 'warn');
+        return;
+      }
+
+      const athlete = STATE.selectedAthlete;
+      const name = athlete.nama || athlete.name;
+
+      // Calculate all scores
+      const scores = STATE.activeTests.map(c => ({
+        comp: c,
+        score: calcScore(c, STATE.rawValues, STATE.gender),
+        rawVal: STATE.rawValues[c.id]
+      }));
+      const avgScore = Math.round(scores.reduce((s, x) => s + x.score, 0) / scores.length);
+      const grade = getGrade(avgScore);
+
+      // Render score summary
+      document.getElementById('reviewDesc').textContent = `${name} · ${STATE.testDate}`;
+      document.getElementById('scoreSummary').innerHTML = `
+    <div class="ss-athlete">Atlet</div>
+    <div class="ss-name">${name}</div>
+    <div class="ss-score-ring">
+      <div class="ss-score-num ${grade.cls}">${avgScore}</div>
+      <div class="ss-score-max">/ 100</div>
+    </div>
+    <div class="ss-grade ${grade.cls}">${grade.label}</div>
+    <div class="ss-date">📅 ${formatDate(STATE.testDate)}</div>`;
+
+      // Render results table
+      document.getElementById('resultsTable').innerHTML = scores.map(({ comp, score, rawVal }) => {
+        const g = getGrade(score);
+        let displayVal = '';
+        if (comp.inputType === 'time_minsec' && rawVal) {
+          displayVal = `${rawVal.menit || 0}:${String(rawVal.detik || 0).padStart(2, '0')}`;
+        } else {
+          displayVal = rawVal + ' ' + comp.unit;
+        }
+        return `
+      <div class="rt-row">
+        <div>
+          <div class="rt-name">${comp.short}</div>
+          <div class="rt-val">${displayVal}</div>
+        </div>
+        <div class="rt-score ${g.cls}">${score}</div>
+      </div>`;
+      }).join('');
+
+      navigateStep('review');
+    }
+
+    function backToInput() {
+      STATE.currentTestIdx = STATE.activeTests.length - 1;
+      navigateStep('testInput');
+      renderCurrentTest();
+    }
+
+    // ─── SAVE RESULTS ─────────────────────────────────────────────
+    async function saveResults() {
+      const db = getDb();
+      if (!db) {
+        showToast('Tidak terhubung ke Firebase!', 'warn');
+        return;
+      }
+
+      const btn = document.getElementById('btnSave');
+      btn.disabled = true;
+      btn.innerHTML = '<iconify-icon icon="lucide:loader-2" class="spin"></iconify-icon> Menyimpan...';
+
+      const athlete = STATE.selectedAthlete;
+      const name = athlete.nama || athlete.name;
+
+      const scores = STATE.activeTests.map(c => ({
+        id: c.id,
+        name: c.name,
+        short: c.short,
+        score: calcScore(c, STATE.rawValues, STATE.gender),
+        rawVal: STATE.rawValues[c.id],
+        unit: c.unit
+      }));
+      const avgScore = Math.round(scores.reduce((s, x) => s + x.score, 0) / scores.length);
+      const grade = getGrade(avgScore);
+
+      const payload = {
+        atletId: athlete.id,
+        atletNama: name,
+        unitId: STATE.unitId,
+        unitNama: STATE.unitName,
+        pelatihId: STATE.coachId,
+        pelatihNama: STATE.coachName,
+        tanggal: STATE.testDate,
+        gender: STATE.gender,
+        skorAkhir: avgScore,
+        kategori: grade.label,
+        komponen: scores,
+        rawValues: STATE.rawValues,
+        createdAt: Date.now()
+      };
+
+      try {
+        // Save to: tesFisik/{unitId}/{atletId}/{timestamp}
+        const ts = Date.now();
+        await db.ref(`tesFisik/${STATE.unitId}/${athlete.id}/${ts}`).set(payload);
+        // Also update latest in: tesFisikLatest/{atletId}
+        await db.ref(`tesFisikLatest/${athlete.id}`).set({ ...payload, key: ts });
+
+        // Show success
+        document.getElementById('finalScoreDisplay').textContent = avgScore;
+        const g = getGrade(avgScore);
+        const gradeEl = document.getElementById('finalGradeDisplay');
+        gradeEl.textContent = g.label;
+        gradeEl.className = 'success-grade ' + g.cls;
+        document.getElementById('successMsg').textContent =
+          `Hasil tes ${name} berhasil disimpan ke database.`;
+
+        navigateStep('success');
+      } catch (err) {
+        showToast('Gagal menyimpan: ' + err.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<iconify-icon icon="lucide:save"></iconify-icon> Simpan ke Firebase';
+      }
+    }
+
+    // ─── NAVIGATE STEPS ───────────────────────────────────────────
+    const STEP_MAP = {
+      selectAthlete: 'stepSelectAthlete',
+      testSetup: 'stepTestSetup',
+      testInput: 'stepTestInput',
+      review: 'stepReview',
+      success: 'stepSuccess'
+    };
+
+    function navigateStep(step) {
+      Object.values(STEP_MAP).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      const target = document.getElementById(STEP_MAP[step]);
+      if (target) target.classList.add('active');
+      STATE.currentStep = step;
+      window.scrollTo(0, 0);
+    }
+
+    function goBack() {
+      const steps = ['selectAthlete', 'testSetup', 'testInput', 'review', 'success'];
+      const idx = steps.indexOf(STATE.currentStep);
+      if (idx <= 0) {
+        goToDashboard();
+      } else if (STATE.currentStep === 'testInput' && STATE.currentTestIdx > 0) {
+        prevTest();
+      } else {
+        navigateStep(steps[idx - 1]);
+        if (steps[idx - 1] === 'testInput') renderCurrentTest();
+      }
+    }
+
+    function testAnotherAthlete() {
+      STATE.selectedAthlete = null;
+      STATE.rawValues = {};
+      STATE.currentTestIdx = 0;
+      navigateStep('selectAthlete');
+    }
+
+    function goToDashboard() {
+      // Go back to parent or use history
+      if (window.opener) {
+        window.close();
+      } else if (history.length > 1) {
+        history.back();
+      } else {
+        location.href = 'dashboardpelatih.html';
+      }
+    }
+
+    // ─── CONFIRM MODAL ────────────────────────────────────────────
+    function showConfirm(title, body, onOk) {
+      document.getElementById('confirmTitle').textContent = title;
+      document.getElementById('confirmBody').textContent = body;
+      document.getElementById('confirmOk').onclick = () => { closeConfirm(); onOk(); };
+      document.getElementById('confirmModal').classList.add('open');
+    }
+    function closeConfirm() {
+      document.getElementById('confirmModal').classList.remove('open');
+    }
+
+    // ─── TOAST ────────────────────────────────────────────────────
+    let toastTimer;
+    function showToast(msg, type = 'info') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'toast show';
+      if (type === 'error') el.style.borderColor = 'var(--danger)';
+      else if (type === 'warn') el.style.borderColor = 'var(--warn)';
+      else el.style.borderColor = 'var(--border)';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+    }
+
+    // ─── UTILS ────────────────────────────────────────────────────
+    function formatDate(d) {
+      if (!d) return '—';
+      const [y, m, day] = d.split('-');
+      const bulan = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      return `${parseInt(day)} ${bulan[parseInt(m) - 1]} ${y}`;
+    }
+
+    // Firebase initialized by parent (dashboardpelatih) via postMessage or URL param
+    // Fallback: init here if standalone
+    if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+      // FB_CFG will be injected by dashboardpelatih.html via sessionStorage
+      try {
+        const cfg = JSON.parse(sessionStorage.getItem('fb_cfg') || 'null');
+        if (cfg) {
+          firebase.initializeApp(cfg);
+          window.db = firebase.database();
+        }
+      } catch (e) { }
+    } else if (typeof firebase !== 'undefined' && firebase.apps.length) {
+      window.db = firebase.database();
+    }
+  </script>
+</body>
+
+</html>
