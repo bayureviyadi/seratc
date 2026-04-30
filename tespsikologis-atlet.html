@@ -371,24 +371,25 @@ body{
    FIREBASE
 ═══════════════════════════════════════════════════════ */
 let db;
-(function initFirebase(){
-  try {
-    const fbCfgRaw = sessionStorage.getItem('fb_cfg');
-    const cfg = fbCfgRaw ? JSON.parse(fbCfgRaw) : {
+try {
+  // Baca FB config dari sessionStorage (sama tab) atau localStorage (antar tab/window).
+  // Diisi oleh index.html saat atlet login — lihat "SESSION RELAY" di index.html.
+  // Jika keduanya kosong (akses langsung tanpa login), fallback ke config hardcoded.
+  const fbCfgRaw = sessionStorage.getItem('fb_cfg') || localStorage.getItem('fb_cfg');
+  if(fbCfgRaw) {
+    firebase.initializeApp(JSON.parse(fbCfgRaw));
+  } else {
+    firebase.initializeApp({
       apiKey: "AIzaSyDVr-gnYVuSBY0UQ4D-Sf-_pHN-HodBIk8",
       authDomain: "ydtc-5d55a.firebaseapp.com",
       databaseURL: "https://ydtc-5d55a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "ydtc-5d55a"
-    };
-    if (!firebase.apps.length) {
-      firebase.initializeApp(cfg);
-    }
-    db = firebase.database();
-  } catch(e) {
-    console.error('Firebase init error:', e);
-    try { db = firebase.database(); } catch(e2) { console.error('Firebase fallback error:', e2); }
+    });
   }
-})();
+  db = firebase.database();
+} catch(e) {
+  db = firebase.database();
+}
 
 /* ══════════════════════════════════════════════════════
    INSTRUMENT (same as tespsikologis.html)
@@ -659,24 +660,15 @@ function simpanTes(){
   document.getElementById('btnSimpan').disabled=true;
   document.getElementById('btnSimpan').textContent='Mengirim...';
 
-  // Simpan hasil dulu, baru tandai token sudah dipakai
-  db.ref(`tes_psikologis/${tokenData.atletId}`).push(tesData)
-    .then(()=>{
-      return Promise.all([
-        db.ref(`psi_tokens/${tokenKey}/used`).set(true),
-        db.ref(`psi_tokens/${tokenKey}/completedAt`).set(new Date().toISOString())
-      ]);
-    })
+  // save result + mark token used
+  const batch=[
+    db.ref(`tes_psikologis/${tokenData.atletId}`).push(tesData),
+    db.ref(`psi_tokens/${tokenKey}/used`).set(true),
+    db.ref(`psi_tokens/${tokenKey}/completedAt`).set(new Date().toISOString()),
+  ];
+  Promise.all(batch)
     .then(()=>{ showHasil(grandPct,breakdown); })
-    .catch(e=>{
-      console.error('Error simpan tes:', e);
-      let msg = 'Gagal mengirim hasil. Coba lagi.';
-      if(e.code === 'PERMISSION_DENIED') msg = 'Akses ditolak database. Hubungi pelatih Anda.';
-      else if(e.message) msg = 'Gagal: ' + e.message;
-      showToast(msg,'err');
-      document.getElementById('btnSimpan').disabled=false;
-      document.getElementById('btnSimpan').innerHTML='Kirim Hasil <iconify-icon icon="lucide:send"></iconify-icon>';
-    });
+    .catch(e=>{ showToast('Gagal mengirim: '+e.message,'err'); document.getElementById('btnSimpan').disabled=false; document.getElementById('btnSimpan').innerHTML='Kirim Hasil <iconify-icon icon="lucide:send"></iconify-icon>'; });
 }
 
 /* ══════════════════════════════════════════════════════
@@ -771,13 +763,8 @@ function buildPesan(breakdown){
 function animNum(id,target,ms){
   const el=document.getElementById(id);if(!el)return;
   let s=null;
-  function step(ts){
-    if(!s)s=ts;
-    const p=Math.min((ts-s)/ms,1);
-    el.textContent=Math.round(p*target);
-    if(p<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+  (function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/ms,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(step);})(0);
+  requestAnimationFrame(ts=>{let s2=null;(function step(ts){if(!s2)s2=ts;const p=Math.min((ts-s2)/ms,1);el.textContent=Math.round(p*target);if(p<1)requestAnimationFrame(step);})(ts);});
 }
 
 let tT;
