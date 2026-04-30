@@ -1347,6 +1347,13 @@ window.doLogin=async function(){
   sessionStorage.setItem('yd_atlet_id',found);
   sessionStorage.setItem('yd_atlet_node',foundNode);
   sessionStorage.setItem('yd_atlet_nama',nama);
+  // ── SESSION RELAY: simpan FB config agar halaman lain (tespsikologis-atlet, dll)
+  //    bisa membacanya tanpa hardcode. Gunakan localStorage agar persist antar tab.
+  try{
+    const _fbCfg=JSON.stringify(FB_CFG);
+    sessionStorage.setItem('fb_cfg',_fbCfg);
+    localStorage.setItem('fb_cfg',_fbCfg);
+  }catch(e){}
   document.getElementById('loginScreen').classList.add('out');
   setTimeout(()=>{document.getElementById('loginScreen').style.display='none';startApp();},400);
 };
